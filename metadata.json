@@ -1,0 +1,8 @@
+{
+  "name": "Mrbulk Marketplace",
+  "description": "Mrbulk is an online e-commerce marketplace in South Africa operated by Mr Cheap General Dealer ZA, offering direct retail and wholesale products as well as independent marketplace seller items.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

@@ -1,0 +1,1231 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-weight-black: 750;
+  --font-weight-extrabold: 700;
+  --font-weight-bold: 600;
+
+  --color-canvas: var(--bg-canvas);
+  --color-surface: var(--bg-surface);
+  --color-surface-elevated: var(--bg-surface-elevated);
+  --color-surface-subtle: var(--bg-surface-subtle);
+  --color-surface-hover: var(--bg-surface-hover);
+  --color-surface-active: var(--bg-surface-active);
+
+  --color-card: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-card-hover-border: var(--card-hover-border);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-text-subtle: var(--text-subtle);
+
+  --color-border-theme: var(--border-default);
+  --color-border-subtle: var(--border-subtle);
+  --color-border-strong: var(--border-strong);
+
+  --color-input-bg: var(--input-bg);
+  --color-input-border: var(--input-border);
+  --color-input-text: var(--input-text);
+  --color-input-placeholder: var(--input-placeholder);
+}
+
+/* ============================================================================
+ * DESIGN TOKENS & SEMANTIC CSS VARIABLES (PAYLOAD CMS E-COMMERCE STANDARD)
+ * ============================================================================ */
+
+:root {
+  color-scheme: light;
+
+  /* Surface & Canvas Colors */
+  --bg-canvas: #ffffff;
+  --bg-surface: #ffffff;
+  --bg-surface-elevated: #ffffff;
+  --bg-surface-subtle: #f8fafc;
+  --bg-surface-hover: #f1f5f9;
+  --bg-surface-active: #e2e8f0;
+  --bg-overlay: rgba(15, 23, 42, 0.5);
+
+  /* Foreground & Typography Colors */
+  --text-primary: #0f172a;
+  --text-secondary: #475569;
+  --text-muted: #64748b;
+  --text-subtle: #94a3b8;
+  --text-inverted: #ffffff;
+  --text-accent: #2563eb;
+
+  /* Border & Separator Colors */
+  --border-default: #e2e8f0;
+  --border-subtle: #f1f5f9;
+  --border-strong: #cbd5e1;
+  --border-interactive: #94a3b8;
+  --border-focus: #2563eb;
+
+  /* Form & Input Field Tokens */
+  --input-bg: #ffffff;
+  --input-bg-subtle: #f8fafc;
+  --input-border: #cbd5e1;
+  --input-border-hover: #94a3b8;
+  --input-border-focus: #2563eb;
+  --input-text: #0f172a;
+  --input-placeholder: #94a3b8;
+  --input-ring: rgba(37, 99, 235, 0.2);
+  --input-ring-error: rgba(225, 29, 72, 0.2);
+
+  /* Button Tokens */
+  --btn-primary-bg: #1d4ed8;
+  --btn-primary-text: #ffffff;
+  --btn-primary-hover: #1e40af;
+  --btn-primary-active: #172554;
+  --btn-secondary-bg: #f1f5f9;
+  --btn-secondary-text: #0f172a;
+  --btn-secondary-border: #e2e8f0;
+  --btn-secondary-hover: #e2e8f0;
+
+  /* E-Commerce Specific Tokens */
+  --price-primary: #0f172a;
+  --price-sale: #e11d48;
+  --price-original: #94a3b8;
+  --badge-sale-bg: #ffe4e6;
+  --badge-sale-text: #be123c;
+  --badge-new-bg: #dbeafe;
+  --badge-new-text: #1d4ed8;
+  --badge-stock-in: #059669;
+  --badge-stock-low: #d97706;
+  --badge-stock-out: #e11d48;
+  --rating-star: #f59e0b;
+
+  /* Card & Shadow Tokens */
+  --card-bg: #ffffff;
+  --card-border: #e2e8f0;
+  --card-hover-border: #cbd5e1;
+  --card-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.04), 0 1px 2px -1px rgba(0, 0, 0, 0.03);
+  --card-shadow-hover: 0 10px 25px -5px rgba(15, 23, 42, 0.08), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
+  --shadow-elevated: 0 20px 25px -5px rgba(15, 23, 42, 0.1), 0 8px 10px -6px rgba(15, 23, 42, 0.06);
+
+  /* Geometry & Radii Tokens */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.25rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Focus Indicator */
+  --focus-ring: rgba(37, 99, 235, 0.4);
+}
+
+/* ============================================================================
+ * DARK MODE SEMANTIC DESIGN TOKENS
+ * ============================================================================ */
+
+.dark {
+  color-scheme: dark;
+
+  /* Surface & Canvas Colors */
+  --bg-canvas: #020617;
+  --bg-surface: #1e293b;
+  --bg-surface-elevated: #334155;
+  --bg-surface-subtle: #1e293b;
+  --bg-surface-hover: #334155;
+  --bg-surface-active: #475569;
+  --bg-overlay: rgba(2, 6, 23, 0.75);
+
+  /* Foreground & Typography Colors */
+  --text-primary: #f8fafc;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-subtle: #64748b;
+  --text-inverted: #0f172a;
+  --text-accent: #60a5fa;
+
+  /* Border & Separator Colors */
+  --border-default: #334155;
+  --border-subtle: #1e293b;
+  --border-strong: #475569;
+  --border-interactive: #64748b;
+  --border-focus: #3b82f6;
+
+  /* Form & Input Field Tokens */
+  --input-bg: #1e293b;
+  --input-bg-subtle: #334155;
+  --input-border: #334155;
+  --input-border-hover: #475569;
+  --input-border-focus: #3b82f6;
+  --input-text: #f8fafc;
+  --input-placeholder: #64748b;
+  --input-ring: rgba(59, 130, 246, 0.3);
+  --input-ring-error: rgba(244, 63, 94, 0.3);
+
+  /* Button Tokens */
+  --btn-primary-bg: #2563eb;
+  --btn-primary-text: #ffffff;
+  --btn-primary-hover: #3b82f6;
+  --btn-primary-active: #1d4ed8;
+  --btn-secondary-bg: #334155;
+  --btn-secondary-text: #f8fafc;
+  --btn-secondary-border: #475569;
+  --btn-secondary-hover: #475569;
+
+  /* E-Commerce Specific Tokens */
+  --price-primary: #f8fafc;
+  --price-sale: #fb7185;
+  --price-original: #94a3b8;
+  --badge-sale-bg: rgba(225, 29, 72, 0.25);
+  --badge-sale-text: #fda4af;
+  --badge-new-bg: rgba(37, 99, 235, 0.25);
+  --badge-new-text: #93c5fd;
+  --badge-stock-in: #34d399;
+  --badge-stock-low: #fbbf24;
+  --badge-stock-out: #f87171;
+  --rating-star: #fbbf24;
+
+  /* Card & Shadow Tokens */
+  --card-bg: #1e293b;
+  --card-border: #334155;
+  --card-hover-border: #475569;
+  --card-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3), 0 1px 2px -1px rgba(0, 0, 0, 0.2);
+  --card-shadow-hover: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+  --shadow-elevated: 0 20px 25px -5px rgba(0, 0, 0, 0.6), 0 8px 10px -6px rgba(0, 0, 0, 0.4);
+
+  /* Focus Indicator */
+  --focus-ring: rgba(59, 130, 246, 0.5);
+}
+
+/* ============================================================================
+ * GLOBAL BASE ELEMENTS & TYPOGRAPHY FOUNDATION
+ * ============================================================================ */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+/* Prevent white line flashes, border interpolation, and background flicker on theme change */
+.disable-transitions,
+.disable-transitions *,
+.disable-transitions *::before,
+.disable-transitions *::after {
+  -webkit-transition: none !important;
+  -moz-transition: none !important;
+  -o-transition: none !important;
+  -ms-transition: none !important;
+  transition: none !important;
+}
+
+html {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+  scroll-behavior: smooth;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Global Selection Styling */
+::selection {
+  background-color: var(--btn-primary-bg);
+  color: #ffffff;
+}
+
+@layer base {
+  /* Global Headings Scale with Precision Letter-Spacing & Contrast */
+  h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    letter-spacing: -0.025em;
+    font-weight: 700;
+    line-height: 1.25;
+  }
+
+  h1 {
+    font-size: clamp(1.875rem, 4vw, 2.75rem);
+    letter-spacing: -0.03em;
+    font-weight: 750;
+    line-height: 1.15;
+  }
+
+  h2 {
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    letter-spacing: -0.025em;
+    font-weight: 700;
+    line-height: 1.2;
+  }
+
+  h3 {
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    letter-spacing: -0.02em;
+    font-weight: 650;
+    line-height: 1.3;
+  }
+
+  h4 {
+    font-size: 1.125rem;
+    letter-spacing: -0.015em;
+    font-weight: 600;
+  }
+
+  h5 {
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+    font-weight: 600;
+  }
+
+  h6 {
+    font-size: 0.875rem;
+    letter-spacing: -0.005em;
+    font-weight: 600;
+  }
+
+  /* Body Text, Paragraphs, Links */
+  p {
+    color: var(--text-secondary);
+    line-height: 1.65;
+  }
+
+  p.lead {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  small {
+    font-size: 0.8125rem;
+    color: var(--text-muted);
+  }
+
+  b, strong {
+    font-weight: 600;
+    color: var(--text-primary);
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  /* Code & Preformatted Blocks */
+  code, kbd, samp, pre {
+    font-family: var(--font-mono);
+    font-size: 0.875em;
+  }
+
+  code {
+    background-color: var(--bg-surface-subtle);
+    color: var(--text-accent);
+    padding: 0.15em 0.4em;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-subtle);
+  }
+}
+
+/* Hero Section Custom Styling (Consistent Dark Palette Across Light & Dark Modes) */
+.hero-slider-dark-scope,
+.hero-slider-dark-scope * {
+  --text-primary: #ffffff !important;
+  --text-secondary: #e2e8f0 !important;
+  --text-muted: #94a3b8 !important;
+}
+
+.hero-slider-dark-scope h1,
+.hero-slider-dark-scope h2,
+.hero-slider-dark-scope h3,
+.hero-slider-dark-scope h4 {
+  color: #ffffff !important;
+}
+
+.hero-slider-dark-scope p {
+  color: #e2e8f0 !important;
+}
+
+/* ============================================================================
+ * GLOBAL FORM CONTROLS & INPUT FIELDS STYLING
+ * ============================================================================ */
+
+/* Global Text Inputs, Textareas, and Selects */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+input[type="number"],
+input[type="search"],
+input[type="tel"],
+input[type="url"],
+input[type="date"],
+textarea,
+select {
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-md);
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+  outline: none;
+}
+
+/* Input placeholder text */
+input::placeholder,
+textarea::placeholder {
+  color: var(--input-placeholder);
+  opacity: 1;
+}
+
+/* Input Hover State */
+input[type="text"]:hover:not(:disabled),
+input[type="email"]:hover:not(:disabled),
+input[type="password"]:hover:not(:disabled),
+input[type="number"]:hover:not(:disabled),
+input[type="search"]:hover:not(:disabled),
+input[type="tel"]:hover:not(:disabled),
+input[type="url"]:hover:not(:disabled),
+input[type="date"]:hover:not(:disabled),
+textarea:hover:not(:disabled),
+select:hover:not(:disabled) {
+  border-color: var(--input-border-hover);
+}
+
+/* Input Focus-Visible State */
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+input[type="number"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="date"]:focus,
+textarea:focus,
+select:focus {
+  border-color: var(--input-border-focus);
+  box-shadow: 0 0 0 3px var(--input-ring);
+  background-color: var(--input-bg);
+}
+
+/* Disabled Input State */
+input:disabled,
+textarea:disabled,
+select:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  background-color: var(--bg-surface-subtle);
+  border-color: var(--border-default);
+}
+
+/* Remove default webkit search cancel button */
+input[type="search"]::-webkit-search-cancel-button,
+input[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Number input spinners styling */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  opacity: 0.8;
+}
+
+/* Global Checkboxes and Radios */
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--btn-primary-bg);
+  cursor: pointer;
+  width: 1.125rem;
+  height: 1.125rem;
+  vertical-align: middle;
+  border-radius: var(--radius-sm);
+  transition: transform 0.1s ease;
+}
+
+input[type="checkbox"]:active,
+input[type="radio"]:active {
+  transform: scale(0.92);
+}
+
+/* Range Slider */
+input[type="range"] {
+  accent-color: var(--btn-primary-bg);
+  cursor: pointer;
+}
+
+/* Form Labels */
+label {
+  color: var(--text-primary);
+  font-size: 0.875rem;
+  font-weight: 550;
+  display: block;
+}
+
+/* ============================================================================
+ * GLOBAL ICONS FOUNDATION (LUCIDE & SVG)
+ * ============================================================================ */
+
+svg.lucide,
+svg[data-icon],
+.icon-base {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  shape-rendering: geometricPrecision;
+  text-rendering: geometricPrecision;
+  stroke-width: 1.85px;
+}
+
+/* Icon containers */
+.icon-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.icon-box-sm {
+  width: 2rem;
+  height: 2rem;
+}
+
+.icon-box-md {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.icon-box-lg {
+  width: 3rem;
+  height: 3rem;
+}
+
+/* ============================================================================
+ * GLOBAL BORDERS, DIVIDERS & SEPARATORS
+ * ============================================================================ */
+
+hr, .divider {
+  border: 0;
+  border-top: 1px solid var(--border-default);
+  margin: 1.5rem 0;
+  opacity: 1;
+}
+
+.divider-subtle {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.divider-strong {
+  border-top: 1px solid var(--border-strong);
+}
+
+/* ============================================================================
+ * GLOBAL BUTTONS & INTERACTIVE CONTROLS (PAYLOAD CMS PATTERN)
+ * ============================================================================ */
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.625rem 1.25rem;
+  font-size: 0.875rem;
+  font-weight: 600;
+  border-radius: var(--radius-md);
+  border: 1px solid transparent;
+  white-space: nowrap;
+  transition: all 0.18s cubic-bezier(0.4, 0, 0.2, 1);
+  outline: none;
+  min-height: 40px;
+}
+
+.btn:active:not(:disabled) {
+  transform: scale(0.98);
+}
+
+.btn-primary {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+}
+
+.btn-primary:hover:not(:disabled) {
+  background-color: var(--btn-primary-hover);
+  box-shadow: 0 4px 12px 0 rgba(37, 99, 235, 0.25);
+}
+
+.btn-secondary {
+  background-color: var(--btn-secondary-bg);
+  color: var(--btn-secondary-text);
+  border-color: var(--btn-secondary-border);
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background-color: var(--btn-secondary-hover);
+  border-color: var(--border-interactive);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.btn-outline:hover:not(:disabled) {
+  background-color: var(--bg-surface-hover);
+  border-color: var(--border-interactive);
+}
+
+.btn-ghost {
+  background-color: transparent;
+  color: var(--text-secondary);
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background-color: var(--bg-surface-hover);
+  color: var(--text-primary);
+}
+
+.btn-danger {
+  background-color: #e11d48;
+  color: #ffffff;
+}
+
+.btn-danger:hover:not(:disabled) {
+  background-color: #be123c;
+}
+
+.btn-sm {
+  padding: 0.375rem 0.875rem;
+  font-size: 0.8125rem;
+  border-radius: var(--radius-sm);
+  min-height: 34px;
+}
+
+.btn-lg {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: var(--radius-lg);
+  min-height: 48px;
+}
+
+.btn-icon {
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  min-height: 40px;
+  min-width: 40px;
+}
+
+/* ============================================================================
+ * GLOBAL CARDS & SURFACES
+ * ============================================================================ */
+
+.surface-card {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--card-shadow);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.surface-card-hover:hover {
+  border-color: var(--card-hover-border);
+  box-shadow: var(--card-shadow-hover);
+}
+
+.surface-elevated {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-elevated);
+}
+
+.surface-subtle {
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.surface-glass {
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+}
+
+.dark .surface-glass {
+  background-color: rgba(30, 41, 59, 0.85);
+  border: 1px solid rgba(51, 65, 85, 0.8);
+}
+
+/* ============================================================================
+ * GLOBAL E-COMMERCE BADGES & LABELS
+ * ============================================================================ */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.25rem 0.625rem;
+  font-size: 0.6875rem;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+  text-transform: uppercase;
+  border-radius: var(--radius-full);
+  line-height: 1;
+}
+
+.badge-sale {
+  background-color: var(--badge-sale-bg);
+  color: var(--badge-sale-text);
+}
+
+.badge-new {
+  background-color: var(--badge-new-bg);
+  color: var(--badge-new-text);
+}
+
+.badge-neutral {
+  background-color: var(--bg-surface-hover);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-default);
+}
+
+/* ============================================================================
+ * ACCESSIBLE FOCUS INDICATORS
+ * ============================================================================ */
+
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--border-focus);
+    outline-offset: 2px;
+  }
+
+  button:focus:not(:focus-visible),
+  a:focus:not(:focus-visible),
+  input:focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+/* ============================================================================
+ * SHIMMER & SKELETON ANIMATIONS
+ * ============================================================================ */
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+@utility animate-shimmer {
+  animation: shimmer 1.7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  background: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 25%, #cbd5e1 50%, #e2e8f0 75%, #f1f5f9 100%);
+  background-size: 200% 100%;
+}
+
+@utility animate-shimmer-dark {
+  animation: shimmer 1.7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  background: linear-gradient(90deg, #0f172a 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f172a 100%);
+  background-size: 200% 100%;
+}
+
+@utility skeleton {
+  animation: shimmer 1.7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  background: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 25%, #cbd5e1 50%, #e2e8f0 75%, #f1f5f9 100%);
+  background-size: 200% 100%;
+  border-radius: 0.75rem;
+}
+
+.dark .animate-shimmer,
+.dark .skeleton,
+.hero-slider-dark-scope .animate-shimmer,
+.bg-slate-900 .animate-shimmer,
+.bg-slate-950 .animate-shimmer {
+  background: linear-gradient(90deg, #0f172a 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f172a 100%);
+  background-size: 200% 100%;
+}
+
+/* ============================================================================
+ * SCROLLBAR UTILITIES (LIGHT & DARK MODE TUNED)
+ * ============================================================================ */
+
+@utility scrollbar-none {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #cbd5e1 transparent;
+  &::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 9999px;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+}
+
+.dark .scrollbar-thin {
+  scrollbar-color: #475569 transparent;
+  &::-webkit-scrollbar-thumb {
+    background: #334155;
+  }
+  &::-webkit-scrollbar-thumb:hover {
+    background: #475569;
+  }
+}
+
+/* ============================================================================
+ * EXTENDED GLOBAL STYLE TYPES & UTILITIES
+ * ============================================================================ */
+
+/* Circular Aspect Ratio Lock for Action & Header Buttons */
+.btn-icon-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  flex-shrink: 0;
+  aspect-ratio: 1 / 1;
+  padding: 0;
+}
+
+/* Form Helper & Error Typography */
+.form-label {
+  font-size: 0.8125rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 0.375rem;
+  display: block;
+}
+
+.form-helper-text {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  margin-top: 0.25rem;
+  line-height: 1.4;
+}
+
+.form-error-text {
+  font-size: 0.75rem;
+  color: var(--badge-sale-text);
+  font-weight: 550;
+  margin-top: 0.25rem;
+  line-height: 1.4;
+}
+
+/* E-Commerce Pricing Typography Types */
+.price-tag {
+  font-feature-settings: "tnum";
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  color: var(--price-primary);
+}
+
+.price-sale {
+  color: var(--price-sale);
+  font-weight: 800;
+}
+
+.price-original {
+  color: var(--price-original);
+  text-decoration: line-through;
+  font-size: 0.85em;
+  font-weight: 400;
+}
+
+.price-discount-pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.375rem;
+  font-size: 0.6875rem;
+  font-weight: 750;
+  border-radius: var(--radius-full);
+  background-color: var(--badge-sale-bg);
+  color: var(--badge-sale-text);
+}
+
+/* E-Commerce Inventory & Status Badges */
+.badge-success {
+  background-color: rgba(16, 185, 129, 0.15);
+  color: #059669;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.dark .badge-success {
+  background-color: rgba(16, 185, 129, 0.2);
+  color: #34d399;
+  border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-warning {
+  background-color: rgba(245, 158, 11, 0.15);
+  color: #d97706;
+  border: 1px solid rgba(245, 158, 11, 0.25);
+}
+
+.dark .badge-warning {
+  background-color: rgba(245, 158, 11, 0.2);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.badge-danger {
+  background-color: var(--badge-sale-bg);
+  color: var(--badge-sale-text);
+  border: 1px solid rgba(225, 29, 72, 0.25);
+}
+
+/* Stock Pulse Indicators */
+.stock-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 9999px;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.stock-dot-in {
+  background-color: var(--badge-stock-in);
+}
+
+.stock-dot-low {
+  background-color: var(--badge-stock-low);
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+.stock-dot-out {
+  background-color: var(--badge-stock-out);
+}
+
+/* ============================================================================
+ * COMPREHENSIVE GLOBAL COMPONENT SURFACES & UNIFIED THEME UTILITIES
+ * (Allows single-point global styling updates for cards, modals, drawers & inputs)
+ * ============================================================================ */
+
+/* Primary Card Containers */
+.card-base,
+.card-container {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--card-shadow);
+  color: var(--text-primary);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.card-base-hover,
+.card-interactive {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--card-shadow);
+  color: var(--text-primary);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease, background-color 0.2s ease;
+}
+
+.card-base-hover:hover,
+.card-interactive:hover {
+  border-color: var(--card-hover-border);
+  box-shadow: var(--card-shadow-hover);
+}
+
+/* Subtle Secondary Cards */
+.card-subtle {
+  background-color: var(--bg-surface-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xl);
+  color: var(--text-primary);
+}
+
+/* Elevated Feature Cards */
+.card-elevated {
+  background-color: var(--bg-surface-elevated);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-elevated);
+  color: var(--text-primary);
+}
+
+/* Modal Windows & Dialogs */
+.modal-surface,
+.dialog-container {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-elevated);
+  color: var(--text-primary);
+}
+
+/* Slide-Over Drawers & Sheet Panels */
+.drawer-surface,
+.sheet-container {
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
+  box-shadow: var(--shadow-elevated);
+  color: var(--text-primary);
+}
+
+/* Dropdowns & Popovers */
+.popover-surface,
+.dropdown-menu-surface {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-elevated);
+  color: var(--text-primary);
+}
+
+/* Sticky Bottom Action Bars & Footers */
+.sticky-bar-surface,
+.action-bar-surface {
+  background-color: var(--card-bg);
+  border-top: 1px solid var(--card-border);
+  box-shadow: 0 -4px 20px -2px rgba(0, 0, 0, 0.08);
+  color: var(--text-primary);
+}
+
+.dark .sticky-bar-surface,
+.dark .action-bar-surface {
+  box-shadow: 0 -4px 25px -2px rgba(0, 0, 0, 0.4);
+}
+
+/* Sidebars & Filter Panels */
+.filter-panel-surface,
+.sidebar-panel-surface {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--card-shadow);
+  color: var(--text-primary);
+}
+
+/* Form Input Controls */
+.input-control {
+  background-color: var(--input-bg);
+  color: var(--input-text);
+  border: 1px solid var(--input-border);
+  border-radius: var(--radius-md);
+  transition: border-color 0.18s ease, box-shadow 0.18s ease, background-color 0.18s ease;
+}
+
+.input-control:hover:not(:disabled) {
+  border-color: var(--input-border-hover);
+}
+
+.input-control:focus {
+  border-color: var(--input-border-focus);
+  box-shadow: 0 0 0 3px var(--input-ring);
+  outline: none;
+}
+
+/* Table Containers & Row Hover Surfaces */
+.table-container {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.table-row-surface {
+  border-bottom: 1px solid var(--border-subtle);
+  transition: background-color 0.15s ease;
+}
+
+.table-row-surface:hover {
+  background-color: var(--bg-surface-hover);
+}
+
+/* Tab Navigation Elements */
+.tab-pill-active {
+  background-color: var(--btn-primary-bg);
+  color: var(--btn-primary-text);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+}
+
+.tab-pill-inactive {
+  background-color: var(--bg-surface-subtle);
+  color: var(--text-secondary);
+  border: 1px solid var(--border-subtle);
+}
+
+.tab-pill-inactive:hover {
+  background-color: var(--bg-surface-hover);
+  color: var(--text-primary);
+}
+
+.tab-underline-active {
+  color: var(--text-accent);
+  border-bottom: 2px solid var(--text-accent);
+  font-weight: 700;
+}
+
+/* Global Direct Utility Classes for Clean Global Theming */
+.bg-card {
+  background-color: var(--card-bg) !important;
+}
+
+.border-card {
+  border-color: var(--card-border) !important;
+}
+
+.hover-border-card:hover {
+  border-color: var(--card-hover-border) !important;
+}
+
+.bg-canvas {
+  background-color: var(--bg-canvas) !important;
+}
+
+.bg-surface {
+  background-color: var(--bg-surface) !important;
+}
+
+.bg-surface-elevated {
+  background-color: var(--bg-surface-elevated) !important;
+}
+
+.bg-surface-subtle {
+  background-color: var(--bg-surface-subtle) !important;
+}
+
+.bg-surface-hover:hover {
+  background-color: var(--bg-surface-hover) !important;
+}
+
+.text-theme-primary {
+  color: var(--text-primary) !important;
+}
+
+.text-theme-secondary {
+  color: var(--text-secondary) !important;
+}
+
+.text-theme-muted {
+  color: var(--text-muted) !important;
+}
+
+.text-theme-accent {
+  color: var(--text-accent) !important;
+}
+
+.border-theme {
+  border-color: var(--border-default) !important;
+}
+
+.border-theme-subtle {
+  border-color: var(--border-subtle) !important;
+}
+
+.border-theme-strong {
+  border-color: var(--border-strong) !important;
+}
+
+/* Header, Navbar & Footer Surfaces */
+.navbar-surface,
+.header-surface {
+  background-color: var(--bg-surface);
+  border-color: var(--border-default);
+  color: var(--text-primary);
+}
+
+.footer-surface {
+  background-color: var(--bg-surface-subtle);
+  border-top: 1px solid var(--border-default);
+  color: var(--text-primary);
+}
+
+/* E-Commerce Product Card & Checkout Surfaces */
+.product-card-surface {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--card-shadow);
+  color: var(--text-primary);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.product-card-surface:hover {
+  border-color: var(--card-hover-border);
+  box-shadow: var(--card-shadow-hover);
+  transform: translateY(-2px);
+}
+
+.product-image-container {
+  background-color: var(--bg-surface-subtle);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+}
+
+.checkout-step-surface {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-2xl);
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+}
+
+.order-summary-surface {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-2xl);
+  padding: 1.5rem;
+  box-shadow: var(--card-shadow);
+}
+
+/* Tooltip & Toast Surfaces */
+.tooltip-surface {
+  background-color: var(--text-primary);
+  color: var(--bg-canvas);
+  border-radius: var(--radius-sm);
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  box-shadow: var(--shadow-elevated);
+}
+
+.toast-surface {
+  background-color: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-primary);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-elevated);
+}
+
+
+
