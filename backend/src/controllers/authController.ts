@@ -1,6 +1,6 @@
 import { Request, Response } from 'express';
-import { registerUser, loginUser, getAllUsers } from '../services/userStore.js';
-import { AuthenticatedRequest } from '../types/index.js';
+import { registerUser, loginUser, getAllUsers } from '../services/userStore.ts';
+import { AuthenticatedRequest } from '../types/index.ts';
 
 export function handleRegister(req: Request, res: Response): void {
   try {

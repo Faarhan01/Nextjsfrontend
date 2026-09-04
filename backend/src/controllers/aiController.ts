@@ -5,7 +5,7 @@ import {
   generateStudioAssets, 
   generateConciergeReply, 
   enhanceProductCopy 
-} from '../services/geminiService.js';
+} from '../services/geminiService.ts';
 
 export async function handleGenerateBrand(req: Request, res: Response): Promise<void> {
   try {

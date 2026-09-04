@@ -1,29 +1,14 @@
-'use client';
+import { MOCK_CATEGORIES, MOCK_WOO_PRODUCTS } from '../../data/presets'
+import CategoriesPageClient from './CategoriesPageClient'
 
-import React from 'react';
-import { useRouter } from 'next/navigation';
-import { useStore } from '../../context/StoreContext';
-import CategoriesPage from '../../components/products/CategoriesPage';
-import { getCategoryUrl } from '../../utils/seoUtils';
+export const dynamic = 'force-dynamic'
 
-export default function CategoriesRoute() {
-  const router = useRouter();
-  const {
-    themeColor,
-    getThemeClasses,
-    categories,
-    products
-  } = useStore();
-
+export default function CategoriesPage() {
   return (
-    <div className="w-full">
-      <CategoriesPage
-        themeColor={themeColor}
-        getThemeClasses={getThemeClasses}
-        categories={categories}
-        products={products}
-        onSelectCategory={(catName) => router.push(getCategoryUrl(catName))}
-      />
-    </div>
-  );
+    <CategoriesPageClient
+      categories={MOCK_CATEGORIES}
+      products={MOCK_WOO_PRODUCTS}
+    />
+  )
 }
+

@@ -1,69 +1,24 @@
-'use client';
+import { MOCK_WOO_PRODUCTS } from '../../../data/presets'
+import ProductDetailPageClient from './ProductDetailPageClient'
 
-import React, { Suspense } from 'react';
-import { useRouter, useParams } from 'next/navigation';
-import { useStore } from '../../../context/StoreContext';
-import ProductDetailPage from '../../../components/products/ProductDetailPage';
-import { getProductUrl } from '../../../utils/seoUtils';
-import ProductLoading from './loading';
+export const dynamic = 'force-dynamic'
 
-function ProductDetailContent() {
-  const router = useRouter();
-  const params = useParams();
-  const rawId = params?.id as string;
+export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params
   
-  const {
-    products,
-    themeColor,
-    getThemeClasses,
-    wishlist,
-    handleToggleWishlist,
-    handleAddToCart,
-    setAuthModalOpen,
-    currentUser
-  } = useStore();
+  const product = MOCK_WOO_PRODUCTS.find(p => p.id === id || p.id === `prod-${id}` || (p as any).slug === id) || MOCK_WOO_PRODUCTS[0]
 
-  // Handle URL slug ID format (e.g. "1-audiophile-over-ear-headphones" -> "1" or exact "prod-1")
-  const resolvedProductId = React.useMemo(() => {
-    if (!rawId) return products[0]?.id || '1';
-    
-    // Exact match
-    const exactMatch = products.find((p) => p.id === rawId || (p as any).slug === rawId);
-    if (exactMatch) return exactMatch.id;
+  if (!product) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">
+          <h1 className="text-2xl font-bold text-slate-900 mb-4">Product Not Found</h1>
+          <p className="text-slate-600">The product you're looking for doesn't exist.</p>
+        </div>
+      </div>
+    )
+  }
 
-    // Split slug by first dash if numeric ID prefix
-    const firstDashIndex = rawId.indexOf('-');
-    if (firstDashIndex !== -1) {
-      const prefix = rawId.substring(0, firstDashIndex);
-      const prefixMatch = products.find((p) => p.id === prefix);
-      if (prefixMatch) return prefixMatch.id;
-    }
-
-    return rawId;
-  }, [rawId, products]);
-
-  return (
-    <div className="w-full">
-      <ProductDetailPage
-        productId={resolvedProductId}
-        products={products}
-        themeColor={themeColor}
-        getThemeClasses={getThemeClasses}
-        wishlist={wishlist}
-        handleToggleWishlist={handleToggleWishlist}
-        handleAddToCart={handleAddToCart}
-        onBuyNow={() => {
-          router.push('/checkout');
-        }}
-        onBack={() => router.back()}
-        onSelectProduct={(id) => router.push(getProductUrl(id))}
-        currentUser={currentUser}
-        onOpenAuth={() => setAuthModalOpen(true)}
-      />
-    </div>
-  );
+  return <ProductDetailPageClient product={product} />
 }
 
-export default function ProductRoute() {
-  return <ProductDetailContent />;
-}

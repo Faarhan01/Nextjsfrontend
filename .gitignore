@@ -1,8 +1,35 @@
-node_modules/
-build/
-dist/
-coverage/
-.DS_Store
+# dependencies
+node_modules
+
+# build outputs
+.next
+dist
+out
+build
+
+# local env files
+.env
+.env.local
+.env.*.local
+
+# database
+*.db
+*.sqlite
+*.sqlite3
+# logs
 *.log
-.env*
-!.env.example
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.idea
+.vscode
+*.swp
+*.swo
+
+# temp
+tmp
+temp

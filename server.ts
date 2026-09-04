@@ -1,20 +1,23 @@
-import express from "express";
-import next from "next";
 import dotenv from "dotenv";
-import backendApp from "./backend/src/app";
-
 dotenv.config();
 
+// Ensure PORT is always 3000 for the platform reverse proxy
+process.env.PORT = "3000";
+const PORT = 3000;
+
+import express from "express";
+import next from "next";
+import backendApp from "./backend/src/app.ts";
+
 const dev = process.env.NODE_ENV !== "production";
-const nextApp = next({ dev, dir: "./frontend" });
+const nextApp = next({ dev, dir: "./frontend", hostname: "0.0.0.0", port: PORT });
 const handle = nextApp.getRequestHandler();
 
 const app = express();
-const PORT = process.env.PORT ? parseInt(process.env.PORT, 10) : 3000;
 
 app.use(express.json({ limit: "15mb" }));
 
-// Security Headers (Payload CMS 3.88 standard security practice)
+// Security Headers
 app.use((req, res, next) => {
   res.setHeader("X-Content-Type-Options", "nosniff");
   res.setHeader("X-XSS-Protection", "1; mode=block");
@@ -29,7 +32,7 @@ app.use("/api", backendApp);
 async function startServer() {
   await nextApp.prepare();
 
-  app.all("*", (req, res) => {
+  app.all(/.*/, (req, res) => {
     return handle(req, res);
   });
 

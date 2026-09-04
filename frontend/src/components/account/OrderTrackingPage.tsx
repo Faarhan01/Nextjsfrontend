@@ -26,7 +26,6 @@ import {
   FileText
 } from 'lucide-react';
 import { apiClient } from '../../services/apiClient';
-import { payload } from '../../services/payloadClient';
 
 interface OrderTrackingPageProps {
   themeColor: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
@@ -492,66 +491,7 @@ export default function OrderTrackingPage({
     setSearchedOrderId(cleanId);
 
     try {
-      // 1. First query Payload CMS 3.88 Orders Collection
-      const payloadRes = await payload.orders.findByID(cleanId);
-      if (payloadRes?.success && payloadRes?.doc) {
-        const doc = payloadRes.doc;
-        const mappedOrder: OrderDetails = {
-          id: doc.orderNumber,
-          email: doc.customer?.email || currentUser?.email || 'customer@luxestore.com',
-          status: doc.fulfillmentStatus === 'delivered' 
-            ? 'Delivered' 
-            : doc.fulfillmentStatus === 'shipped' || doc.fulfillmentStatus === 'in_transit' || doc.fulfillmentStatus === 'out_for_delivery'
-            ? 'In Transit'
-            : doc.fulfillmentStatus === 'processing'
-            ? 'Processing'
-            : 'Processing',
-          carrier: doc.shippingCarrier || 'FedEx Priority Air',
-          trackingNumber: doc.trackingNumber || `FX-${doc.orderNumber.replace(/[^0-9]/g, '') || '88392019'}`,
-          trackingUrl: doc.trackingUrl || 'https://www.fedex.com',
-          orderDate: new Date(doc.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
-          estimatedDelivery: doc.fulfillmentStatus === 'delivered' ? 'Delivered' : '3-5 Business Days',
-          shippingAddress: {
-            name: doc.shippingAddress.name,
-            street: doc.shippingAddress.street,
-            city: doc.shippingAddress.city,
-            state: doc.shippingAddress.state,
-            zip: doc.shippingAddress.zip,
-            country: doc.shippingAddress.country
-          },
-          paymentMethod: doc.paymentMethod || 'Credit Card / EFT',
-          subtotal: doc.financials.subtotal,
-          shippingFee: doc.financials.shippingFee,
-          tax: doc.financials.tax,
-          total: doc.financials.total,
-          items: doc.items.map((it: any) => ({
-            id: it.id,
-            name: it.product?.title || 'Product Item',
-            price: it.price,
-            quantity: it.quantity,
-            image: it.product?.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=400',
-            variant: it.variant?.title
-          })),
-          timeline: doc.timeline.map((t: any) => ({
-            title: t.title,
-            description: t.description,
-            date: t.date,
-            location: t.location,
-            completed: t.completed,
-            current: t.current
-          }))
-        };
-        setCurrentOrder(mappedOrder);
-        showToast(`Found Payload CMS order #${doc.orderNumber}`);
-        setIsSearching(false);
-        return;
-      }
-    } catch (payloadErr) {
-      // Continue to next fallbacks
-    }
-
-    try {
-      // 2. Query legacy/express order tracking endpoint
+      // 1. Query express order tracking endpoint
       const res = await apiClient.trackOrder(cleanId);
       if (res && res.order) {
         setCurrentOrder(res.order);
@@ -703,73 +643,19 @@ export default function OrderTrackingPage({
     showToast(`Tracking number ${code} copied to clipboard!`);
   };
 
-  const handleAdvanceStatus = async (nextStatus: 'processing' | 'shipped' | 'in_transit' | 'out_for_delivery' | 'delivered') => {
+  const handleAdvanceStatus = (nextStatus: 'processing' | 'shipped' | 'in_transit' | 'out_for_delivery' | 'delivered') => {
     if (!currentOrder) return;
-    try {
-      const res = await payload.orders.updateStatus(currentOrder.id, nextStatus);
-      if (res && res.doc) {
-        const doc = res.doc;
-        const mappedOrder: OrderDetails = {
-          id: doc.orderNumber,
-          email: doc.customer?.email || currentUser?.email || 'customer@luxestore.com',
-          status: doc.fulfillmentStatus === 'delivered' 
-            ? 'Delivered' 
-            : doc.fulfillmentStatus === 'shipped' || doc.fulfillmentStatus === 'in_transit' || doc.fulfillmentStatus === 'out_for_delivery'
-            ? 'In Transit'
-            : 'Processing',
-          carrier: doc.shippingCarrier || 'FedEx Priority Air',
-          trackingNumber: doc.trackingNumber || `FX-${doc.orderNumber}`,
-          trackingUrl: doc.trackingUrl || 'https://www.fedex.com',
-          orderDate: new Date(doc.createdAt).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }),
-          estimatedDelivery: doc.fulfillmentStatus === 'delivered' ? 'Delivered' : '3-5 Business Days',
-          shippingAddress: {
-            name: doc.shippingAddress.name,
-            street: doc.shippingAddress.street,
-            city: doc.shippingAddress.city,
-            state: doc.shippingAddress.state,
-            zip: doc.shippingAddress.zip,
-            country: doc.shippingAddress.country
-          },
-          paymentMethod: doc.paymentMethod || 'Credit Card / EFT',
-          subtotal: doc.financials.subtotal,
-          shippingFee: doc.financials.shippingFee,
-          tax: doc.financials.tax,
-          total: doc.financials.total,
-          items: doc.items.map((it: any) => ({
-            id: it.id,
-            name: it.product?.title || 'Product Item',
-            price: it.price,
-            quantity: it.quantity,
-            image: it.product?.image || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=400',
-            variant: it.variant?.title
-          })),
-          timeline: doc.timeline.map((t: any) => ({
-            title: t.title,
-            description: t.description,
-            date: t.date,
-            location: t.location,
-            completed: t.completed,
-            current: t.current
-          }))
-        };
-        setCurrentOrder(mappedOrder);
-        showToast(`Payload order #${doc.orderNumber} advanced to ${nextStatus.replace('_', ' ').toUpperCase()}`);
-        return;
-      }
-    } catch (err) {
-      // Fallback local update
-      const updatedTimeline = [...currentOrder.timeline];
-      if (nextStatus === 'delivered') {
-        updatedTimeline.forEach(t => { t.completed = true; t.current = false; });
-        setCurrentOrder({ ...currentOrder, status: 'Delivered', timeline: updatedTimeline });
-      } else if (nextStatus === 'in_transit' || nextStatus === 'shipped') {
-        updatedTimeline[0].completed = true;
-        if (updatedTimeline[1]) updatedTimeline[1].completed = true;
-        if (updatedTimeline[2]) { updatedTimeline[2].completed = true; updatedTimeline[2].current = true; }
-        setCurrentOrder({ ...currentOrder, status: 'In Transit', timeline: updatedTimeline });
-      }
-      showToast(`Order status updated to ${nextStatus}`);
+    const updatedTimeline = [...currentOrder.timeline];
+    if (nextStatus === 'delivered') {
+      updatedTimeline.forEach(t => { t.completed = true; t.current = false; });
+      setCurrentOrder({ ...currentOrder, status: 'Delivered', timeline: updatedTimeline });
+    } else if (nextStatus === 'in_transit' || nextStatus === 'shipped') {
+      updatedTimeline[0].completed = true;
+      if (updatedTimeline[1]) updatedTimeline[1].completed = true;
+      if (updatedTimeline[2]) { updatedTimeline[2].completed = true; updatedTimeline[2].current = true; }
+      setCurrentOrder({ ...currentOrder, status: 'In Transit', timeline: updatedTimeline });
     }
+    showToast(`Order status updated to ${nextStatus}`);
   };
 
   // Helper for status badge styling
@@ -1027,7 +913,7 @@ export default function OrderTrackingPage({
                   <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <Clock className="w-4 h-4 text-blue-600" /> Live Package Tracking Timeline
                   </h3>
-                  <p className="text-xs text-slate-400">Step-by-step progress reported by Payload CMS 3.88 fulfillment engine.</p>
+                  <p className="text-xs text-slate-400">Step-by-step dispatch and courier progress updates.</p>
                 </div>
 
                 <div className="flex items-center gap-1.5 flex-wrap">

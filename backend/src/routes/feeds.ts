@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { handleGetGoogleShoppingFeed, handleGetFeedHealthStatus } from '../controllers/feedController.js';
+import { handleGetGoogleShoppingFeed, handleGetFeedHealthStatus } from '../controllers/feedController.ts';
 
 const router = Router();
 

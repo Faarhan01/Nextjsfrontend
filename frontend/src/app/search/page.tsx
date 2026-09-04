@@ -4,7 +4,6 @@ import React, { Suspense, useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { useStore } from '../../context/StoreContext';
 import SearchResultsPage from '../../components/products/SearchResultsPage';
-import { SearchResultsPageSkeleton } from '../../components/ui/PageSkeleton';
 import { getProductUrl, getCategoryUrl } from '../../utils/seoUtils';
 
 function SearchContent() {

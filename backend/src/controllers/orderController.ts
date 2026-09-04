@@ -1,6 +1,6 @@
 import { Response } from 'express';
-import { createOrder, getOrderById, getOrdersByUser, updateOrderStatus, getStoreStats } from '../services/orderStore.js';
-import { AuthenticatedRequest } from '../types/index.js';
+import { createOrder, getOrderById, getOrdersByUser, updateOrderStatus, getStoreStats } from '../services/orderStore.ts';
+import { AuthenticatedRequest } from '../types/index.ts';
 
 export function handleCreateOrder(req: AuthenticatedRequest, res: Response): void {
   try {

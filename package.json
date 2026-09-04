@@ -1,14 +1,17 @@
 {
-  "name": "react-example",
+  "name": "mrbulk",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.1.0",
   "type": "module",
   "scripts": {
     "dev": "tsx server.ts",
     "build": "next build frontend && esbuild server.ts --bundle --platform=node --format=cjs --packages=external --sourcemap --outfile=dist/server.cjs",
     "start": "node dist/server.cjs",
     "clean": "rm -rf .next dist server.js",
-    "lint": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "lint": "eslint . --ext .ts,.tsx",
+    "format": "prettier --write \"**/*.{ts,tsx,css,json,md}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,css,json,md}\""
   },
   "dependencies": {
     "@google/genai": "^2.4.0",
@@ -31,7 +34,11 @@
     "@types/react-dom": "^19.2.4",
     "autoprefixer": "^10.4.21",
     "esbuild": "^0.25.0",
+    "eslint": "^9.17.0",
+    "eslint-config-next": "^16.3.0",
+    "eslint-config-prettier": "^9.1.0",
     "postcss": "^8.5.26",
+    "prettier": "^3.4.2",
     "tailwindcss": "^4.1.14",
     "tsx": "^4.21.0",
     "typescript": "~5.8.2"

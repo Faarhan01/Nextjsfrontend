@@ -506,7 +506,7 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
     try {
       // Load and sanitize logo text
       const savedLogo = localStorage.getItem('mrbulk_logo_text') || localStorage.getItem('luxestore_logo_text');
-      if (savedLogo && savedLogo !== 'LuxeStore' && !savedLogo.toLowerCase().includes('luxe')) {
+      if (savedLogo && savedLogo !== 'LuxeStore') {
         setLogoText(savedLogo);
       } else {
         setLogoText('Mrbulk');

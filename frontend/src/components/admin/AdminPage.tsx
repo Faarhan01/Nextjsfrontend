@@ -111,7 +111,6 @@ import { formatCurrency } from '../../utils/pricing';
 import { MockCategoryPreset, MockBrandPreset, MOCK_PRODUCTS, MOCK_CATEGORIES, MOCK_BRANDS } from '../../data/presets';
 import { GoogleMarketingHub } from './GoogleMarketingHub';
 import { GoogleAnalyticsHub } from './GoogleAnalyticsHub';
-import { PayloadHub } from '../payload/PayloadHub';
 import { VendorComplianceAdmin } from './VendorComplianceAdmin';
 import { getStoredGtmId, setStoredGtmId, initGTM } from '../../utils/gtm';
 
@@ -144,7 +143,7 @@ const INITIAL_CUSTOMERS: UserProfile[] = [
   {
     id: 'usr-1001',
     name: 'Alexander Vance',
-    email: 'alexander.vance@luxestore.com',
+    email: 'alexander.vance@mrbulk.co.za',
     role: 'admin',
     avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200',
     status: 'vip',
@@ -558,7 +557,7 @@ const INITIAL_ORDERS: AdminOrder[] = [
   {
     id: 'LX-9400',
     customerName: 'Elena Rostova',
-    customerEmail: 'elena.r@luxestore.com',
+    customerEmail: 'elena.r@mrbulk.co.za',
     customerPhone: '+1 (555) 882-9901',
     orderDate: 'July 21, 2026',
     status: 'Processing',
@@ -699,7 +698,7 @@ export default function AdminPage({
   }[themeColor] || 'bg-gradient-to-br from-blue-200/90 via-blue-100/75 to-blue-50/85 dark:from-blue-950/90 dark:via-blue-900/60 dark:to-blue-950/80 border-blue-300/80 dark:border-blue-700/60';
 
   // Tab State
-  const [activeTab, setActiveTab] = useState<'overview' | 'products' | 'customers' | 'vendors' | 'orders' | 'reviews' | 'coupons' | 'analytics' | 'settings' | 'site-settings' | 'security' | 'marketing' | 'outreach' | 'payload'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'products' | 'customers' | 'vendors' | 'orders' | 'reviews' | 'coupons' | 'analytics' | 'settings' | 'site-settings' | 'security' | 'marketing' | 'outreach'>('overview');
   const [marketingMainTab, setMarketingMainTab] = useState<'emails' | 'google'>('emails');
   const [settingsSubTab, setSettingsSubTab] = useState<'store' | 'site'>('store');
   const [analyticsSubTab, setAnalyticsSubTab] = useState<'store' | 'google'>('store');
@@ -1946,7 +1945,7 @@ export default function AdminPage({
         if (parsed.storeSupportEmail) return parsed.storeSupportEmail;
       }
     } catch (e) {}
-    return 'support@luxestore.com';
+    return 'support@mrbulk.co.za';
   });
   const [enableAnnouncement, setEnableAnnouncement] = useState<boolean>(() => {
     try {
@@ -2273,17 +2272,6 @@ export default function AdminPage({
           >
             <ShieldAlert className="w-3.5 h-3.5 text-rose-300" /> Security
           </button>
-
-          <button
-            onClick={() => setActiveTab('payload')}
-            className={`px-3.5 py-2 text-xs font-bold transition rounded-xl flex items-center gap-1.5 shrink-0 cursor-pointer ${
-              activeTab === 'payload' 
-                ? 'bg-indigo-600 text-white shadow-xs font-black' 
-                : 'bg-slate-100 text-slate-600 hover:text-slate-900'
-            }`}
-          >
-            <Sparkles className="w-3.5 h-3.5 text-indigo-300" /> Payload CMS
-          </button>
         </div>
 
         {/* Desktop 2-Column Layout (Vertical Tabs on Left, Content on Right) */}
@@ -2472,20 +2460,6 @@ export default function AdminPage({
                 <div className="flex items-center gap-2.5">
                   <ShieldAlert className={`w-4 h-4 shrink-0 ${activeTab === 'security' ? 'text-white' : 'text-rose-600'}`} />
                   <span>Security</span>
-                </div>
-              </button>
-
-              <button
-                onClick={() => setActiveTab('payload')}
-                className={`w-full px-3.5 py-2.5 text-xs font-bold transition-all rounded-2xl flex items-center justify-between group cursor-pointer text-left ${
-                  activeTab === 'payload' 
-                    ? 'bg-indigo-600 text-white shadow-xs font-black' 
-                    : 'text-slate-600 hover:text-slate-900 hover:bg-white border border-transparent hover:border-slate-200/60'
-                }`}
-              >
-                <div className="flex items-center gap-2.5">
-                  <Sparkles className={`w-4 h-4 shrink-0 ${activeTab === 'payload' ? 'text-white' : 'text-indigo-600'}`} />
-                  <span>Payload CMS 3.88</span>
                 </div>
               </button>
             </nav>
@@ -6228,7 +6202,7 @@ export default function AdminPage({
                       <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 space-y-4 text-xs font-sans">
                         <div className="border-b border-slate-200 pb-2 space-y-1 text-[11px]">
                           <div><strong className="text-slate-700">From:</strong> {smtpSettings.fromName} &lt;{smtpSettings.fromEmail}&gt;</div>
-                          <div><strong className="text-slate-700">To:</strong> {emailAudience === 'custom' ? customRecipientEmail : 'customer_segment@luxestore.com'}</div>
+                           <div><strong className="text-slate-700">To:</strong> {emailAudience === 'custom' ? customRecipientEmail : 'customer_segment@mrbulk.co.za'}</div>
                           <div className="font-bold text-blue-700">{composerSubject}</div>
                         </div>
 
@@ -6780,11 +6754,6 @@ export default function AdminPage({
         {/* VENDORS & COMPLIANCE HUB */}
         {activeTab === 'vendors' && (
           <VendorComplianceAdmin />
-        )}
-
-        {/* PAYLOAD CMS 3.88 ARCHITECTURE HUB */}
-        {activeTab === 'payload' && (
-          <PayloadHub />
         )}
 
           </main>

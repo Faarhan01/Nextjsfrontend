@@ -5,8 +5,8 @@ import {
   handleGetUserOrders, 
   handleUpdateOrderStatus, 
   handleGetStoreStats 
-} from '../controllers/orderController.js';
-import { optionalAuth, requireAdmin } from '../middleware/authMiddleware.js';
+} from '../controllers/orderController.ts';
+import { optionalAuth, requireAdmin } from '../middleware/authMiddleware.ts';
 
 const router = Router();
 

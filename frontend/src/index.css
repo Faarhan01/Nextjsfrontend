@@ -37,7 +37,7 @@
 }
 
 /* ============================================================================
- * DESIGN TOKENS & SEMANTIC CSS VARIABLES (PAYLOAD CMS E-COMMERCE STANDARD)
+ * DESIGN TOKENS & SEMANTIC CSS VARIABLES (HEADLESS E-COMMERCE STANDARD)
  * ============================================================================ */
 
 :root {
@@ -530,7 +530,7 @@ hr, .divider {
 }
 
 /* ============================================================================
- * GLOBAL BUTTONS & INTERACTIVE CONTROLS (PAYLOAD CMS PATTERN)
+ * GLOBAL BUTTONS & INTERACTIVE CONTROLS (HEADLESS STOREFRONT PATTERN)
  * ============================================================================ */
 
 button {
@@ -727,47 +727,6 @@ button:disabled {
   input:focus:not(:focus-visible) {
     outline: none;
   }
-}
-
-/* ============================================================================
- * SHIMMER & SKELETON ANIMATIONS
- * ============================================================================ */
-
-@keyframes shimmer {
-  0% {
-    background-position: -200% 0;
-  }
-  100% {
-    background-position: 200% 0;
-  }
-}
-
-@utility animate-shimmer {
-  animation: shimmer 1.7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  background: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 25%, #cbd5e1 50%, #e2e8f0 75%, #f1f5f9 100%);
-  background-size: 200% 100%;
-}
-
-@utility animate-shimmer-dark {
-  animation: shimmer 1.7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  background: linear-gradient(90deg, #0f172a 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f172a 100%);
-  background-size: 200% 100%;
-}
-
-@utility skeleton {
-  animation: shimmer 1.7s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-  background: linear-gradient(90deg, #f1f5f9 0%, #e2e8f0 25%, #cbd5e1 50%, #e2e8f0 75%, #f1f5f9 100%);
-  background-size: 200% 100%;
-  border-radius: 0.75rem;
-}
-
-.dark .animate-shimmer,
-.dark .skeleton,
-.hero-slider-dark-scope .animate-shimmer,
-.bg-slate-900 .animate-shimmer,
-.bg-slate-950 .animate-shimmer {
-  background: linear-gradient(90deg, #0f172a 0%, #1e293b 25%, #334155 50%, #1e293b 75%, #0f172a 100%);
-  background-size: 200% 100%;
 }
 
 /* ============================================================================

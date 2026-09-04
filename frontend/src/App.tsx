@@ -107,7 +107,6 @@ import { TestimonialsSection } from './components/layout/TestimonialsSection';
 import { NewsletterSection } from './components/layout/NewsletterSection';
 import { HeroBanner } from './components/home/HeroBanner';
 import { ToastContainer, ToastMessage } from './components/ui/Toast';
-import { PageSkeleton } from './components/ui/PageSkeleton';
 import { LogIn, LogOut, Server, Boxes } from 'lucide-react';
 
 // Dynamic default state slides
@@ -270,7 +269,6 @@ export default function App() {
   const [selectedShopBrand, setSelectedShopBrand] = useState<string>('All');
   const [selectedProductId, setSelectedProductId] = useState<string | null>(null);
   const [selectedCategoryName, setSelectedCategoryName] = useState<string | null>(null);
-  const [isPageTransitioning, setIsPageTransitioning] = useState<boolean>(false);
   const prevPageKeyRef = useRef<string>('home');
 
   useEffect(() => {
@@ -282,19 +280,6 @@ export default function App() {
       if (selectedCategoryName) localStorage.setItem('mrbulk_selected_category_name', selectedCategoryName);
       else localStorage.removeItem('mrbulk_selected_category_name');
     } catch (e) {}
-  }, [currentPage, selectedProductId, selectedCategoryName]);
-
-  // Page Transition Skeleton Effect
-  useEffect(() => {
-    const currentKey = `${currentPage}-${selectedProductId || ''}-${selectedCategoryName || ''}`;
-    if (prevPageKeyRef.current !== currentKey) {
-      prevPageKeyRef.current = currentKey;
-      setIsPageTransitioning(true);
-      const timer = setTimeout(() => {
-        setIsPageTransitioning(false);
-      }, 240);
-      return () => clearTimeout(timer);
-    }
   }, [currentPage, selectedProductId, selectedCategoryName]);
 
   // Next.js Exporter & SEO Inspector Modal States
@@ -1281,13 +1266,13 @@ export default function App() {
       zip.file("index.html", generatedTemplateCode, { createFolders: true, unixPermissions: "0644" });
 
       // Add Next.js project files
-      const projectFiles = generateNextjsProject(logoText || "LuxeStore");
+      const projectFiles = generateNextjsProject(logoText || "Mrbulk");
       projectFiles.forEach((file) => {
         const cleanPath = file.path.replace(/^[/\\]+/, '');
         zip.file(cleanPath, file.code, { createFolders: true, unixPermissions: "0644" });
       });
 
-      zip.file("README.md", `# ${logoText || "LuxeStore"} Storefront Codebase Package\n\nIncludes:\n- index.html (Standalone HTML5 Storefront)\n- Next.js 15 App Router source codebase\n`, { createFolders: true, unixPermissions: "0644" });
+      zip.file("README.md", `# ${logoText || "Mrbulk"} Storefront Codebase Package\n\nIncludes:\n- index.html (Standalone HTML5 Storefront)\n- Next.js 15 App Router source codebase\n`, { createFolders: true, unixPermissions: "0644" });
 
       const content = await zip.generateAsync({
         type: "blob",
@@ -1327,7 +1312,7 @@ export default function App() {
     setIsZipping(true);
     try {
       const zip = new JSZip();
-      const files = generateFrontendExportFiles(logoText || "LuxeStore", generatedTemplateCode);
+      const files = generateFrontendExportFiles(logoText || "Mrbulk", generatedTemplateCode);
 
       files.forEach((file) => {
         const cleanPath = file.path.replace(/^[/\\]+/, '');
@@ -2480,13 +2465,7 @@ export default function App() {
         </AnimatePresence>
       </header>
 
-      {isPageTransitioning ? (
-        <div className="min-h-[70vh] w-full">
-          <PageSkeleton page={currentPage} />
-        </div>
-      ) : (
-        <>
-          {currentPage === 'home' ? (
+      {currentPage === 'home' ? (
             <div className="space-y-12 sm:space-y-16 pb-16">
               {/* CATEGORY QUICK NAV CAROUSEL & HERO BANNER GROUP */}
               <div className="space-y-4 sm:space-y-5">
@@ -3217,8 +3196,6 @@ export default function App() {
           onAddToCart={handleAddToCart}
           onQuickView={handleOpenQuickView}
         />
-      )}
-        </>
       )}
 
       {/* FOOTER SECTION */}

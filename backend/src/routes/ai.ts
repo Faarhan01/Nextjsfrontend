@@ -5,7 +5,7 @@ import {
   handleGenerateStudio, 
   handleConciergeReply, 
   handleEnhanceProductCopy 
-} from '../controllers/aiController.js';
+} from '../controllers/aiController.ts';
 
 const router = Router();
 

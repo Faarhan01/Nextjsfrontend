@@ -14,6 +14,7 @@ import SEOInspectorModal from '../admin/SEOInspectorModal';
 import { ToastContainer } from '../ui/Toast';
 import { Sparkles, SlidersHorizontal } from 'lucide-react';
 import { getProductUrl } from '../../utils/seoUtils';
+import { MedusaStatusBadge } from '../medusa/MedusaStatusBadge';
 
 export const StorefrontLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const pathname = usePathname();
@@ -133,6 +134,9 @@ export const StorefrontLayout: React.FC<{ children: React.ReactNode }> = ({ chil
 
       {/* Interactive Toast Notifications */}
       <ToastContainer toasts={toasts} onDismiss={handleDismissToast} />
+
+      {/* MedusaJS Status & Controls */}
+      <MedusaStatusBadge />
 
       {/* Floating AI Concierge Trigger Button */}
       {!isAdminPage && (

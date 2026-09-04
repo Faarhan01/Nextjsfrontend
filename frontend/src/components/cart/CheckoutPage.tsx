@@ -26,7 +26,6 @@ import {
 import { CartItem, UserProfile } from '../../types';
 import { formatCurrency } from '../../utils/pricing';
 import { apiClient } from '../../services/apiClient';
-import { payload } from '../../services/payloadClient';
 import { trackBeginCheckout, trackPurchase } from '../../utils/gtm';
 
 interface CheckoutPageProps {
@@ -219,44 +218,7 @@ export default function CheckoutPage({
         paymentMethod: paymentMethodLabel
       });
 
-      // Synchronize with Payload CMS 3.88 E-Commerce Orders Collection
-      let payloadOrderNumber = '';
-      try {
-        const pOrder = await payload.orders.create({
-          customer: {
-            id: currentUser?.id,
-            name: `${firstName} ${lastName}`,
-            email: email,
-            phone: phone
-          },
-          items: cart.map(c => ({
-            id: c.id,
-            quantity: c.quantity
-          })),
-          shippingAddress: {
-            id: `addr-${Date.now()}`,
-            name: `${firstName} ${lastName}`,
-            street: address,
-            apartment: apartment || undefined,
-            city: city,
-            state: stateProv,
-            zip: zipCode,
-            country: country,
-            phone: phone
-          },
-          couponCode: appliedPromoName || undefined,
-          paymentMethod: paymentMethodLabel,
-          shippingType: shippingMethod === 'express' ? 'express' : 'standard',
-          notes: deliveryInstructions || undefined
-        });
-        if (pOrder?.doc?.orderNumber) {
-          payloadOrderNumber = pOrder.doc.orderNumber;
-        }
-      } catch (payloadErr) {
-        console.warn('Payload CMS order sync notice:', payloadErr);
-      }
-
-      const orderId = payloadOrderNumber || response?.order?.id || `LX-${Math.floor(10000 + Math.random() * 90000)}`;
+      const orderId = response?.order?.id || `LX-${Math.floor(10000 + Math.random() * 90000)}`;
 
       const newOrder = {
         id: orderId,

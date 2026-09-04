@@ -4,8 +4,8 @@ import {
   handleLogin, 
   handleGetMe, 
   handleGetAllUsers 
-} from '../controllers/authController.js';
-import { requireAuth, requireAdmin } from '../middleware/authMiddleware.js';
+} from '../controllers/authController.ts';
+import { requireAuth, requireAdmin } from '../middleware/authMiddleware.ts';
 
 const router = Router();
 

@@ -128,7 +128,7 @@ export default function AuthModal({
       demoUser = {
         id: 'usr-admin-01',
         name: 'Alexander Vance',
-        email: 'admin@luxestore.com',
+        email: 'admin@mrbulk.co.za',
         role: 'admin',
         avatarUrl: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=200',
         status: 'vip',
@@ -353,7 +353,7 @@ export default function AuthModal({
                     <input
                       type="email"
                       required
-                      placeholder="e.g. admin@luxestore.com or customer@example.com"
+                      placeholder="e.g. admin@mrbulk.co.za or customer@example.com"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       className="w-full bg-slate-50 border border-slate-200 rounded-xl pl-9 pr-3.5 py-2.5 text-xs focus:outline-none focus:border-blue-500 font-medium"

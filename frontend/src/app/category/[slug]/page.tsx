@@ -1,10 +1,9 @@
 'use client';
 
-import React, { Suspense } from 'react';
+import React from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { useStore } from '../../../context/StoreContext';
 import CategoryDetailPage from '../../../components/products/CategoryDetailPage';
-import { CategoryDetailPageSkeleton } from '../../../components/ui/PageSkeleton';
 import { getProductUrl, getCategoryUrl, formatCategoryName } from '../../../utils/seoUtils';
 
 function CategoryDetailContent() {

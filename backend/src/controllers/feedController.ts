@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getProducts, ProductItem } from '../services/productStore.js';
+import { getProducts, ProductItem } from '../services/productStore.ts';
 
 // Escape XML special characters
 function escapeXml(unsafe: string | number | undefined | null): string {

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { Suspense } from 'react';
+import React from 'react';
 import { useParams, useRouter } from 'next/navigation';
 import { useStore } from '../../../context/StoreContext';
 import { StorefrontView } from '../../../components/seller/StorefrontView';
@@ -68,13 +68,5 @@ function StorefrontContent() {
 }
 
 export default function StorefrontPage() {
-  return (
-    <Suspense fallback={
-      <div className="min-h-screen bg-slate-50 dark:bg-slate-950 flex items-center justify-center">
-        <div className="animate-spin w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full" />
-      </div>
-    }>
-      <StorefrontContent />
-    </Suspense>
-  );
+  return <StorefrontContent />;
 }

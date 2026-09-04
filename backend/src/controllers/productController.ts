@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { getProducts, getProductById, saveProduct, deleteProduct, getCategories } from '../services/productStore.js';
+import { getProducts, getProductById, saveProduct, deleteProduct, getCategories } from '../services/productStore.ts';
 
 export function handleGetProducts(req: Request, res: Response): void {
   try {

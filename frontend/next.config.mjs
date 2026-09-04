@@ -12,6 +12,15 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  serverExternalPackages: [
+    '@esbuild/win32-x64',
+    '@libsql/client',
+    '@libsql/hrana-client',
+    '@libsql/isomorphic-fetch',
+    '@libsql/isomorphic-ws',
+    '@libsql/win32-x64-msvc',
+    'drizzle-kit',
+  ],
   experimental: {
     optimizePackageImports: ['lucide-react', 'motion', 'recharts'],
   },

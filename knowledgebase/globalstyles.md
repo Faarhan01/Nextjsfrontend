@@ -6,7 +6,7 @@ This document provides a comprehensive reference for the global styling architec
 
 ## 1. Core Design Philosophy & Principles
 
-The storefront adheres to modern enterprise e-commerce standards (inspired by Payload CMS and leading design systems):
+The storefront adheres to modern enterprise e-commerce standards and leading design systems:
 - **Predictable Token Hierarchy**: All colors, surfaces, borders, and shadows are defined as semantic CSS custom properties in `:root` and `.dark`.
 - **High Legibility & Accessible Contrast**: Adheres strictly to WCAG AA guidelines with high-contrast text against surfaces in both light and dark themes.
 - **Mathematical Geometry & Radii Scaling**: Consistent outer and inner radii math (`Outer Radius - Padding = Inner Radius`) ensuring crisp container aesthetics.

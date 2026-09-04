@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import { extractAndScanUrl } from '../services/urlScannerService.js';
+import { extractAndScanUrl } from '../services/urlScannerService.ts';
 
 export async function handleExtractUrl(req: Request, res: Response): Promise<void> {
   try {

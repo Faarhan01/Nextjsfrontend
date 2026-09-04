@@ -28,7 +28,6 @@ import CategoryProductCarousel from '../components/products/CategoryProductCarou
 import { TechElectronicsShowcase } from '../components/products/TechElectronicsShowcase';
 import { HomeLivingShowcase } from '../components/products/HomeLivingShowcase';
 import { TestimonialsSection } from '../components/layout/TestimonialsSection';
-import { HomePageSkeleton } from '../components/ui/PageSkeleton';
 import { getProductPrices, formatCurrency } from '../utils/pricing';
 import { getProductRatingDetails } from '../utils/productRating';
 import { getProductUrl, getCategoryUrl, getShopUrl } from '../utils/seoUtils';

@@ -43,7 +43,7 @@ import { MOCK_CATEGORIES } from '../../data/presets';
 import { getProductSaleDetails } from '../../utils/productUtils';
 import { getProductUrl, getCategoryUrl, getShopUrl, updateSEOMetadata } from '../../utils/seoUtils';
 import { getProductRatingDetails, DEFAULT_STORE_REVIEWS } from '../../utils/productRating';
-import { PayloadReviews } from '../payload/PayloadReviews';
+import { ProductReviews } from './ProductReviews';
 import { VendorOffersBuyBox } from './VendorOffersBuyBox';
 import { useStore } from '../../context/StoreContext';
 
@@ -1318,7 +1318,7 @@ export default function ProductDetailPage({
             </div>
           </div>
 
-          <PayloadReviews productId={product.id} productTitle={product.name} themeColor={themeColor} />
+          <ProductReviews productId={product.id} productTitle={product.name} themeColor={themeColor} />
         </div>
 
         {/* Related Products Carousel Showcase */}
