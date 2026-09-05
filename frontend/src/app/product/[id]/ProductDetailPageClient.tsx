@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import ProductDetailPage from '../../../components/products/ProductDetailPage';
+import ProductDetailPage from '@modules/products/templates/product-detail-page';
 
 export default function ProductDetailPageClient({
   product,

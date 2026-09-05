@@ -3,7 +3,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore } from '../../../context/StoreContext';
-import CheckoutPage from '../../../components/cart/CheckoutPage';
+import CheckoutPage from '@modules/checkout/templates/checkout-page';
 
 export default function CheckoutPageClient() {
   const router = useRouter();

@@ -3,7 +3,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore } from '../../context/StoreContext';
-import FaqPage from '../../components/pages/FaqPage';
+import FaqPage from '@modules/content/templates/faq-page';
 
 export default function FaqPageClient() {
   const router = useRouter();

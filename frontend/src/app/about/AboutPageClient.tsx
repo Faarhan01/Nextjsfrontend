@@ -3,7 +3,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore } from '../../context/StoreContext';
-import AboutPage from '../../components/pages/AboutPage';
+import AboutPage from '@modules/content/templates/about-page';
 
 export default function AboutPageClient() {
   const router = useRouter();

@@ -3,7 +3,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore } from '../../context/StoreContext';
-import ReturnsPolicyPage from '../../components/pages/ReturnsPolicyPage';
+import ReturnsPolicyPage from '@modules/content/templates/returns-policy-page';
 
 export default function ReturnsPolicyPageClient() {
   const router = useRouter();

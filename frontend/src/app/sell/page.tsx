@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import VendorOnboardingPage from './VendorOnboardingClient';
+import VendorOnboardingPage from '@modules/seller/templates/vendor-onboarding-client';
 
 export const metadata: Metadata = {
   title: 'Sell on Mrbulk | Multi-Vendor Partner Program',

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import CategoriesPage from '../../components/products/CategoriesPage';
+import CategoriesPage from '@modules/products/templates/categories-page';
 import { getCategoryUrl } from '../../utils/seoUtils';
 
 export default function CategoriesPageClient({

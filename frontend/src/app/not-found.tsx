@@ -3,7 +3,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore } from '../context/StoreContext';
-import { NotFoundPage } from '../components/pages/NotFoundPage';
+import { NotFoundPage } from '@modules/content/templates/not-not-found-page';
 import { getProductUrl, getCategoryUrl } from '../utils/seoUtils';
 
 export default function NotFound() {

@@ -31,7 +31,7 @@ import {
   BarChart3,
   ArrowRight
 } from 'lucide-react';
-import { SafeImage } from '../ui/SafeImage';
+import { SafeImage } from '@modules/common/components/safe-image';
 import { MockProduct } from '../../types';
 
 interface GoogleMarketingHubProps {

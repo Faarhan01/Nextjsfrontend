@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { getHomeData } from '../lib/data/home';
-import HomePageClient from './home/client';
+import HomePageClient from '@modules/home/templates/home-page-client';
 
 export const metadata: Metadata = {
   title: 'Mrbulk — Online E-Commerce & Marketplace South Africa',

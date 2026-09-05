@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import ShopPage from '../../components/products/ShopPage';
+import ShopPage from '@modules/products/templates/shop-page';
 import { getProductUrl, formatCategoryName, decodeAndCleanText } from '../../utils/seoUtils';
 
 export default function ShopPageClient({

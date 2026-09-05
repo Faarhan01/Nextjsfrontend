@@ -3,7 +3,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore } from '../../context/StoreContext';
-import MyAccountPage from '../../components/account/MyAccountPage';
+import MyAccountPage from '@modules/account/templates/my-account-page';
 
 export default function AccountPageClient() {
   const router = useRouter();

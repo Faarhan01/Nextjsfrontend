@@ -3,8 +3,8 @@ import Script from 'next/script';
 import '../index.css';
 import { StoreProvider } from '../context/StoreContext';
 import { AppProviders } from '../providers/app-providers';
-import { StorefrontLayout } from '../components/layout/StorefrontLayout';
-import ErrorBoundary from '../components/ui/ErrorBoundary';
+import { StorefrontLayout } from '@modules/layout/templates/storefront-layout';
+import ErrorBoundary from '@modules/common/components/error-boundary';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
 

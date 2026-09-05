@@ -3,7 +3,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore } from '../../context/StoreContext';
-import CartPage from '../../components/cart/CartPage';
+import CartPage from '@modules/cart/templates/cart-page';
 
 export default function CartPageClient() {
   const router = useRouter();

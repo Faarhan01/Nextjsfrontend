@@ -3,7 +3,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore } from '../../context/StoreContext';
-import PrivacyPolicyPage from '../../components/pages/PrivacyPolicyPage';
+import PrivacyPolicyPage from '@modules/content/templates/privacy-policy-page';
 
 export default function PrivacyPolicyPageClient() {
   const router = useRouter();

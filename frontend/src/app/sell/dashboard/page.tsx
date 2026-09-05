@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import { SellerDashboard } from '../../../components/seller/SellerDashboard';
+import { SellerDashboard } from '@modules/seller/templates/seller-dashboard';
 
 export const metadata: Metadata = {
   title: 'Seller Portal & Dashboard | Mrbulk South Africa',

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { SafeImage } from '../ui/SafeImage';
+import { SafeImage } from '@modules/common/components/safe-image';
 import { 
   Users, 
   TrendingUp, 

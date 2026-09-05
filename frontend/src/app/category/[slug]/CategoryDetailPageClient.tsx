@@ -3,7 +3,7 @@
 import React from 'react';
 import { useRouter, useParams } from 'next/navigation';
 import { useStore } from '../../../context/StoreContext';
-import CategoryDetailPage from '../../../components/products/CategoryDetailPage';
+import CategoryDetailPage from '@modules/products/templates/category-detail-page';
 import { getProductUrl, getCategoryUrl, formatCategoryName } from '../../../utils/seoUtils';
 
 interface CategoryDetailPageClientProps {

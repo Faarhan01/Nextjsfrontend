@@ -1,7 +1,7 @@
 'use client';
 
 import { useToastContext } from './toast-provider';
-import type { ToastMessage } from '../components/ui/Toast';
+import type { ToastMessage } from '@modules/common/components/toast';
 
 export interface UseToastReturn {
   toasts: ToastMessage[];

@@ -3,7 +3,7 @@
 import React from 'react';
 import { useRouter } from 'next/navigation';
 import { useStore } from '../../context/StoreContext';
-import MarketplaceSellerPolicyPage from '../../components/pages/MarketplaceSellerPolicyPage';
+import MarketplaceSellerPolicyPage from '@modules/content/templates/marketplace-seller-policy-page';
 
 export default function MarketplaceSellerPolicyPageClient() {
   const router = useRouter();
