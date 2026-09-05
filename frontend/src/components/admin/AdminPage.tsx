@@ -13,12 +13,7 @@ import {
   ArrowUpRight, 
   Plus, 
   Download, 
-  MoreVertical, 
-  ShieldCheck, 
-  UserCheck, 
-  UserX, 
   Crown, 
-  BarChart3, 
   Calendar, 
   ArrowLeft, 
   Mail, 
@@ -31,7 +26,6 @@ import {
   CheckCircle2, 
   AlertCircle, 
   Sparkles,
-  PieChart as PieIcon,
   Activity,
   UserPlus,
   Server,
@@ -40,18 +34,14 @@ import {
   Truck,
   Globe,
   Sliders,
-  Percent,
   Check,
   Tag,
   Edit3,
   Trash2,
-  Layers,
-  Bookmark,
   Image as ImageIcon,
   FolderTree,
   Building2,
   X,
-  PlusCircle,
   Copy,
   Star,
   Upload,
@@ -64,32 +54,22 @@ import {
   CreditCard,
   Bell,
   Zap,
-  ThumbsUp,
   Gift,
   Printer,
   FileText,
   Edit,
   ExternalLink,
   Save,
-  FileSpreadsheet,
   Minus,
   ShieldAlert,
-  Shield,
   Lock,
   Terminal,
   Ban,
   AlertTriangle,
-  Key,
-  Cpu,
-  Bug,
-  Megaphone,
-  Send,
-  KeyRound,
   EyeOff,
   Layout,
   SendHorizontal,
   Inbox,
-  FileCode,
   Store
 } from 'lucide-react';
 import { 
@@ -653,11 +633,11 @@ export default function AdminPage({
   getThemeClasses,
   onNavigate,
   showToast,
-  currentUser,
-  onOpenWooConnector,
+  _currentUser,
+  _onOpenWooConnector,
   onOpenSeoInspector,
   onOpenExportNextjs,
-  isConnectedToWoo,
+  _isConnectedToWoo,
   freeShippingThreshold = 150,
   onUpdateFreeShippingThreshold,
   logoText = 'Mrbulk',
@@ -783,7 +763,6 @@ export default function AdminPage({
 
   // Security & Threat Center State
   const [wafStrictMode, setWafStrictMode] = useState(true);
-  const [securitySearchQuery, setSecuritySearchQuery] = useState('');
   
   // 1. Bad Words State
   const [badWordsList, setBadWordsList] = useState([
@@ -806,7 +785,7 @@ export default function AdminPage({
   ]);
 
   // 2. Hack Attempts (WAF Logs) State
-  const [hackAttemptsList, setHackAttemptsList] = useState([
+  const [hackAttemptsList] = useState([
     { id: 'hk-101', timestamp: 'Today at 02:14:02', attackType: 'SQL Injection (SQLi)', targetUrl: "/api/products?id=1' OR 1=1--", originIp: '185.220.101.5', country: 'Ukraine 🇺🇦', status: 'Blocked by WAF', severity: 'Critical', userAgent: 'Mozilla/5.0 (sqlmap/1.6.12#stable)' },
     { id: 'hk-102', timestamp: 'Today at 01:52:19', attackType: 'Cross-Site Scripting (XSS)', targetUrl: '/admin/reviews?title=<script>document.cookie</script>', originIp: '194.26.29.112', country: 'Russia 🇷🇺', status: 'Blocked by WAF', severity: 'High', userAgent: 'Python-urllib/3.10' },
     { id: 'hk-103', timestamp: 'Yesterday at 23:40:11', attackType: 'Directory Traversal Payload', targetUrl: '/api/download?file=../../../../etc/passwd', originIp: '45.154.255.87', country: 'Netherlands 🇳🇱', status: 'Blocked by WAF', severity: 'Critical', userAgent: 'Nmap Scripting Engine' },
@@ -864,14 +843,14 @@ export default function AdminPage({
     try {
       const saved = localStorage.getItem('luxestore_admin_reviews');
       if (saved) return JSON.parse(saved);
-    } catch (e) {}
+    } catch {}
     return INITIAL_REVIEWS;
   });
 
   useEffect(() => {
     try {
       localStorage.setItem('luxestore_admin_reviews', JSON.stringify(reviewsList));
-    } catch (e) {}
+    } catch {}
   }, [reviewsList]);
 
   const [reviewSearch, setReviewSearch] = useState('');
@@ -894,14 +873,14 @@ export default function AdminPage({
     try {
       const saved = localStorage.getItem('luxestore_admin_coupons');
       if (saved) return JSON.parse(saved);
-    } catch (e) {}
+    } catch {}
     return INITIAL_COUPONS;
   });
 
   useEffect(() => {
     try {
       localStorage.setItem('luxestore_admin_coupons', JSON.stringify(couponsList));
-    } catch (e) {}
+    } catch {}
   }, [couponsList]);
 
   const [couponSearch, setCouponSearch] = useState('');
@@ -923,7 +902,7 @@ export default function AdminPage({
     try {
       const saved = localStorage.getItem('luxestore_admin_gateways');
       if (saved) return JSON.parse(saved);
-    } catch (e) {}
+    } catch {}
     return {
       stripe: true,
       bankPayment: true,
@@ -937,7 +916,7 @@ export default function AdminPage({
   useEffect(() => {
     try {
       localStorage.setItem('luxestore_admin_gateways', JSON.stringify(paymentGateways));
-    } catch (e) {}
+    } catch {}
   }, [paymentGateways]);
 
   // Bank Details State for EFT Transfers
@@ -945,7 +924,7 @@ export default function AdminPage({
     try {
       const saved = localStorage.getItem('mrbulk_admin_bank_details') || localStorage.getItem('luxestore_admin_bank_details');
       if (saved) return JSON.parse(saved);
-    } catch (e) {}
+    } catch {}
     return {
       bankName: 'First National Bank (FNB)',
       accountName: 'Mr Cheap General Dealer ZA (Mrbulk)',
@@ -959,14 +938,14 @@ export default function AdminPage({
   useEffect(() => {
     try {
       localStorage.setItem('mrbulk_admin_bank_details', JSON.stringify(bankDetails));
-    } catch (e) {}
+    } catch {}
   }, [bankDetails]);
 
   const [emailNotifications, setEmailNotifications] = useState(() => {
     try {
       const saved = localStorage.getItem('luxestore_admin_email_notifs');
       if (saved) return JSON.parse(saved);
-    } catch (e) {}
+    } catch {}
     return {
       orderConfirmation: true,
       dispatchTracking: true,
@@ -978,7 +957,7 @@ export default function AdminPage({
   useEffect(() => {
     try {
       localStorage.setItem('luxestore_admin_email_notifs', JSON.stringify(emailNotifications));
-    } catch (e) {}
+    } catch {}
   }, [emailNotifications]);
 
   // Store Orders Management State
@@ -986,14 +965,14 @@ export default function AdminPage({
     try {
       const saved = localStorage.getItem('luxestore_admin_orders');
       if (saved) return JSON.parse(saved);
-    } catch (e) {}
+    } catch {}
     return INITIAL_ORDERS;
   });
 
   useEffect(() => {
     try {
       localStorage.setItem('luxestore_admin_orders', JSON.stringify(ordersList));
-    } catch (e) {}
+    } catch {}
   }, [ordersList]);
   const [orderSearch, setOrderSearch] = useState('');
   const [orderStatusFilter, setOrderStatusFilter] = useState<'all' | 'Pending' | 'Processing' | 'Shipped' | 'Delivered' | 'Cancelled'>('all');
@@ -1771,17 +1750,6 @@ export default function AdminPage({
     handleSetProducts(updatedList);
   };
 
-  const handleDuplicateProduct = (prod: MockProduct) => {
-    const duplicated: MockProduct = {
-      ...prod,
-      id: `prod-${Date.now().toString().slice(-4)}`,
-      name: `${prod.name} (Copy)`,
-      url: `/product/${prod.name.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-copy`
-    };
-    handleSetProducts([duplicated, ...catalogProducts]);
-    showToast(`Duplicated "${prod.name}"`);
-  };
-
   const handleDeleteProduct = (id: string, name: string) => {
     if (confirm(`Are you sure you want to delete "${name}"?`)) {
       handleSetProducts(catalogProducts.filter(p => p.id !== id));
@@ -1924,7 +1892,7 @@ export default function AdminPage({
         const parsed = JSON.parse(saved);
         if (parsed.storeCurrency) return parsed.storeCurrency;
       }
-    } catch (e) {}
+    } catch {}
     return 'USD ($)';
   });
   const [defaultTaxRate, setDefaultTaxRate] = useState<number>(() => {
@@ -1934,7 +1902,7 @@ export default function AdminPage({
         const parsed = JSON.parse(saved);
         if (parsed.defaultTaxRate !== undefined) return parsed.defaultTaxRate;
       }
-    } catch (e) {}
+    } catch {}
     return 8.0;
   });
   const [storeSupportEmail, setStoreSupportEmail] = useState<string>(() => {
@@ -1944,7 +1912,7 @@ export default function AdminPage({
         const parsed = JSON.parse(saved);
         if (parsed.storeSupportEmail) return parsed.storeSupportEmail;
       }
-    } catch (e) {}
+    } catch {}
     return 'support@mrbulk.co.za';
   });
   const [enableAnnouncement, setEnableAnnouncement] = useState<boolean>(() => {
@@ -1954,7 +1922,7 @@ export default function AdminPage({
         const parsed = JSON.parse(saved);
         if (parsed.enableAnnouncement !== undefined) return parsed.enableAnnouncement;
       }
-    } catch (e) {}
+    } catch {}
     return true;
   });
   const [announcementText, setAnnouncementText] = useState<string>(() => {
@@ -1964,7 +1932,7 @@ export default function AdminPage({
         const parsed = JSON.parse(saved);
         if (parsed.announcementText) return parsed.announcementText;
       }
-    } catch (e) {}
+    } catch {}
     return '✨ Complimentary Worldwide Express Shipping on Orders Over $' + freeShippingThreshold;
   });
 
@@ -1978,7 +1946,7 @@ export default function AdminPage({
         announcementText
       };
       localStorage.setItem('luxestore_admin_site_settings', JSON.stringify(siteSettings));
-    } catch (e) {}
+    } catch {}
   }, [storeCurrency, defaultTaxRate, storeSupportEmail, enableAnnouncement, announcementText]);
 
   // Google Tag Manager ID state for Store Admin Settings
@@ -2001,18 +1969,18 @@ export default function AdminPage({
     try {
       const saved = localStorage.getItem('luxestore_admin_customers');
       if (saved) return JSON.parse(saved);
-    } catch (e) {}
+    } catch {}
     return INITIAL_CUSTOMERS;
   });
 
   useEffect(() => {
     try {
       localStorage.setItem('luxestore_admin_customers', JSON.stringify(customers));
-    } catch (e) {}
+    } catch {}
   }, [customers]);
   const [searchQuery, setSearchQuery] = useState('');
   const [statusFilter, setStatusFilter] = useState<'all' | 'active' | 'vip' | 'inactive'>('all');
-  const [sortBy, setSortBy] = useState<'spent' | 'orders' | 'joined'>('spent');
+  const [sortBy] = useState<'spent' | 'orders' | 'joined'>('spent');
   const [selectedCustomer, setSelectedCustomer] = useState<UserProfile | null>(null);
   
   // Add Customer Modal

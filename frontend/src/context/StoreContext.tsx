@@ -1,11 +1,9 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useRef, useCallback, ReactNode } from 'react';
-import { useRouter, usePathname, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import {
   MockWooProduct,
-  MockCategory,
-  MockBrand,
   SlideConfig,
   SliderSettings,
   CategoryCarouselSettings,
@@ -18,8 +16,7 @@ import {
   SellerAccount,
   VendorOffer,
   ProductCondition,
-  VendorProductSubmission,
-  ProductSubmissionStatus
+  VendorProductSubmission
 } from '../types';
 import {
   MOCK_WOO_PRODUCTS,
@@ -34,9 +31,8 @@ import {
   MOCK_USERS
 } from '../data/presets';
 import { ToastMessage } from '../components/ui/Toast';
-import { initGTM, trackViewItem, trackAddToCart, trackBeginCheckout } from '../utils/gtm';
+import { initGTM, trackViewItem, trackAddToCart } from '../utils/gtm';
 import { getProductPrices, getCartItemUnitPrice, parsePriceNumber } from '../utils/pricing';
-import { slugify, deslugify, getProductUrl, getCategoryUrl, getBrandUrl, getShopUrl } from '../utils/seoUtils';
 
 export interface ThemeClasses {
   bg: string;
@@ -287,7 +283,6 @@ const sanitizeMerchantId = (id?: string): string => {
 
 export const StoreProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
-  const pathname = usePathname();
   const isLoadedRef = useRef<boolean>(false);
 
   // Storefront Branding and Customizer Settings State
@@ -325,7 +320,7 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
           }, 80);
         }
         localStorage.setItem('luxestore_dark_mode', nextVal ? 'true' : 'false');
-      } catch (e) {}
+      } catch {}
       return nextVal;
     });
   }, []);
@@ -451,7 +446,7 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) return parsed;
       }
-    } catch (e) {}
+    } catch {}
     return [];
   };
 
@@ -465,7 +460,7 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
         const parsed = JSON.parse(saved);
         if (Array.isArray(parsed)) return parsed;
       }
-    } catch (e) {}
+    } catch {}
 
     let initialProdIds = ['prod-1', 'prod-4'];
     if (user.id === 'usr-vip-02') initialProdIds = ['prod-2', 'prod-5'];
@@ -513,7 +508,7 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
         try {
           localStorage.setItem('mrbulk_logo_text', 'Mrbulk');
           localStorage.removeItem('luxestore_logo_text');
-        } catch (e) {}
+        } catch {}
       }
 
       const savedDarkMode = localStorage.getItem('mrbulk_dark_mode') ?? localStorage.getItem('luxestore_dark_mode');
@@ -650,7 +645,7 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
       localStorage.setItem('mrbulk_vendor_applications', JSON.stringify(vendorApplications));
       localStorage.setItem('mrbulk_seller_accounts', JSON.stringify(sellerAccounts));
       localStorage.setItem('mrbulk_product_submissions', JSON.stringify(productSubmissions));
-    } catch (e) {}
+    } catch {}
   }, [logoText, themeColor, freeShippingThreshold, productsSettings, products, categories, brands, slides, recentlyViewedIds, vendorApplications, sellerAccounts, productSubmissions]);
 
   // Dynamic CSS variables sync for theme color changes
@@ -679,7 +674,7 @@ export const StoreProvider = ({ children }: { children: ReactNode }) => {
         localStorage.setItem('mrbulk_user', 'null');
         localStorage.setItem('mrbulk_cart_guest', JSON.stringify(cart));
       }
-    } catch (e) {}
+    } catch {}
   }, [currentUser, cart, customWishlists]);
 
   // Track product view helper

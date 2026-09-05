@@ -5,13 +5,13 @@ import { SlideConfig, SliderSettings, CategoryCarouselSettings, BrandCarouselSet
  */
 export function generateNextjsPageCode(
   slides: SlideConfig[], 
-  settings: SliderSettings,
-  catSettings?: CategoryCarouselSettings,
-  catList?: MockCategory[],
-  headerSettings?: HeaderSettings,
-  brandSettings?: BrandCarouselSettings,
-  brandList?: MockBrand[],
-  productList?: MockProduct[]
+  _settings: SliderSettings,
+  _catSettings?: CategoryCarouselSettings,
+  _catList?: MockCategory[],
+  _headerSettings?: HeaderSettings,
+  _brandSettings?: BrandCarouselSettings,
+  _brandList?: MockBrand[],
+  _productList?: MockProduct[]
 ): string {
   const storeName = headerSettings?.logoText || "Mrbulk";
   
@@ -140,7 +140,7 @@ export async function fetchCatalog(endpoint: string) {
 /**
  * Generates CSS code for legacy compatibility
  */
-export function generateCSSCode(settings: SliderSettings): string {
+export function generateCSSCode(_settings: SliderSettings): string {
   return `/* Next.js 15 Storefront Custom Styling */
 :root {
   --store-accent: #f59e0b;
