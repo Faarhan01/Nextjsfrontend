@@ -1,6 +1,6 @@
 'use client';
 
-import { useStore } from '../context/StoreContext';
+import { useCartContext } from './cart-provider';
 import type { CartItem, VendorOffer } from '../types';
 
 export interface UseCartReturn {
@@ -15,15 +15,17 @@ export interface UseCartReturn {
 }
 
 export function useCart(): UseCartReturn {
-  const store = useStore();
+  const ctx = useCartContext();
   return {
-    cart: store.cart,
-    cartCount: store.cartCount,
-    cartSubtotal: store.cartSubtotal,
-    addToCart: store.handleAddToCart,
-    adjustQuantity: store.handleAdjustQuantity,
-    removeFromCart: store.handleRemoveFromCart,
-    clearCart: store.handleClearCart,
-    setCart: store.setCart
+    cart: ctx.cart,
+    cartCount: ctx.cartCount,
+    cartSubtotal: ctx.cartSubtotal,
+    addToCart: ctx.addToCart,
+    adjustQuantity: ctx.adjustQuantity,
+    removeFromCart: ctx.removeFromCart,
+    clearCart: ctx.clearCart,
+    setCart: ctx.setCart
   };
 }
+
+export { CartProvider, useCartContext } from './cart-provider';

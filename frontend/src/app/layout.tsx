@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
 import '../index.css';
 import { StoreProvider } from '../context/StoreContext';
+import { AppProviders } from '../providers/app-providers';
 import { StorefrontLayout } from '../components/layout/StorefrontLayout';
 import ErrorBoundary from '../components/ui/ErrorBoundary';
 
@@ -189,11 +190,13 @@ export default function RootLayout({
             style={{ display: 'none', visibility: 'hidden' }}
           />
         </noscript>
-        <StoreProvider>
-          <ErrorBoundary>
-            <StorefrontLayout>{children}</StorefrontLayout>
-          </ErrorBoundary>
-        </StoreProvider>
+        <AppProviders>
+          <StoreProvider>
+            <ErrorBoundary>
+              <StorefrontLayout>{children}</StorefrontLayout>
+            </ErrorBoundary>
+          </StoreProvider>
+        </AppProviders>
       </body>
     </html>
   );

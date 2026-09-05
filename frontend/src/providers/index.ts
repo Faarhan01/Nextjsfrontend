@@ -1,11 +1,15 @@
-export { useTheme } from './theme';
-export type { UseThemeReturn } from './theme';
+export { useTheme, getThemeClasses, ThemeProvider, useThemeContext } from './theme';
+export type { ThemeClasses, ThemeColor } from './theme';
 
-export { useToast } from './toast';
-export type { UseToastReturn } from './toast';
+export { useToast, ToastProvider, useToastContext } from './toast';
 
-export { useCart } from './cart';
-export type { UseCartReturn } from './cart';
+export { useCart, CartProvider, useCartContext } from './cart';
 
 export { useRegion } from './region';
-export type { UseRegionReturn } from './region';
+
+export { useWishlists, WishlistProvider, useWishlistContext } from './wishlist';
+
+export { useRecentlyViewed, RecentlyViewedProvider, useRecentlyViewedContext } from './recently-viewed';
+
+export { useAuth, AuthProvider, useAuthContext } from './auth';
+export type { UseAuthReturn } from './auth';
