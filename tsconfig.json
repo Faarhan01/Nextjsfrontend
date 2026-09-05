@@ -17,10 +17,12 @@
     "jsx": "react-jsx",
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@lib/*": ["./src/lib/*"],
-      "@modules/*": ["./src/modules/*"],
-      "@components/*": ["./src/components/*"]
+      "@/*": ["./frontend/src/*"],
+      "@frontend/*": ["./frontend/src/*"],
+      "@backend/*": ["./backend/src/*"],
+      "@lib/*": ["./frontend/src/lib/*"],
+      "@modules/*": ["./frontend/src/modules/*"],
+      "@components/*": ["./frontend/src/components/*"]
     },
     "allowImportingTsExtensions": true,
     "noEmit": true,

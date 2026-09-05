@@ -1,0 +1,150 @@
+'use client';
+
+import React from 'react';
+import { usePathname, useRouter } from 'next/navigation';
+import { useStore } from '../../context/StoreContext';
+import { StoreHeader } from './StoreHeader';
+import { StoreFooter } from './StoreFooter';
+import { CartDrawer } from '../cart/CartDrawer';
+import QuickViewModal from '../products/QuickViewModal';
+import AuthModal from '../auth/AuthModal';
+import AiConciergeModal from '../ai/AiConciergeModal';
+import NextjsExporterModal from '../admin/NextjsExporterModal';
+import SEOInspectorModal from '../admin/SEOInspectorModal';
+import { ToastContainer } from '../ui/Toast';
+import { Sparkles } from 'lucide-react';
+import { getProductUrl } from '../../utils/seoUtils';
+
+export const StorefrontLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const pathname = usePathname();
+  const router = useRouter();
+  const {
+    currentTheme,
+    themeColor,
+    getThemeClasses,
+    logoText,
+    toasts,
+    handleDismissToast,
+    authModalOpen,
+    setAuthModalOpen,
+    handleSignIn,
+    quickViewOpen,
+    setQuickViewOpen,
+    quickViewProduct,
+    handleAddToCart,
+    handleToggleWishlist,
+    wishlist,
+    aiConciergeOpen,
+    setAiConciergeOpen,
+    products,
+    cart,
+    nextjsModalOpen,
+    setNextjsModalOpen,
+    seoModalOpen,
+    setSeoModalOpen,
+    currentUser,
+    setEditorOpen
+  } = useStore();
+
+  const isAdminPage = pathname.startsWith('/admin');
+
+  return (
+    <div className="bg-white dark:bg-slate-950 min-h-screen text-slate-800 dark:text-slate-100 flex flex-col font-sans relative overflow-x-clip">
+      {/* Dynamic Scoped Styles */}
+      <style>{`
+        ::selection {
+          background-color: ${currentTheme.primaryHex};
+          color: #ffffff;
+        }
+        ::-moz-selection {
+          background-color: ${currentTheme.primaryHex};
+          color: #ffffff;
+        }
+      `}</style>
+
+      {/* Header */}
+      <StoreHeader />
+
+      {/* Main Content Area */}
+      <main className="flex-1 w-full flex flex-col">{children}</main>
+
+      {/* Footer */}
+      <StoreFooter />
+
+      {/* Cart Drawer */}
+      <CartDrawer />
+
+      {/* Quick View Modal */}
+      <QuickViewModal
+        isOpen={quickViewOpen}
+        onClose={() => setQuickViewOpen(false)}
+        product={quickViewProduct}
+        onAddToCart={handleAddToCart}
+        onToggleWishlist={handleToggleWishlist}
+        isWishlisted={quickViewProduct ? wishlist.includes(quickViewProduct.id) : false}
+        onViewFullDetails={(productId) => {
+          setQuickViewOpen(false);
+          router.push(getProductUrl(productId));
+        }}
+        themeColor={themeColor}
+        getThemeClasses={getThemeClasses}
+      />
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={authModalOpen}
+        onClose={() => setAuthModalOpen(false)}
+        onSignIn={handleSignIn}
+        themeColor={themeColor}
+        getThemeClasses={getThemeClasses}
+        showToast={() => {}}
+      />
+
+      {/* AI Concierge Modal */}
+      <AiConciergeModal
+        isOpen={aiConciergeOpen}
+        onClose={() => setAiConciergeOpen(false)}
+        catalogProducts={products}
+        cartItems={cart}
+        onSelectProduct={(prod) => {
+          router.push(getProductUrl(prod.id, prod.name));
+        }}
+        onAddToCart={(prod) => {
+          handleAddToCart({ id: prod.id, name: prod.name, price: prod.price, imageUrl: prod.imageUrl });
+        }}
+        currentThemeBg={currentTheme.bg}
+      />
+
+      {/* Next.js Exporter Modal */}
+      <NextjsExporterModal
+        isOpen={nextjsModalOpen}
+        onClose={() => setNextjsModalOpen(false)}
+        showToast={() => {}}
+        storeName={logoText}
+      />
+
+      {/* SEO Inspector Modal */}
+      <SEOInspectorModal
+        isOpen={seoModalOpen}
+        onClose={() => setSeoModalOpen(false)}
+        showToast={() => {}}
+        storeName={logoText}
+      />
+
+      {/* Interactive Toast Notifications */}
+      <ToastContainer toasts={toasts} onDismiss={handleDismissToast} />
+
+      {/* Floating AI Concierge Trigger Button */}
+      {!isAdminPage && (
+        <button
+          onClick={() => setAiConciergeOpen(true)}
+          className={`fixed bottom-5 right-5 z-40 p-3 sm:px-4 sm:py-3 rounded-full ${currentTheme.bg} text-white shadow-xl ${currentTheme.shadow} hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer border border-white/20`}
+          title="Open AI Shopping Concierge"
+        >
+          <Sparkles className="w-5 h-5 animate-pulse" />
+          <span className="hidden sm:inline font-bold text-xs">AI Concierge</span>
+        </button>
+      )}
+    </div>
+  );
+};

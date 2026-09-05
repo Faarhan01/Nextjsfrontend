@@ -1,0 +1,78 @@
+'use client';
+
+import React from 'react';
+import { X, Code, Download, Layers, CheckCircle2 } from 'lucide-react';
+
+interface NextjsExporterModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  showToast: (msg: string) => void;
+  storeName: string;
+}
+
+export const NextjsExporterModal: React.FC<NextjsExporterModalProps> = ({
+  isOpen,
+  onClose,
+  showToast,
+  storeName
+}) => {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm">
+      <div className="bg-white rounded-2xl max-w-lg w-full border border-slate-200 shadow-xl overflow-hidden animate-in fade-in zoom-in-95 duration-200">
+        <div className="p-6 border-b border-slate-100 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="p-2 bg-blue-50 text-blue-600 rounded-lg">
+              <Code className="w-5 h-5" />
+            </div>
+            <div>
+              <h3 className="text-base font-bold text-slate-900">Next.js 15 App Router Exporter</h3>
+              <p className="text-xs text-slate-500">Export clean TypeScript codebase for {storeName}</p>
+            </div>
+          </div>
+          <button
+            onClick={onClose}
+            className="p-1 text-slate-400 hover:text-slate-600 rounded-lg transition"
+          >
+            <X className="w-5 h-5" />
+          </button>
+        </div>
+
+        <div className="p-6 space-y-4 text-xs text-slate-600 leading-relaxed">
+          <p>
+            Your export package includes complete Next.js 15 source code with Tailwind CSS and Lucide React icons, pre-configured for Cloud Run, Vercel, or Netlify deployment.
+          </p>
+
+          <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
+            <h4 className="font-bold text-slate-900 text-xs flex items-center gap-1.5">
+              <Layers className="w-4 h-4 text-blue-600" /> Package Structure:
+            </h4>
+            <ul className="space-y-1 pl-5 list-disc text-slate-600">
+              <li><code className="text-blue-600">app/page.tsx</code> - Responsive homepage with dynamic banners</li>
+              <li><code className="text-blue-600">app/layout.tsx</code> - Root layout with meta tags</li>
+              <li><code className="text-blue-600">package.json</code> - React 19 & Next.js 15 dependencies</li>
+              <li><code className="text-blue-600">index.html</code> - Standalone static storefront backup</li>
+            </ul>
+          </div>
+
+          <div className="flex items-center gap-2 text-emerald-700 bg-emerald-50 p-3 rounded-xl border border-emerald-200 font-medium">
+            <CheckCircle2 className="w-4 h-4 shrink-0" />
+            <span>Ready for one-click ZIP download with all static assets.</span>
+          </div>
+        </div>
+
+        <div className="p-6 bg-slate-50 border-t border-slate-100 flex justify-end gap-3">
+          <button
+            onClick={onClose}
+            className="px-4 py-2 border border-slate-200 text-slate-700 font-bold text-xs rounded-xl hover:bg-slate-100 transition"
+          >
+            Close
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default NextjsExporterModal;
