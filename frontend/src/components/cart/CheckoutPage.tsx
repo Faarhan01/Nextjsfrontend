@@ -25,7 +25,7 @@ import {
 } from 'lucide-react';
 import { CartItem, UserProfile } from '../../types';
 import { formatCurrency } from '../../utils/pricing';
-import { apiClient } from '../../services/apiClient';
+import { sdk } from '../../lib/sdk';
 import { trackBeginCheckout, trackPurchase } from '../../utils/gtm';
 
 interface CheckoutPageProps {
@@ -206,22 +206,27 @@ export default function CheckoutPage({
         ? 'Apple Pay / Google Pay' 
         : 'Pay on Delivery';
 
-      // Call backend API to create real order record (graceful offline fallback)
-      const response = await apiClient.placeOrder({
-        email,
-        items: cart,
-        shippingAddress: formattedAddress,
-        subtotal,
-        shippingFee: shippingCost,
-        tax: taxAmount,
-        total: grandTotal,
-        paymentMethod: paymentMethodLabel
-      }).catch((err) => {
+      // Call backend Medusa store API to create real order record (graceful offline fallback)
+      let response: { type: 'order'; data: any } | null = null;
+      try {
+        const fresh = await sdk.carts.create({ region_id: 'reg_za' });
+        const freshCart = fresh.cart;
+        for (const c of cart) {
+          await sdk.carts.lineItems.create(freshCart.id, {
+            variant_id: `variant_${c.productId || c.id}`,
+            quantity: c.quantity
+          });
+        }
+        const completed = await sdk.carts.complete(freshCart.id);
+        response = completed as any;
+      } catch (err: any) {
         console.warn('Backend order sync skipped, using client order processing:', err);
-        return null;
-      });
+        response = null;
+      }
 
-      const orderId = response?.order?.id || `LX-${Math.floor(10000 + Math.random() * 90000)}`;
+      const orderId = response?.data?.id
+        ? String(response.data.id).replace(/^order_/, '').toUpperCase()
+        : `LX-${Math.floor(10000 + Math.random() * 90000)}`;
 
       const newOrder = {
         id: orderId,

@@ -25,7 +25,7 @@ import {
   Box,
   FileText
 } from 'lucide-react';
-import { apiClient } from '../../services/apiClient';
+import { sdk } from '../../lib/sdk';
 
 interface OrderTrackingPageProps {
   themeColor: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
@@ -491,8 +491,8 @@ export default function OrderTrackingPage({
     setSearchedOrderId(cleanId);
 
     try {
-      // 1. Query express order tracking endpoint
-      const res = await apiClient.trackOrder(cleanId);
+      // 1. Query Medusa store order tracking endpoint
+      const res = await sdk.orders.track(cleanId);
       if (res && res.order) {
         setCurrentOrder(res.order);
         showToast(`Found shipment tracking for #${cleanId}`);

@@ -2,7 +2,7 @@ import {
   MedusaProduct,
   MedusaProductVariant,
   MedusaLineItem
-} from './types';
+} from '../../types/medusa';
 import { MockWooProduct, CartItem } from '../../types';
 import { slugify } from '../../utils/seoUtils';
 

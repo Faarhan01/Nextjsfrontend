@@ -1,27 +1,20 @@
 import express from 'express';
-import authRoutes from './routes/auth.ts';
-import productRoutes from './routes/products.ts';
-import orderRoutes from './routes/orders.ts';
-import aiRoutes from './routes/ai.ts';
-import feedRoutes from './routes/feeds.ts';
-import utilityRoutes from './routes/utility.ts';
-import { rateLimiter } from './middleware/rateLimiter.ts';
-import { errorHandler, AppError } from './middleware/errorHandler.ts';
+import storeRoutes from './routes/store.ts';
+import { errorHandler } from './middleware/errorHandler.ts';
+import { optionalAuth } from './middleware/authMiddleware.ts';
 
 const router = express.Router();
 
-// Apply global API rate limiter
-router.use(rateLimiter());
+// Medusa Store API: everything lives under /store/...
+// Populate req.user from Bearer token when present; /store/auth GET is public.
+router.use(optionalAuth);
+router.use('/store', storeRoutes);
 
-// Register API Routes
-router.use('/auth', authRoutes);
-router.use('/products', productRoutes);
-router.use('/orders', orderRoutes);
-router.use('/ai', aiRoutes);
-router.use('/feeds', feedRoutes);
-router.use('/', utilityRoutes);
+// Health endpoint (root of /api namespace)
+router.get('/health', (_req, res) => {
+  res.json({ status: 'healthy', timestamp: Date.now() });
+});
 
-// Register API Error Handler
 router.use(errorHandler);
 
 export default router;

@@ -1,18 +1,26 @@
-import { MOCK_WOO_PRODUCTS, MOCK_CATEGORIES, MOCK_BRANDS } from '../../data/presets';
+import 'server-only';
+import { listProducts } from './products';
+import { listCategories } from './categories';
+import { listBrands } from './collections';
 import { SlideConfig } from '../../types';
 
 export type HomeData = {
-  products: typeof MOCK_WOO_PRODUCTS;
-  categories: typeof MOCK_CATEGORIES;
-  brands: typeof MOCK_BRANDS;
+  products: Awaited<ReturnType<typeof listProducts>>;
+  categories: Awaited<ReturnType<typeof listCategories>>;
+  brands: Awaited<ReturnType<typeof listBrands>>;
   slides: SlideConfig[];
 };
 
 export async function getHomeData(): Promise<HomeData> {
+  const [products, categories, brands] = await Promise.all([
+    listProducts(),
+    listCategories(),
+    listBrands()
+  ]);
   return {
-    products: MOCK_WOO_PRODUCTS,
-    categories: MOCK_CATEGORIES,
-    brands: MOCK_BRANDS,
-    slides: [],
+    products,
+    categories,
+    brands,
+    slides: []
   };
 }

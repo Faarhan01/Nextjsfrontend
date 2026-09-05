@@ -7,7 +7,7 @@ import {
   MedusaProductCollection,
   MedusaCustomer,
   MedusaOrder
-} from './types';
+} from '../../types/medusa';
 import { MOCK_WOO_PRODUCTS, MOCK_CATEGORIES } from '../../data/presets';
 import { uiProductToMedusaProduct } from './transformers';
 
@@ -17,7 +17,9 @@ export interface MedusaClientConfig {
   defaultCurrency?: string;
 }
 
-const DEFAULT_BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL || 'http://localhost:9000';
+const DEFAULT_BACKEND_URL =
+  process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL ||
+  (typeof window !== 'undefined' ? `${window.location.origin}/api` : '/api');
 const CART_STORAGE_KEY = 'medusa_cart_id';
 const LOCAL_CART_CACHE_KEY = 'medusa_local_cart_state';
 
@@ -508,7 +510,10 @@ export class MedusaClient {
       const isLive = await this.checkHealth();
       if (isLive) {
         try {
-          return await this.request<{ customer: MedusaCustomer }>('/store/auth');
+          const res = await this.request<{ customer: MedusaCustomer }>('/store/auth', {
+            headers: this.getAuthHeaders()
+          });
+          return { customer: res.customer };
         } catch {
           return { customer: null };
         }
@@ -516,26 +521,127 @@ export class MedusaClient {
       return { customer: null };
     },
 
-    login: async (credentials: { email: string; password: string }): Promise<{ customer: MedusaCustomer }> => {
+    login: async (credentials: { email: string; password: string }): Promise<{ customer: MedusaCustomer; token?: string }> => {
       const isLive = await this.checkHealth();
       if (isLive) {
-        return await this.request<{ customer: MedusaCustomer }>('/store/auth', {
-          method: 'POST',
-          body: JSON.stringify(credentials)
-        });
+        try {
+          const res = await this.request<{ customer: MedusaCustomer; token?: string }>('/store/auth', {
+            method: 'POST',
+            body: JSON.stringify(credentials)
+          });
+          if (res.token) this.persistToken(res.token);
+          return res;
+        } catch (e) {
+          console.warn('[MedusaClient] Live login failed, using offline fallback:', e);
+        }
       }
 
-      return {
-        customer: {
-          id: `cust_${Date.now()}`,
-          email: credentials.email,
-          first_name: 'Store',
-          last_name: 'Customer',
-          has_account: true
-        }
+      const fallback: MedusaCustomer = {
+        id: `cust_${Date.now()}`,
+        email: credentials.email,
+        first_name: credentials.email.split('@')[0],
+        last_name: '',
+        has_account: true
       };
+      return { customer: fallback };
+    },
+
+    register: async (data: { name: string; email: string; password: string }): Promise<{ customer: MedusaCustomer; token?: string }> => {
+      const isLive = await this.checkHealth();
+      if (isLive) {
+        try {
+          const res = await this.request<{ customer: MedusaCustomer; token?: string }>('/store/auth/register', {
+            method: 'POST',
+            body: JSON.stringify(data)
+          });
+          if (res.token) this.persistToken(res.token);
+          return res;
+        } catch (e) {
+          console.warn('[MedusaClient] Live register failed, using offline fallback:', e);
+        }
+      }
+
+      const fallback: MedusaCustomer = {
+        id: `cust_${Date.now()}`,
+        email: data.email,
+        first_name: data.name.split(' ')[0],
+        last_name: data.name.split(' ').slice(1).join(' '),
+        has_account: true
+      };
+      return { customer: fallback };
     }
   };
+
+  // ==========================================
+  // Orders (read-only tracking)
+  // ==========================================
+  public orders = {
+    track: async (orderId: string): Promise<{ order: any } | null> => {
+      const isLive = await this.checkHealth();
+      if (isLive) {
+        try {
+          return await this.request<{ order: any }>(`/store/orders/${encodeURIComponent(orderId)}`);
+        } catch {
+          return null;
+        }
+      }
+      return null;
+    }
+  };
+
+  // ==========================================
+  // AI Concierge (auxiliary)
+  // ==========================================
+  public ai = {
+    concierge: async (payload: {
+      query: string;
+      catalogProducts?: any[];
+      cartItems?: any[];
+      history?: any[];
+    }): Promise<{ success: boolean; data: { reply: string; recommendedProductIds?: string[]; followUpSuggestions?: string[] } } | null> => {
+      const isLive = await this.checkHealth();
+      if (isLive) {
+        try {
+          return await this.request<{ success: boolean; data: { reply: string; recommendedProductIds?: string[]; followUpSuggestions?: string[] } }>(
+            '/store/ai/concierge',
+            {
+              method: 'POST',
+              body: JSON.stringify(payload)
+            }
+          );
+        } catch (e) {
+          console.warn('[MedusaClient] Live concierge failed:', e);
+          return null;
+        }
+      }
+      return null;
+    }
+  };
+
+  // ==========================================
+  // Auth token helpers (localStorage)
+  // ==========================================
+  private readonly TOKEN_STORAGE_KEY = 'medusa_auth_token';
+
+  private persistToken(token: string): void {
+    if (typeof window !== 'undefined') {
+      try {
+        localStorage.setItem(this.TOKEN_STORAGE_KEY, token);
+      } catch {
+        // ignore
+      }
+    }
+  }
+
+  private getAuthHeaders(): Record<string, string> {
+    if (typeof window === 'undefined') return {};
+    try {
+      const token = localStorage.getItem(this.TOKEN_STORAGE_KEY);
+      return token ? { Authorization: `Bearer ${token}` } : {};
+    } catch {
+      return {};
+    }
+  }
 }
 
 // Singleton client instance for immediate frontend use

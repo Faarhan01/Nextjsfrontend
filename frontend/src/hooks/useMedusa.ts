@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
-import { medusa, MedusaCart, MedusaProduct, MedusaRegion } from '../lib/medusa';
+import { sdk as medusa, MedusaCart, MedusaProduct, MedusaRegion } from '../lib/sdk';
 
 export interface UseMedusaReturn {
   backendUrl: string;

@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from 'motion/react';
 import { Sparkles, Send, X, Bot, User, ArrowRight, ShoppingBag, RefreshCw, MessageSquare } from 'lucide-react';
 import { MockProduct, CartItem } from '../../types';
 import SafeImage from '../ui/SafeImage';
-import { apiClient } from '../../services/apiClient';
+import { sdk } from '../../lib/sdk';
 
 interface AiConciergeModalProps {
   isOpen: boolean;
@@ -85,18 +85,18 @@ export default function AiConciergeModal({
           text: m.text
         }));
 
-      const data = await apiClient.generateConciergeReply({
+      const data = await sdk.ai.concierge({
         query: textToSend,
         catalogProducts,
         cartItems,
         history
       });
 
-      if (data.success && data.data) {
+      if (data && data.success && data.data) {
         const reply = data.data.reply || "I couldn't find a direct match, but I'm happy to help you browse our full collection!";
         const recommendedIds: string[] = data.data.recommendedProductIds || [];
-        const matchedProducts = catalogProducts.filter(p => 
-          recommendedIds.includes(String(p.id)) || 
+        const matchedProducts = catalogProducts.filter(p =>
+          recommendedIds.includes(String(p.id)) ||
           recommendedIds.includes(p.name) ||
           reply.toLowerCase().includes(p.name.toLowerCase())
         ).slice(0, 3);
@@ -111,7 +111,7 @@ export default function AiConciergeModal({
         };
         setMessages(prev => [...prev, aiMsg]);
       } else {
-        throw new Error((data as any).message || 'Failed to get concierge response');
+        throw new Error('Concierge service returned an empty response');
       }
     } catch (err: any) {
       // Fallback local smart response

@@ -18,7 +18,36 @@ import {
   Store
 } from 'lucide-react';
 import { UserProfile } from '../../types';
-import { apiClient } from '../../services/apiClient';
+import { sdk, MedusaCustomer } from '../../lib/sdk';
+
+function medusaCustomerToUserProfile(
+  customer: MedusaCustomer,
+  fallbackEmail: string,
+  fallbackName?: string
+): UserProfile {
+  const meta = (customer as any).metadata || {};
+  const name =
+    [customer.first_name, customer.last_name].filter(Boolean).join(' ').trim() ||
+    fallbackName ||
+    fallbackEmail.split('@')[0];
+  const email = customer.email || fallbackEmail;
+  return {
+    id: (customer.id || `usr-${Date.now()}`).replace(/^cust_/, 'usr-'),
+    name,
+    email,
+    role: meta.role || (email.toLowerCase().includes('admin') ? 'admin' : 'customer'),
+    avatarUrl:
+      meta.avatarUrl ||
+      'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=200',
+    status: meta.status || 'active',
+    totalOrders: meta.totalOrders ?? 0,
+    totalSpent: meta.totalSpent ?? 0,
+    joinedDate: meta.joinedDate,
+    lastActive: meta.lastActive || 'Just now',
+    phone: customer.phone || meta.phone,
+    address: meta.address
+  };
+}
 
 interface AuthModalProps {
   isOpen: boolean;
@@ -80,13 +109,15 @@ export default function AuthModal({
 
     try {
       if (mode === 'signup') {
-        const res = await apiClient.register(name, email, password);
-        onSignIn(res.user);
-        showToast(`Account created! Welcome to Mrbulk, ${res.user.name}`);
+        const res = await sdk.customers.register({ name, email, password });
+        const user = medusaCustomerToUserProfile(res.customer, email, name);
+        onSignIn(user);
+        showToast(`Account created! Welcome to Mrbulk, ${user.name}`);
       } else {
-        const res = await apiClient.login(email, password);
-        onSignIn(res.user);
-        showToast(`Welcome back, ${res.user.name}!`);
+        const res = await sdk.customers.login({ email, password });
+        const user = medusaCustomerToUserProfile(res.customer, email);
+        onSignIn(user);
+        showToast(`Welcome back, ${user.name}!`);
       }
       onClose();
     } catch (err: any) {

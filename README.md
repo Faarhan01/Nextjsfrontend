@@ -71,7 +71,7 @@ npm start
 - **`frontend/src/`**:
   - `app/`: Next.js App Router root layouts and pages.
   - `components/`: Modular, feature-grouped UI components (`products/`, `cart/`, `account/`, `admin/`, `ai/`, `auth/`, `layout/`, `ui/`).
-  - `services/`: Centralized API client (`apiClient.ts`).
+  - `lib/medusa/`: Medusa Store API client (`client.ts`) with local preset fallback.
   - `types/`: Shared TypeScript interfaces.
 
 ---
