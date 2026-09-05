@@ -15,16 +15,14 @@
     "moduleDetection": "force",
     "allowJs": true,
     "jsx": "react-jsx",
+    "baseUrl": ".",
     "paths": {
-      "@/*": [
-        "./*"
-      ],
-      "@frontend/*": [
-        "./frontend/src/*"
-      ],
-      "@backend/*": [
-        "./backend/src/*"
-      ]
+      "@/*": ["./frontend/src/*"],
+      "@frontend/*": ["./frontend/src/*"],
+      "@backend/*": ["./backend/src/*"],
+      "@lib/*": ["./frontend/src/lib/*"],
+      "@modules/*": ["./frontend/src/modules/*"],
+      "@components/*": ["./frontend/src/components/*"]
     },
     "allowImportingTsExtensions": true,
     "noEmit": true,

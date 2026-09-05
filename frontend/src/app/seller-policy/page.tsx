@@ -1,34 +1,11 @@
-'use client';
+import type { Metadata } from 'next';
+import MarketplaceSellerPolicyPageClient from './MarketplaceSellerPolicyPageClient';
 
-import React from 'react';
-import { useRouter } from 'next/navigation';
-import { useStore } from '../../context/StoreContext';
-import { MarketplaceSellerPolicyPage } from '../../components/pages/MarketplaceSellerPolicyPage';
+export const metadata: Metadata = {
+  title: 'Seller Policy — Mrbulk',
+  description: 'Review the marketplace seller policy, compliance requirements, and vendor guidelines for Mrbulk.',
+};
 
-export default function SellerPolicyRoute() {
-  const router = useRouter();
-  const { themeColor, getThemeClasses, showToast, logoText } = useStore();
-
-  const handleNavigate = (page: string) => {
-    if (page === 'home' || page === '') router.push('/');
-    else if (page === 'shop' || page === 'products') router.push('/shop');
-    else if (page === 'contact') router.push('/contact');
-    else if (page === 'faq') router.push('/faq');
-    else if (page === 'categories') router.push('/categories');
-    else if (page === 'about') router.push('/about');
-    else if (page === 'sell') router.push('/sell');
-    else router.push(page.startsWith('/') ? page : `/${page}`);
-  };
-
-  return (
-    <div className="w-full">
-      <MarketplaceSellerPolicyPage
-        themeColor={themeColor}
-        getThemeClasses={getThemeClasses}
-        onNavigate={handleNavigate}
-        showToast={(msg) => showToast(msg)}
-        logoText={logoText || 'Mrbulk'}
-      />
-    </div>
-  );
+export default function SellerPolicyPage() {
+  return <MarketplaceSellerPolicyPageClient />;
 }

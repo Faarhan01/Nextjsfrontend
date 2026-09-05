@@ -1,33 +1,11 @@
-'use client';
+import type { Metadata } from 'next';
+import FaqPageClient from './FaqPageClient';
 
-import React from 'react';
-import { useRouter } from 'next/navigation';
-import { useStore } from '../../context/StoreContext';
-import FaqPage from '../../components/pages/FaqPage';
+export const metadata: Metadata = {
+  title: 'FAQ — Mrbulk',
+  description: 'Find answers to frequently asked questions about orders, shipping, returns, and selling on Mrbulk.',
+};
 
-export default function FaqRoute() {
-  const router = useRouter();
-  const { themeColor, getThemeClasses, showToast, logoText } = useStore();
-
-  const handleNavigate = (page: string) => {
-    if (page === 'home' || page === '') router.push('/');
-    else if (page === 'shop' || page === 'products') router.push('/shop');
-    else if (page === 'contact') router.push('/contact');
-    else if (page === 'faq') router.push('/faq');
-    else if (page === 'categories') router.push('/categories');
-    else if (page === 'about') router.push('/about');
-    else router.push(page.startsWith('/') ? page : `/${page}`);
-  };
-
-  return (
-    <div className="w-full">
-      <FaqPage
-        themeColor={themeColor}
-        getThemeClasses={getThemeClasses}
-        onNavigate={handleNavigate}
-        showToast={(msg) => showToast(msg)}
-        logoText={logoText}
-      />
-    </div>
-  );
+export default function FaqPage() {
+  return <FaqPageClient />;
 }

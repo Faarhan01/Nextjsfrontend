@@ -1,6 +1,7 @@
 # Frontend Improvements
 
 > Status: Planning phase. No improvements implemented yet.
+> For the overall architecture plan and audit, see `plan.md`.
 
 Use this file to track planned frontend work that is not a bug fix. Entries use `IMPROVE-NNN` numbering.
 

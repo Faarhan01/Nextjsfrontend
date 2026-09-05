@@ -2,10 +2,10 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { useStore } from '../../context/StoreContext';
-import AdminPage from '../../components/admin/AdminPage';
+import { useStore } from '../../../context/StoreContext';
+import AdminPage from '../../../components/admin/AdminPage';
 
-export default function AdminRoute() {
+export default function AdminPageClient() {
   const router = useRouter();
   const {
     themeColor,

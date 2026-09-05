@@ -1,9 +1,21 @@
-import { MOCK_WOO_PRODUCTS, MOCK_CATEGORIES } from '../../data/presets'
-import ShopPageClient from './ShopPageClient'
+import type { Metadata } from 'next';
+import { getProducts } from '../../lib/data/products';
+import { getCategories } from '../../lib/data/categories';
+import ShopPageClient from './ShopPageClient';
 
-export const dynamic = 'force-dynamic'
+export const metadata: Metadata = {
+  title: 'Shop Catalog & Collections — Mrbulk',
+  description: 'Browse luxury catalog, electronics, interior decor, and lifestyle products at Mrbulk. Fast shipping across South Africa.',
+};
 
-export default function ShopPage() {
-  return <ShopPageClient products={MOCK_WOO_PRODUCTS} categories={MOCK_CATEGORIES} />
+export const dynamic = 'force-dynamic';
+
+export default async function ShopPage() {
+  const [products, categories] = await Promise.all([
+    getProducts(),
+    getCategories(),
+  ]);
+
+  return <ShopPageClient products={products} categories={categories} />;
 }
 

@@ -8,9 +8,9 @@ const nextConfig = {
     'localhost:3000',
     '127.0.0.1:3000'
   ],
-  reactStrictMode: false,
+  reactStrictMode: true,
   typescript: {
-    ignoreBuildErrors: true,
+    ignoreBuildErrors: false,
   },
   serverExternalPackages: [
     '@esbuild/win32-x64',

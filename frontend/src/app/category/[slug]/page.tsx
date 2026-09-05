@@ -1,58 +1,23 @@
-'use client';
+import type { Metadata } from 'next';
+import { getCategories } from '../../../lib/data/categories';
+import CategoryDetailPageClient from './CategoryDetailPageClient';
 
-import React from 'react';
-import { useRouter, useParams } from 'next/navigation';
-import { useStore } from '../../../context/StoreContext';
-import CategoryDetailPage from '../../../components/products/CategoryDetailPage';
-import { getProductUrl, getCategoryUrl, formatCategoryName } from '../../../utils/seoUtils';
+export const metadata: Metadata = {
+  title: 'Category — Mrbulk',
+  description: 'Browse products by category at Mrbulk.',
+};
 
-function CategoryDetailContent() {
-  const router = useRouter();
-  const params = useParams();
-  const rawSlug = (params?.slug as string) || 'all';
-  
-  const {
-    products,
-    categories,
-    themeColor,
-    getThemeClasses,
-    wishlist,
-    handleToggleWishlist,
-    handleAddToCart,
-    handleOpenQuickView
-  } = useStore();
+export const dynamic = 'force-dynamic';
 
-  // Find matching category name cleanly
-  const resolvedCategoryName = React.useMemo(() => {
-    return formatCategoryName(rawSlug, categories);
-  }, [rawSlug, categories]);
-
-  return (
-    <div className="w-full">
-      <CategoryDetailPage
-        categoryName={resolvedCategoryName}
-        categories={categories}
-        products={products}
-        themeColor={themeColor}
-        getThemeClasses={getThemeClasses}
-        wishlist={wishlist}
-        handleToggleWishlist={handleToggleWishlist}
-        handleAddToCart={handleAddToCart}
-        onBack={() => router.push('/categories')}
-        onSelectProduct={(id) => router.push(getProductUrl(id))}
-        onQuickView={handleOpenQuickView}
-        onSelectCategory={(cat) => {
-          if (cat.toLowerCase() === 'all') {
-            router.push('/shop');
-          } else {
-            router.push(getCategoryUrl(cat));
-          }
-        }}
-      />
-    </div>
-  );
+export async function generateStaticParams() {
+  const categories = await getCategories();
+  return categories.map((category) => ({
+    slug: category.name.toLowerCase().replace(/\s+/g, '-'),
+  }));
 }
 
-export default function CategoryRoute() {
-  return <CategoryDetailContent />;
+export default async function CategoryPage({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  
+  return <CategoryDetailPageClient initialSlug={slug} />;
 }

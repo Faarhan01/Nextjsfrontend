@@ -18,10 +18,12 @@
     "isolatedModules": true,
     "allowImportingTsExtensions": true,
     "jsx": "react-jsx",
+    "baseUrl": "./src",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ]
+      "@/*": ["./*"],
+      "@lib/*": ["lib/*"],
+      "@modules/*": ["modules/*"],
+      "@components/*": ["components/*"]
     },
     "plugins": [
       {

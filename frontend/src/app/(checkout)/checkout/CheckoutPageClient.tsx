@@ -2,10 +2,10 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { useStore } from '../../context/StoreContext';
-import CheckoutPage from '../../components/cart/CheckoutPage';
+import { useStore } from '../../../context/StoreContext';
+import CheckoutPage from '../../../components/cart/CheckoutPage';
 
-export default function CheckoutRoute() {
+export default function CheckoutPageClient() {
   const router = useRouter();
   const {
     cart,
