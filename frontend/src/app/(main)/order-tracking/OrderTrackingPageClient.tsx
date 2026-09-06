@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { useStore } from '../../context/StoreContext';
+import { useStore } from '@/context/StoreContext';
 import OrderTrackingPage from '@modules/account/templates/order-tracking-page';
 
 export default function OrderTrackingPageClient() {

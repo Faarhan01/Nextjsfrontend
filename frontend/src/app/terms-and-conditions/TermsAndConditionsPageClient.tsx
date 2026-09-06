@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { useStore } from '../../context/StoreContext';
+import { useStore } from '@/context/StoreContext';
 import TermsAndConditionsPage from '@modules/content/templates/terms-and-conditions-page';
 
 export default function TermsAndConditionsPageClient() {

@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { getHomeData } from '../lib/data/home';
+import { getHomeData } from '@lib/data/home';
 import HomePageClient from '@modules/home/templates/home-page-client';
 
 export const metadata: Metadata = {

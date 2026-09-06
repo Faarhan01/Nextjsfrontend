@@ -26,4 +26,9 @@ export async function getCategoryBySlug(slug: string) {
   );
 }
 
+export async function getCategoryBySlugStrict(slug: string) {
+  const categories = await listCategories();
+  return categories.find((c) => c.name.toLowerCase().replace(/\s+/g, '-') === slug) || null;
+}
+
 export const categoriesCacheTag = CATEGORIES_CACHE_TAG;

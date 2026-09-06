@@ -7,6 +7,8 @@ import { CartProvider } from './cart-provider';
 import { WishlistProvider } from './wishlist-provider';
 import { RecentlyViewedProvider } from './recently-viewed-provider';
 import { AuthProvider } from './auth-provider';
+import { CatalogProvider } from './catalog-provider';
+import { UIProvider } from './ui-provider';
 
 export function AppProviders({ children }: { children: React.ReactNode }) {
   return (
@@ -15,7 +17,11 @@ export function AppProviders({ children }: { children: React.ReactNode }) {
         <CartProvider>
           <WishlistProvider>
             <RecentlyViewedProvider>
-              <AuthProvider>{children}</AuthProvider>
+              <AuthProvider>
+                <CatalogProvider>
+                  <UIProvider>{children}</UIProvider>
+                </CatalogProvider>
+              </AuthProvider>
             </RecentlyViewedProvider>
           </WishlistProvider>
         </CartProvider>

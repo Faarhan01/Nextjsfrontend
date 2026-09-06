@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useStore } from '../../context/StoreContext';
+import { useStore } from '@/context/StoreContext';
 import SearchResultsPage from '@modules/products/templates/search-results-page';
-import { getProductUrl, getCategoryUrl } from '../../utils/seoUtils';
+import { getProductUrl, getCategoryUrl } from '@/utils/seoUtils';
 
 export default function SearchResultsPageClient() {
   const router = useRouter();

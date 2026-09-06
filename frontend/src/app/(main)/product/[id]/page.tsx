@@ -1,13 +1,13 @@
-import { getProductById } from '../../../lib/data/products';
+import { getProductByIdStrict } from '@lib/data/products';
 import ProductDetailPageClient from './ProductDetailPageClient';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params
-  const product = await getProductById(id)
+  const product = await getProductByIdStrict(id)
   if (!product) {
-    notFound();
+    return { title: 'Product not found', description: 'The requested product does not exist.', other: { 'data-nextjs-not-found': 'true' } }
   }
   return {
     title: `${product.name} | Mrbulk`,
@@ -25,7 +25,7 @@ export const dynamic = 'force-dynamic'
 
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params
-  const product = await getProductById(id)
+  const product = await getProductByIdStrict(id)
 
   if (!product) {
     notFound();

@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { useStore } from '../../../context/StoreContext';
+import { useStore } from '@/context/StoreContext';
 import { StorefrontView } from '@modules/seller/templates/storefront-view';
-import { getProductUrl } from '../../../utils/seoUtils';
+import { getProductUrl } from '@/utils/seoUtils';
 import { Store } from 'lucide-react';
 
 interface StorefrontPageClientProps {

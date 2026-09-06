@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { getCategories } from '../../lib/data/categories';
-import { getProducts } from '../../lib/data/products';
+import { getCategories } from '@lib/data/categories';
+import { getProducts } from '@lib/data/products';
 import CategoriesPageClient from './CategoriesPageClient';
 
 export const metadata: Metadata = {

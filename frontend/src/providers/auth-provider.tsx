@@ -9,14 +9,14 @@ import { useWishlistContext } from './wishlist-provider';
 
 interface AuthContextValue {
   currentUser: UserProfile | null;
+  setCurrentUser: (user: UserProfile | null) => void;
   authModalOpen: boolean;
+  setAuthModalOpen: (open: boolean) => void;
   authModalTab: 'login' | 'register';
+  setAuthModalTab: (tab: 'login' | 'register') => void;
   signIn: (user: UserProfile) => void;
   signOut: () => void;
   switchUser: (userId: string) => void;
-  openAuthModal: (tab?: 'login' | 'register') => void;
-  closeAuthModal: () => void;
-  setCurrentUser: (user: UserProfile | null) => void;
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null);
@@ -82,27 +82,18 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     [signIn]
   );
 
-  const openAuthModal = useCallback((tab: 'login' | 'register' = 'login') => {
-    setAuthModalTab(tab);
-    setAuthModalOpen(true);
-  }, []);
-
-  const closeAuthModal = useCallback(() => {
-    setAuthModalOpen(false);
-  }, []);
-
   return (
     <AuthContext.Provider
       value={{
         currentUser,
+        setCurrentUser,
         authModalOpen,
+        setAuthModalOpen,
         authModalTab,
+        setAuthModalTab,
         signIn,
         signOut,
-        switchUser,
-        openAuthModal,
-        closeAuthModal,
-        setCurrentUser
+        switchUser
       }}
     >
       {children}

@@ -70,15 +70,17 @@ export async function listProducts(
 export { listProducts as getProducts };
 
 export async function getProductById(id: string) {
+  return (await getProductByIdStrict(id)) || MOCK_WOO_PRODUCTS[0];
+}
+
+export async function getProductByIdStrict(id: string) {
   try {
     const { product } = await sdk.products.retrieve(id);
     return medusaProductToUiProduct(product);
   } catch {
-    return (
-      MOCK_WOO_PRODUCTS.find(
-        (p) => p.id === id || p.id === `prod-${id}` || (p as any).slug === id
-      ) || MOCK_WOO_PRODUCTS[0]
-    );
+    return MOCK_WOO_PRODUCTS.find(
+      (p) => p.id === id || p.id === `prod-${id}` || (p as any).slug === id
+    ) || null;
   }
 }
 

@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { useStore } from '../../context/StoreContext';
+import { useStore } from '@/context/StoreContext';
 import MarketplaceSellerPolicyPage from '@modules/content/templates/marketplace-seller-policy-page';
 
 export default function MarketplaceSellerPolicyPageClient() {

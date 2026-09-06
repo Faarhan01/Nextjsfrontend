@@ -2,9 +2,9 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { useStore } from '../../context/StoreContext';
+import { useStore } from '@/context/StoreContext';
 import WishlistPage from '@modules/products/templates/wishlist-page';
-import { getProductUrl } from '../../utils/seoUtils';
+import { getProductUrl } from '@/utils/seoUtils';
 
 export default function WishlistPageClient() {
   const router = useRouter();

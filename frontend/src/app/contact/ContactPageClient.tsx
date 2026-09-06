@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { useStore } from '../../context/StoreContext';
+import { useStore } from '@/context/StoreContext';
 import ContactPage from '@modules/content/templates/contact-page';
 
 export default function ContactPageClient() {

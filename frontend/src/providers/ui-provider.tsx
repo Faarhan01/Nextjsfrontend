@@ -1,0 +1,83 @@
+'use client';
+
+import React, { createContext, useContext, useState, ReactNode } from 'react';
+import { useRouter } from 'next/navigation';
+import { MockWooProduct } from '@/types';
+
+export interface UIContextType {
+  quickViewProduct: MockWooProduct | null;
+  setQuickViewProduct: React.Dispatch<React.SetStateAction<MockWooProduct | null>>;
+  quickViewOpen: boolean;
+  setQuickViewOpen: (open: boolean) => void;
+  cartOpen: boolean;
+  setCartOpen: (open: boolean) => void;
+  mobileMenuOpen: boolean;
+  setMobileMenuOpen: (open: boolean) => void;
+  aiConciergeOpen: boolean;
+  setAiConciergeOpen: (open: boolean) => void;
+  nextjsModalOpen: boolean;
+  setNextjsModalOpen: (open: boolean) => void;
+  seoModalOpen: boolean;
+  setSeoModalOpen: (open: boolean) => void;
+  editorOpen: boolean;
+  setEditorOpen: (open: boolean) => void;
+  activeEditorTab: 'settings' | 'codebase';
+  setActiveEditorTab: (tab: 'settings' | 'codebase') => void;
+  searchQuery: string;
+  setSearchQuery: (query: string) => void;
+  handlePerformSearch: (queryToUse?: string) => void;
+  navigateTo: (path: string) => void;
+  handleOpenQuickView: (prod: MockWooProduct) => void;
+}
+
+const UIContext = createContext<UIContextType | undefined>(undefined);
+
+export const UIProvider = ({ children }: { children: ReactNode }) => {
+  const router = useRouter();
+
+  const [quickViewProduct, setQuickViewProduct] = useState<MockWooProduct | null>(null);
+  const [quickViewOpen, setQuickViewOpen] = useState<boolean>(false);
+  const [cartOpen, setCartOpen] = useState<boolean>(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
+  const [aiConciergeOpen, setAiConciergeOpen] = useState<boolean>(false);
+  const [nextjsModalOpen, setNextjsModalOpen] = useState<boolean>(false);
+  const [seoModalOpen, setSeoModalOpen] = useState<boolean>(false);
+  const [editorOpen, setEditorOpen] = useState<boolean>(false);
+  const [activeEditorTab, setActiveEditorTab] = useState<'settings' | 'codebase'>('settings');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
+  const handleOpenQuickView = (prod: MockWooProduct) => {
+    setQuickViewProduct(prod);
+    setQuickViewOpen(true);
+  };
+
+  const navigateTo = (path: string) => {
+    setMobileMenuOpen(false);
+    setCartOpen(false);
+    router.push(path);
+  };
+
+  const handlePerformSearch = (queryToUse?: string) => {
+    const q = queryToUse !== undefined ? queryToUse : searchQuery;
+    setSearchQuery(q);
+    setMobileMenuOpen(false);
+    if (q.trim()) router.push(`/search?q=${encodeURIComponent(q.trim())}`);
+    else router.push('/shop');
+  };
+
+  return (
+    <UIContext.Provider value={{
+      quickViewProduct, setQuickViewProduct, quickViewOpen, setQuickViewOpen,
+      cartOpen, setCartOpen, mobileMenuOpen, setMobileMenuOpen, aiConciergeOpen,
+      setAiConciergeOpen, nextjsModalOpen, setNextjsModalOpen, seoModalOpen,
+      setSeoModalOpen, editorOpen, setEditorOpen, activeEditorTab, setActiveEditorTab,
+      searchQuery, setSearchQuery, handlePerformSearch, navigateTo, handleOpenQuickView
+    }}>{children}</UIContext.Provider>
+  );
+};
+
+export const useUI = () => {
+  const context = useContext(UIContext);
+  if (!context) throw new Error('useUI must be used within a UIProvider');
+  return context;
+};

@@ -1,9 +1,9 @@
 import type { MetadataRoute } from 'next';
-import { MOCK_PRODUCTS } from '../data/presets';
-import { slugify } from '../utils/seoUtils';
+import { MOCK_PRODUCTS } from '@/data/presets';
+import { slugify } from '@/utils/seoUtils';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://ais-dev-6gn5ggip67oqekkhfx7fhc-396079311886.europe-west1.run.app';
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
   const now = new Date();
 
   // Primary static routes

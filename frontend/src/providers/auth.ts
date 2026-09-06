@@ -5,14 +5,14 @@ import type { UserProfile } from '../types';
 
 export interface UseAuthReturn {
   currentUser: UserProfile | null;
+  setCurrentUser: (user: UserProfile | null) => void;
   authModalOpen: boolean;
+  setAuthModalOpen: (open: boolean) => void;
   authModalTab: 'login' | 'register';
+  setAuthModalTab: (tab: 'login' | 'register') => void;
   signIn: (user: UserProfile) => void;
   signOut: () => void;
   switchUser: (userId: string) => void;
-  openAuthModal: (tab?: 'login' | 'register') => void;
-  closeAuthModal: () => void;
-  setCurrentUser: (user: UserProfile | null) => void;
 }
 
 export function useAuth(): UseAuthReturn {

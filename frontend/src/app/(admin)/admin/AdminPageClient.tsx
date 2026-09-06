@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { useStore } from '../../../context/StoreContext';
+import { useStore } from '@/context/StoreContext';
 import AdminPage from '@components/admin/AdminPage';
 
 export default function AdminPageClient() {
