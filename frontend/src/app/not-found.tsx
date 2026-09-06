@@ -3,7 +3,7 @@ import Link from 'next/link';
 export default function NotFound() {
   return (
     <>
-      <div id="nextjs-not-found-marker" style={{display:'none'}}></div>
+      <div id="nextjs-not-found-marker" data-nextjs-not-found="true" style={{display:'none'}}></div>
       <div className="min-h-screen flex items-center justify-center bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100">
       <div className="text-center space-y-4">
         <h1 className="text-6xl font-black">404</h1>

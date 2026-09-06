@@ -16,6 +16,8 @@ build
 *.db
 *.sqlite
 *.sqlite3
+# Ensure git-synced database is tracked across instances and GitHub
+!data/db.json
 # logs
 *.log
 npm-debug.log*

@@ -240,10 +240,12 @@ export default function CategoryDetailPage({
       ]);
     }
 
+    const currentCatObj = categories.find(c => c.name.toLowerCase() === activeCategory.toLowerCase());
     let matched = products.filter(p => {
-      const coreCat = getProductCategoryName(p.id);
-      return coreCat.toLowerCase() === activeCategory.toLowerCase() ||
-             (p.category && p.category.toLowerCase() === activeCategory.toLowerCase());
+      const pCatName = p.category || (p as any).categoryName || getProductCategoryName(p.id);
+      const matchName = pCatName.toLowerCase() === activeCategory.toLowerCase();
+      const matchId = currentCatObj && p.categoryId && Number(p.categoryId) === Number(currentCatObj.id);
+      return matchName || matchId;
     });
 
     if (matched.length > 0) return matched;

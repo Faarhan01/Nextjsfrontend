@@ -13,3 +13,7 @@ export { useRecentlyViewed, RecentlyViewedProvider, useRecentlyViewedContext } f
 
 export { useAuth, AuthProvider, useAuthContext } from './auth';
 export type { UseAuthReturn } from './auth';
+
+export { useCatalog, CatalogProvider } from './catalog-provider';
+export { useUI, UIProvider } from './ui-provider';
+export { AppProviders } from './app-providers';

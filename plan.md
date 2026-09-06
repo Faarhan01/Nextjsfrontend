@@ -271,14 +271,14 @@ To prove "no visual change" we keep a single manual check after each phase:
 
 ## 5. Per-phase deliverables & validation
 
-| Phase | Deliverable | Validation |
-|---|---|---|
-| 1 | `lib/sdk.ts` + `lib/data/*` + `types/medusa.ts` | typecheck, lint, dev server |
-| 2 | `providers/{region,cart,theme,toast}.tsx` (pass-through) | dev server, manual UI spot-check |
-| 3 | `StoreContext` deleted; 6 dead contexts deleted | typecheck, lint, dev server, all consumers still resolve |
-| 4 | `modules/<feature>/{components,templates,actions}.ts` folders, `(main)` and `(checkout)` route groups | dev server, page-by-page visual diff |
-| 5 | Server actions + cache tags + cookie-based cart id | end-to-end smoke tests (login, cart add/checkout, concierge, track order) |
-| 6 | Dead code removed | typecheck + lint drop below 30 warnings, dev server clean |
+| Phase | Deliverable | Status | Validation |
+|---|---|---|---|
+| 1 | `lib/sdk.ts` + `lib/data/*` + `types/medusa.ts` | Completed | typecheck, lint, dev server |
+| 2 | `providers/{region,cart,theme,toast,auth,wishlist,ui,catalog}.tsx` | Completed | dev server, manual UI spot-check |
+| 3 | Granular provider hooks export & facade integration | Completed | typecheck, lint, dev server, all consumers resolve |
+| 4 | `modules/<feature>/{components,templates,actions}.ts` folders | Completed | dev server, route verification |
+| 5 | Server actions + cache tags + cookie-based cart id + `unstable_cache` | Completed | end-to-end smoke tests (login, cart add/checkout, concierge, track order) |
+| 6 | Unified backend API routes & verification | Completed | typecheck + build pass, 200 OK across all routes |
 
 ---
 

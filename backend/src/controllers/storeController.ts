@@ -4,6 +4,7 @@ import {
   getProducts,
   getProductById,
   getCategories,
+  getBrands,
   ProductItem,
   ProductCategory
 } from '../services/productStore.ts';
@@ -65,17 +66,61 @@ function productToMedusa(p: ProductItem) {
         ]
       : [],
     tags: (p.tags || []).map((value, idx) => ({ id: `tag_${idx}`, value })),
-    discountable: true
+    discountable: true,
+    metadata: {
+      offers: p.offers || [],
+      bulkPricing: p.bulkPricing || [],
+      specifications: p.specifications || {},
+      primarySellerId: p.primarySellerId || '',
+      primarySellerName: p.primarySellerName || '',
+      brand: p.brand || 'Mrbulk Marketplace',
+      brandId: p.brandId,
+      rating: p.rating || 4.8,
+      reviewsCount: p.reviewsCount || 15,
+      isSale: p.isSale ?? false,
+      saleBadgeText: p.saleBadgeText
+    }
   };
 }
 
 function categoryToMedusa(c: ProductCategory) {
+  const numericId = c.id;
+  const handle = c.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  const imageUrl = c.imageUrl || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=800';
+  const description = c.description || `Browse our collection of ${c.name.toLowerCase()} in bulk and save.`;
+  const subcategories = c.subcategories || [];
+  const itemCount = c.itemCount ?? 15;
+
   return {
-    id: `cat_${c.id}`,
+    id: `cat_${numericId}`,
+    numeric_id: numericId,
     name: c.name,
-    handle: c.name.toLowerCase().replace(/\s+/g, '-'),
-    description: c.description || '',
-    is_active: true
+    handle,
+    description,
+    imageUrl,
+    image_url: imageUrl,
+    image: imageUrl,
+    icon: c.icon || '',
+    item_count: itemCount,
+    itemCount,
+    is_active: true,
+    category_children: subcategories.map((sub, idx) => ({
+      id: `cat_${sub.id || `${numericId}${idx + 1}`}`,
+      numeric_id: sub.id,
+      name: sub.name,
+      handle: sub.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+      description: sub.description || '',
+      category_children: []
+    })),
+    subcategories,
+    metadata: {
+      imageUrl,
+      image_url: imageUrl,
+      icon: c.icon || '',
+      numericId,
+      itemCount,
+      subcategories
+    }
   };
 }
 
@@ -106,9 +151,19 @@ export function listProducts(req: Request, res: Response): void {
 
 export function retrieveProduct(req: Request, res: Response): void {
   try {
-    const product = getProductById(req.params.id);
+    const rawParam = req.params.id;
+    let product = getProductById(rawParam);
     if (!product) {
-      res.status(404).json({ message: `Product with id: ${req.params.id} was not found` });
+      // Fallback: search by handle or slug
+      const cleanHandle = rawParam.toLowerCase().replace(/^\/product\//, '');
+      const all = getProducts();
+      product = all.find(p => {
+        const handle = (p.url?.replace(/^\/product\//, '') || p.id).toLowerCase();
+        return handle === cleanHandle || p.id.toLowerCase() === rawParam.toLowerCase();
+      }) || null;
+    }
+    if (!product) {
+      res.status(404).json({ message: `Product with id or handle: ${req.params.id} was not found` });
       return;
     }
     res.json({ product: productToMedusa(product) });
@@ -415,6 +470,145 @@ export function completeCart(req: Request, res: Response): void {
     });
   } catch (error: any) {
     res.status(500).json({ message: error.message || 'Failed to complete cart.' });
+  }
+}
+
+export function updateCart(req: Request, res: Response): void {
+  try {
+    const cart = cartsDb.get(req.params.id);
+    if (!cart) {
+      res.status(404).json({ message: `Cart with id: ${req.params.id} was not found` });
+      return;
+    }
+    const { email, shipping_address, billing_address, region_id } = req.body || {};
+    if (email !== undefined) cart.email = email;
+    if (shipping_address !== undefined) cart.shipping_address = shipping_address;
+    if (billing_address !== undefined) cart.billing_address = billing_address;
+    if (region_id !== undefined) cart.region_id = region_id;
+
+    recomputeTotals(cart);
+    res.json({ cart });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message || 'Failed to update cart.' });
+  }
+}
+
+// ----- Shipping Options & Methods -----
+
+export const SHIPPING_OPTIONS = [
+  {
+    id: 'so_tcg_std',
+    name: 'The Courier Guy Standard (2-4 business days)',
+    region_id: 'reg_za',
+    profile_id: 'sp_default',
+    amount: 9900,
+    is_return: false,
+    admin_only: false,
+    data: { id: 'tcg_std' },
+    price_type: 'flat_rate'
+  },
+  {
+    id: 'so_tcg_exp',
+    name: 'The Courier Guy Priority Express (Overnight)',
+    region_id: 'reg_za',
+    profile_id: 'sp_default',
+    amount: 19500,
+    is_return: false,
+    admin_only: false,
+    data: { id: 'tcg_exp' },
+    price_type: 'flat_rate'
+  },
+  {
+    id: 'so_pargo',
+    name: 'Pargo Click & Collect Point',
+    region_id: 'reg_za',
+    profile_id: 'sp_default',
+    amount: 7500,
+    is_return: false,
+    admin_only: false,
+    data: { id: 'pargo_pickup' },
+    price_type: 'flat_rate'
+  }
+];
+
+export function listShippingOptions(req: Request, res: Response): void {
+  try {
+    const cartId = req.params.cartId || (req.query.cart_id as string);
+    // Return options relevant to the cart or general
+    res.json({ shipping_options: SHIPPING_OPTIONS });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message || 'Failed to fetch shipping options.' });
+  }
+}
+
+export function addShippingMethod(req: Request, res: Response): void {
+  try {
+    const cart = cartsDb.get(req.params.id);
+    if (!cart) {
+      res.status(404).json({ message: `Cart with id: ${req.params.id} was not found` });
+      return;
+    }
+    const { option_id } = req.body || {};
+    const option = SHIPPING_OPTIONS.find(o => o.id === option_id) || SHIPPING_OPTIONS[0];
+
+    cart.shipping_total = option.amount;
+    (cart as any).shipping_methods = [
+      {
+        id: `sm_${randomUUID().slice(0, 8)}`,
+        shipping_option_id: option.id,
+        price: option.amount,
+        name: option.name
+      }
+    ];
+
+    recomputeTotals(cart);
+    res.json({ cart });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message || 'Failed to set shipping method.' });
+  }
+}
+
+// ----- Payment Sessions -----
+
+export function createPaymentSessions(req: Request, res: Response): void {
+  try {
+    const cart = cartsDb.get(req.params.id);
+    if (!cart) {
+      res.status(404).json({ message: `Cart with id: ${req.params.id} was not found` });
+      return;
+    }
+    const paymentSessions = [
+      {
+        id: `ps_manual_${cart.id}`,
+        provider_id: 'manual',
+        is_selected: true,
+        data: {}
+      },
+      {
+        id: `ps_payfast_${cart.id}`,
+        provider_id: 'payfast',
+        is_selected: false,
+        data: {}
+      }
+    ];
+
+    (cart as any).payment_sessions = paymentSessions;
+    (cart as any).payment_session = paymentSessions[0];
+
+    res.json({ cart });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message || 'Failed to initialize payment sessions.' });
+  }
+}
+
+// ----- Brands -----
+
+export function listBrands(_req: Request, res: Response): void {
+  try {
+    const brands = getBrands();
+    res.json({ brands, count: brands.length });
+  } catch (error: any) {
+    res.status(500).json({ message: error.message || 'Failed to fetch brands.' });
   }
 }
 

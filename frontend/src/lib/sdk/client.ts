@@ -180,12 +180,66 @@ export class MedusaClient {
       const categories: MedusaProductCategory[] = MOCK_CATEGORIES.map(c => ({
         id: `cat_${c.id}`,
         name: c.name,
-        handle: c.name.toLowerCase().replace(/\s+/g, '-'),
-        description: c.description || '',
-        is_active: true
+        handle: c.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+        description: c.description || `Browse quality ${c.name.toLowerCase()} in bulk and save.`,
+        imageUrl: c.imageUrl,
+        image_url: c.imageUrl,
+        image: c.imageUrl,
+        icon: c.icon,
+        item_count: c.itemCount || 15,
+        itemCount: c.itemCount || 15,
+        subcategories: c.subcategories || [],
+        category_children: (c.subcategories || []).map((sub, idx) => ({
+          id: `cat_${sub.id || `${c.id}${idx + 1}`}`,
+          name: sub.name,
+          handle: sub.name.toLowerCase().replace(/[^a-z0-9]+/g, '-'),
+          description: sub.description || '',
+          category_children: []
+        })),
+        is_active: true,
+        metadata: {
+          imageUrl: c.imageUrl,
+          image_url: c.imageUrl,
+          icon: c.icon,
+          itemCount: c.itemCount || 15,
+          subcategories: c.subcategories || []
+        }
       }));
 
       return { product_categories: categories };
+    }
+  };
+
+  // ==========================================
+  // Database Sync API (Git Persistence)
+  // ==========================================
+  public sync = {
+    status: async (): Promise<any> => {
+      try {
+        return await this.request('/store/sync');
+      } catch (e) {
+        return { synced: false, error: e };
+      }
+    },
+    reload: async (): Promise<any> => {
+      try {
+        return await this.request('/store/sync', {
+          method: 'POST',
+          body: JSON.stringify({ action: 'reload' })
+        });
+      } catch (e) {
+        return { success: false, error: e };
+      }
+    },
+    save: async (): Promise<any> => {
+      try {
+        return await this.request('/store/sync', {
+          method: 'POST',
+          body: JSON.stringify({ action: 'save' })
+        });
+      } catch (e) {
+        return { success: false, error: e };
+      }
     }
   };
 
@@ -258,6 +312,7 @@ export class MedusaClient {
           });
           if (typeof window !== 'undefined') {
             localStorage.setItem(CART_STORAGE_KEY, res.cart.id);
+            document.cookie = `${CART_STORAGE_KEY}=${res.cart.id}; path=/; max-age=2592000; SameSite=Lax;`;
           }
           return res;
         } catch (e) {
@@ -284,6 +339,7 @@ export class MedusaClient {
       if (typeof window !== 'undefined') {
         localStorage.setItem(CART_STORAGE_KEY, cartId);
         localStorage.setItem(LOCAL_CART_CACHE_KEY, JSON.stringify(mockCart));
+        document.cookie = `${CART_STORAGE_KEY}=${cartId}; path=/; max-age=2592000; SameSite=Lax;`;
       }
 
       return { cart: mockCart };
@@ -646,3 +702,4 @@ export class MedusaClient {
 
 // Singleton client instance for immediate frontend use
 export const medusa = new MedusaClient();
+export const sdk = medusa;

@@ -74,7 +74,8 @@ import {
   ShieldCheck,
   BarChart3,
   Megaphone,
-  Send
+  Send,
+  Database
 } from 'lucide-react';
 import { 
   ResponsiveContainer, 
@@ -96,6 +97,7 @@ import { MockCategoryPreset, MockBrandPreset, MOCK_PRODUCTS, MOCK_CATEGORIES, MO
 import { GoogleMarketingHub } from './GoogleMarketingHub';
 import { GoogleAnalyticsHub } from './GoogleAnalyticsHub';
 import { VendorComplianceAdmin } from './VendorComplianceAdmin';
+import { DatabaseSyncManager } from './DatabaseSyncManager';
 import { getStoredGtmId, setStoredGtmId, initGTM } from '../../utils/gtm';
 
 interface AdminPageProps {
@@ -684,7 +686,7 @@ export default function AdminPage({
   // Tab State
   const [activeTab, setActiveTab] = useState<'overview' | 'products' | 'customers' | 'vendors' | 'orders' | 'reviews' | 'coupons' | 'analytics' | 'settings' | 'site-settings' | 'security' | 'marketing' | 'outreach'>('overview');
   const [marketingMainTab, setMarketingMainTab] = useState<'emails' | 'google'>('emails');
-  const [settingsSubTab, setSettingsSubTab] = useState<'store' | 'site'>('store');
+  const [settingsSubTab, setSettingsSubTab] = useState<'store' | 'site' | 'database'>('store');
   const [analyticsSubTab, setAnalyticsSubTab] = useState<'store' | 'google'>('store');
 
   // SMTP Settings State
@@ -4822,6 +4824,16 @@ export default function AdminPage({
                 >
                   <Store className="w-4 h-4" /> Store Settings
                 </button>
+                <button
+                  onClick={() => setSettingsSubTab('database')}
+                  className={`px-4 py-2.5 text-xs font-bold rounded-xl transition cursor-pointer flex items-center gap-2 ${
+                    settingsSubTab === 'database'
+                      ? 'bg-blue-600 text-white font-black shadow-xs'
+                      : 'text-slate-600 hover:text-slate-900 hover:bg-slate-100/80'
+                  }`}
+                >
+                  <Database className="w-4 h-4" /> Database Sync
+                </button>
               </div>
 
               <div className="hidden sm:flex items-center gap-2 px-3 text-xs text-slate-400 font-bold">
@@ -5879,6 +5891,13 @@ export default function AdminPage({
 
                 </div>
 
+              </div>
+            )}
+
+            {/* SUB-TAB 3: DATABASE SYNC */}
+            {settingsSubTab === 'database' && (
+              <div className="space-y-6 animate-fadeIn">
+                <DatabaseSyncManager />
               </div>
             )}
 

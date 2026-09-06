@@ -43,6 +43,8 @@ export interface MockCategoryPreset {
   imageUrl: string;
   description?: string;
   icon?: string;
+  itemCount?: number;
+  subcategories?: Array<{ id: number; name: string; description?: string }>;
 }
 
 export const MOCK_PRODUCTS: MockProduct[] = [
@@ -672,92 +674,227 @@ export const MOCK_CATEGORIES: MockCategoryPreset[] = [
   { 
     id: 1, 
     name: 'Sale Items', 
-    imageUrl: 'https://hyper-theme-demo.myshopify.com/cdn/shop/files/collection-sales.webp?v=1735029716&width=800',
-    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23FEF2F2"/><path d="M30 25h25L80 50 55 75 30 50V25z" fill="none" stroke="%23EF4444" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="42" cy="37" r="4" fill="%23EF4444"/><path d="M48 58l8-8M48 50l8 8" stroke="%23EF4444" stroke-width="3.5" stroke-linecap="round"/></svg>'
+    imageUrl: 'https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?q=80&w=800&auto=format&fit=crop&fm=webp',
+    description: 'Clearance bargains, flash deals, bulk discounts, and limited-time price drops across all marketplace departments.',
+    itemCount: 24,
+    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23FEF2F2"/><path d="M30 25h25L80 50 55 75 30 50V25z" fill="none" stroke="%23EF4444" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="42" cy="37" r="4" fill="%23EF4444"/><path d="M48 58l8-8M48 50l8 8" stroke="%23EF4444" stroke-width="3.5" stroke-linecap="round"/></svg>',
+    subcategories: [
+      { id: 101, name: 'Flash Markdowns' },
+      { id: 102, name: 'Clearance Deals' },
+      { id: 103, name: 'Bulk Value Bundles' },
+      { id: 104, name: 'Overstock Specials' },
+      { id: 105, name: 'Daily Steals' }
+    ]
   },
   { 
     id: 2, 
     name: 'Electronics', 
-    imageUrl: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?q=80&w=800&fm=webp',
-    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23EFF6FF"/><rect x="25" y="30" width="50" height="32" rx="4" fill="none" stroke="%232563EB" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 62h60M40 62v8M60 62v8M35 70h30" stroke="%232563EB" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    imageUrl: 'https://images.unsplash.com/photo-1498049794561-7780e7231661?q=80&w=800&auto=format&fit=crop&fm=webp',
+    description: 'Audio headsets, smart wearables, computing accessories, chargers, and innovative tech essentials.',
+    itemCount: 42,
+    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23EFF6FF"/><rect x="25" y="30" width="50" height="32" rx="4" fill="none" stroke="%232563EB" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M20 62h60M40 62v8M60 62v8M35 70h30" stroke="%232563EB" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    subcategories: [
+      { id: 201, name: 'Audio & Headphones' },
+      { id: 202, name: 'Smart Wearables' },
+      { id: 203, name: 'Computer Accessories' },
+      { id: 204, name: 'Cables & Charging' },
+      { id: 205, name: 'Smart Home Devices' }
+    ]
   },
   { 
     id: 3, 
     name: 'Home & Kitchen', 
-    imageUrl: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=800&fm=webp',
-    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23FFFBEB"/><path d="M25 45L50 25l25 20v30a5 5 0 0 1-5 5H30a5 5 0 0 1-5-5V45z" fill="none" stroke="%23D97706" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M42 80V55h16v25" stroke="%23D97706" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    imageUrl: 'https://images.unsplash.com/photo-1556911220-e15b29be8c8f?q=80&w=800&auto=format&fit=crop&fm=webp',
+    description: 'Cookware, modern culinary tools, stylish organizers, ambient lighting, and essential home decor.',
+    itemCount: 36,
+    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23FFFBEB"/><path d="M25 45L50 25l25 20v30a5 5 0 0 1-5 5H30a5 5 0 0 1-5-5V45z" fill="none" stroke="%23D97706" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M42 80V55h16v25" stroke="%23D97706" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    subcategories: [
+      { id: 301, name: 'Cookware & Bakeware' },
+      { id: 302, name: 'Kitchen Storage' },
+      { id: 303, name: 'Dining & Serveware' },
+      { id: 304, name: 'Small Kitchen Gadgets' },
+      { id: 305, name: 'Home Organization' }
+    ]
   },
   { 
     id: 4, 
     name: 'Apparel & Fashion', 
-    imageUrl: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800&fm=webp',
-    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23F5F3FF"/><path d="M50 35a7 7 0 1 1-7-7" fill="none" stroke="%237C3AED" stroke-width="4" stroke-linecap="round"/><path d="M20 62l27-18a5 5 0 0 1 6 0l27 18c2 1 1 4-2 4H22c-3 0-4-3-2-4z" fill="none" stroke="%237C3AED" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    imageUrl: 'https://images.unsplash.com/photo-1490481651871-ab68de25d43d?q=80&w=800&auto=format&fit=crop&fm=webp',
+    description: 'Men & women activewear, comfortable loungewear, jackets, shoes, and seasonal wardrobe essentials.',
+    itemCount: 28,
+    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23F5F3FF"/><path d="M50 35a7 7 0 1 1-7-7" fill="none" stroke="%237C3AED" stroke-width="4" stroke-linecap="round"/><path d="M20 62l27-18a5 5 0 0 1 6 0l27 18c2 1 1 4-2 4H22c-3 0-4-3-2-4z" fill="none" stroke="%237C3AED" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    subcategories: [
+      { id: 401, name: "Men's Apparel" },
+      { id: 402, name: "Women's Apparel" },
+      { id: 403, name: 'Activewear' },
+      { id: 404, name: 'Jackets & Outerwear' },
+      { id: 405, name: 'Casual Footwear' }
+    ]
   },
   { 
     id: 5, 
     name: 'Personal Care & Wellness', 
-    imageUrl: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800&fm=webp',
-    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23FDF2F8"/><path d="M35 45h30v25c0 5-4 9-9 9H44c-5 0-9-4-9-9V45z" fill="none" stroke="%23DB2777" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M42 45v-10a4 4 0 0 1 8 0v10" stroke="%23DB2777" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M30 30h40" stroke="%23DB2777" stroke-width="4" stroke-linecap="round"/></svg>'
-  },
-  { 
-    id: 10, 
-    name: 'Beauty & Accessories', 
-    imageUrl: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=800&fm=webp',
-    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23FCE7F3"/><path d="M38 75h24M50 75V55" stroke="%23DB2777" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="38" r="15" fill="none" stroke="%23DB2777" stroke-width="4"/><path d="M42 38a8 8 0 0 1 8-8" stroke="%23DB2777" stroke-width="2" stroke-linecap="round"/></svg>'
-  },
-  { 
-    id: 11, 
-    name: 'Pest Control', 
-    imageUrl: 'https://images.unsplash.com/photo-1587334206496-114272446ecd?q=80&w=800&fm=webp',
-    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23FFF1F2"/><circle cx="50" cy="50" r="22" fill="none" stroke="%23E11D48" stroke-width="4"/><path d="M34 34l32 32" stroke="%23E11D48" stroke-width="4" stroke-linecap="round"/><path d="M45 42a5 5 0 1 1 10 0v16a5 5 0 1 1-10 0V42z" fill="none" stroke="%23E11D48" stroke-width="3"/><path d="M38 45h6M56 45h6M38 55h6M56 55h6" stroke="%23E11D48" stroke-width="3" stroke-linecap="round"/></svg>'
-  },
-  {
-    id: 12,
-    name: 'Automotive',
-    imageUrl: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=800&fm=webp',
-    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23F1F5F9"/><circle cx="50" cy="50" r="25" fill="none" stroke="%23334155" stroke-width="5"/><circle cx="50" cy="50" r="10" fill="none" stroke="%23334155" stroke-width="4"/><path d="M50 15v10M50 75v10M15 50h10M75 50h10" stroke="%23334155" stroke-width="4" stroke-linecap="round"/></svg>'
-  },
-  {
-    id: 13,
-    name: 'Stationery & Office',
-    imageUrl: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=800&fm=webp',
-    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23ECFDF5"/><path d="M30 30h40v45H30z" fill="none" stroke="%23047857" stroke-width="4" stroke-linejoin="round"/><path d="M40 45h20M40 55h20M40 65h10" stroke="%23047857" stroke-width="4" stroke-linecap="round"/><path d="M75 25L65 35M70 20l5 5" stroke="%23047857" stroke-width="4" stroke-linecap="round"/></svg>'
-  },
-  {
-    id: 14,
-    name: 'Appliances',
-    imageUrl: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&fm=webp',
-    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23EFF6FF"/><rect x="30" y="25" width="40" height="50" rx="5" fill="none" stroke="%231E40AF" stroke-width="4"/><path d="M30 48h40M45 35h10M50 60v10" stroke="%231E40AF" stroke-width="4" stroke-linecap="round"/></svg>'
-  },
-  {
-    id: 15,
-    name: 'Pet Supplies',
-    imageUrl: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=800&fm=webp',
-    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23FFFBEB"/><path d="M35 55c5-10 15-10 20 0s15 10 10 20-25 15-30 0-5-10 0-20z" fill="none" stroke="%23B45309" stroke-width="4"/><circle cx="35" cy="35" r="7" fill="%23B45309"/><circle cx="50" cy="27" r="7" fill="%23B45309"/><circle cx="65" cy="35" r="7" fill="%23B45309"/><circle cx="50" cy="55" r="8" fill="none" stroke="%23B45309" stroke-width="4"/></svg>'
+    imageUrl: 'https://images.unsplash.com/photo-1596462502278-27bfdc403348?q=80&w=800&auto=format&fit=crop&fm=webp',
+    description: 'Grooming tools, hair care, skin hydration, oral hygiene, and physical relaxation equipment.',
+    itemCount: 30,
+    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23FDF2F8"/><path d="M35 45h30v25c0 5-4 9-9 9H44c-5 0-9-4-9-9V45z" fill="none" stroke="%23DB2777" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M42 45v-10a4 4 0 0 1 8 0v10" stroke="%23DB2777" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M30 30h40" stroke="%23DB2777" stroke-width="4" stroke-linecap="round"/></svg>',
+    subcategories: [
+      { id: 501, name: 'Shaving & Grooming' },
+      { id: 502, name: 'Hair Styling Tools' },
+      { id: 503, name: 'Skin Care & Moisturizers' },
+      { id: 504, name: 'Oral Care' },
+      { id: 505, name: 'Body & Bath' }
+    ]
   },
   { 
     id: 6, 
     name: 'Sports & Outdoors', 
-    imageUrl: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=800&fm=webp',
-    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23ECFDF5"/><path d="M20 70l20-30 12 15 18-25 18 40H20z" fill="none" stroke="%23059669" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="75" cy="30" r="6" fill="none" stroke="%23059669" stroke-width="4"/></svg>'
+    imageUrl: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=800&auto=format&fit=crop&fm=webp',
+    description: 'Fitness training equipment, outdoor camping gear, sports accessories, and hydration systems.',
+    itemCount: 22,
+    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23ECFDF5"/><path d="M20 70l20-30 12 15 18-25 18 40H20z" fill="none" stroke="%23059669" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><circle cx="75" cy="30" r="6" fill="none" stroke="%23059669" stroke-width="4"/></svg>',
+    subcategories: [
+      { id: 601, name: 'Gym & Fitness Gear' },
+      { id: 602, name: 'Camping & Hiking' },
+      { id: 603, name: 'Cycling Accessories' },
+      { id: 604, name: 'Water Bottles & Shakers' },
+      { id: 605, name: 'Outdoor Games' }
+    ]
   },
   { 
     id: 7, 
     name: 'Toys & Games', 
-    imageUrl: 'https://images.unsplash.com/photo-1618842676088-c4d48a6a7c9d?q=80&w=800&fm=webp',
-    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23F0F9FF"/><rect x="25" y="32" width="50" height="36" rx="10" fill="none" stroke="%230284C7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M38 50h10M43 45v10M62 47v.1M57 52v.1" stroke="%230284C7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>'
+    imageUrl: 'https://images.unsplash.com/photo-1618842676088-c4d48a6a7c9d?q=80&w=800&auto=format&fit=crop&fm=webp',
+    description: 'STEM learning kits, family board games, remote control models, and outdoor play activities.',
+    itemCount: 18,
+    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23F0F9FF"/><rect x="25" y="32" width="50" height="36" rx="10" fill="none" stroke="%230284C7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M38 50h10M43 45v10M62 47v.1M57 52v.1" stroke="%230284C7" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>',
+    subcategories: [
+      { id: 701, name: 'STEM & Educational' },
+      { id: 702, name: 'Board Games & Puzzles' },
+      { id: 703, name: 'RC Vehicles & Drones' },
+      { id: 704, name: 'Building Blocks' },
+      { id: 705, name: 'Action Figures' }
+    ]
   },
   {
     id: 8,
     name: 'Tools & Hardware',
-    imageUrl: 'https://images.unsplash.com/photo-1581147036324-c17da419a9a2?q=80&w=800&fm=webp',
-    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23F0FDF4"/><path d="M35 65l25-25" stroke="%2316A34A" stroke-width="5" stroke-linecap="round"/><path d="M55 45l15-15a4 4 0 0 0 0-5.6l-5.6-5.6a4 4 0 0 0-5.6 0l-15 15" fill="none" stroke="%2316A34A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M45 23l12 12" stroke="%2316A34A" stroke-width="5"/></svg>'
+    imageUrl: 'https://images.unsplash.com/photo-1581147036324-c17da419a9a2?q=80&w=800&auto=format&fit=crop&fm=webp',
+    description: 'Precision hand tools, cordless drill kits, safety workwear, measuring instruments, and hardware fasteners.',
+    itemCount: 26,
+    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23F0FDF4"/><path d="M35 65l25-25" stroke="%2316A34A" stroke-width="5" stroke-linecap="round"/><path d="M55 45l15-15a4 4 0 0 0 0-5.6l-5.6-5.6a4 4 0 0 0-5.6 0l-15 15" fill="none" stroke="%2316A34A" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><path d="M45 23l12 12" stroke="%2316A34A" stroke-width="5"/></svg>',
+    subcategories: [
+      { id: 801, name: 'Hand Tools' },
+      { id: 802, name: 'Power Tools & Drills' },
+      { id: 803, name: 'Tool Storage & Boxes' },
+      { id: 804, name: 'Safety & Workwear' },
+      { id: 805, name: 'Fasteners & Fixtures' }
+    ]
   },
   {
     id: 9,
     name: 'Food & Groceries',
-    imageUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800&fm=webp',
-    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23FEF2F2"/><path d="M50 38c-3-6-11-8-17-4a15 15 0 0 0-3 21c4 6 12 15 20 20 8-5 16-14 20-20a15 15 0 0 0-3-21c-6-4-14-2-17 4z" fill="none" stroke="%23EF4444" stroke-width="4.5" stroke-linejoin="round"/><path d="M50 38c0-6 4-12 10-14" stroke="%23EF4444" stroke-width="4" stroke-linecap="round"/><path d="M56 24c4 0 6 3 6 3s-3 3-6 3-6-3-6-3" fill="%23EF4444"/></svg>'
+    imageUrl: 'https://images.unsplash.com/photo-1542838132-92c53300491e?q=80&w=800&auto=format&fit=crop&fm=webp',
+    description: 'Bulk pantry provisions, specialty coffees, teas, snack boxes, wholesale ingredients, and pantry staples.',
+    itemCount: 35,
+    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23FEF2F2"/><path d="M50 38c-3-6-11-8-17-4a15 15 0 0 0-3 21c4 6 12 15 20 20 8-5 16-14 20-20a15 15 0 0 0-3-21c-6-4-14-2-17 4z" fill="none" stroke="%23EF4444" stroke-width="4.5" stroke-linejoin="round"/><path d="M50 38c0-6 4-12 10-14" stroke="%23EF4444" stroke-width="4" stroke-linecap="round"/><path d="M56 24c4 0 6 3 6 3s-3 3-6 3-6-3-6-3" fill="%23EF4444"/></svg>',
+    subcategories: [
+      { id: 901, name: 'Bulk Pantry Staples' },
+      { id: 902, name: 'Snacks & Confectionery' },
+      { id: 903, name: 'Coffee & Artisanal Teas' },
+      { id: 904, name: 'Cooking Sauces & Spices' },
+      { id: 905, name: 'Beverage Concentrates' }
+    ]
+  },
+  { 
+    id: 10, 
+    name: 'Beauty & Accessories', 
+    imageUrl: 'https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=800&auto=format&fit=crop&fm=webp',
+    description: 'Cosmetics, designer watches, premium sunglasses, cosmetic organizers, and jewelry accessories.',
+    itemCount: 29,
+    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23FCE7F3"/><path d="M38 75h24M50 75V55" stroke="%23DB2777" stroke-width="4" stroke-linecap="round"/><circle cx="50" cy="38" r="15" fill="none" stroke="%23DB2777" stroke-width="4"/><path d="M42 38a8 8 0 0 1 8-8" stroke="%23DB2777" stroke-width="2" stroke-linecap="round"/></svg>',
+    subcategories: [
+      { id: 1001, name: 'Cosmetics & Makeup' },
+      { id: 1002, name: 'Jewelry & Watches' },
+      { id: 1003, name: 'Sunglasses & Eyewear' },
+      { id: 1004, name: 'Beauty Mirrors & Cases' },
+      { id: 1005, name: 'Handbags & Purses' }
+    ]
+  },
+  { 
+    id: 11, 
+    name: 'Pest Control', 
+    imageUrl: 'https://images.unsplash.com/photo-1587334206496-114272446ecd?q=80&w=800&auto=format&fit=crop&fm=webp',
+    description: 'Electronic insect zappers, ultrasonic deterrents, humane traps, and household pest management solutions.',
+    itemCount: 16,
+    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23FFF1F2"/><circle cx="50" cy="50" r="22" fill="none" stroke="%23E11D48" stroke-width="4"/><path d="M34 34l32 32" stroke="%23E11D48" stroke-width="4" stroke-linecap="round"/><path d="M45 42a5 5 0 1 1 10 0v16a5 5 0 1 1-10 0V42z" fill="none" stroke="%23E11D48" stroke-width="3"/><path d="M38 45h6M56 45h6M38 55h6M56 55h6" stroke="%23E11D48" stroke-width="3" stroke-linecap="round"/></svg>',
+    subcategories: [
+      { id: 1101, name: 'Electronic Insect Traps' },
+      { id: 1102, name: 'Ultrasonic Repellers' },
+      { id: 1103, name: 'Humane Rodent Traps' },
+      { id: 1104, name: 'Fly & Mosquito Screens' },
+      { id: 1105, name: 'Yard & Garden Barriers' }
+    ]
+  },
+  {
+    id: 12,
+    name: 'Automotive',
+    imageUrl: 'https://images.unsplash.com/photo-1486006920555-c77dce18193b?q=80&w=800&auto=format&fit=crop&fm=webp',
+    description: 'Car care cleaning kits, tyre inflators, magnetic phone mounts, detailing gear, and emergency tools.',
+    itemCount: 20,
+    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23F1F5F9"/><circle cx="50" cy="50" r="25" fill="none" stroke="%23334155" stroke-width="5"/><circle cx="50" cy="50" r="10" fill="none" stroke="%23334155" stroke-width="4"/><path d="M50 15v10M50 75v10M15 50h10M75 50h10" stroke="%23334155" stroke-width="4" stroke-linecap="round"/></svg>',
+    subcategories: [
+      { id: 1201, name: 'Cleaning & Detailing' },
+      { id: 1202, name: 'Phone Mounts & Chargers' },
+      { id: 1203, name: 'Tyre Compressors & Gauges' },
+      { id: 1204, name: 'Emergency Breakdown Kits' },
+      { id: 1205, name: 'Seat & Interior Covers' }
+    ]
+  },
+  {
+    id: 13,
+    name: 'Stationery & Office',
+    imageUrl: 'https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?q=80&w=800&auto=format&fit=crop&fm=webp',
+    description: 'Ergonomic laptop stands, desk organizers, executive pens, notebooks, and wholesale office stationery.',
+    itemCount: 31,
+    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23ECFDF5"/><path d="M30 30h40v45H30z" fill="none" stroke="%23047857" stroke-width="4" stroke-linejoin="round"/><path d="M40 45h20M40 55h20M40 65h10" stroke="%23047857" stroke-width="4" stroke-linecap="round"/><path d="M75 25L65 35M70 20l5 5" stroke="%23047857" stroke-width="4" stroke-linecap="round"/></svg>',
+    subcategories: [
+      { id: 1301, name: 'Desk Organizers' },
+      { id: 1302, name: 'Pens, Markers & Writing' },
+      { id: 1303, name: 'Notebooks & Planners' },
+      { id: 1304, name: 'Ergonomic Laptop Stands' },
+      { id: 1305, name: 'Packing & Mailing Supplies' }
+    ]
+  },
+  {
+    id: 14,
+    name: 'Appliances',
+    imageUrl: 'https://images.unsplash.com/photo-1584622650111-993a426fbf0a?q=80&w=800&auto=format&fit=crop&fm=webp',
+    description: 'Energy-efficient refrigerators, induction cooktops, air fryers, countertop blenders, and room heaters.',
+    itemCount: 25,
+    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23EFF6FF"/><rect x="30" y="25" width="40" height="50" rx="5" fill="none" stroke="%231E40AF" stroke-width="4"/><path d="M30 48h40M45 35h10M50 60v10" stroke="%231E40AF" stroke-width="4" stroke-linecap="round"/></svg>',
+    subcategories: [
+      { id: 1401, name: 'Air Fryers & Blenders' },
+      { id: 1402, name: 'Induction Cookers' },
+      { id: 1403, name: 'Refrigeration' },
+      { id: 1404, name: 'Air Purifiers & Fans' },
+      { id: 1405, name: 'Vacuum & Floor Care' }
+    ]
+  },
+  {
+    id: 15,
+    name: 'Pet Supplies',
+    imageUrl: 'https://images.unsplash.com/photo-1516734212186-a967f81ad0d7?q=80&w=800&auto=format&fit=crop&fm=webp',
+    description: 'Nutritious treats, orthopedic pet beds, chew toys, grooming brushes, and walking safety gear.',
+    itemCount: 19,
+    icon: 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100"><rect width="100" height="100" rx="20" fill="%23FFFBEB"/><path d="M35 55c5-10 15-10 20 0s15 10 10 20-25 15-30 0-5-10 0-20z" fill="none" stroke="%23B45309" stroke-width="4"/><circle cx="35" cy="35" r="7" fill="%23B45309"/><circle cx="50" cy="27" r="7" fill="%23B45309"/><circle cx="65" cy="35" r="7" fill="%23B45309"/><circle cx="50" cy="55" r="8" fill="none" stroke="%23B45309" stroke-width="4"/></svg>',
+    subcategories: [
+      { id: 1501, name: 'Dog & Cat Treats' },
+      { id: 1502, name: 'Orthopedic Pet Beds' },
+      { id: 1503, name: 'Interactive Toys' },
+      { id: 1504, name: 'Grooming & Shampoos' },
+      { id: 1505, name: 'Collars & Harnesses' }
+    ]
   }
 ];
 
