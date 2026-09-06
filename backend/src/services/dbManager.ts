@@ -1,4 +1,4 @@
-import fs from 'fs';
+﻿import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import {
@@ -9,8 +9,7 @@ import {
   MockCategoryPreset
 } from '../../../frontend/src/data/presets.ts';
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const __dirname = typeof __dirname !== "undefined" ? __dirname : path.dirname(__filename ? __filename : ".");
 // Root directory of the project
 const PROJECT_ROOT = path.resolve(__dirname, '../../../');
 const DATA_DIR = path.join(PROJECT_ROOT, 'data');
@@ -215,11 +214,11 @@ const DEFAULT_ORDERS: OrderRecord[] = [
       }
     ],
     timeline: [
-      { title: 'Order Placed', description: 'Payment verified via PayFast.', date: 'July 24, 2026 — 08:00 AM', location: 'Mrbulk Online Store', completed: true },
-      { title: 'Packed', description: 'Inspected and packaged in Crown North warehouse.', date: 'July 24, 2026 — 01:00 PM', location: 'Crown North Hub — Johannesburg', completed: true },
-      { title: 'In Transit', description: 'Handed to The Courier Guy driver.', date: 'July 25, 2026 — 09:30 AM', location: 'The Courier Guy JHB Depot', completed: true },
-      { title: 'Out for Delivery', description: 'Courier out on local delivery route.', date: 'July 26, 2026 — 08:15 AM', location: 'Central JHB Delivery Van', completed: true },
-      { title: 'Delivered', description: 'Signed and delivered at warehouse gate.', date: 'July 26, 2026 — 11:20 AM', location: 'Crown North, Johannesburg', completed: true, current: true }
+      { title: 'Order Placed', description: 'Payment verified via PayFast.', date: 'July 24, 2026 â€” 08:00 AM', location: 'Mrbulk Online Store', completed: true },
+      { title: 'Packed', description: 'Inspected and packaged in Crown North warehouse.', date: 'July 24, 2026 â€” 01:00 PM', location: 'Crown North Hub â€” Johannesburg', completed: true },
+      { title: 'In Transit', description: 'Handed to The Courier Guy driver.', date: 'July 25, 2026 â€” 09:30 AM', location: 'The Courier Guy JHB Depot', completed: true },
+      { title: 'Out for Delivery', description: 'Courier out on local delivery route.', date: 'July 26, 2026 â€” 08:15 AM', location: 'Central JHB Delivery Van', completed: true },
+      { title: 'Delivered', description: 'Signed and delivered at warehouse gate.', date: 'July 26, 2026 â€” 11:20 AM', location: 'Crown North, Johannesburg', completed: true, current: true }
     ]
   },
   {
@@ -256,11 +255,11 @@ const DEFAULT_ORDERS: OrderRecord[] = [
       }
     ],
     timeline: [
-      { title: 'Order Placed', description: 'Payment authorized and order confirmed.', date: 'July 20, 2026 — 09:30 AM', location: 'Mrbulk Store System', completed: true },
-      { title: 'Order Processed & Packed', description: 'Items verified and packaged.', date: 'July 20, 2026 — 02:15 PM', location: 'Distribution Hub — Crown North, JHB', completed: true },
-      { title: 'In Transit via The Courier Guy', description: 'Package sorted at main hub.', date: 'July 21, 2026 — 08:45 AM', location: 'The Courier Guy Gauteng Hub', completed: true },
-      { title: 'Out for Delivery', description: 'Courier loaded package onto delivery van.', date: 'July 23, 2026 — 07:10 AM', location: 'Rosebank Distribution Route', completed: true },
-      { title: 'Delivered', description: 'Package handed to recipient at reception.', date: 'July 23, 2026 — 11:42 AM', location: 'Rosebank, Johannesburg', completed: true, current: true }
+      { title: 'Order Placed', description: 'Payment authorized and order confirmed.', date: 'July 20, 2026 â€” 09:30 AM', location: 'Mrbulk Store System', completed: true },
+      { title: 'Order Processed & Packed', description: 'Items verified and packaged.', date: 'July 20, 2026 â€” 02:15 PM', location: 'Distribution Hub â€” Crown North, JHB', completed: true },
+      { title: 'In Transit via The Courier Guy', description: 'Package sorted at main hub.', date: 'July 21, 2026 â€” 08:45 AM', location: 'The Courier Guy Gauteng Hub', completed: true },
+      { title: 'Out for Delivery', description: 'Courier loaded package onto delivery van.', date: 'July 23, 2026 â€” 07:10 AM', location: 'Rosebank Distribution Route', completed: true },
+      { title: 'Delivered', description: 'Package handed to recipient at reception.', date: 'July 23, 2026 â€” 11:42 AM', location: 'Rosebank, Johannesburg', completed: true, current: true }
     ]
   }
 ];
@@ -613,3 +612,4 @@ class DatabaseManager {
 }
 
 export const dbManager = new DatabaseManager();
+

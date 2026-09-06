@@ -1,4 +1,4 @@
-import {
+﻿import {
   MedusaProduct,
   MedusaCart,
   MedusaLineItem,
@@ -158,7 +158,8 @@ export class MedusaClient {
 
       // Fallback from local presets
       const allMock = MOCK_WOO_PRODUCTS.map(uiProductToMedusaProduct);
-      const found = allMock.find(p => p.id === idOrHandle || p.handle === idOrHandle) || allMock[0];
+      const found = allMock.find(p => p.id === idOrHandle || p.handle === idOrHandle);
+      if (!found) throw new Error(`Product not found: ${idOrHandle}`);
       return { product: found };
     }
   };
@@ -703,3 +704,4 @@ export class MedusaClient {
 // Singleton client instance for immediate frontend use
 export const medusa = new MedusaClient();
 export const sdk = medusa;
+
