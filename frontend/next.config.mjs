@@ -13,7 +13,6 @@ const nextConfig = {
     ignoreBuildErrors: false,
   },
   serverExternalPackages: [
-    '@esbuild/win32-x64',
     '@libsql/client',
     '@libsql/hrana-client',
     '@libsql/isomorphic-fetch',
