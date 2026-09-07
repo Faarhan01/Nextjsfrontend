@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { getCategories } from '@lib/data/categories';
 import { getProducts } from '@lib/data/products';
-import CategoriesPageClient from './CategoriesPageClient';
+import { CategoriesPage as CategoriesTemplate } from '@modules/products/templates/categories-page';
 
 export const metadata: Metadata = {
   title: 'Browse Categories — Mrbulk',
@@ -16,5 +16,6 @@ export default async function CategoriesPage() {
     getProducts(),
   ]);
 
-  return <CategoriesPageClient categories={categories} products={products} />;
+  return <CategoriesTemplate categories={categories} products={products} />;
 }
+

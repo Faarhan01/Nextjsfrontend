@@ -23,34 +23,66 @@ import {
   Building2,
   Copy
 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { CartItem, UserProfile } from '@/types';
 import { formatCurrency } from '@/utils/pricing';
 import { sdk } from '@lib/sdk';
 import { trackBeginCheckout, trackPurchase } from '@/utils/gtm';
+import { useCartContext } from '@/providers/cart-provider';
+import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
+import { useToastContext } from '@/providers/toast-provider';
+import { useAuthContext } from '@/providers/auth-provider';
 
 interface CheckoutPageProps {
-  cart: CartItem[];
-  onClearCart: () => void;
-  onNavigate: (page: string, params?: any) => void;
-  themeColor: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
-  getThemeClasses: (color: string) => any;
-  showToast: (msg: string) => void;
-  currentUser: UserProfile | null;
+  cart?: CartItem[];
+  onClearCart?: () => void;
+  onNavigate?: (page: string, params?: any) => void;
+  themeColor?: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
+  getThemeClasses?: (color: string) => any;
+  showToast?: (msg: string) => void;
+  currentUser?: UserProfile | null;
   onOpenAuthModal?: () => void;
-  freeShippingThreshold: number;
+  freeShippingThreshold?: number;
 }
 
 export default function CheckoutPage({
-  cart,
-  onClearCart,
-  onNavigate,
-  themeColor,
-  getThemeClasses,
-  showToast,
-  currentUser,
-  onOpenAuthModal,
-  freeShippingThreshold
+  cart: propCart,
+  onClearCart: propOnClearCart,
+  onNavigate: propOnNavigate,
+  themeColor: propThemeColor,
+  getThemeClasses: propGetThemeClasses,
+  showToast: propShowToast,
+  currentUser: propCurrentUser,
+  onOpenAuthModal: propOnOpenAuthModal,
+  freeShippingThreshold: propFreeShippingThreshold
 }: CheckoutPageProps) {
+  const router = useRouter();
+  const cartCtx = useCartContext();
+  const themeCtx = useThemeContext();
+  const toastCtx = useToastContext();
+  const authCtx = useAuthContext();
+
+  const cart = propCart ?? cartCtx.cart;
+  const onClearCart = propOnClearCart ?? cartCtx.clearCart;
+  const themeColor = propThemeColor ?? themeCtx.themeColor;
+  const getThemeClasses = propGetThemeClasses ?? defaultGetThemeClasses;
+  const showToast = propShowToast ?? toastCtx.showToast;
+  const currentUser = propCurrentUser !== undefined ? propCurrentUser : authCtx.currentUser;
+  const onOpenAuthModal = propOnOpenAuthModal ?? (() => authCtx.setAuthModalOpen(true));
+  const freeShippingThreshold = propFreeShippingThreshold ?? themeCtx.freeShippingThreshold;
+
+  const onNavigate = (page: string, params?: any) => {
+    if (propOnNavigate) {
+      propOnNavigate(page, params);
+      return;
+    }
+    if (page === 'home' || page === '') router.push('/');
+    else if (page === 'shop' || page === 'products') router.push('/shop');
+    else if (page === 'cart') router.push('/cart');
+    else if (page === 'order-tracking') router.push('/order-tracking');
+    else router.push(page.startsWith('/') ? page : `/${page}`);
+  };
+
   const currentTheme = getThemeClasses(themeColor);
 
   // Step state: 1 = Delivery Details, 2 = Payment
@@ -98,17 +130,17 @@ export default function CheckoutPage({
     };
   }, []);
 
+  // Promo Code
+  const [promoInput, setPromoInput] = useState('');
+  const [discountPercent, setDiscountPercent] = useState<number>(0);
+  const [appliedPromoName, setAppliedPromoName] = useState<string>('');
+
   // Track GA4 begin_checkout event when entering checkout flow
   React.useEffect(() => {
     if (cart.length > 0) {
       trackBeginCheckout(cart, appliedPromoName || undefined, 'ZAR');
     }
-  }, []);
-
-  // Promo Code
-  const [promoInput, setPromoInput] = useState('');
-  const [discountPercent, setDiscountPercent] = useState<number>(0);
-  const [appliedPromoName, setAppliedPromoName] = useState<string>('');
+  }, [cart, appliedPromoName]);
 
   // Processing state
   const [isSubmitting, setIsSubmitting] = useState(false);

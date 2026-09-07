@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import MarketplaceSellerPolicyPageClient from './MarketplaceSellerPolicyPageClient';
+import MarketplaceSellerPolicyTemplate from '@modules/content/templates/marketplace-seller-policy-page';
 
 export const metadata: Metadata = {
   title: 'Seller Policy — Mrbulk',
@@ -7,5 +7,6 @@ export const metadata: Metadata = {
 };
 
 export default function SellerPolicyPage() {
-  return <MarketplaceSellerPolicyPageClient />;
+  return <MarketplaceSellerPolicyTemplate />;
 }
+

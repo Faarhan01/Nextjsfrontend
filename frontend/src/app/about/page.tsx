@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import AboutPageClient from './AboutPageClient';
+import AboutTemplate from '@modules/content/templates/about-page';
 
 export const metadata: Metadata = {
   title: 'About Us — Mrbulk',
@@ -7,5 +7,6 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
-  return <AboutPageClient />;
+  return <AboutTemplate />;
 }
+

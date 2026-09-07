@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import FaqPageClient from './FaqPageClient';
+import FaqTemplate from '@modules/content/templates/faq-page';
 
 export const metadata: Metadata = {
   title: 'FAQ — Mrbulk',
@@ -7,5 +7,6 @@ export const metadata: Metadata = {
 };
 
 export default function FaqPage() {
-  return <FaqPageClient />;
+  return <FaqTemplate />;
 }
+

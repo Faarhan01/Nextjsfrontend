@@ -29,7 +29,7 @@ function createNotFoundInterceptor(res: any, onNotFound: () => void) {
   const chunks: Buffer[] = [];
   let headersSent = false;
   let statusCode = 200;
-  const notFoundMarker = 'data-nextjs-not-found';
+  const notFoundMarkers = ['NEXT_HTTP_ERROR_FALLBACK;404', 'NEXT_NOT_FOUND'];
 
   const originalWriteHead = res.writeHead.bind(res);
   const originalEnd = res.end.bind(res);
@@ -38,7 +38,7 @@ function createNotFoundInterceptor(res: any, onNotFound: () => void) {
 
   function flushToResponse() {
     const body = Buffer.concat(chunks).toString('utf8');
-    if (statusCode === 200 && body.includes(notFoundMarker)) {
+    if (statusCode === 200 && notFoundMarkers.some(marker => body.includes(marker))) {
       statusCode = 404;
       onNotFound();
     }

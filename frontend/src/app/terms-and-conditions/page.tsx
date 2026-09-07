@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import TermsAndConditionsPageClient from './TermsAndConditionsPageClient';
+import TermsAndConditionsTemplate from '@modules/content/templates/terms-and-conditions-page';
 
 export const metadata: Metadata = {
   title: 'Terms & Conditions — Mrbulk',
@@ -7,5 +7,6 @@ export const metadata: Metadata = {
 };
 
 export default function TermsAndConditionsPage() {
-  return <TermsAndConditionsPageClient />;
+  return <TermsAndConditionsTemplate />;
 }
+

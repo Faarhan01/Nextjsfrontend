@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import CheckoutPageClient from './CheckoutPageClient';
+import CheckoutTemplate from '@modules/checkout/templates/checkout-page';
 
 export const metadata: Metadata = {
   title: 'Checkout — Mrbulk',
@@ -7,5 +7,6 @@ export const metadata: Metadata = {
 };
 
 export default function CheckoutPage() {
-  return <CheckoutPageClient />;
+  return <CheckoutTemplate />;
 }
+

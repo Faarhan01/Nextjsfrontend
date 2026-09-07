@@ -67,10 +67,18 @@ export async function getProductByIdStrict(id: string) {
         const { product } = await sdk.products.retrieve(productId);
         return medusaProductToUiProduct(product);
       } catch {
+        const target = productId.toLowerCase().trim();
         return (
-          MOCK_WOO_PRODUCTS.find(
-            (p) => p.id === productId || p.id === `prod-${productId}` || (p as any).slug === productId
-          ) || null
+          MOCK_WOO_PRODUCTS.find((p) => {
+            const pId = p.id.toLowerCase();
+            if (pId === target) return true;
+            if (`prod-${pId}` === target) return true;
+            if (pId.replace(/^prod-/, '') === target) return true;
+            if (target.startsWith(`${pId}-`)) return true;
+            const pSlug = p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+            if (pSlug === target || (p as any).slug === target) return true;
+            return false;
+          }) || null
         );
       }
     },

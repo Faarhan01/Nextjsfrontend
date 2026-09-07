@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import ReturnsPolicyPageClient from './ReturnsPolicyPageClient';
+import ReturnsPolicyTemplate from '@modules/content/templates/returns-policy-page';
 
 export const metadata: Metadata = {
   title: 'Returns Policy — Mrbulk',
@@ -7,5 +7,6 @@ export const metadata: Metadata = {
 };
 
 export default function ReturnsPolicyPage() {
-  return <ReturnsPolicyPageClient />;
+  return <ReturnsPolicyTemplate />;
 }
+

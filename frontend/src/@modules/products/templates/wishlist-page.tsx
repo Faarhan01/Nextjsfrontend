@@ -26,18 +26,25 @@ import {
   Eye
 } from 'lucide-react';
 import { MockProduct, CustomWishlist } from '@/types';
+import { useRouter } from 'next/navigation';
+import { useWishlistContext } from '@/providers/wishlist-provider';
+import { useCatalog } from '@/providers/catalog-provider';
+import { useCartContext } from '@/providers/cart-provider';
+import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
+import { useToastContext } from '@/providers/toast-provider';
+import { useUI } from '@/providers/ui-provider';
 
 interface WishlistPageProps {
-  wishlist: string[];
-  products: MockProduct[];
-  onToggleWishlist: (productId: string, productName: string) => void;
-  onAddToCart: (product: MockProduct) => void;
-  onNavigate: (page: string, params?: any) => void;
+  wishlist?: string[];
+  products?: MockProduct[];
+  onToggleWishlist?: (productId: string, productName: string) => void;
+  onAddToCart?: (product: MockProduct) => void;
+  onNavigate?: (page: string, params?: any) => void;
   onClearWishlist?: () => void;
   onAddAllToCart?: () => void;
-  themeColor: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
-  getThemeClasses: (color: string) => any;
-  showToast: (msg: string) => void;
+  themeColor?: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
+  getThemeClasses?: (color: string) => any;
+  showToast?: (msg: string) => void;
   onQuickView?: (product: MockProduct) => void;
   customWishlists?: CustomWishlist[];
   onToggleProductInLists?: (productId: string, targetListIds: string[]) => void;
@@ -48,19 +55,64 @@ interface WishlistPageProps {
 }
 
 export default function WishlistPage({
-  wishlist,
-  products,
-  onToggleWishlist,
-  onAddToCart,
-  onNavigate,
-  onClearWishlist,
-  onAddAllToCart,
-  themeColor,
-  getThemeClasses,
-  showToast,
-  onQuickView,
-  customWishlists = []
+  wishlist: propWishlist,
+  products: propProducts,
+  onToggleWishlist: propOnToggleWishlist,
+  onAddToCart: propOnAddToCart,
+  onNavigate: propOnNavigate,
+  onClearWishlist: propOnClearWishlist,
+  onAddAllToCart: propOnAddAllToCart,
+  themeColor: propThemeColor,
+  getThemeClasses: propGetThemeClasses,
+  showToast: propShowToast,
+  onQuickView: propOnQuickView,
+  customWishlists: propCustomWishlists,
+  onToggleProductInLists: propOnToggleProductInLists,
+  onCreateWishlist: propOnCreateWishlist,
+  onDeleteWishlist: propOnDeleteWishlist,
+  onRenameWishlist: propOnRenameWishlist,
+  onResetDefaultWishlists: propOnResetDefaultWishlists,
 }: WishlistPageProps) {
+  const router = useRouter();
+  const wishlistCtx = useWishlistContext();
+  const catalogCtx = useCatalog();
+  const cartCtx = useCartContext();
+  const themeCtx = useThemeContext();
+  const toastCtx = useToastContext();
+  const uiCtx = useUI();
+
+  const wishlist = propWishlist ?? wishlistCtx.wishlist;
+  const products = propProducts ?? catalogCtx.products;
+  const onToggleWishlist = propOnToggleWishlist ?? wishlistCtx.toggleWishlist;
+  const onAddToCart = propOnAddToCart ?? cartCtx.addToCart;
+  const themeColor = propThemeColor ?? themeCtx.themeColor;
+  const getThemeClasses = propGetThemeClasses ?? defaultGetThemeClasses;
+  const showToast = propShowToast ?? toastCtx.showToast;
+  const onQuickView = propOnQuickView ?? uiCtx.openQuickView;
+  const customWishlists = propCustomWishlists ?? wishlistCtx.customWishlists ?? [];
+  const onClearWishlist = propOnClearWishlist ?? wishlistCtx.clearWishlist;
+  const onToggleProductInLists = propOnToggleProductInLists ?? wishlistCtx.toggleProductInLists;
+  const onCreateWishlist = propOnCreateWishlist ?? wishlistCtx.createWishlist;
+  const onDeleteWishlist = propOnDeleteWishlist ?? wishlistCtx.deleteWishlist;
+  const onRenameWishlist = propOnRenameWishlist ?? wishlistCtx.renameWishlist;
+  const onResetDefaultWishlists = propOnResetDefaultWishlists ?? wishlistCtx.resetDefaultWishlists;
+
+  const onNavigate = (page: string, params?: any) => {
+    if (propOnNavigate) {
+      propOnNavigate(page, params);
+      return;
+    }
+    if (page === 'home' || page === '') router.push('/');
+    else if (page === 'shop' || page === 'products') router.push('/shop');
+    else router.push(page.startsWith('/') ? page : `/${page}`);
+  };
+
+  const onAddAllToCart = propOnAddAllToCart ?? (() => {
+    const wishlistedProducts = products.filter((p) => wishlist.includes(p.id));
+    wishlistedProducts.forEach((p) => cartCtx.addToCart(p, 1));
+    showToast(`Added ${wishlistedProducts.length} items to your cart.`);
+  });
+
   const currentTheme = getThemeClasses(themeColor);
 
   // Local filter & sorting state

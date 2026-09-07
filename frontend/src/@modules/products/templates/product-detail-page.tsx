@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo, useRef, useEffect } from 'react';
+import { useRouter, useParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
 import { SafeImage } from '@modules/common/components/safe-image';
 import { StockBadge } from '@modules/common/components/stock-badge';
@@ -17,7 +18,7 @@ import {
   ChevronLeft,
   ChevronRight, 
   ChevronDown,
-  ChevronUp,
+  ChevronUp, 
   Minus, 
   Plus,
   MessageSquare,
@@ -45,53 +46,98 @@ import { getProductUrl, getCategoryUrl, getShopUrl, updateSEOMetadata } from '@/
 import { getProductRatingDetails, DEFAULT_STORE_REVIEWS } from '@/utils/productRating';
 import { useCatalog } from '@/providers/catalog-provider';
 import { useCartContext } from '@/providers/cart-provider';
+import { useWishlistContext } from '@/providers/wishlist-provider';
+import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
+import { useAuthContext } from '@/providers/auth-provider';
 import { ProductReviews } from '@modules/products/components/product-reviews';
 import { VendorOffersBuyBox } from '@modules/products/components/vendor-offers-buy-box';
 
 interface ProductDetailPageProps {
-  productId: string;
-  products: MockProduct[];
-  themeColor: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
-  getThemeClasses: (color: string) => any;
-  wishlist: string[];
+  productId?: string;
+  products?: MockProduct[];
+  themeColor?: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
+  getThemeClasses?: (color: string) => any;
+  wishlist?: string[];
   customWishlists?: CustomWishlist[];
-  handleToggleWishlist: (id: string, name: string) => void;
+  handleToggleWishlist?: (id: string, name: string) => void;
   onToggleProductInLists?: (productId: string, targetListIds: string[]) => void;
   onCreateWishlist?: (name: string, description?: string, icon?: string) => CustomWishlist;
-  handleAddToCart: (product: any, qty?: number, selectedOffer?: VendorOffer) => void;
+  handleAddToCart?: (product: any, qty?: number, selectedOffer?: VendorOffer) => void;
   onBuyNow?: () => void;
-  onBack: () => void;
-  onSelectProduct: (id: string) => void;
+  onBack?: () => void;
+  onSelectProduct?: (id: string) => void;
   onSearch?: (query: string) => void;
   currentUser?: UserProfile | null;
   onOpenAuth?: () => void;
 }
 
 export default function ProductDetailPage({
-  productId,
-  products,
-  themeColor,
-  getThemeClasses,
-  wishlist,
-  customWishlists = [],
-  handleToggleWishlist,
-  onToggleProductInLists,
-  onCreateWishlist,
-  handleAddToCart,
-  onBuyNow,
-  onBack,
-  onSelectProduct,
+  productId: propProductId,
+  products: propProducts,
+  themeColor: propThemeColor,
+  getThemeClasses: propGetThemeClasses,
+  wishlist: propWishlist,
+  customWishlists: propCustomWishlists,
+  handleToggleWishlist: propHandleToggleWishlist,
+  onToggleProductInLists: propOnToggleProductInLists,
+  onCreateWishlist: propOnCreateWishlist,
+  handleAddToCart: propHandleAddToCart,
+  onBuyNow: propOnBuyNow,
+  onBack: propOnBack,
+  onSelectProduct: propOnSelectProduct,
   onSearch,
-  currentUser,
-  onOpenAuth
+  currentUser: propCurrentUser,
+  onOpenAuth: propOnOpenAuth
 }: ProductDetailPageProps) {
+  const router = useRouter();
+  const params = useParams();
+  const catalogCtx = useCatalog();
+  const cartCtx = useCartContext();
+  const wishlistCtx = useWishlistContext();
+  const themeCtx = useThemeContext();
+  const authCtx = useAuthContext();
+
+  const rawParamId = (params?.id as string) || '';
+  const productId = propProductId || rawParamId;
+  const products = propProducts || catalogCtx.products;
+  const themeColor = propThemeColor || themeCtx.themeColor;
+  const getThemeClasses = propGetThemeClasses || defaultGetThemeClasses;
+  const wishlist = propWishlist || wishlistCtx.wishlist;
+  const customWishlists = propCustomWishlists || wishlistCtx.customWishlists || [];
+  const handleToggleWishlist = propHandleToggleWishlist || wishlistCtx.toggleWishlist;
+  const onToggleProductInLists = propOnToggleProductInLists || wishlistCtx.toggleProductInLists;
+  const onCreateWishlist = propOnCreateWishlist || wishlistCtx.createWishlist;
+  const handleAddToCart = propHandleAddToCart || ((p, qty, offer) => cartCtx.addToCart(p, qty || 1, offer));
+  const onBack = propOnBack || (() => router.back());
+  const onSelectProduct = propOnSelectProduct || ((id: string) => router.push(getProductUrl(id)));
+  const currentUser = propCurrentUser !== undefined ? propCurrentUser : authCtx.currentUser;
+  const onOpenAuth = propOnOpenAuth || (() => authCtx.setAuthModalOpen(true));
+
+  const onBuyNow = propOnBuyNow || (() => {
+    if (product) {
+      handleAddToCart(product, 1, selectedOffer || undefined);
+      router.push('/checkout');
+    }
+  });
+
   const currentTheme = getThemeClasses(themeColor);
-  const { sellerAccounts } = useCatalog();
-  const { addToCart } = useCartContext();
+  const { sellerAccounts } = catalogCtx;
+  const { addToCart } = cartCtx;
   
   // Find product
   const product = useMemo(() => {
-    return products.find(p => p.id === productId) || products[0];
+    const target = (productId || '').toLowerCase().trim();
+    if (!target) return products[0];
+    return products.find(p => {
+      const pId = p.id.toLowerCase();
+      if (pId === target) return true;
+      if (`prod-${pId}` === target) return true;
+      if (pId.replace(/^prod-/, '') === target) return true;
+      if (target.startsWith(`${pId}-`)) return true;
+      const pSlug = p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      if (pSlug === target) return true;
+      return false;
+    }) || products[0];
   }, [productId, products]);
 
   // Multi-vendor offer selection

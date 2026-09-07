@@ -27,40 +27,77 @@ import {
   Shuffle,
   ChevronDown
 } from 'lucide-react';
+import { useRouter, useParams } from 'next/navigation';
 import { MockCategory, MockProduct } from '@/types';
 import { formatCurrency } from '@/utils/pricing';
 import { getProductUrl, getCategoryUrl, getBrandUrl, getShopUrl, getCategoriesUrl, updateSEOMetadata, formatCategoryName } from '@/utils/seoUtils';
 import { CategoryBarCarousel } from '@modules/home/components/category-bar-carousel';
+import { useCatalog } from '@/providers/catalog-provider';
+import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
+import { useWishlistContext } from '@/providers/wishlist-provider';
+import { useCartContext } from '@/providers/cart-provider';
+import { useUI } from '@/providers/ui-provider';
 
 interface CategoryDetailPageProps {
-  categoryName: string;
-  categories: MockCategory[];
-  products: MockProduct[];
-  themeColor: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
-  getThemeClasses: (color: string) => any;
-  wishlist: string[];
-  handleToggleWishlist: (id: string, name: string) => void;
-  handleAddToCart: (product: any) => void;
-  onBack: () => void;
-  onSelectProduct: (productId: string) => void;
+  categoryName?: string;
+  slug?: string;
+  categories?: MockCategory[];
+  products?: MockProduct[];
+  themeColor?: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
+  getThemeClasses?: (color: string) => any;
+  wishlist?: string[];
+  handleToggleWishlist?: (id: string, name: string) => void;
+  handleAddToCart?: (product: any) => void;
+  onBack?: () => void;
+  onSelectProduct?: (productId: string) => void;
   onQuickView?: (product: MockProduct) => void;
   onSelectCategory?: (categoryName: string) => void;
 }
 
 export default function CategoryDetailPage({
-  categoryName,
-  categories,
-  products,
-  themeColor,
-  getThemeClasses,
-  wishlist,
-  handleToggleWishlist,
-  handleAddToCart,
-  onBack,
-  onSelectProduct,
-  onQuickView,
-  onSelectCategory
+  categoryName: propCategoryName,
+  slug: propSlug,
+  categories: propCategories,
+  products: propProducts,
+  themeColor: propThemeColor,
+  getThemeClasses: propGetThemeClasses,
+  wishlist: propWishlist,
+  handleToggleWishlist: propHandleToggleWishlist,
+  handleAddToCart: propHandleAddToCart,
+  onBack: propOnBack,
+  onSelectProduct: propOnSelectProduct,
+  onQuickView: propOnQuickView,
+  onSelectCategory: propOnSelectCategory
 }: CategoryDetailPageProps) {
+  const router = useRouter();
+  const params = useParams();
+  const catalogCtx = useCatalog();
+  const themeCtx = useThemeContext();
+  const wishlistCtx = useWishlistContext();
+  const cartCtx = useCartContext();
+  const uiCtx = useUI();
+
+  const categories = propCategories ?? catalogCtx.categories;
+  const products = propProducts ?? catalogCtx.products;
+  const themeColor = propThemeColor ?? themeCtx.themeColor;
+  const getThemeClasses = propGetThemeClasses ?? defaultGetThemeClasses;
+  const wishlist = propWishlist ?? wishlistCtx.wishlist;
+  const handleToggleWishlist = propHandleToggleWishlist ?? wishlistCtx.toggleWishlist;
+  const handleAddToCart = propHandleAddToCart ?? cartCtx.addToCart;
+  const onBack = propOnBack ?? (() => router.push('/categories'));
+  const onSelectProduct = propOnSelectProduct ?? ((id: string) => router.push(getProductUrl(id)));
+  const onQuickView = propOnQuickView ?? uiCtx.openQuickView;
+  const onSelectCategory = propOnSelectCategory ?? ((cat: string) => {
+    if (cat.toLowerCase() === 'all') {
+      router.push('/shop');
+    } else {
+      router.push(getCategoryUrl(cat));
+    }
+  });
+
+  const slug = propSlug || (params?.slug as string) || '';
+  const categoryName = propCategoryName || (slug ? formatCategoryName(slug, categories) : 'All');
+
   const currentTheme = getThemeClasses(themeColor);
 
   // Active Category State

@@ -61,6 +61,7 @@ import {
   Folder,
   Plus
 } from 'lucide-react';
+import { useParams } from 'next/navigation';
 import { SellerAccount, MockProduct, VendorOffer, ProductCondition } from '@/types';
 import { formatCurrency, parsePriceNumber } from '@/utils/pricing';
 import { getProductSaleDetails } from '@/utils/productUtils';
@@ -68,15 +69,21 @@ import { getProductRatingDetails } from '@/utils/productRating';
 import { getProductUrl } from '@/utils/seoUtils';
 import { SafeImage } from '@modules/common/components/safe-image';
 import { StockBadge } from '@modules/common/components/stock-badge';
+import { useCatalog } from '@/providers/catalog-provider';
+import { useWishlistContext } from '@/providers/wishlist-provider';
+import { useCartContext } from '@/providers/cart-provider';
+import { useUI } from '@/providers/ui-provider';
+import { useThemeContext } from '@/providers/theme-provider';
 
 interface StorefrontViewProps {
-  seller: SellerAccount;
+  seller?: SellerAccount;
+  sellerId?: string;
   allSellers?: SellerAccount[];
-  products: MockProduct[];
-  wishlist: string[];
-  onToggleWishlist: (id: string, name: string) => void;
-  onAddToCart: (product: MockProduct, qty?: number, offer?: VendorOffer) => void;
-  onSelectProduct: (productId: string) => void;
+  products?: MockProduct[];
+  wishlist?: string[];
+  onToggleWishlist?: (id: string, name: string) => void;
+  onAddToCart?: (product: MockProduct, qty?: number, offer?: VendorOffer) => void;
+  onSelectProduct?: (productId: string) => void;
   onQuickView?: (product: MockProduct) => void;
   themeColor?: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
 }
@@ -110,17 +117,50 @@ const CategoryIcon: React.FC<{ category: string; className?: string }> = ({ cate
 };
 
 export function StorefrontView({
-  seller,
-  allSellers = [],
-  products,
-  wishlist,
-  onToggleWishlist,
-  onAddToCart,
-  onSelectProduct,
-  onQuickView,
-  themeColor = 'blue'
+  seller: propSeller,
+  sellerId: propSellerId,
+  allSellers: propAllSellers,
+  products: propProducts,
+  wishlist: propWishlist,
+  onToggleWishlist: propOnToggleWishlist,
+  onAddToCart: propOnAddToCart,
+  onSelectProduct: propOnSelectProduct,
+  onQuickView: propOnQuickView,
+  themeColor: propThemeColor,
 }: StorefrontViewProps) {
   const router = useRouter();
+  const params = useParams();
+  const catalogCtx = useCatalog();
+  const wishlistCtx = useWishlistContext();
+  const cartCtx = useCartContext();
+  const uiCtx = useUI();
+  const themeCtx = useThemeContext();
+
+  const allSellers = propAllSellers ?? catalogCtx.sellerAccounts;
+  const products = propProducts ?? catalogCtx.products;
+  const wishlist = propWishlist ?? wishlistCtx.wishlist;
+  const onToggleWishlist = propOnToggleWishlist ?? wishlistCtx.toggleWishlist;
+  const onAddToCart = propOnAddToCart ?? ((p, qty, offer) => cartCtx.addToCart(p, qty || 1, offer));
+  const onSelectProduct = propOnSelectProduct ?? ((id: string) => router.push(getProductUrl(id)));
+  const onQuickView = propOnQuickView ?? uiCtx.openQuickView;
+  const themeColor = propThemeColor ?? themeCtx.themeColor;
+
+  const rawSellerId = propSellerId || (params?.sellerId as string) || '';
+  const seller = useMemo(() => {
+    if (propSeller) return propSeller;
+    if (!rawSellerId) return allSellers[0];
+    const target = rawSellerId.toLowerCase().trim();
+    const match = allSellers.find((s, idx) => {
+      if (s.id.toLowerCase() === target) return true;
+      if (s.userId?.toLowerCase() === target) return true;
+      const storeSlug = s.storeName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      if (storeSlug === target) return true;
+      if (s.storeName.toLowerCase().replace(/\s+/g, '-') === target) return true;
+      if (target === `seller-${idx + 1}` || target === `seller-0${idx + 1}`) return true;
+      return false;
+    });
+    return match || allSellers[0];
+  }, [propSeller, rawSellerId, allSellers]);
 
   // Active Store Tabs
   const [activeTab, setActiveTab] = useState<'catalog' | 'about' | 'reviews'>('catalog');

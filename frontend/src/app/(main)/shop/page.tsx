@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { getProducts } from '@lib/data/products';
 import { getCategories } from '@lib/data/categories';
-import ShopPageClient from './ShopPageClient';
+import ShopTemplate from '@modules/products/templates/shop-page';
 
 export const metadata: Metadata = {
   title: 'Shop Catalog & Collections — Mrbulk',
@@ -16,6 +16,7 @@ export default async function ShopPage() {
     getCategories(),
   ]);
 
-  return <ShopPageClient products={products} categories={categories} />;
+  return <ShopTemplate products={products} categories={categories} />;
 }
+
 

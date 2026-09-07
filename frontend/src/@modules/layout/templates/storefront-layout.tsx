@@ -51,13 +51,13 @@ export const StorefrontLayout: React.FC<{ children: React.ReactNode }> = ({ chil
       `}</style>
 
       {/* Header */}
-      <StoreHeader />
+      {!isAdminPage && <StoreHeader />}
 
       {/* Main Content Area */}
       <main className="flex-1 w-full flex flex-col">{children}</main>
 
       {/* Footer */}
-      <StoreFooter />
+      {!isAdminPage && <StoreFooter />}
 
       {/* Cart Drawer */}
       <CartDrawer />

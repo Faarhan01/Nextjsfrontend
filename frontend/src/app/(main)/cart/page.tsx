@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import CartPageClient from './CartPageClient';
+import CartTemplate from '@modules/cart/templates/cart-page';
 
 export const metadata: Metadata = {
   title: 'Shopping Cart — Mrbulk',
@@ -7,5 +7,6 @@ export const metadata: Metadata = {
 };
 
 export default function CartPage() {
-  return <CartPageClient />;
+  return <CartTemplate />;
 }
+

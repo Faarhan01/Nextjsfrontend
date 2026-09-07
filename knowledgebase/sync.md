@@ -155,28 +155,43 @@ The frontend will automatically try the live backend first and fall back to mock
 | `npm run lint` | Run ESLint |
 | `npm run format` | Format code with Prettier |
 
-## 7. Project Structure
+## 7. Project Structure (MedusaJS Storefront Architecture)
 
 ```
 .
-├── frontend/               # Next.js application
+├── frontend/               # Next.js 16 storefront
 │   ├── src/
-│   │   ├── app/           # App Router pages and layouts
-│   │   ├── @modules/      # Feature modules (products, cart, layout, etc.)
-│   │   ├── components/    # Shared components
-│   │   ├── providers/     # React context providers
-│   │   ├── lib/           # SDK, data, utilities
-│   │   ├── types/         # TypeScript types
-│   │   └── context/       # Legacy context (being phased out)
-│   ├── public/            # Static assets
+│   │   ├── app/           # Next.js App Router (clean Server Components & route groups)
+│   │   │   ├── (main)/    # Storefront pages (shop, product, category, cart, wishlist, etc.)
+│   │   │   ├── (checkout)/# Dedicated checkout funnel
+│   │   │   └── (admin)/   # Store and marketplace management
+│   │   ├── @modules/      # MedusaJS-style feature modules
+│   │   │   ├── account/   # Auth, orders, profile components, templates & actions
+│   │   │   ├── ai/        # AI Concierge assistant & actions
+│   │   │   ├── cart/      # Cart drawer, line items, cart template & actions
+│   │   │   ├── checkout/  # Multi-step checkout templates & actions
+│   │   │   ├── common/    # Shared UI (SafeImage, StockBadge, ThemeToggle, ErrorBoundary)
+│   │   │   ├── content/   # Static content templates (about, faq, policies)
+│   │   │   ├── home/      # Hero banners, carousels, home template
+│   │   │   ├── layout/    # Store header, footer, navigation drawers
+│   │   │   ├── products/  # Product detail, shop grid, reviews, search, actions
+│   │   │   └── seller/    # Multi-vendor onboarding, storefronts, seller actions
+│   │   ├── components/    # Shared and Admin UI components
+│   │   │   ├── admin/     # Admin hub, compliance, marketing tools
+│   │   │   └── medusa/    # MedusaStatusBadge dev monitor
+│   │   ├── hooks/         # Custom React hooks (useMedusa, etc.)
+│   │   ├── lib/           # Data fetchers, SDK, constants, and utilities
+│   │   │   ├── data/      # Server data layer (cached products, categories, carts)
+│   │   │   ├── medusa/    # Medusa Store API client, types & transformers
+│   │   │   └── sdk/       # SDK bridge & client
+│   │   ├── providers/     # Modular React Context providers (cart, theme, catalog, etc.)
+│   │   ├── types/         # Domain and Medusa v2 Storefront types
+│   │   └── utils/         # Pricing, SEO, and rating utilities
+│   ├── public/            # Static assets and icons
 │   └── next.config.mjs    # Next.js configuration
-├── data/                  # Optional local database snapshot (for backend mode)
-├── backend/               # Optional Express backend (for local development)
-├── server.ts              # Optional server entry point (backend + frontend)
-├── .env                   # Environment variables (create this)
-├── package.json           # Dependencies and scripts
-├── next.config.mjs        # Next.js config
-└── tsconfig.json          # TypeScript config
+├── knowledgebase/         # Architecture guides, sync plans, rules, and notes
+├── package.json           # Project dependencies and scripts
+└── tsconfig.json          # TypeScript configuration with @modules/* and @lib/* aliases
 ```
 
 ## 8. Best Practices

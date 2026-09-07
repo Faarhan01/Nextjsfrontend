@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import OrderTrackingPageClient from './OrderTrackingPageClient';
+import OrderTrackingTemplate from '@modules/account/templates/order-tracking-page';
 
 export const metadata: Metadata = {
   title: 'Track Order — Mrbulk',
@@ -7,5 +7,6 @@ export const metadata: Metadata = {
 };
 
 export default function OrderTrackingPage() {
-  return <OrderTrackingPageClient />;
+  return <OrderTrackingTemplate />;
 }
+

@@ -35,20 +35,27 @@ import {
   ArrowLeft
 } from 'lucide-react';
 import { LogOut, ShieldCheck, LogIn } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { MockProduct, UserProfile, CustomWishlist } from '@/types';
+import { useAuthContext } from '@/providers/auth-provider';
+import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
+import { useWishlistContext } from '@/providers/wishlist-provider';
+import { useCartContext } from '@/providers/cart-provider';
+import { useToastContext } from '@/providers/toast-provider';
+import { useCatalog } from '@/providers/catalog-provider';
 
 interface MyAccountPageProps {
-  themeColor: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
-  getThemeClasses: (color: string) => any;
-  wishlist: string[];
-  wishlistProducts: MockProduct[];
-  handleToggleWishlist: (id: string, name: string) => void;
-  handleAddToCart: (product: any) => void;
-  showToast: (msg: string) => void;
-  currentUser: UserProfile | null;
-  onSignOut: () => void;
-  onOpenAuth: () => void;
-  onNavigate: (page: string) => void;
+  themeColor?: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
+  getThemeClasses?: (color: string) => any;
+  wishlist?: string[];
+  wishlistProducts?: MockProduct[];
+  handleToggleWishlist?: (id: string, name: string) => void;
+  handleAddToCart?: (product: any) => void;
+  showToast?: (msg: string) => void;
+  currentUser?: UserProfile | null;
+  onSignOut?: () => void;
+  onOpenAuth?: () => void;
+  onNavigate?: (page: string) => void;
   customWishlists?: CustomWishlist[];
   onCreateWishlist?: (name: string, description?: string, icon?: string) => CustomWishlist;
   onDeleteWishlist?: (listId: string) => void;
@@ -59,25 +66,62 @@ interface MyAccountPageProps {
 }
 
 export default function MyAccountPage({
-  themeColor,
-  getThemeClasses,
-  wishlist,
-  wishlistProducts,
-  handleToggleWishlist,
-  handleAddToCart,
-  showToast,
-  currentUser,
-  onSignOut,
-  onOpenAuth,
-  onNavigate,
-  customWishlists = [],
-  onCreateWishlist,
-  onDeleteWishlist,
-  onRenameWishlist,
-  onToggleProductInLists,
-  onResetDefaultWishlists,
-  allProducts = []
+  themeColor: propThemeColor,
+  getThemeClasses: propGetThemeClasses,
+  wishlist: propWishlist,
+  wishlistProducts: propWishlistProducts,
+  handleToggleWishlist: propHandleToggleWishlist,
+  handleAddToCart: propHandleAddToCart,
+  showToast: propShowToast,
+  currentUser: propCurrentUser,
+  onSignOut: propOnSignOut,
+  onOpenAuth: propOnOpenAuth,
+  onNavigate: propOnNavigate,
+  customWishlists: propCustomWishlists,
+  onCreateWishlist: propOnCreateWishlist,
+  onDeleteWishlist: propOnDeleteWishlist,
+  onRenameWishlist: propOnRenameWishlist,
+  onToggleProductInLists: propOnToggleProductInLists,
+  onResetDefaultWishlists: propOnResetDefaultWishlists,
+  allProducts: propAllProducts,
 }: MyAccountPageProps) {
+  const router = useRouter();
+  const authCtx = useAuthContext();
+  const themeCtx = useThemeContext();
+  const wishlistCtx = useWishlistContext();
+  const cartCtx = useCartContext();
+  const toastCtx = useToastContext();
+  const catalogCtx = useCatalog();
+
+  const themeColor = propThemeColor ?? themeCtx.themeColor;
+  const getThemeClasses = propGetThemeClasses ?? defaultGetThemeClasses;
+  const wishlist = propWishlist ?? wishlistCtx.wishlist;
+  const allProducts = propAllProducts ?? catalogCtx.products;
+  const wishlistProducts = propWishlistProducts ?? allProducts.filter((p) => wishlist.includes(p.id));
+  const handleToggleWishlist = propHandleToggleWishlist ?? wishlistCtx.toggleWishlist;
+  const handleAddToCart = propHandleAddToCart ?? cartCtx.addToCart;
+  const showToast = propShowToast ?? toastCtx.showToast;
+  const currentUser = propCurrentUser !== undefined ? propCurrentUser : authCtx.currentUser;
+  const onSignOut = propOnSignOut ?? authCtx.signOut;
+  const onOpenAuth = propOnOpenAuth ?? (() => authCtx.setAuthModalOpen(true));
+  const customWishlists = propCustomWishlists ?? wishlistCtx.customWishlists ?? [];
+  const onCreateWishlist = propOnCreateWishlist ?? wishlistCtx.createWishlist;
+  const onDeleteWishlist = propOnDeleteWishlist ?? wishlistCtx.deleteWishlist;
+  const onRenameWishlist = propOnRenameWishlist ?? wishlistCtx.renameWishlist;
+  const onToggleProductInLists = propOnToggleProductInLists ?? wishlistCtx.toggleProductInLists;
+  const onResetDefaultWishlists = propOnResetDefaultWishlists ?? wishlistCtx.resetDefaultWishlists;
+
+  const onNavigate = (page: string) => {
+    if (propOnNavigate) {
+      propOnNavigate(page);
+      return;
+    }
+    if (page === 'home' || page === '') router.push('/');
+    else if (page === 'shop' || page === 'products') router.push('/shop');
+    else if (page === 'wishlist') router.push('/wishlist');
+    else if (page === 'cart') router.push('/cart');
+    else router.push(page.startsWith('/') ? page : `/${page}`);
+  };
   const currentTheme = getThemeClasses(themeColor);
 
   const lightBannerBg = {

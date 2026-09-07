@@ -1,12 +1,18 @@
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { getProductSaleDetails } from '@/utils/productUtils';
 import { getProductUrl, getCategoryUrl, getBrandUrl, getShopUrl, updateSEOMetadata, formatCategoryName, decodeAndCleanText } from '@/utils/seoUtils';
 import { getProductRating, getProductRatingDetails } from '@/utils/productRating';
 import { motion, AnimatePresence } from 'motion/react';
 import { SafeImage } from '@modules/common/components/safe-image';
 import { StockBadge } from '@modules/common/components/stock-badge';
+import { useCartContext } from '@/providers/cart-provider';
+import { useWishlistContext } from '@/providers/wishlist-provider';
+import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
+import { useCatalog } from '@/providers/catalog-provider';
+import { useUI } from '@/providers/ui-provider';
 import { 
   Heart, 
   Plus, 
@@ -52,17 +58,17 @@ import { formatCurrency } from '@/utils/pricing';
 import { CategoryBarCarousel } from '@modules/home/components/category-bar-carousel';
 
 interface ShopPageProps {
-  themeColor: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
-  getThemeClasses: (color: string) => any;
-  products: MockProduct[];
+  themeColor?: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
+  getThemeClasses?: (color: string) => any;
+  products?: MockProduct[];
   categories?: any[];
   brands?: any[];
-  wishlist: string[];
-  handleToggleWishlist: (id: string, name: string) => void;
-  handleAddToCart: (product: any) => void;
+  wishlist?: string[];
+  handleToggleWishlist?: (id: string, name: string) => void;
+  handleAddToCart?: (product: any) => void;
   initialCategoryFilter?: string;
   initialBrandFilter?: string;
-  onSelectProduct: (id: string) => void;
+  onSelectProduct?: (id: string) => void;
   onQuickView?: (product: MockProduct) => void;
   onNavigate?: (page: string) => void;
 }
@@ -96,30 +102,55 @@ const CategoryIcon: React.FC<{ category: string; className?: string }> = ({ cate
 };
 
 export default function ShopPage({
-  themeColor,
-  getThemeClasses,
-  products = [],
-  categories: categoriesProp = [],
-  brands: brandsProp = [],
-  wishlist = [],
-  handleToggleWishlist,
-  handleAddToCart,
-  initialCategoryFilter = 'All',
-  initialBrandFilter = 'All',
-  onSelectProduct,
-  onQuickView,
-  onNavigate
+  themeColor: propThemeColor,
+  getThemeClasses: propGetThemeClasses,
+  products: propProducts,
+  categories: categoriesProp,
+  brands: brandsProp,
+  wishlist: propWishlist,
+  handleToggleWishlist: propHandleToggleWishlist,
+  handleAddToCart: propHandleAddToCart,
+  initialCategoryFilter,
+  initialBrandFilter,
+  onSelectProduct: propOnSelectProduct,
+  onQuickView: propOnQuickView,
+  onNavigate: propOnNavigate
 }: ShopPageProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const cartCtx = useCartContext();
+  const wishlistCtx = useWishlistContext();
+  const themeCtx = useThemeContext();
+  const catalogCtx = useCatalog();
+  const uiCtx = useUI();
+
+  const products = propProducts ?? catalogCtx.products;
+  const categories = categoriesProp ?? catalogCtx.categories;
+  const brands = brandsProp ?? catalogCtx.brands;
+  const wishlist = propWishlist ?? wishlistCtx.wishlist;
+  const themeColor = propThemeColor ?? themeCtx.themeColor;
+  const getThemeClasses = propGetThemeClasses ?? defaultGetThemeClasses;
+  const handleToggleWishlist = propHandleToggleWishlist ?? wishlistCtx.toggleWishlist;
+  const handleAddToCart = propHandleAddToCart ?? cartCtx.addToCart;
+  const onQuickView = propOnQuickView ?? uiCtx.openQuickView;
+  const onSelectProduct = propOnSelectProduct ?? ((id: string) => router.push(getProductUrl(id)));
+  const onNavigate = propOnNavigate ?? ((page: string) => router.push(page === 'home' ? '/' : `/${page}`));
+
+  const categoryFromUrl = searchParams.get('category');
+  const brandFromUrl = searchParams.get('brand');
+  const effectiveCategoryFilter = initialCategoryFilter ?? (categoryFromUrl || 'All');
+  const effectiveBrandFilter = initialBrandFilter ?? (brandFromUrl || 'All');
+
   const currentTheme = getThemeClasses(themeColor);
   
   // Search, Sorting, Categorization state
   const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState<string>(() => formatCategoryName(initialCategoryFilter, categoriesProp));
+  const [selectedCategory, setSelectedCategory] = useState<string>(() => formatCategoryName(effectiveCategoryFilter, categories));
   const [selectedBrand, setSelectedBrand] = useState<string>(() => {
-    if (!initialBrandFilter || initialBrandFilter.toLowerCase() === 'all') return 'All';
-    const cleaned = decodeAndCleanText(initialBrandFilter);
-    const matched = brandsProp.find(b => b.name.toLowerCase() === cleaned.toLowerCase());
-    return matched ? matched.name : cleaned;
+    if (!effectiveBrandFilter || effectiveBrandFilter.toLowerCase() === 'all') return 'All';
+    const cleaned = decodeAndCleanText(effectiveBrandFilter);
+    const matched = brands.find(b => b.name?.toLowerCase() === cleaned.toLowerCase() || b.title?.toLowerCase() === cleaned.toLowerCase());
+    return matched ? (matched.name || matched.title) : cleaned;
   });
   const [selectedRating, setSelectedRating] = useState<string>('all');
   const [selectedColor, setSelectedColor] = useState<string>('all');

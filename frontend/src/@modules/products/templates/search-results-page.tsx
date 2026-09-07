@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState, useMemo, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { formatCurrency } from '@/utils/pricing';
 import { getProductSaleDetails } from '@/utils/productUtils';
 import { motion, AnimatePresence } from 'motion/react';
@@ -30,19 +31,24 @@ import {
 import { MockCategory, MockProduct } from '@/types';
 import { getProductUrl, getCategoryUrl, getShopUrl, updateSEOMetadata } from '@/utils/seoUtils';
 import { CategoryBarCarousel } from '@modules/home/components/category-bar-carousel';
+import { useCatalog } from '@/providers/catalog-provider';
+import { useWishlistContext } from '@/providers/wishlist-provider';
+import { useCartContext } from '@/providers/cart-provider';
+import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
+import { useUI } from '@/providers/ui-provider';
 
 interface SearchResultsPageProps {
-  searchQuery: string;
-  onSearchQueryChange: (query: string) => void;
-  products: MockProduct[];
-  categories: MockCategory[];
-  wishlist: string[];
-  handleToggleWishlist: (id: string, name: string) => void;
-  handleAddToCart: (product: any) => void;
-  onSelectProduct: (productId: string) => void;
+  searchQuery?: string;
+  onSearchQueryChange?: (query: string) => void;
+  products?: MockProduct[];
+  categories?: MockCategory[];
+  wishlist?: string[];
+  handleToggleWishlist?: (id: string, name: string) => void;
+  handleAddToCart?: (product: any) => void;
+  onSelectProduct?: (productId: string) => void;
   onSelectCategory?: (categoryName: string) => void;
-  themeColor: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
-  getThemeClasses: (color: string) => any;
+  themeColor?: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
+  getThemeClasses?: (color: string) => any;
   onQuickView?: (product: MockProduct) => void;
   onBackToHome?: () => void;
 }
@@ -59,20 +65,60 @@ const TRENDING_TAGS = [
 ];
 
 export default function SearchResultsPage({
-  searchQuery,
-  onSearchQueryChange,
-  products,
-  categories,
-  wishlist,
-  handleToggleWishlist,
-  handleAddToCart,
-  onSelectProduct,
-  onSelectCategory,
-  themeColor,
-  getThemeClasses,
-  onQuickView,
-  onBackToHome
+  searchQuery: propSearchQuery,
+  onSearchQueryChange: propOnSearchQueryChange,
+  products: propProducts,
+  categories: propCategories,
+  wishlist: propWishlist,
+  handleToggleWishlist: propHandleToggleWishlist,
+  handleAddToCart: propHandleAddToCart,
+  onSelectProduct: propOnSelectProduct,
+  onSelectCategory: propOnSelectCategory,
+  themeColor: propThemeColor,
+  getThemeClasses: propGetThemeClasses,
+  onQuickView: propOnQuickView,
+  onBackToHome: propOnBackToHome,
 }: SearchResultsPageProps) {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const catalogCtx = useCatalog();
+  const wishlistCtx = useWishlistContext();
+  const cartCtx = useCartContext();
+  const themeCtx = useThemeContext();
+  const uiCtx = useUI();
+
+  const urlQuery = searchParams.get('q') || '';
+  const [localQuery, setLocalQuery] = useState(propSearchQuery ?? urlQuery);
+
+  useEffect(() => {
+    if (propSearchQuery !== undefined) {
+      setLocalQuery(propSearchQuery);
+    } else if (urlQuery) {
+      setLocalQuery(urlQuery);
+    }
+  }, [propSearchQuery, urlQuery]);
+
+  const searchQuery = propSearchQuery ?? localQuery;
+  const onSearchQueryChange = propOnSearchQueryChange ?? ((q: string) => {
+    setLocalQuery(q);
+    const newParams = new URLSearchParams(searchParams.toString());
+    if (q) newParams.set('q', q);
+    else newParams.delete('q');
+    router.replace(`/search?${newParams.toString()}`);
+  });
+
+  const products = propProducts ?? catalogCtx.products;
+  const categories = propCategories ?? catalogCtx.categories;
+  const wishlist = propWishlist ?? wishlistCtx.wishlist;
+  const handleToggleWishlist = propHandleToggleWishlist ?? wishlistCtx.toggleWishlist;
+  const handleAddToCart = propHandleAddToCart ?? cartCtx.addToCart;
+  const onSelectProduct = propOnSelectProduct ?? ((id: string) => router.push(getProductUrl(id)));
+  const onSelectCategory = propOnSelectCategory ?? ((cat: string) => router.push(getCategoryUrl(cat)));
+  const themeColor = propThemeColor ?? themeCtx.themeColor;
+  const getThemeClasses = propGetThemeClasses ?? defaultGetThemeClasses;
+  const onQuickView = propOnQuickView ?? uiCtx.openQuickView;
+  const onBackToHome = propOnBackToHome ?? (() => router.push('/'));
+
   const currentTheme = getThemeClasses(themeColor);
 
   // Filters State copied from ShopPage

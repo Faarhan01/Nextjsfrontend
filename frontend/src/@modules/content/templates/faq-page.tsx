@@ -22,12 +22,15 @@ import {
   User,
   ShoppingBag
 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { updateSEOMetadata } from '@/utils/seoUtils';
+import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
+import { useToastContext } from '@/providers/toast-provider';
 
 interface StaticPageProps {
   themeColor?: string;
   getThemeClasses?: (color: string) => any;
-  onNavigate: (page: string, params?: any) => void;
+  onNavigate?: (page: string, params?: any) => void;
   showToast?: (msg: string) => void;
   logoText?: string;
 }
@@ -42,12 +45,31 @@ interface FaqItem {
 }
 
 export const FaqPage: React.FC<StaticPageProps> = ({
-  themeColor = 'blue',
-  getThemeClasses,
-  onNavigate,
-  showToast,
-  logoText = 'mrbulk'
+  themeColor: propThemeColor,
+  getThemeClasses: propGetThemeClasses,
+  onNavigate: propOnNavigate,
+  showToast: propShowToast,
+  logoText: propLogoText
 }) => {
+  const router = useRouter();
+  const themeCtx = useThemeContext();
+  const toastCtx = useToastContext();
+
+  const themeColor = propThemeColor ?? themeCtx.themeColor;
+  const getThemeClasses = propGetThemeClasses ?? defaultGetThemeClasses;
+  const logoText = propLogoText ?? themeCtx.logoText;
+  const showToast = propShowToast ?? toastCtx.showToast;
+
+  const onNavigate = (page: string, params?: any) => {
+    if (propOnNavigate) {
+      propOnNavigate(page, params);
+      return;
+    }
+    if (page === 'home' || page === '') router.push('/');
+    else if (page === 'shop') router.push('/shop');
+    else router.push(page.startsWith('/') ? page : `/${page}`);
+  };
+
   const currentTheme = getThemeClasses ? getThemeClasses(themeColor) : null;
   const [activeCategory, setActiveCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState<string>('');

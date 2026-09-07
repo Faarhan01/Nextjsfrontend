@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import WishlistPageClient from './WishlistPageClient';
+import WishlistTemplate from '@modules/products/templates/wishlist-page';
 
 export const metadata: Metadata = {
   title: 'My Wishlist — Mrbulk',
@@ -7,5 +7,6 @@ export const metadata: Metadata = {
 };
 
 export default function WishlistPage() {
-  return <WishlistPageClient />;
+  return <WishlistTemplate />;
 }
+

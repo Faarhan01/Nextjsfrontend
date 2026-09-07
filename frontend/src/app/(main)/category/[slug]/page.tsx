@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { getCategories, getCategoryBySlugStrict } from '@lib/data/categories';
-import CategoryDetailPageClient from './CategoryDetailPageClient';
+import CategoryDetailTemplate from '@modules/products/templates/category-detail-page';
 import { notFound } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
@@ -27,5 +27,6 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   const category = await getCategoryBySlugStrict(slug);
   if (!category) notFound();
 
-  return <CategoryDetailPageClient initialSlug={slug} />;
+  return <CategoryDetailTemplate slug={slug} categoryName={category.name} />;
 }
+

@@ -16,27 +16,41 @@ import {
   ArrowUpRight
 } from 'lucide-react';
 import { MockCategory, MockProduct } from '@/types';
+import { useRouter } from 'next/navigation';
 import { SafeImage } from '@modules/common/components/safe-image';
 import { getCategoryUrl, getCategoriesUrl, updateSEOMetadata } from '@/utils/seoUtils';
 import { CategoryBarCarousel } from '@modules/home/components/category-bar-carousel';
+import { useCatalog } from '@/providers/catalog-provider';
+import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
 
 interface CategoriesPageProps {
-  categories: MockCategory[];
+  categories?: MockCategory[];
   products?: MockProduct[];
-  themeColor: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
-  getThemeClasses: (color: string) => any;
-  onSelectCategory: (categoryName: string) => void;
+  themeColor?: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
+  getThemeClasses?: (color: string) => any;
+  onSelectCategory?: (categoryName: string) => void;
   onNavigate?: (page: string) => void;
 }
 
 export const CategoriesPage: React.FC<CategoriesPageProps> = ({
-  categories,
-  products = [],
-  themeColor,
-  getThemeClasses,
-  onSelectCategory,
-  onNavigate
+  categories: propCategories,
+  products: propProducts,
+  themeColor: propThemeColor,
+  getThemeClasses: propGetThemeClasses,
+  onSelectCategory: propOnSelectCategory,
+  onNavigate: propOnNavigate
 }) => {
+  const router = useRouter();
+  const catalogCtx = useCatalog();
+  const themeCtx = useThemeContext();
+
+  const categories = propCategories ?? catalogCtx.categories;
+  const products = propProducts ?? catalogCtx.products;
+  const themeColor = propThemeColor ?? themeCtx.themeColor;
+  const getThemeClasses = propGetThemeClasses ?? defaultGetThemeClasses;
+  const onSelectCategory = propOnSelectCategory ?? ((catName: string) => router.push(getCategoryUrl(catName)));
+  const onNavigate = propOnNavigate ?? ((p: string) => router.push(p.startsWith('/') ? p : `/${p}`));
+
   const currentTheme = getThemeClasses(themeColor);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedFilterCategory, setSelectedFilterCategory] = useState<string>('All');

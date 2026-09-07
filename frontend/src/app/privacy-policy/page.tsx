@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import PrivacyPolicyPageClient from './PrivacyPolicyPageClient';
+import PrivacyPolicyTemplate from '@modules/content/templates/privacy-policy-page';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy — Mrbulk',
@@ -7,5 +7,6 @@ export const metadata: Metadata = {
 };
 
 export default function PrivacyPolicyPage() {
-  return <PrivacyPolicyPageClient />;
+  return <PrivacyPolicyTemplate />;
 }
+

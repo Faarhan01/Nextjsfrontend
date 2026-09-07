@@ -25,13 +25,17 @@ import {
   Box,
   FileText
 } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { sdk } from '@lib/sdk';
+import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
+import { useToastContext } from '@/providers/toast-provider';
+import { useAuthContext } from '@/providers/auth-provider';
 
 interface OrderTrackingPageProps {
-  themeColor: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
-  getThemeClasses: (color: string) => any;
-  onNavigate: (page: string) => void;
-  showToast: (msg: string) => void;
+  themeColor?: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
+  getThemeClasses?: (color: string) => any;
+  onNavigate?: (page: string) => void;
+  showToast?: (msg: string) => void;
   currentUser?: any;
 }
 
@@ -423,12 +427,33 @@ const DUMMY_ORDERS: Record<string, OrderDetails> = {
 };
 
 export default function OrderTrackingPage({
-  themeColor,
-  getThemeClasses,
-  onNavigate,
-  showToast,
-  currentUser
+  themeColor: propThemeColor,
+  getThemeClasses: propGetThemeClasses,
+  onNavigate: propOnNavigate,
+  showToast: propShowToast,
+  currentUser: propCurrentUser
 }: OrderTrackingPageProps) {
+  const router = useRouter();
+  const themeCtx = useThemeContext();
+  const toastCtx = useToastContext();
+  const authCtx = useAuthContext();
+
+  const themeColor = propThemeColor ?? themeCtx.themeColor;
+  const getThemeClasses = propGetThemeClasses ?? defaultGetThemeClasses;
+  const showToast = propShowToast ?? toastCtx.showToast;
+  const currentUser = propCurrentUser !== undefined ? propCurrentUser : authCtx.currentUser;
+
+  const onNavigate = (page: string) => {
+    if (propOnNavigate) {
+      propOnNavigate(page);
+      return;
+    }
+    if (page === 'home' || page === '') router.push('/');
+    else if (page === 'shop') router.push('/shop');
+    else if (page === 'account') router.push('/account');
+    else router.push(page.startsWith('/') ? page : `/${page}`);
+  };
+
   const currentTheme = getThemeClasses(themeColor);
 
   const lightBannerBg = {

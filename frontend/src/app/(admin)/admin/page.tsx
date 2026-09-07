@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import AdminPageClient from './AdminPageClient';
+import AdminDashboardTemplate from '@modules/admin/templates/admin-dashboard';
 
 export const metadata: Metadata = {
   title: 'Admin Portal & Management — Mrbulk',
@@ -7,5 +7,6 @@ export const metadata: Metadata = {
 };
 
 export default function AdminPage() {
-  return <AdminPageClient />;
+  return <AdminDashboardTemplate />;
 }
+

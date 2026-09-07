@@ -14,6 +14,7 @@ interface WishlistContextValue {
   deleteWishlist: (listId: string) => void;
   renameWishlist: (listId: string, newName: string, newDesc?: string) => void;
   resetDefaultWishlists: () => void;
+  clearWishlist: () => void;
   loadForUser: (user: UserProfile | null) => void;
 }
 
@@ -209,6 +210,13 @@ export function WishlistProvider({ children }: { children: React.ReactNode }) {
     toast.showToast('Wishlists reset to default', 'info');
   }, [toast]);
 
+  const clearWishlist = useCallback(() => {
+    setCustomWishlists((prev) =>
+      prev.map((list) => ({ ...list, productIds: [] }))
+    );
+    toast.showToast('Wishlist cleared', 'info');
+  }, [toast]);
+
   const loadForUser = useCallback((user: UserProfile | null) => {
     setUserId(user?.id || null);
     setCustomWishlists(loadUserCustomWishlists(user));
@@ -226,6 +234,7 @@ export function WishlistProvider({ children }: { children: React.ReactNode }) {
         deleteWishlist,
         renameWishlist,
         resetDefaultWishlists,
+        clearWishlist,
         loadForUser
       }}
     >

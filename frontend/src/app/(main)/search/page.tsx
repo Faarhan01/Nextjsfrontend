@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Suspense } from 'react';
-import SearchResultsPageClient from './SearchResultsPageClient';
+import SearchResultsTemplate from '@modules/products/templates/search-results-page';
 
 export const metadata: Metadata = {
   title: 'Search Results — Mrbulk',
@@ -10,7 +10,8 @@ export const metadata: Metadata = {
 export default function SearchPage() {
   return (
     <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-slate-500">Loading search...</div>}>
-      <SearchResultsPageClient />
+      <SearchResultsTemplate />
     </Suspense>
   );
 }
+

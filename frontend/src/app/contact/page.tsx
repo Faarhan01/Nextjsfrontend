@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import ContactPageClient from './ContactPageClient';
+import ContactTemplate from '@modules/content/templates/contact-page';
 
 export const metadata: Metadata = {
   title: 'Contact Us — Mrbulk',
@@ -7,5 +7,6 @@ export const metadata: Metadata = {
 };
 
 export default function ContactPage() {
-  return <ContactPageClient />;
+  return <ContactTemplate />;
 }
+

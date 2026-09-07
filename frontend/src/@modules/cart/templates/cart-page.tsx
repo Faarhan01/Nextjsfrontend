@@ -1,20 +1,26 @@
 'use client';
 
 import React from 'react';
+import { useRouter } from 'next/navigation';
 import { ShoppingBag, Trash2, Plus, Minus, ArrowRight, ArrowLeft, ShieldCheck, Tag } from 'lucide-react';
 import { CartItem, ProductsSettings, UserProfile } from '@/types';
 import { formatCurrency, parsePriceNumber } from '@/utils/pricing';
 import { SafeImage } from '@modules/common/components/safe-image';
+import { useCartContext } from '@/providers/cart-provider';
+import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
+import { useToastContext } from '@/providers/toast-provider';
+import { useAuthContext } from '@/providers/auth-provider';
+import { useCatalog } from '@/providers/catalog-provider';
 
 interface CartPageProps {
-  cart: CartItem[];
-  onAdjustQuantity: (id: string, delta: number) => void;
-  onRemoveFromCart: (id: string) => void;
-  onClearCart: () => void;
-  onNavigate: (page: string, params?: any) => void;
-  themeColor: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
-  getThemeClasses: (color: string) => any;
-  showToast: (msg: string) => void;
+  cart?: CartItem[];
+  onAdjustQuantity?: (id: string, delta: number) => void;
+  onRemoveFromCart?: (id: string) => void;
+  onClearCart?: () => void;
+  onNavigate?: (page: string, params?: any) => void;
+  themeColor?: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
+  getThemeClasses?: (color: string) => any;
+  showToast?: (msg: string) => void;
   productsSettings?: ProductsSettings;
   currentUser?: UserProfile;
   freeShippingThreshold?: number;
@@ -22,16 +28,48 @@ interface CartPageProps {
 }
 
 export const CartPage: React.FC<CartPageProps> = ({
-  cart,
-  onAdjustQuantity,
-  onRemoveFromCart,
-  onClearCart,
-  onNavigate,
-  themeColor,
-  getThemeClasses,
-  showToast,
-  productsSettings
+  cart: propCart,
+  onAdjustQuantity: propOnAdjustQuantity,
+  onRemoveFromCart: propOnRemoveFromCart,
+  onClearCart: propOnClearCart,
+  onNavigate: propOnNavigate,
+  themeColor: propThemeColor,
+  getThemeClasses: propGetThemeClasses,
+  showToast: propShowToast,
+  productsSettings: propProductsSettings,
+  currentUser: propCurrentUser,
+  freeShippingThreshold: propFreeShippingThreshold,
+  onOpenAuthModal: propOnOpenAuthModal,
 }) => {
+  const router = useRouter();
+  const cartCtx = useCartContext();
+  const themeCtx = useThemeContext();
+  const toastCtx = useToastContext();
+  const authCtx = useAuthContext();
+  const catalogCtx = useCatalog();
+
+  const cart = propCart ?? cartCtx.cart;
+  const onAdjustQuantity = propOnAdjustQuantity ?? cartCtx.adjustQuantity;
+  const onRemoveFromCart = propOnRemoveFromCart ?? cartCtx.removeFromCart;
+  const onClearCart = propOnClearCart ?? cartCtx.clearCart;
+  const themeColor = propThemeColor ?? themeCtx.themeColor;
+  const getThemeClasses = propGetThemeClasses ?? defaultGetThemeClasses;
+  const showToast = propShowToast ?? toastCtx.showToast;
+  const productsSettings = propProductsSettings ?? catalogCtx.productsSettings;
+  const currentUser = propCurrentUser ?? authCtx.currentUser ?? undefined;
+  const freeShippingThreshold = propFreeShippingThreshold ?? themeCtx.freeShippingThreshold;
+  const onOpenAuthModal = propOnOpenAuthModal ?? (() => authCtx.setAuthModalOpen(true));
+
+  const onNavigate = (page: string, params?: any) => {
+    if (propOnNavigate) {
+      propOnNavigate(page, params);
+      return;
+    }
+    if (page === 'home' || page === '') router.push('/');
+    else if (page === 'shop' || page === 'products') router.push('/shop');
+    else if (page === 'checkout') router.push('/checkout');
+    else router.push(page.startsWith('/') ? page : `/${page}`);
+  };
   const currentTheme = getThemeClasses(themeColor);
 
   const subtotal = cart.reduce((acc, item) => {

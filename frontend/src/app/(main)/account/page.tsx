@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import AccountPageClient from './AccountPageClient';
+import MyAccountTemplate from '@modules/account/templates/my-account-page';
 
 export const metadata: Metadata = {
   title: 'My Account — Mrbulk',
@@ -7,5 +7,6 @@ export const metadata: Metadata = {
 };
 
 export default function AccountPage() {
-  return <AccountPageClient />;
+  return <MyAccountTemplate />;
 }
+
