@@ -35,3 +35,6 @@ Thumbs.db
 # temp
 tmp
 temp
+
+# TypeScript build info
+tsconfig.tsbuildinfo
