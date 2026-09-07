@@ -11,6 +11,8 @@ export interface UIContextType {
   setQuickViewOpen: (open: boolean) => void;
   cartOpen: boolean;
   setCartOpen: (open: boolean) => void;
+  authModalOpen: boolean;
+  setAuthModalOpen: (open: boolean) => void;
   mobileMenuOpen: boolean;
   setMobileMenuOpen: (open: boolean) => void;
   aiConciergeOpen: boolean;
@@ -28,6 +30,7 @@ export interface UIContextType {
   handlePerformSearch: (queryToUse?: string) => void;
   navigateTo: (path: string) => void;
   handleOpenQuickView: (prod: MockWooProduct) => void;
+  openQuickView: (prod: MockWooProduct) => void;
 }
 
 const UIContext = createContext<UIContextType | undefined>(undefined);
@@ -38,6 +41,7 @@ export const UIProvider = ({ children }: { children: ReactNode }) => {
   const [quickViewProduct, setQuickViewProduct] = useState<MockWooProduct | null>(null);
   const [quickViewOpen, setQuickViewOpen] = useState<boolean>(false);
   const [cartOpen, setCartOpen] = useState<boolean>(false);
+  const [authModalOpen, setAuthModalOpen] = useState<boolean>(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [aiConciergeOpen, setAiConciergeOpen] = useState<boolean>(false);
   const [nextjsModalOpen, setNextjsModalOpen] = useState<boolean>(false);
@@ -65,13 +69,15 @@ export const UIProvider = ({ children }: { children: ReactNode }) => {
     else router.push('/shop');
   };
 
+  const openQuickView = (prod: MockWooProduct) => handleOpenQuickView(prod);
+
   return (
     <UIContext.Provider value={{
       quickViewProduct, setQuickViewProduct, quickViewOpen, setQuickViewOpen,
-      cartOpen, setCartOpen, mobileMenuOpen, setMobileMenuOpen, aiConciergeOpen,
+      cartOpen, setCartOpen, authModalOpen, setAuthModalOpen, mobileMenuOpen, setMobileMenuOpen, aiConciergeOpen,
       setAiConciergeOpen, nextjsModalOpen, setNextjsModalOpen, seoModalOpen,
       setSeoModalOpen, editorOpen, setEditorOpen, activeEditorTab, setActiveEditorTab,
-      searchQuery, setSearchQuery, handlePerformSearch, navigateTo, handleOpenQuickView
+      searchQuery, setSearchQuery, handlePerformSearch, navigateTo, handleOpenQuickView, openQuickView
     }}>{children}</UIContext.Provider>
   );
 };

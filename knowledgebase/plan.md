@@ -1,6 +1,6 @@
 # Frontend Audit & Improvement Plan
 
-> Status: Deep audit complete. Implementation pending approval.
+> Status: Frontend-only mode active. Backend removed. Implementation pending approval.
 
 This document captures the deep architecture audit of the Mrbulk frontend against the MedusaJS starter storefront, with prioritized improvements to make the codebase production-grade while preserving the existing Mrbulk design system.
 
@@ -9,6 +9,8 @@ This document captures the deep architecture audit of the Mrbulk frontend agains
 ## 1. Executive Summary
 
 The Mrbulk frontend has a strong design system and rich feature set, but its architecture still behaves like a single-page React app inside Next.js App Router. The MedusaJS starter storefront shows a cleaner pattern: thin server routes, real data layer, reusable modules, and proper metadata/loading/error boundaries.
+
+**Current direction:** Frontend-only mode. The Express backend has been removed. All data comes from local mock presets (`frontend/src/data/presets.ts`) and in-memory storage. The Medusa client is configured for offline/mock mode by default.
 
 **Bottom line:** The design is good. The plumbing is not. The fastest path is to keep the current UI/components and refactor the routing/data/state layer to match Next.js best practices.
 
@@ -19,12 +21,12 @@ The Mrbulk frontend has a strong design system and rich feature set, but its arc
 | Metric | Value | Notes |
 |--------|-------|-------|
 | Frontend src size | ~2.5 MB | 126 `.ts/.tsx` files |
-| Backend src size | ~66 KB | 22 `.ts` files |
+| Backend src size | ~66 KB | REMOVED — frontend-only mode |
 | Largest file | `StoreContext.tsx` | 1,377 lines — single context mixing 10+ domains |
-| Dead SPA shell | `App.tsx` | ~1,400 lines, not used by Next.js router |
-| Inline mock data | `presets.ts` | 914 lines, 42 KB of hardcoded catalog |
+| Dead SPA shell | `App.tsx` | REMOVED |
+| Inline mock data | `presets.ts` | 914 lines, 42 KB of hardcoded catalog — now the primary data source |
 | GTM/analytics | `gtm.ts` | 505 lines of GA4 ecommerce tracking |
-| Medusa client | `lib/medusa/client.ts` | 542 lines, dual-mode live/design fallback |
+| Medusa client | `lib/medusa/client.ts` | 542 lines, offline/mock mode by default |
 | Lint warnings | 356 | 0 errors; mostly pre-existing unused imports |
 
 ---
@@ -39,7 +41,7 @@ The Mrbulk frontend has a strong design system and rich feature set, but its arc
 | **Data layer** | Central `src/lib/data/**` with real API calls, caching, cookies | `src/lib/data/**` now exists, but mostly wraps in-memory presets | Structure is good; content needs to move from `StoreContext`/localStorage |
 | **Routing pattern** | Server components fetch data; client components only for interactivity | Mixed: some server pages, many client pages, plus dead `App.tsx` SPA | Still part SPA, part Next.js |
 | **Metadata** | `metadata`, `generateMetadata`, `generateStaticParams` used consistently | Only newly refactored pages have metadata; most pages share root metadata | SEO/social previews are incomplete |
-| **Error handling** | Uses `notFound()`, `error.tsx`, `not-found.tsx` | Custom `404/page.tsx` and `not-found.tsx`; no `notFound()` usage | Misses built-in Next.js 404/error semantics |
+| **Error handling** | Uses `notFound()`, `error.tsx`, `not-found.tsx` | Custom `404/page.tsx` and `not-found.tsx`; `notFound()` now fixed with Express interceptor | HTTP 404 status fixed for `notFound()` calls |
 | **Loading states** | Skeleton UIs per route/module | Single `loading.tsx` returning `null` | No perceived-performance loading UI |
 | **State management** | Lightweight; mostly server-driven + minimal client state | Large `StoreContext` mixing catalog, cart, wishlist, auth, UI, theme, vendor logic | One context doing too much; hard to test/extend |
 
@@ -49,13 +51,13 @@ The Mrbulk frontend has a strong design system and rich feature set, but its arc
 
 | Area | Current State | Gap / risk |
 |------|---------------|------------|
-| **Framework** | Express mounted under `/api` in `server.ts` | Works, but not Medusa-native |
-| **Data stores** | In-memory TS objects (`productStore.ts`, `orderStore.ts`, `userStore.ts`) | No persistence; data lost on restart |
-| **Auth** | Simple Bearer token verification in `authMiddleware.ts` | No JWT expiry, no refresh tokens, no password hashing |
-| **AI integration** | Gemini service with 5 endpoints (`/api/ai/*`) | Good feature, but tightly coupled to Express |
-| **Feed generation** | Google Shopping feed route under `/api/feeds` | Useful, but should eventually be a Medusa plugin |
-| **Rate limiting** | Basic in-memory rate limiter | No distributed rate limiting for multi-instance deploys |
-| **Database** | None | No PostgreSQL/SQLite; Medusa requires a DB |
+| **Framework** | REMOVED — frontend-only mode | N/A |
+| **Data stores** | In-memory TS objects via `presets.ts` | No persistence; data resets on restart |
+| **Auth** | Simple Bearer token verification in `authMiddleware.ts` | REMOVED — no auth in frontend-only mode |
+| **AI integration** | Gemini service with 5 endpoints (`/api/ai/*`) | REMOVED — frontend-only mode |
+| **Feed generation** | Google Shopping feed route under `/api/feeds` | REMOVED — frontend-only mode |
+| **Rate limiting** | Basic in-memory rate limiter | REMOVED — frontend-only mode |
+| **Database** | None | No PostgreSQL/SQLite; using in-memory presets |
 | **Type safety** | Basic interfaces in `backend/src/types/index.ts` | Limited; no shared types with frontend |
 
 ---
@@ -64,14 +66,14 @@ The Mrbulk frontend has a strong design system and rich feature set, but its arc
 
 | Area | Current State | Assessment |
 |------|---------------|------------|
-| **Client** | `frontend/src/lib/medusa/client.ts` — 542-line class with `products`, `categories`, `cart`, `regions`, `auth` methods | Solid dual-mode design; auto-falls back to local presets |
+| **Client** | `frontend/src/lib/medusa/client.ts` — offline/mock mode by default (`NEXT_PUBLIC_FRONTEND_ONLY=true`) | Solid dual-mode design; auto-falls back to local presets |
 | **Types** | `frontend/src/lib/medusa/types.ts` | Complete Medusa v2 Store API shapes |
 | **Transformers** | `frontend/src/lib/medusa/transformers.ts` | Bidirectional adapters between Medusa ↔ UI models |
-| **Hook** | `frontend/src/hooks/useMedusa.ts` (referenced in MEDUSA.md) | Provides `cart`, `addToCart`, `isLiveBackend` |
-| **Env** | `NEXT_PUBLIC_MEDUSA_BACKEND_URL=http://localhost:9000` | Correct Medusa convention |
+| **Hook** | `frontend/src/hooks/useMedusa.ts` | Provides `cart`, `addToCart`, `isLiveBackend` |
+| **Env** | `NEXT_PUBLIC_MEDUSA_BACKEND_URL=` (empty) + `NEXT_PUBLIC_FRONTEND_ONLY=true` | Frontend-only mode |
 | **Status badge** | `frontend/src/components/medusa/MedusaStatusBadge.tsx` | Dev-only health indicator |
 
-**Assessment:** The Medusa integration layer is well-architected and ready. The main gap is that the rest of the frontend doesn’t use it yet — most pages still read from `StoreContext`/localStorage instead of the Medusa client.
+**Assessment:** The Medusa integration layer is well-architected and ready. In frontend-only mode, it uses local mock data exclusively. The main gap is that the rest of the frontend doesn’t use it yet — most pages still read from `StoreContext`/localStorage instead of the Medusa client.
 
 ---
 
@@ -81,7 +83,7 @@ The Mrbulk frontend has a strong design system and rich feature set, but its arc
 |------|---------------|-------|
 | `next.config.mjs` | `typescript.ignoreBuildErrors: true`, `reactStrictMode: false`, `images.unoptimized: true` | Dangerous in production — TypeScript errors are hidden |
 | `frontend/tsconfig.json` | `strict: false` | Type safety is optional |
-| `server.ts` | Hardcoded `PORT=3000`, Express + Next.js custom server | Works for dev; need production build script |
+| `server.ts` | Express + Next.js custom server with 404 interceptor | Works for dev; can run `next start` directly for production |
 | `.env.example` | Has `NEXT_PUBLIC_MEDUSA_BACKEND_URL` but missing `NEXT_PUBLIC_SITE_URL` fallback logic | Layout.tsx has hardcoded Google Cloud Run URL |
 | `layout.tsx` | Hardcoded `https://ais-dev-6gn5ggip67oqekkhfx7fhc-396079311886.europe-west1.run.app` | Should use `NEXT_PUBLIC_SITE_URL` only |
 | Docker/CI | No `Dockerfile`, no `.github/workflows` | No automated builds or containerization |
@@ -203,3 +205,22 @@ The Mrbulk frontend has a strong design system and rich feature set, but its arc
 1. Confirm this plan aligns with priorities
 2. Approve which phase to start with
 3. Proceed with Phase 1 quick wins first, then page-by-page refactor keeping all existing UI/styles intact
+
+---
+
+## 13. Frontend-Only Mode Notes
+
+**Status:** Active since commit `cdedf7b`
+
+The site now runs as a frontend-only Next.js application:
+- **Express backend removed** from `server.ts` — only Next.js is served
+- **Medusa client** defaults to offline/mock mode via `NEXT_PUBLIC_FRONTEND_ONLY=true`
+- **Data source:** `frontend/src/data/presets.ts` (42 KB of mock catalog data)
+- **No external API calls** — all data is local
+- **Deployable:** Build with `npm run build`, start with `npm start`
+- **Database sync:** `data/db.json` still exists for future backend reconnection
+
+To reconnect a backend later:
+1. Set `NEXT_PUBLIC_MEDUSA_BACKEND_URL` to your Medusa/Express URL
+2. Set `NEXT_PUBLIC_FRONTEND_ONLY=false` (or unset it)
+3. The Medusa client will automatically detect the live backend and use it

@@ -2,7 +2,11 @@
 
 import React from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { useStore } from '@/context/StoreContext';
+import { useCatalog } from '@/providers/catalog-provider';
+import { useWishlistContext } from '@/providers/wishlist-provider';
+import { useCartContext } from '@/providers/cart-provider';
+import { useUI } from '@/providers/ui-provider';
+import { useThemeContext } from '@/providers/theme-provider';
 import { StorefrontView } from '@modules/seller/templates/storefront-view';
 import { getProductUrl } from '@/utils/seoUtils';
 import { Store } from 'lucide-react';
@@ -16,15 +20,11 @@ export default function StorefrontPageClient({ initialSellerId }: StorefrontPage
   const router = useRouter();
   const rawSellerId = initialSellerId || (params?.sellerId as string);
 
-  const {
-    sellerAccounts,
-    products,
-    wishlist,
-    handleToggleWishlist,
-    handleAddToCart,
-    handleOpenQuickView,
-    themeColor
-  } = useStore();
+  const { sellerAccounts, products } = useCatalog();
+  const { wishlist, toggleWishlist } = useWishlistContext();
+  const { addToCart } = useCartContext();
+  const { openQuickView } = useUI();
+  const { themeColor } = useThemeContext();
 
   const currentSeller = React.useMemo(() => {
     if (!rawSellerId) return sellerAccounts[0];
@@ -58,14 +58,14 @@ export default function StorefrontPageClient({ initialSellerId }: StorefrontPage
       allSellers={sellerAccounts}
       products={products}
       wishlist={wishlist}
-      onToggleWishlist={handleToggleWishlist}
+      onToggleWishlist={toggleWishlist}
       onAddToCart={(product, qty, offer) => {
-        handleAddToCart(product, qty || 1, offer);
+        addToCart(product, qty || 1, offer);
       }}
       onSelectProduct={(id) => {
         router.push(getProductUrl(id));
       }}
-      onQuickView={handleOpenQuickView}
+      onQuickView={openQuickView}
       themeColor={themeColor}
     />
   );

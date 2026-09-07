@@ -20,6 +20,7 @@ export interface MedusaClientConfig {
 const DEFAULT_BACKEND_URL =
   process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL ||
   (typeof window !== 'undefined' ? `${window.location.origin}/api` : '/api');
+const FRONTEND_ONLY = process.env.NEXT_PUBLIC_FRONTEND_ONLY === 'true';
 const CART_STORAGE_KEY = 'medusa_cart_id';
 const LOCAL_CART_CACHE_KEY = 'medusa_local_cart_state';
 
@@ -32,6 +33,9 @@ export class MedusaClient {
   constructor(config?: MedusaClientConfig) {
     this.baseUrl = (config?.baseUrl || DEFAULT_BACKEND_URL).replace(/\/$/, '');
     this.publishableApiKey = config?.publishableApiKey;
+    if (FRONTEND_ONLY) {
+      this.isOnline = false;
+    }
   }
 
   public getBaseUrl(): string {
@@ -47,6 +51,9 @@ export class MedusaClient {
    * Ping backend to check if Medusa Store API is responding.
    */
   public async checkHealth(): Promise<boolean> {
+    if (FRONTEND_ONLY || this.isOnline === false) {
+      return false;
+    }
     const now = Date.now();
     // Cache health check for 10 seconds
     if (this.isOnline !== null && now - this.lastHealthCheck < 10000) {

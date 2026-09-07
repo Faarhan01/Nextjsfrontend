@@ -223,6 +223,8 @@ export interface MockProduct {
   offers?: VendorOffer[];
   primarySellerId?: string;
   primarySellerName?: string;
+  bulkPricing?: Array<{ minQty: number; price: number }>;
+  specifications?: Record<string, string>;
 }
 
 export type MockWooProduct = MockProduct;

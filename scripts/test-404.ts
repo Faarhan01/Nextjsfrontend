@@ -1,5 +1,5 @@
-import { getProductByIdStrict } from './frontend/src/lib/data/products';
-import { getCategoryBySlugStrict } from './frontend/src/lib/data/categories';
+import { getProductByIdStrict } from '../frontend/src/lib/data/products';
+import { getCategoryBySlugStrict } from '../frontend/src/lib/data/categories';
 
 (async () => {
   const p = await getProductByIdStrict('999999-notreal');

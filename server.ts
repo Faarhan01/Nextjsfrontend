@@ -7,7 +7,6 @@ const PORT = 3000;
 
 import express from "express";
 import next from "next";
-import backendApp from "./backend/src/app.ts";
 
 const dev = process.env.NODE_ENV !== "production";
 const nextApp = next({ dev, dir: "./frontend", hostname: "0.0.0.0", port: PORT });
@@ -25,9 +24,6 @@ app.use((req, res, next) => {
   res.setHeader("Permissions-Policy", "camera=(), microphone=(), geolocation=()");
   next();
 });
-
-// Connect backend routes under /api
-app.use("/api", backendApp);
 
 function createNotFoundInterceptor(res: any, onNotFound: () => void) {
   const chunks: Buffer[] = [];

@@ -2,7 +2,10 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { useStore } from '../../context/StoreContext';
+import { useThemeContext } from '@/providers/theme-provider';
+import { useCatalog } from '@/providers/catalog-provider';
+import { useToastContext } from '@/providers/toast-provider';
+import { getThemeClasses } from '@/providers/theme-provider';
 import { VendorApplication, SellerAccount, VendorDocument, VendorProductSubmission } from '../../types';
 import {
   Store,
@@ -40,20 +43,10 @@ import {
 import { formatCurrency } from '../../utils/pricing';
 
 export function VendorComplianceAdmin() {
-  const {
-    currentTheme,
-    vendorApplications,
-    sellerAccounts,
-    productSubmissions,
-    handleApproveVendorApplication,
-    handleRejectVendorApplication,
-    handleToggleSellerStatus,
-    handleUpdateSellerProfile,
-    handleApproveProductSubmission,
-    handleRejectProductSubmission,
-    handleDeleteProductSubmission,
-    showToast
-  } = useStore();
+  const { themeColor } = useThemeContext();
+  const currentTheme = getThemeClasses(themeColor);
+  const { vendorApplications, sellerAccounts, productSubmissions, handleApproveVendorApplication, handleRejectVendorApplication, handleToggleSellerStatus, handleUpdateSellerProfile, handleApproveProductSubmission, handleRejectProductSubmission, handleDeleteProductSubmission } = useCatalog();
+  const { showToast } = useToastContext();
 
   const [subTab, setSubTab] = useState<'applications' | 'sellers' | 'products'>('applications');
   const [appStatusFilter, setAppStatusFilter] = useState<'all' | 'pending_approval' | 'approved' | 'rejected'>('pending_approval');

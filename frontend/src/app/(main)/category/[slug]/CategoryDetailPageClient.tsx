@@ -2,7 +2,12 @@
 
 import React from 'react';
 import { useRouter, useParams } from 'next/navigation';
-import { useStore } from '@/context/StoreContext';
+import { useCatalog } from '@/providers/catalog-provider';
+import { useWishlistContext } from '@/providers/wishlist-provider';
+import { useCartContext } from '@/providers/cart-provider';
+import { useThemeContext } from '@/providers/theme-provider';
+import { useUI } from '@/providers/ui-provider';
+import { getThemeClasses } from '@/providers/theme-provider';
 import CategoryDetailPage from '@modules/products/templates/category-detail-page';
 import { getProductUrl, getCategoryUrl, formatCategoryName } from '@/utils/seoUtils';
 
@@ -15,16 +20,11 @@ export default function CategoryDetailPageClient({ initialSlug }: CategoryDetail
   const params = useParams();
   const rawSlug = initialSlug || (params?.slug as string) || 'all';
   
-  const {
-    products,
-    categories,
-    themeColor,
-    getThemeClasses,
-    wishlist,
-    handleToggleWishlist,
-    handleAddToCart,
-    handleOpenQuickView
-  } = useStore();
+  const { products, categories } = useCatalog();
+  const { themeColor } = useThemeContext();
+  const { wishlist, toggleWishlist } = useWishlistContext();
+  const { addToCart } = useCartContext();
+  const { openQuickView } = useUI();
 
   // Find matching category name cleanly
   const resolvedCategoryName = React.useMemo(() => {
@@ -40,11 +40,11 @@ export default function CategoryDetailPageClient({ initialSlug }: CategoryDetail
         themeColor={themeColor}
         getThemeClasses={getThemeClasses}
         wishlist={wishlist}
-        handleToggleWishlist={handleToggleWishlist}
-        handleAddToCart={handleAddToCart}
+        handleToggleWishlist={toggleWishlist}
+        handleAddToCart={addToCart}
         onBack={() => router.push('/categories')}
         onSelectProduct={(id) => router.push(getProductUrl(id))}
-        onQuickView={handleOpenQuickView}
+        onQuickView={openQuickView}
         onSelectCategory={(cat) => {
           if (cat.toLowerCase() === 'all') {
             router.push('/shop');

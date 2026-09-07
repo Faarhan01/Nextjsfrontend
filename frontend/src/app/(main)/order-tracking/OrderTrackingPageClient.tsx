@@ -2,17 +2,17 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { useStore } from '@/context/StoreContext';
+import { useThemeContext } from '@/providers/theme-provider';
+import { useToastContext } from '@/providers/toast-provider';
+import { useAuthContext } from '@/providers/auth-provider';
+import { getThemeClasses } from '@/providers/theme-provider';
 import OrderTrackingPage from '@modules/account/templates/order-tracking-page';
 
 export default function OrderTrackingPageClient() {
   const router = useRouter();
-  const {
-    themeColor,
-    getThemeClasses,
-    showToast,
-    currentUser
-  } = useStore();
+  const { themeColor } = useThemeContext();
+  const { showToast } = useToastContext();
+  const { currentUser } = useAuthContext();
 
   return (
     <div className="w-full">

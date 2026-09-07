@@ -21,7 +21,7 @@
       "@frontend/*": ["./frontend/src/*"],
       "@backend/*": ["./backend/src/*"],
       "@lib/*": ["./frontend/src/lib/*"],
-      "@modules/*": ["./frontend/src/modules/*"],
+      "@modules/*": ["./frontend/src/@modules/*"],
       "@components/*": ["./frontend/src/components/*"]
     },
     "allowImportingTsExtensions": true,

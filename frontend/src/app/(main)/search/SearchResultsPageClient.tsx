@@ -2,7 +2,12 @@
 
 import React, { useState, useEffect } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
-import { useStore } from '@/context/StoreContext';
+import { useCatalog } from '@/providers/catalog-provider';
+import { useWishlistContext } from '@/providers/wishlist-provider';
+import { useCartContext } from '@/providers/cart-provider';
+import { useThemeContext } from '@/providers/theme-provider';
+import { useUI } from '@/providers/ui-provider';
+import { getThemeClasses } from '@/providers/theme-provider';
 import SearchResultsPage from '@modules/products/templates/search-results-page';
 import { getProductUrl, getCategoryUrl } from '@/utils/seoUtils';
 
@@ -16,16 +21,11 @@ export default function SearchResultsPageClient() {
     setQuery(queryParam);
   }, [queryParam]);
 
-  const {
-    products,
-    categories,
-    wishlist,
-    handleToggleWishlist,
-    handleAddToCart,
-    themeColor,
-    getThemeClasses,
-    handleOpenQuickView
-  } = useStore();
+  const { products, categories } = useCatalog();
+  const { wishlist, toggleWishlist } = useWishlistContext();
+  const { addToCart } = useCartContext();
+  const { themeColor } = useThemeContext();
+  const { openQuickView } = useUI();
 
   return (
     <div className="w-full">
@@ -38,13 +38,13 @@ export default function SearchResultsPageClient() {
         products={products}
         categories={categories}
         wishlist={wishlist}
-        handleToggleWishlist={handleToggleWishlist}
-        handleAddToCart={handleAddToCart}
+        handleToggleWishlist={toggleWishlist}
+        handleAddToCart={addToCart}
         onSelectProduct={(id) => router.push(getProductUrl(id))}
         onSelectCategory={(catName) => router.push(getCategoryUrl(catName))}
         themeColor={themeColor}
         getThemeClasses={getThemeClasses}
-        onQuickView={handleOpenQuickView}
+        onQuickView={openQuickView}
         onBackToHome={() => router.push('/')}
       />
     </div>

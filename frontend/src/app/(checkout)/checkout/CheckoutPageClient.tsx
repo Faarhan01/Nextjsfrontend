@@ -2,27 +2,26 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { useStore } from '@/context/StoreContext';
+import { useCartContext } from '@/providers/cart-provider';
+import { useThemeContext } from '@/providers/theme-provider';
+import { useToastContext } from '@/providers/toast-provider';
+import { useAuthContext } from '@/providers/auth-provider';
+import { useUI } from '@/providers/ui-provider';
+import { getThemeClasses } from '@/providers/theme-provider';
 import CheckoutPage from '@modules/checkout/templates/checkout-page';
 
 export default function CheckoutPageClient() {
   const router = useRouter();
-  const {
-    cart,
-    handleClearCart,
-    themeColor,
-    getThemeClasses,
-    showToast,
-    currentUser,
-    setAuthModalOpen,
-    freeShippingThreshold
-  } = useStore();
+  const { cart, clearCart } = useCartContext();
+  const { themeColor, freeShippingThreshold } = useThemeContext();
+  const { showToast } = useToastContext();
+  const { currentUser, setAuthModalOpen } = useAuthContext();
 
   return (
     <div className="w-full">
       <CheckoutPage
         cart={cart}
-        onClearCart={handleClearCart}
+        onClearCart={clearCart}
         onNavigate={(page) => {
           if (page === 'home') router.push('/');
           else if (page === 'order-tracking') router.push('/order-tracking');

@@ -2,12 +2,15 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { useStore } from '@/context/StoreContext';
+import { useThemeContext } from '@/providers/theme-provider';
+import { useToastContext } from '@/providers/toast-provider';
+import { getThemeClasses } from '@/providers/theme-provider';
 import FaqPage from '@modules/content/templates/faq-page';
 
 export default function FaqPageClient() {
   const router = useRouter();
-  const { themeColor, getThemeClasses, showToast, logoText } = useStore();
+  const { themeColor, logoText } = useThemeContext();
+  const { showToast } = useToastContext();
 
   const handleNavigate = (page: string) => {
     if (page === 'home' || page === '') router.push('/');

@@ -5,13 +5,13 @@ import {
   MOCK_PRODUCTS,
   MOCK_CATEGORIES,
   MOCK_BRANDS,
-  MockProduct,
   MockCategoryPreset
 } from '../../../frontend/src/data/presets.ts';
+import type { MockProduct } from '../../../frontend/src/types/index.ts';
 
-const __dirname = typeof __dirname !== "undefined" ? __dirname : path.dirname(__filename ? __filename : ".");
+const __dirname_cwd = typeof __dirname !== "undefined" ? __dirname : path.dirname(__filename ? __filename : ".");
 // Root directory of the project
-const PROJECT_ROOT = path.resolve(__dirname, '../../../');
+const PROJECT_ROOT = path.resolve(__dirname_cwd, '../../../');
 const DATA_DIR = path.join(PROJECT_ROOT, 'data');
 const DB_FILE_PATH = path.join(DATA_DIR, 'db.json');
 
@@ -140,10 +140,11 @@ function mockToProductItem(m: MockProduct): ProductItem {
   const numPrice = typeof m.price === 'number'
     ? m.price
     : parseFloat(String(m.price || '0').replace(/[^0-9.]/g, '')) || 0;
+  const priceStr = typeof m.price === 'number' ? `R${Number(m.price).toFixed(2)}` : (m.price || 'R0.00');
   return {
     id: m.id,
     name: m.name,
-    price: typeof m.price === 'number' ? `R${m.price.toFixed(2)}` : (m.price || 'R0.00'),
+    price: priceStr,
     numericPrice: numPrice,
     originalPrice: m.originalPrice,
     isSale: m.isSale ?? false,

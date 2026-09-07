@@ -2,31 +2,21 @@
 
 import React from 'react';
 import { useRouter } from 'next/navigation';
-import { useStore } from '@/context/StoreContext';
+import { useThemeContext } from '@/providers/theme-provider';
+import { useToastContext } from '@/providers/toast-provider';
+import { useAuthContext } from '@/providers/auth-provider';
+import { useUI } from '@/providers/ui-provider';
+import { useCatalog } from '@/providers/catalog-provider';
+import { getThemeClasses } from '@/providers/theme-provider';
 import AdminPage from '@components/admin/AdminPage';
 
 export default function AdminPageClient() {
   const router = useRouter();
-  const {
-    themeColor,
-    getThemeClasses,
-    showToast,
-    currentUser,
-    setSeoModalOpen,
-    setNextjsModalOpen,
-    freeShippingThreshold,
-    setFreeShippingThreshold,
-    logoText,
-    setLogoText,
-    products,
-    setProducts,
-    categories,
-    setCategories,
-    brands,
-    setBrands,
-    productsSettings,
-    setProductsSettings
-  } = useStore();
+  const { themeColor, logoText, setLogoText, freeShippingThreshold, setFreeShippingThreshold } = useThemeContext();
+  const { showToast } = useToastContext();
+  const { currentUser } = useAuthContext();
+  const { setSeoModalOpen, setNextjsModalOpen } = useUI();
+  const { products, setProducts, categories, setCategories, brands, setBrands, productsSettings, setProductsSettings } = useCatalog();
 
   return (
     <div className="w-full">

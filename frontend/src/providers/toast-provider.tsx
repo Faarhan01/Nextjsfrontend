@@ -11,6 +11,7 @@ interface ToastContextValue {
     description?: string
   ) => void;
   dismissToast: (id: string) => void;
+  handleDismissToast: (id: string) => void;
 }
 
 const ToastContext = createContext<ToastContextValue | null>(null);
@@ -50,8 +51,10 @@ export function ToastProvider({ children }: { children: React.ReactNode }) {
     }
   }, []);
 
+  const handleDismissToast = dismissToast;
+
   return (
-    <ToastContext.Provider value={{ toasts, showToast, dismissToast }}>
+    <ToastContext.Provider value={{ toasts, showToast, dismissToast, handleDismissToast }}>
       {children}
     </ToastContext.Provider>
   );
