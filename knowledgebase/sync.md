@@ -90,13 +90,41 @@ npm run build
 
 This creates an optimized production build in `frontend/.next/`.
 
+**Note:** The build script also tries to run `esbuild` to bundle the optional Express server (`server.ts`). On Windows, `esbuild.exe` may be blocked by Device Guard/Defender. This does NOT affect the frontend—the Next.js build still succeeds. If `esbuild` is blocked, you can ignore it or use the alternative start method below.
+
 ### Start
 
 ```bash
 npm start
 ```
 
-The frontend will be available at `http://localhost:3000`.
+This starts the production server at `http://localhost:3000`.
+
+**Alternative start (no esbuild required):**
+
+If `esbuild` is blocked on your machine, you can run the Next.js server directly:
+
+```bash
+cd frontend
+npx next start -p 3000
+```
+
+This serves the built frontend without needing the custom Express wrapper.
+
+### Deploy to Google AI Studio
+
+Google AI Studio runs on Linux, so `esbuild` is not an issue there. To deploy:
+
+1. Push your code to GitHub
+2. In Google AI Studio, pull the latest code
+3. Run `npm install`
+4. Run `npm run build`
+   - The Next.js build will succeed
+   - The optional esbuild step may fail on Windows but is not needed for deployment
+5. Run `cd frontend && npx next start -p 3000`
+6. The app will be available at the AI Studio URL
+
+**Alternatively**, you can deploy to Vercel, Netlify, or Railway, which support Next.js natively and don't require the custom server.
 
 ## 4. Development Mode
 
