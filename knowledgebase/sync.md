@@ -90,38 +90,50 @@ npm run build
 
 This creates an optimized production build in `frontend/.next/`.
 
-**Note:** The build script also tries to run `esbuild` to bundle the optional Express server (`server.ts`). On Windows, `esbuild.exe` may be blocked by Device Guard/Defender. This does NOT affect the frontend—the Next.js build still succeeds. If `esbuild` is blocked, you can ignore it or use the alternative start method below.
+**Note:** The default `build` script only builds the Next.js frontend. The optional `build:server` script also bundles the Express wrapper (`server.ts`) with `esbuild`, but this is not required for deployment.
 
 ### Start
 
 ```bash
-npm start
+npm run start
 ```
 
-This starts the production server at `http://localhost:3000`.
+This starts the production server at `http://localhost:3000` using Next.js directly, no Express wrapper or `esbuild` needed.
 
-**Alternative start (no esbuild required):**
+**Alternative scripts:**
 
-If `esbuild` is blocked on your machine, you can run the Next.js server directly:
+If you want to use the custom Express wrapper (for custom middleware/headers), you can build and start it with:
 
 ```bash
-cd frontend
-npx next start -p 3000
+npm run build:server   # requires esbuild
+npm run start:server
 ```
 
-This serves the built frontend without needing the custom Express wrapper.
+But for most deployments, `npm run build` + `npm run start` is sufficient.
+
+### Development
+
+```bash
+npm run dev
+```
+
+This starts the dev server using the Express wrapper (requires `tsx`). If `tsx` is blocked on Windows, use:
+
+```bash
+npm run dev:next
+```
+
+This runs `next dev` directly without the Express wrapper.
 
 ### Deploy to Google AI Studio
 
-Google AI Studio runs on Linux, so `esbuild` is not an issue there. To deploy:
+Google AI Studio runs on Linux, so `esbuild` and `tsx` are not issues there. To deploy:
 
 1. Push your code to GitHub
 2. In Google AI Studio, pull the latest code
 3. Run `npm install`
 4. Run `npm run build`
-   - The Next.js build will succeed
-   - The optional esbuild step may fail on Windows but is not needed for deployment
-5. Run `cd frontend && npx next start -p 3000`
+5. Run `npm run start`
 6. The app will be available at the AI Studio URL
 
 **Alternatively**, you can deploy to Vercel, Netlify, or Railway, which support Next.js natively and don't require the custom server.
@@ -148,12 +160,18 @@ The frontend will automatically try the live backend first and fall back to mock
 
 | Command | Description |
 | :--- | :--- |
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm start` | Start production server |
+| `npm run dev` | Start dev server with Express wrapper (requires `tsx`) |
+| `npm run dev:next` | Start Next.js dev server directly (no `tsx` needed) |
+| `npm run build` | Build Next.js frontend for production |
+| `npm run build:server` | Build frontend + bundle Express wrapper with `esbuild` |
+| `npm run start` | Start production server with Next.js directly (recommended) |
+| `npm run start:server` | Start production server with Express wrapper (requires `dist/server.cjs`) |
 | `npm run typecheck` | Run TypeScript type checking |
 | `npm run lint` | Run ESLint |
 | `npm run format` | Format code with Prettier |
+| `npm run format:check` | Check code formatting with Prettier |
+
+**Note:** `tsx` and `esbuild` are only needed for the optional Express wrapper (`server.ts`). The Next.js frontend works perfectly fine without them. On Windows, if these tools are blocked by Device Guard, use `npm run dev:next` for development and `npm run start` for production.
 
 ## 7. Project Structure (MedusaJS Storefront Architecture)
 
