@@ -171,8 +171,6 @@ export default function ProductDetailPage({
   }, [product.categoryId, product.name]);
 
   // Record recently viewed items
-  const [recentProductIds, setRecentProductIds] = useState<string[]>([]);
-
   useEffect(() => {
     if (product?.id) {
       try {
@@ -180,7 +178,6 @@ export default function ProductDetailPage({
         let list: string[] = saved ? JSON.parse(saved) : [];
         list = [product.id, ...list.filter(id => id !== product.id)].slice(0, 10);
         localStorage.setItem('luxestore_recently_viewed', JSON.stringify(list));
-        setRecentProductIds(list.filter(id => id !== product.id));
       } catch (e) {
         console.error('Error saving recently viewed product:', e);
       }
@@ -326,7 +323,6 @@ export default function ProductDetailPage({
   };
   const tagsScrollRef = useRef<HTMLDivElement>(null);
   const categoriesScrollRef = useRef<HTMLDivElement>(null);
-  const recentlyViewedScrollRef = useRef<HTMLDivElement>(null);
 
   // Hover state for previous / next product navigation preview dropdown
   const [hoveredNav, setHoveredNav] = useState<'prev' | 'next' | null>(null);
@@ -1549,79 +1545,13 @@ export default function ProductDetailPage({
         )}
 
         {/* RECENTLY VIEWED PRODUCTS STRIP */}
-        {recentProductIds.length > 0 && (() => {
-          const recentProds = products.filter(p => recentProductIds.includes(p.id)).slice(0, 10);
-          if (recentProds.length === 0) return null;
-
-            return (
-              <div className="bg-white dark:bg-slate-800 p-6 sm:p-8 rounded-3xl border border-slate-200/80 dark:border-slate-700 shadow-sm space-y-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
-                    <Zap className="w-4 h-4 text-amber-500 fill-amber-500" />
-                    Recently Viewed Items
-                  </h3>
-                  <div className="flex items-center gap-2">
-                    <span className="text-xs font-semibold text-slate-400 dark:text-slate-400 mr-1">{recentProds.length} {recentProds.length === 1 ? 'item' : 'items'}</span>
-                    <button
-                      onClick={() => {
-                        if (recentlyViewedScrollRef.current) {
-                          recentlyViewedScrollRef.current.scrollBy({ left: -260, behavior: 'smooth' });
-                        }
-                      }}
-                      className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition cursor-pointer active:scale-95"
-                      aria-label="Scroll left"
-                      title="Scroll Left"
-                    >
-                      <ChevronLeft className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() => {
-                        if (recentlyViewedScrollRef.current) {
-                          recentlyViewedScrollRef.current.scrollBy({ left: 260, behavior: 'smooth' });
-                        }
-                      }}
-                      className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition cursor-pointer active:scale-95"
-                      aria-label="Scroll right"
-                      title="Scroll Right"
-                    >
-                      <ChevronRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-
-                <div 
-                  ref={recentlyViewedScrollRef}
-                  className="flex items-stretch gap-3.5 overflow-x-auto scrollbar-none py-1 scroll-smooth snap-x snap-mandatory"
-                >
-                  {recentProds.map((rp) => (
-                    <a
-                      key={rp.id}
-                      href={getProductUrl(rp.id, rp.name)}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        onSelectProduct(rp.id);
-                      }}
-                      className="group bg-slate-50/70 dark:bg-slate-700/50 hover:bg-white dark:hover:bg-slate-700 border border-slate-200/80 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 rounded-2xl p-3 transition-all duration-200 cursor-pointer shadow-2xs hover:shadow-md flex flex-col justify-between w-44 sm:w-52 shrink-0 snap-start snap-always block no-underline"
-                    >
-                      <div className="aspect-square rounded-xl overflow-hidden bg-white dark:bg-slate-800 mb-2 border border-slate-100 dark:border-slate-700">
-                        <SafeImage
-                          src={rp.imageUrl}
-                          alt={rp.name}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                          placeholderType="product"
-                          fallbackTitle={rp.name}
-                        />
-                      </div>
-                      <div>
-                        <h4 className="text-xs font-bold text-slate-900 dark:text-slate-100 line-clamp-1 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition">{rp.name}</h4>
-                        <p className="text-xs font-extrabold text-slate-700 dark:text-slate-300 mt-0.5">{rp.price}</p>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              </div>
-            );
-        })()}
+        <RecentlyViewedSection
+          products={products}
+          currentProductId={product.id}
+          onSelectProduct={onSelectProduct}
+          title="Recently Viewed Items"
+          maxItems={10}
+        />
 
       </div>
 

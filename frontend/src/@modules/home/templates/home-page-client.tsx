@@ -11,7 +11,7 @@ import { useRecentlyViewedContext } from '@/providers/recently-viewed-provider';
 import { useCatalog } from '@/providers/catalog-provider';
 import { getThemeClasses } from '@/providers/theme-provider';
 import { motion, AnimatePresence } from 'motion/react';
-import { ChevronLeft, ChevronRight, Zap, ArrowRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { SafeImage } from '@modules/common/components/safe-image';
 import { CategoryBarCarousel } from '@components/shared/category-bar';
 import { RecentlyViewedSection } from '@components/shared/recently-viewed';

@@ -6,7 +6,6 @@ import { SafeImage } from '@modules/common/components/safe-image';
 import { StockBadge } from '@modules/common/components/stock-badge';
 import { getProductSaleDetails } from '@/utils/productUtils';
 import { 
-  ArrowLeft, 
   Heart, 
   Plus, 
   SlidersHorizontal, 
