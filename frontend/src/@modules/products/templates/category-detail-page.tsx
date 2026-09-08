@@ -31,7 +31,7 @@ import { useRouter, useParams } from 'next/navigation';
 import { MockCategory, MockProduct } from '@/types';
 import { formatCurrency } from '@/utils/pricing';
 import { getProductUrl, getCategoryUrl, getBrandUrl, getShopUrl, getCategoriesUrl, updateSEOMetadata, formatCategoryName } from '@/utils/seoUtils';
-import { CategoryBarCarousel } from '@modules/home/components/category-bar-carousel';
+import { CategoryBarCarousel } from '@components/shared/category-bar';
 import { useCatalog } from '@/providers/catalog-provider';
 import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
 import { useWishlistContext } from '@/providers/wishlist-provider';

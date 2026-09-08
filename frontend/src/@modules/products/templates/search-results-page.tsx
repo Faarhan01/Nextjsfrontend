@@ -30,7 +30,7 @@ import {
 } from 'lucide-react';
 import { MockCategory, MockProduct } from '@/types';
 import { getProductUrl, getCategoryUrl, getShopUrl, updateSEOMetadata } from '@/utils/seoUtils';
-import { CategoryBarCarousel } from '@modules/home/components/category-bar-carousel';
+import { CategoryBarCarousel } from '@components/shared/category-bar';
 import { useCatalog } from '@/providers/catalog-provider';
 import { useWishlistContext } from '@/providers/wishlist-provider';
 import { useCartContext } from '@/providers/cart-provider';

@@ -13,7 +13,8 @@ import { getThemeClasses } from '@/providers/theme-provider';
 import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight, Zap, ArrowRight } from 'lucide-react';
 import { SafeImage } from '@modules/common/components/safe-image';
-import { CategoryBarCarousel } from '@modules/home/components/category-bar-carousel';
+import { CategoryBarCarousel } from '@components/shared/category-bar';
+import { RecentlyViewedSection } from '@components/shared/recently-viewed';
 import { PromoBannersGrid } from '@modules/layout/components/promo-banners-grid';
 import { FlashDealsSection } from '@modules/products/components/flash-deals-section';
 import { BestsellersTabSection } from '@modules/products/components/bestsellers-tab-section';
@@ -117,8 +118,6 @@ export default function HomePageClient({
     brandsScrollRef.current.scrollLeft = brandsScrollLeft - walk;
     updateBrandsScrollState();
   };
-
-  const recentlyViewedScrollRef = useRef<HTMLDivElement>(null);
 
   const recentProducts = recentlyViewedIds
     .map((id) => products.find((p) => p.id === id))
@@ -385,74 +384,13 @@ export default function HomePageClient({
       />
 
       {recentProducts.length > 0 && (
-        <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-20">
-          <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-sm space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white uppercase tracking-wider flex items-center gap-2">
-                <Zap className="w-4 h-4 text-amber-500 fill-amber-500" />
-                Recently Viewed Items
-              </h3>
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-semibold text-slate-400 mr-1">
-                  {recentProducts.length} {recentProducts.length === 1 ? 'item' : 'items'}
-                </span>
-                <button
-                  onClick={() => {
-                    if (recentlyViewedScrollRef.current) {
-                      recentlyViewedScrollRef.current.scrollBy({ left: -260, behavior: 'smooth' });
-                    }
-                  }}
-                  className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition cursor-pointer active:scale-95"
-                  aria-label="Scroll left"
-                  title="Scroll Left"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-                <button
-                  onClick={() => {
-                    if (recentlyViewedScrollRef.current) {
-                      recentlyViewedScrollRef.current.scrollBy({ left: 260, behavior: 'smooth' });
-                    }
-                  }}
-                  className="p-2 rounded-xl bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 border border-slate-200/80 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition cursor-pointer active:scale-95"
-                  aria-label="Scroll right"
-                  title="Scroll Right"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-
-            <div
-              ref={recentlyViewedScrollRef}
-              className="flex items-stretch gap-3.5 overflow-x-auto scrollbar-none py-1 scroll-smooth snap-x snap-mandatory"
-            >
-              {recentProducts.map((rp) => (
-                <Link
-                  key={rp.id}
-                  href={getProductUrl(rp.id, rp.name)}
-                  className="group bg-slate-50/70 dark:bg-slate-800/70 hover:bg-white dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 rounded-2xl p-3 transition-all duration-200 cursor-pointer shadow-2xs hover:shadow-md flex flex-col justify-between w-44 sm:w-52 shrink-0 snap-start snap-always"
-                >
-                  <div className="aspect-square rounded-xl overflow-hidden bg-white dark:bg-slate-900 mb-2 border border-slate-100 dark:border-slate-800">
-                    <SafeImage
-                      src={rp.imageUrl}
-                      alt={rp.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      placeholderType="product"
-                      fallbackTitle={rp.name}
-                    />
-                  </div>
-                  <div>
-                    <h4 className={`text-xs font-bold text-slate-900 dark:text-white line-clamp-1 group-hover:${currentTheme.text} transition`}>
-                      {rp.name}
-                    </h4>
-                    <p className="text-xs font-extrabold text-slate-700 dark:text-slate-300 mt-0.5">{rp.price}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
+        <RecentlyViewedSection
+          products={products as any}
+          recentlyViewedIds={recentlyViewedIds}
+          onSelectProduct={(productId) => router.push(getProductUrl(productId))}
+          title="Recently Viewed Items"
+          maxItems={10}
+        />
       )}
 
       <section id="featured-brands" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

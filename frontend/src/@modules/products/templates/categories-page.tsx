@@ -19,7 +19,7 @@ import { MockCategory, MockProduct } from '@/types';
 import { useRouter } from 'next/navigation';
 import { SafeImage } from '@modules/common/components/safe-image';
 import { getCategoryUrl, getCategoriesUrl, updateSEOMetadata } from '@/utils/seoUtils';
-import { CategoryBarCarousel } from '@modules/home/components/category-bar-carousel';
+import { CategoryBarCarousel } from '@components/shared/category-bar';
 import { useCatalog } from '@/providers/catalog-provider';
 import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
 

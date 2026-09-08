@@ -55,7 +55,7 @@ import {
 } from 'lucide-react';
 import { MockProduct } from '@/types';
 import { formatCurrency } from '@/utils/pricing';
-import { CategoryBarCarousel } from '@modules/home/components/category-bar-carousel';
+import { CategoryBarCarousel } from '@components/shared/category-bar';
 
 interface ShopPageProps {
   themeColor?: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';

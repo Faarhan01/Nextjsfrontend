@@ -5,7 +5,7 @@ import { useRouter, useParams } from 'next/navigation';
 import { motion, AnimatePresence } from 'motion/react';
 import { SafeImage } from '@modules/common/components/safe-image';
 import { StockBadge } from '@modules/common/components/stock-badge';
-import { RecentlyViewedSection } from '@modules/products/components/recently-viewed-section';
+import { RecentlyViewedSection } from '@components/shared/recently-viewed';
 import { 
   ArrowLeft, 
   Heart, 
