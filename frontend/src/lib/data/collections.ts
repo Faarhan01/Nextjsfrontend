@@ -1,37 +1,31 @@
-import 'server-only';
-import { unstable_cache } from 'next/cache';
-import { sdk } from '../sdk';
-import { COLLECTIONS_CACHE_TAG } from '../constants';
-import { MOCK_BRANDS } from '../../data/presets';
+"use server"
 
-async function fetchRawCollections() {
-  try {
-    const { collections } = await sdk.collections.list();
-    return collections || [];
-  } catch (e) {
-    console.warn('[lib/data] sdk.collections.list failed:', e);
-    return [];
-  }
-}
-
-const getCachedCollections = unstable_cache(
-  fetchRawCollections,
-  ['medusa-all-collections'],
-  { tags: [COLLECTIONS_CACHE_TAG], revalidate: 3600 }
-);
+import { sdk } from "@lib/config"
+import { getCacheOptions } from "./cookies"
 
 export async function listCollections() {
-  return await getCachedCollections();
+  const headers = {
+    ...(await getCacheOptions("collections")),
+  }
+
+  const next = {
+    ...(await getCacheOptions("collections")),
+  }
+
+  return sdk.client
+    .fetch<{ collections: any[] }>(`/store/collections`, {
+      method: "GET",
+      headers: headers as any,
+      next: next as any,
+      cache: "force-cache",
+    })
+    .then(({ collections }) => collections)
+    .catch(() => [])
 }
 
 export async function listBrands() {
-  try {
-    const collections = await getCachedCollections();
-    if (collections && collections.length > 0) return collections;
-  } catch {
-    // ignore
-  }
-  return MOCK_BRANDS;
+  const collections = await listCollections()
+  return collections
 }
 
-export const collectionsCacheTag = COLLECTIONS_CACHE_TAG;
+export { listBrands as getBrands }

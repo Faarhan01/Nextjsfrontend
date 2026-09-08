@@ -1,37 +1,45 @@
-import 'server-only';
-import { sdk } from '../sdk';
-import { REGIONS_CACHE_TAG } from '../constants';
-import { MedusaRegion } from '../../types/medusa';
+"use server"
+
+import { sdk } from "@lib/config"
+import { MedusaRegion } from "../../types/medusa"
+import { getCacheOptions } from "./cookies"
 
 export async function listRegions(): Promise<MedusaRegion[]> {
-  try {
-    const { regions } = await sdk.regions.list();
-    return regions || [];
-  } catch (e) {
-    console.warn('[lib/data] sdk.regions.list failed, using defaults:', e);
-    return [
-      {
-        id: 'reg_za',
-        name: 'South Africa',
-        currency_code: 'zar',
-        tax_rate: 15,
-        countries: [
-          { id: 'za', iso_2: 'za', iso_3: 'zaf', name: 'South Africa', display_name: 'South Africa' }
-        ]
-      } as MedusaRegion,
-      {
-        id: 'reg_global',
-        name: 'International (USD)',
-        currency_code: 'usd',
-        tax_rate: 0
-      } as MedusaRegion
-    ];
+  const headers = {
+    ...(await getCacheOptions("regions")),
   }
+
+  const next = {
+    ...(await getCacheOptions("regions")),
+  }
+
+  return sdk.client
+    .fetch<{ regions: MedusaRegion[] }>(`/store/regions`, {
+      method: "GET",
+      headers: headers as any,
+      next: next as any,
+      cache: "force-cache",
+    })
+    .then(({ regions }) => regions)
+    .catch(() => [])
 }
 
 export async function getRegion(id: string): Promise<MedusaRegion | null> {
-  const regions = await listRegions();
-  return regions.find((r) => r.id === id) || null;
-}
+  const headers = {
+    ...(await getCacheOptions("regions")),
+  }
 
-export const regionsCacheTag = REGIONS_CACHE_TAG;
+  const next = {
+    ...(await getCacheOptions("regions")),
+  }
+
+  return sdk.client
+    .fetch<{ region: MedusaRegion }>(`/store/regions/${id}`, {
+      method: "GET",
+      headers: headers as any,
+      next: next as any,
+      cache: "force-cache",
+    })
+    .then(({ region }) => region)
+    .catch(() => null)
+}

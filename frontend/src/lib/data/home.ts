@@ -1,26 +1,26 @@
-import 'server-only';
-import { listProducts } from './products';
-import { listCategories } from './categories';
-import { listBrands } from './collections';
-import { SlideConfig } from '../../types';
+"use server"
+import { listProducts } from './products'
+import { listCategories } from './categories'
+import { listBrands } from './collections'
+import { SlideConfig } from '../../types'
 
 export type HomeData = {
-  products: Awaited<ReturnType<typeof listProducts>>;
-  categories: Awaited<ReturnType<typeof listCategories>>;
-  brands: Awaited<ReturnType<typeof listBrands>>;
-  slides: SlideConfig[];
-};
+  products: Awaited<ReturnType<typeof listProducts>>["products"]
+  categories: Awaited<ReturnType<typeof listCategories>>
+  brands: Awaited<ReturnType<typeof listBrands>>
+  slides: SlideConfig[]
+}
 
 export async function getHomeData(): Promise<HomeData> {
-  const [products, categories, brands] = await Promise.all([
+  const [productsResult, categories, brands] = await Promise.all([
     listProducts(),
     listCategories(),
     listBrands()
-  ]);
+  ])
   return {
-    products,
+    products: productsResult.products,
     categories,
     brands,
     slides: []
-  };
+  }
 }

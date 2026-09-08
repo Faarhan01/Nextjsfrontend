@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { getProducts } from '@lib/data/products';
-import { getCategories } from '@lib/data/categories';
+import { listProducts } from '@lib/data/products';
+import { listCategories } from '@lib/data/categories';
 import ShopTemplate from '@modules/products/templates/shop-page';
 
 export const metadata: Metadata = {
@@ -11,12 +11,12 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic';
 
 export default async function ShopPage() {
-  const [products, categories] = await Promise.all([
-    getProducts(),
-    getCategories(),
+  const [productsResult, categories] = await Promise.all([
+    listProducts(),
+    listCategories(),
   ]);
 
-  return <ShopTemplate products={products} categories={categories} />;
+  return <ShopTemplate products={productsResult.products} categories={categories} />;
 }
 
 

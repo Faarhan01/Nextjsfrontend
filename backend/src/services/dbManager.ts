@@ -9,7 +9,7 @@ import {
 } from '../../../frontend/src/data/presets.ts';
 import type { MockProduct } from '../../../frontend/src/types/index.ts';
 
-const __dirname_cwd = typeof __dirname !== "undefined" ? __dirname : path.dirname(__filename ? __filename : ".");
+const __dirname_cwd = path.dirname(fileURLToPath(import.meta.url));
 // Root directory of the project
 const PROJECT_ROOT = path.resolve(__dirname_cwd, '../../../');
 const DATA_DIR = path.join(PROJECT_ROOT, 'data');

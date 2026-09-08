@@ -29,6 +29,7 @@ export class MedusaClient {
   private publishableApiKey?: string;
   private isOnline: boolean | null = null;
   private lastHealthCheck: number = 0;
+  private healthPromise: Promise<boolean> | null = null;
 
   constructor(config?: MedusaClientConfig) {
     this.baseUrl = (config?.baseUrl || DEFAULT_BACKEND_URL).replace(/\/$/, '');
@@ -42,21 +43,48 @@ export class MedusaClient {
     return this.baseUrl;
   }
 
+  public get isLive(): boolean {
+    return this.isOnline === true;
+  }
+
+  public get isOffline(): boolean {
+    return this.isOnline === false;
+  }
+
   public setBaseUrl(url: string): void {
     this.baseUrl = url.replace(/\/$/, '');
     this.isOnline = null;
+    this.healthPromise = null;
+  }
+
+  public async ready(): Promise<boolean> {
+    if (FRONTEND_ONLY) return false;
+    if (this.isOnline === true) return true;
+    if (this.isOnline === false) return false;
+    if (!this.healthPromise) {
+      this.healthPromise = this.checkHealth();
+    }
+    return this.healthPromise;
+  }
+
+  private async isLiveInternal(): Promise<boolean> {
+    if (FRONTEND_ONLY) return false;
+    if (this.isOnline === true) return true;
+    if (this.isOnline === false) return false;
+    await this.isLiveInternal();
+    return this.isOnline === true;
   }
 
   /**
    * Ping backend to check if Medusa Store API is responding.
+   * Result is cached for 30 seconds to avoid redundant network requests.
    */
   public async checkHealth(): Promise<boolean> {
     if (FRONTEND_ONLY || this.isOnline === false) {
       return false;
     }
     const now = Date.now();
-    // Cache health check for 10 seconds
-    if (this.isOnline !== null && now - this.lastHealthCheck < 10000) {
+    if (this.isOnline !== null && now - this.lastHealthCheck < 30000) {
       return this.isOnline;
     }
 
@@ -120,7 +148,7 @@ export class MedusaClient {
   // ==========================================
   public products = {
     list: async (params?: { limit?: number; offset?: number; q?: string; category_id?: string[]; collection_id?: string[] }): Promise<{ products: MedusaProduct[]; count: number }> => {
-      const isLive = await this.checkHealth();
+      const isLive = await this.isLiveInternal();
       if (isLive) {
         try {
           const query = new URLSearchParams();
@@ -147,7 +175,7 @@ export class MedusaClient {
     },
 
     retrieve: async (idOrHandle: string): Promise<{ product: MedusaProduct }> => {
-      const isLive = await this.checkHealth();
+      const isLive = await this.isLiveInternal();
       if (isLive) {
         try {
           // If numeric or starts with prod_, try ID
@@ -175,7 +203,7 @@ export class MedusaClient {
   // ==========================================
   public categories = {
     list: async (): Promise<{ product_categories: MedusaProductCategory[] }> => {
-      const isLive = await this.checkHealth();
+      const isLive = await this.isLiveInternal();
       if (isLive) {
         try {
           return await this.request<{ product_categories: MedusaProductCategory[] }>('/store/product-categories');
@@ -252,7 +280,7 @@ export class MedusaClient {
 
   public collections = {
     list: async (): Promise<{ collections: MedusaProductCollection[] }> => {
-      const isLive = await this.checkHealth();
+      const isLive = await this.isLiveInternal();
       if (isLive) {
         try {
           return await this.request<{ collections: MedusaProductCollection[] }>('/store/collections');
@@ -276,7 +304,7 @@ export class MedusaClient {
   // ==========================================
   public regions = {
     list: async (): Promise<{ regions: MedusaRegion[] }> => {
-      const isLive = await this.checkHealth();
+      const isLive = await this.isLiveInternal();
       if (isLive) {
         try {
           return await this.request<{ regions: MedusaRegion[] }>('/store/regions');
@@ -310,7 +338,7 @@ export class MedusaClient {
   // ==========================================
   public carts = {
     create: async (data?: { region_id?: string; country_code?: string }): Promise<{ cart: MedusaCart }> => {
-      const isLive = await this.checkHealth();
+      const isLive = await this.isLiveInternal();
       if (isLive) {
         try {
           const res = await this.request<{ cart: MedusaCart }>('/store/carts', {
@@ -358,7 +386,7 @@ export class MedusaClient {
         return this.carts.create();
       }
 
-      const isLive = await this.checkHealth();
+      const isLive = await this.isLiveInternal();
       if (isLive && !effectiveId.startsWith('cart_local_')) {
         try {
           return await this.request<{ cart: MedusaCart }>(`/store/carts/${effectiveId}`);
@@ -384,7 +412,7 @@ export class MedusaClient {
 
     lineItems: {
       create: async (cartId: string, item: { variant_id: string; quantity: number }): Promise<{ cart: MedusaCart }> => {
-        const isLive = await this.checkHealth();
+        const isLive = await this.isLiveInternal();
         if (isLive && !cartId.startsWith('cart_local_')) {
           try {
             return await this.request<{ cart: MedusaCart }>(`/store/carts/${cartId}/line-items`, {
@@ -440,7 +468,7 @@ export class MedusaClient {
       },
 
       update: async (cartId: string, lineId: string, data: { quantity: number }): Promise<{ cart: MedusaCart }> => {
-        const isLive = await this.checkHealth();
+        const isLive = await this.isLiveInternal();
         if (isLive && !cartId.startsWith('cart_local_')) {
           try {
             return await this.request<{ cart: MedusaCart }>(`/store/carts/${cartId}/line-items/${lineId}`, {
@@ -476,7 +504,7 @@ export class MedusaClient {
       },
 
       delete: async (cartId: string, lineId: string): Promise<{ cart: MedusaCart }> => {
-        const isLive = await this.checkHealth();
+        const isLive = await this.isLiveInternal();
         if (isLive && !cartId.startsWith('cart_local_')) {
           try {
             return await this.request<{ cart: MedusaCart }>(`/store/carts/${cartId}/line-items/${lineId}`, {
@@ -503,7 +531,7 @@ export class MedusaClient {
     },
 
     complete: async (cartId: string): Promise<{ type: 'order'; data: MedusaOrder }> => {
-      const isLive = await this.checkHealth();
+      const isLive = await this.isLiveInternal();
       if (isLive && !cartId.startsWith('cart_local_')) {
         try {
           return await this.request<{ type: 'order'; data: MedusaOrder }>(`/store/carts/${cartId}/complete`, {
@@ -570,7 +598,7 @@ export class MedusaClient {
   // ==========================================
   public customers = {
     retrieve: async (): Promise<{ customer: MedusaCustomer | null }> => {
-      const isLive = await this.checkHealth();
+      const isLive = await this.isLiveInternal();
       if (isLive) {
         try {
           const res = await this.request<{ customer: MedusaCustomer }>('/store/auth', {
@@ -585,7 +613,7 @@ export class MedusaClient {
     },
 
     login: async (credentials: { email: string; password: string }): Promise<{ customer: MedusaCustomer; token?: string }> => {
-      const isLive = await this.checkHealth();
+      const isLive = await this.isLiveInternal();
       if (isLive) {
         try {
           const res = await this.request<{ customer: MedusaCustomer; token?: string }>('/store/auth', {
@@ -610,7 +638,7 @@ export class MedusaClient {
     },
 
     register: async (data: { name: string; email: string; password: string }): Promise<{ customer: MedusaCustomer; token?: string }> => {
-      const isLive = await this.checkHealth();
+      const isLive = await this.isLiveInternal();
       if (isLive) {
         try {
           const res = await this.request<{ customer: MedusaCustomer; token?: string }>('/store/auth/register', {
@@ -640,7 +668,7 @@ export class MedusaClient {
   // ==========================================
   public orders = {
     track: async (orderId: string): Promise<{ order: any } | null> => {
-      const isLive = await this.checkHealth();
+      const isLive = await this.isLiveInternal();
       if (isLive) {
         try {
           return await this.request<{ order: any }>(`/store/orders/${encodeURIComponent(orderId)}`);
@@ -662,7 +690,7 @@ export class MedusaClient {
       cartItems?: any[];
       history?: any[];
     }): Promise<{ success: boolean; data: { reply: string; recommendedProductIds?: string[]; followUpSuggestions?: string[] } } | null> => {
-      const isLive = await this.checkHealth();
+      const isLive = await this.isLiveInternal();
       if (isLive) {
         try {
           return await this.request<{ success: boolean; data: { reply: string; recommendedProductIds?: string[]; followUpSuggestions?: string[] } }>(

@@ -1,47 +1,111 @@
-import 'server-only';
-import { sdk } from '../sdk';
-import { MedusaCustomer, MedusaOrder } from '../../types/medusa';
+"use server"
 
-export async function getCurrentCustomer(token?: string): Promise<MedusaCustomer | null> {
-  try {
-    const { customer } = await sdk.customers.retrieve();
-    return customer;
-  } catch (e) {
-    console.warn('[lib/data] sdk.customers.retrieve failed:', e);
-    return null;
+import { sdk } from "@lib/config"
+import { HttpTypes } from "@medusajs/types"
+import { revalidateTag } from "next/cache"
+import {
+  getAuthHeaders,
+  getCacheOptions,
+  removeAuthToken,
+  setAuthToken,
+} from "./cookies"
+
+export async function getCurrentCustomer() {
+  const headers = {
+    ...(await getAuthHeaders()),
   }
+
+  return sdk.client
+    .fetch<{ customer: HttpTypes.StoreCustomer }>(`/store/auth`, {
+      method: "GET",
+      headers: headers as any,
+      cache: "no-store",
+    })
+    .then(({ customer }) => customer)
+    .catch(() => null)
 }
 
-export async function loginCustomer(
-  email: string,
+export async function loginCustomer(email: string, password: string) {
+  const headers = {
+    ...(await getCacheOptions("auth")),
+  }
+
+  return sdk.client
+    .fetch<{ customer: HttpTypes.StoreCustomer; token?: string }>(
+      `/store/auth`,
+      {
+        method: "POST",
+        headers: headers as any,
+        body: {
+          email,
+          password,
+        },
+      }
+    )
+    .then(async ({ customer, token }) => {
+      if (token) {
+        await setAuthToken(token)
+      }
+      return { customer, token }
+    })
+}
+
+export async function registerCustomer(data: {
+  email: string
   password: string
-): Promise<{ customer: MedusaCustomer; token?: string } | null> {
-  try {
-    const res = await sdk.customers.login({ email, password });
-    return res;
-  } catch (e) {
-    console.warn('[lib/data] sdk.customers.login failed:', e);
-    return null;
+  first_name: string
+  last_name: string
+}) {
+  const headers = {
+    ...(await getCacheOptions("auth")),
   }
+
+  return sdk.client
+    .fetch<{ customer: HttpTypes.StoreCustomer; token?: string }>(
+      `/store/auth/register`,
+      {
+        method: "POST",
+        headers: headers as any,
+        body: data,
+      }
+    )
+    .then(async ({ customer, token }) => {
+      if (token) {
+        await setAuthToken(token)
+      }
+      return { customer, token }
+    })
 }
 
-export async function registerCustomer(
-  data: { name: string; email: string; password: string }
-): Promise<{ customer: MedusaCustomer; token?: string } | null> {
-  try {
-    return await sdk.customers.register(data);
-  } catch (e) {
-    console.warn('[lib/data] sdk.customers.register failed:', e);
-    return null;
-  }
+export async function logoutCustomer() {
+  await removeAuthToken()
 }
 
-export async function trackOrder(orderId: string): Promise<MedusaOrder | null> {
-  try {
-    const res = await sdk.orders.track(orderId);
-    return (res?.order as MedusaOrder) ?? null;
-  } catch (e) {
-    console.warn('[lib/data] sdk.orders.track failed:', e);
-    return null;
+export async function updateCustomer(data: HttpTypes.StoreUpdateCustomer) {
+  const headers = {
+    ...(await getAuthHeaders()),
   }
+
+  return sdk.client
+    .fetch<{ customer: HttpTypes.StoreCustomer }>(`/store/customers/me`, {
+      method: "POST",
+      headers: headers as any,
+      body: data,
+    })
+    .then(({ customer }) => customer)
+}
+
+export async function getCustomerOrders() {
+  const headers = {
+    ...(await getAuthHeaders()),
+  }
+
+  return sdk.client
+    .fetch<{ orders: HttpTypes.StoreOrder[] }>(`/store/customers/me/orders`, {
+      method: "GET",
+      headers: headers as any,
+      cache: "force-cache",
+    })
+    .then(({ orders }) => orders)
+    .catch(() => [])
 }

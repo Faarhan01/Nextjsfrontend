@@ -1,25 +1,35 @@
 import express from 'express';
+import cors from 'cors';
 import storeRoutes from './routes/store.ts';
 import { errorHandler } from './middleware/errorHandler.ts';
 import { optionalAuth } from './middleware/authMiddleware.ts';
 import { getSyncStatus, performSyncAction } from './controllers/syncController.ts';
 
+const app = express();
 const router = express.Router();
 
-// Medusa Store API: everything lives under /store/...
-// Populate req.user from Bearer token when present; /store/auth GET is public.
-router.use(optionalAuth);
-router.use('/store', storeRoutes);
+app.use(cors({
+  origin: true,
+  credentials: true
+}));
+app.use(express.json());
 
-// Direct /api/sync endpoint for database management
-router.get('/sync', getSyncStatus);
-router.post('/sync', performSyncAction);
+app.use(optionalAuth);
+app.use('/store', storeRoutes);
 
-// Health endpoint (root of /api namespace)
-router.get('/health', (_req, res) => {
+app.get('/health', (_req, res) => {
   res.json({ status: 'healthy', timestamp: Date.now() });
 });
 
-router.use(errorHandler);
+app.use(errorHandler);
 
+const PORT = process.env.PORT || 9001;
+
+export { app, router, PORT };
 export default router;
+
+if (process.argv[1] && import.meta.url.endsWith(process.argv[1].replace(/\\/g, '/'))) {
+  app.listen(PORT, () => {
+    console.log(`Backend server running on http://localhost:${PORT}`);
+  });
+}

@@ -18,6 +18,13 @@ function priceToCents(price: string | number | undefined): number {
   return Math.round((parsed || 0) * 100);
 }
 
+function errorRes(res: Response, statusCode: number, message: string) {
+  res.status(statusCode).json({ 
+    error: message,
+    timestamp: new Date().toISOString()
+  });
+}
+
 function productToMedusa(p: ProductItem) {
   const cents = priceToCents(p.numericPrice ?? p.price);
   return {
@@ -145,7 +152,7 @@ export function listProducts(req: Request, res: Response): void {
       limit: lim
     });
   } catch (error: any) {
-    res.status(500).json({ message: error.message || 'Failed to fetch products.' });
+    errorRes(res, 500, error.message || 'Failed to fetch products.');
   }
 }
 
@@ -154,7 +161,6 @@ export function retrieveProduct(req: Request, res: Response): void {
     const rawParam = req.params.id;
     let product = getProductById(rawParam);
     if (!product) {
-      // Fallback: search by handle or slug
       const cleanHandle = rawParam.toLowerCase().replace(/^\/product\//, '');
       const all = getProducts();
       product = all.find(p => {
@@ -163,12 +169,12 @@ export function retrieveProduct(req: Request, res: Response): void {
       }) || null;
     }
     if (!product) {
-      res.status(404).json({ message: `Product with id or handle: ${req.params.id} was not found` });
+      errorRes(res, 404, `Product with id or handle: ${req.params.id} was not found`);
       return;
     }
     res.json({ product: productToMedusa(product) });
   } catch (error: any) {
-    res.status(500).json({ message: error.message || 'Failed to fetch product.' });
+    errorRes(res, 500, error.message || 'Failed to fetch product.');
   }
 }
 
@@ -179,7 +185,7 @@ export function listProductCategories(_req: Request, res: Response): void {
     const categories = getCategories().map(categoryToMedusa);
     res.json({ product_categories: categories, count: categories.length });
   } catch (error: any) {
-    res.status(500).json({ message: error.message || 'Failed to fetch categories.' });
+    errorRes(res, 500, error.message || 'Failed to fetch categories.');
   }
 }
 
@@ -223,7 +229,7 @@ export function listRegions(_req: Request, res: Response): void {
 export function retrieveRegion(req: Request, res: Response): void {
   const region = REGIONS.find(r => r.id === req.params.id);
   if (!region) {
-    res.status(404).json({ message: `Region with id: ${req.params.id} was not found` });
+    errorRes(res, 404, `Region with id: ${req.params.id} was not found`);
     return;
   }
   res.json({ region });
@@ -304,7 +310,7 @@ export function createCart(req: Request, res: Response): void {
     cartsDb.set(cart.id, cart);
     res.json({ cart });
   } catch (error: any) {
-    res.status(500).json({ message: error.message || 'Failed to create cart.' });
+    errorRes(res, 500, error.message || 'Failed to create cart.');
   }
 }
 
@@ -312,12 +318,12 @@ export function retrieveCart(req: Request, res: Response): void {
   try {
     const cart = cartsDb.get(req.params.id);
     if (!cart) {
-      res.status(404).json({ message: `Cart with id: ${req.params.id} was not found` });
+      errorRes(res, 404, `Cart with id: ${req.params.id} was not found`);
       return;
     }
     res.json({ cart });
   } catch (error: any) {
-    res.status(500).json({ message: error.message || 'Failed to retrieve cart.' });
+    errorRes(res, 500, error.message || 'Failed to retrieve cart.');
   }
 }
 
@@ -325,14 +331,14 @@ export function addLineItem(req: Request, res: Response): void {
   try {
     const cart = cartsDb.get(req.params.id);
     if (!cart) {
-      res.status(404).json({ message: `Cart with id: ${req.params.id} was not found` });
+      errorRes(res, 404, `Cart with id: ${req.params.id} was not found`);
       return;
     }
     const { variant_id, quantity } = req.body || {};
     const quantityNum = Math.max(1, Number(quantity) || 1);
     const resolved = resolveVariant(variant_id);
     if (!resolved) {
-      res.status(400).json({ message: `Variant with id: ${variant_id} was not found` });
+      errorRes(res, 400, `Variant with id: ${variant_id} was not found`);
       return;
     }
     const existing = cart.items.find(i => i.variant_id === variant_id);
@@ -363,7 +369,7 @@ export function addLineItem(req: Request, res: Response): void {
     recomputeTotals(cart);
     res.json({ cart });
   } catch (error: any) {
-    res.status(500).json({ message: error.message || 'Failed to add line item.' });
+    errorRes(res, 500, error.message || 'Failed to add line item.');
   }
 }
 
@@ -371,13 +377,13 @@ export function updateLineItem(req: Request, res: Response): void {
   try {
     const cart = cartsDb.get(req.params.id);
     if (!cart) {
-      res.status(404).json({ message: `Cart with id: ${req.params.id} was not found` });
+      errorRes(res, 404, `Cart with id: ${req.params.id} was not found`);
       return;
     }
     const { quantity } = req.body || {};
     const target = cart.items.find(i => i.id === req.params.lineId);
     if (!target) {
-      res.status(404).json({ message: `Line item with id: ${req.params.lineId} was not found` });
+      errorRes(res, 404, `Line item with id: ${req.params.lineId} was not found`);
       return;
     }
     const quantityNum = Math.max(0, Number(quantity) || 0);
@@ -391,7 +397,7 @@ export function updateLineItem(req: Request, res: Response): void {
     recomputeTotals(cart);
     res.json({ cart });
   } catch (error: any) {
-    res.status(500).json({ message: error.message || 'Failed to update line item.' });
+    errorRes(res, 500, error.message || 'Failed to update line item.');
   }
 }
 
@@ -399,14 +405,14 @@ export function deleteLineItem(req: Request, res: Response): void {
   try {
     const cart = cartsDb.get(req.params.id);
     if (!cart) {
-      res.status(404).json({ message: `Cart with id: ${req.params.id} was not found` });
+      errorRes(res, 404, `Cart with id: ${req.params.id} was not found`);
       return;
     }
     cart.items = cart.items.filter(i => i.id !== req.params.lineId);
     recomputeTotals(cart);
     res.json({ cart });
   } catch (error: any) {
-    res.status(500).json({ message: error.message || 'Failed to delete line item.' });
+    errorRes(res, 500, error.message || 'Failed to delete line item.');
   }
 }
 
@@ -414,7 +420,7 @@ export function completeCart(req: Request, res: Response): void {
   try {
     const cart = cartsDb.get(req.params.id);
     if (!cart) {
-      res.status(404).json({ message: `Cart with id: ${req.params.id} was not found` });
+      errorRes(res, 404, `Cart with id: ${req.params.id} was not found`);
       return;
     }
 
@@ -469,7 +475,7 @@ export function completeCart(req: Request, res: Response): void {
       }
     });
   } catch (error: any) {
-    res.status(500).json({ message: error.message || 'Failed to complete cart.' });
+    errorRes(res, 500, error.message || 'Failed to complete cart.');
   }
 }
 
@@ -477,7 +483,7 @@ export function updateCart(req: Request, res: Response): void {
   try {
     const cart = cartsDb.get(req.params.id);
     if (!cart) {
-      res.status(404).json({ message: `Cart with id: ${req.params.id} was not found` });
+      errorRes(res, 404, `Cart with id: ${req.params.id} was not found`);
       return;
     }
     const { email, shipping_address, billing_address, region_id } = req.body || {};
@@ -489,7 +495,7 @@ export function updateCart(req: Request, res: Response): void {
     recomputeTotals(cart);
     res.json({ cart });
   } catch (error: any) {
-    res.status(500).json({ message: error.message || 'Failed to update cart.' });
+    errorRes(res, 500, error.message || 'Failed to update cart.');
   }
 }
 
@@ -534,10 +540,9 @@ export const SHIPPING_OPTIONS = [
 export function listShippingOptions(req: Request, res: Response): void {
   try {
     const cartId = req.params.cartId || (req.query.cart_id as string);
-    // Return options relevant to the cart or general
     res.json({ shipping_options: SHIPPING_OPTIONS });
   } catch (error: any) {
-    res.status(500).json({ message: error.message || 'Failed to fetch shipping options.' });
+    errorRes(res, 500, error.message || 'Failed to fetch shipping options.');
   }
 }
 
@@ -545,7 +550,7 @@ export function addShippingMethod(req: Request, res: Response): void {
   try {
     const cart = cartsDb.get(req.params.id);
     if (!cart) {
-      res.status(404).json({ message: `Cart with id: ${req.params.id} was not found` });
+      errorRes(res, 404, `Cart with id: ${req.params.id} was not found`);
       return;
     }
     const { option_id } = req.body || {};
@@ -564,7 +569,7 @@ export function addShippingMethod(req: Request, res: Response): void {
     recomputeTotals(cart);
     res.json({ cart });
   } catch (error: any) {
-    res.status(500).json({ message: error.message || 'Failed to set shipping method.' });
+    errorRes(res, 500, error.message || 'Failed to set shipping method.');
   }
 }
 
@@ -574,7 +579,7 @@ export function createPaymentSessions(req: Request, res: Response): void {
   try {
     const cart = cartsDb.get(req.params.id);
     if (!cart) {
-      res.status(404).json({ message: `Cart with id: ${req.params.id} was not found` });
+      errorRes(res, 404, `Cart with id: ${req.params.id} was not found`);
       return;
     }
     const paymentSessions = [
@@ -597,7 +602,7 @@ export function createPaymentSessions(req: Request, res: Response): void {
 
     res.json({ cart });
   } catch (error: any) {
-    res.status(500).json({ message: error.message || 'Failed to initialize payment sessions.' });
+    errorRes(res, 500, error.message || 'Failed to initialize payment sessions.');
   }
 }
 
@@ -608,7 +613,7 @@ export function listBrands(_req: Request, res: Response): void {
     const brands = getBrands();
     res.json({ brands, count: brands.length });
   } catch (error: any) {
-    res.status(500).json({ message: error.message || 'Failed to fetch brands.' });
+    errorRes(res, 500, error.message || 'Failed to fetch brands.');
   }
 }
 
@@ -616,7 +621,7 @@ export function listBrands(_req: Request, res: Response): void {
 export function lookupOrder(req: Request, res: Response): void {
   const order = getOrderById(req.params.id);
   if (!order) {
-    res.status(404).json({ message: `Order ${req.params.id} was not found.` });
+    errorRes(res, 404, `Order ${req.params.id} was not found.`);
     return;
   }
   res.json({ order });

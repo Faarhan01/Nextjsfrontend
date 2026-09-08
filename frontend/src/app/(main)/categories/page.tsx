@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
-import { getCategories } from '@lib/data/categories';
-import { getProducts } from '@lib/data/products';
+import { listCategories } from '@lib/data/categories';
+import { listProducts } from '@lib/data/products';
 import { CategoriesPage as CategoriesTemplate } from '@modules/products/templates/categories-page';
 
 export const metadata: Metadata = {
@@ -11,11 +11,11 @@ export const metadata: Metadata = {
 export const dynamic = 'force-dynamic';
 
 export default async function CategoriesPage() {
-  const [categories, products] = await Promise.all([
-    getCategories(),
-    getProducts(),
+  const [categories, productsResult] = await Promise.all([
+    listCategories(),
+    listProducts(),
   ]);
 
-  return <CategoriesTemplate categories={categories} products={products} />;
+  return <CategoriesTemplate categories={categories} products={productsResult.products} />;
 }
 
