@@ -5,7 +5,6 @@ import {
   ArrowRight, 
   ChevronRight, 
   Layers, 
-  Sparkles, 
   Search, 
   X, 
   Package, 
@@ -20,6 +19,7 @@ import { useRouter } from 'next/navigation';
 import { SafeImage } from '@modules/common/components/safe-image';
 import { getCategoryUrl, getCategoriesUrl, updateSEOMetadata } from '@/utils/seoUtils';
 import { CategoryBarCarousel } from '@components/shared/category-bar';
+import { PageBanner } from '@components/shared/page-banner';
 import { useCatalog } from '@/providers/catalog-provider';
 import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
 
@@ -134,55 +134,17 @@ export const CategoriesPage: React.FC<CategoriesPageProps> = ({
       />
 
       {/* Category Parallax Banner */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative w-full py-8 sm:py-12 px-4 sm:px-8 flex items-center justify-center overflow-hidden bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-white rounded-2xl sm:rounded-3xl shadow-sm dark:shadow-lg border border-slate-200/90 dark:border-slate-800">
-          <div className="absolute inset-0 z-0">
-            <SafeImage 
-              src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1400&fm=webp" 
-              alt="Department Categories"
-              placeholderType="banner"
-              className="w-full h-full object-cover opacity-60 dark:opacity-75 scale-105 transition-transform duration-700"
-            />
-            {/* Luminous scrim: clear center visibility with balanced readability overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/40 to-white/70 dark:from-slate-950/80 dark:via-slate-950/50 dark:to-slate-950/85" />
-          </div>
-          <div className="relative z-10 max-w-3xl mx-auto px-4 text-center space-y-3 sm:space-y-4">
-            
-            {/* Breadcrumb Navigation */}
-            <div className="flex items-center justify-center gap-2 text-xs text-slate-600 dark:text-slate-400 select-none">
-              <a 
-                href="/" 
-                onClick={(e) => { 
-                  e.preventDefault(); 
-                  if (onNavigate) onNavigate('home');
-                }} 
-                className="hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1 font-semibold no-underline text-slate-600 dark:text-slate-400 cursor-pointer"
-              >
-                Home
-              </a>
-              <span>/</span>
-              <span className="text-slate-900 dark:text-white font-extrabold">All Categories</span>
-            </div>
-
-            {/* Badge Pill */}
-            <div>
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-white/90 dark:bg-white/10 text-slate-900 dark:text-white border border-slate-300/80 dark:border-white/20 backdrop-blur-md shadow-2xs">
-                <Sparkles className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" /> Mrbulk Department Catalog
-              </span>
-            </div>
-
-            {/* Title */}
-            <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white">
-              Explore All Categories
-            </h1>
-
-            {/* Description */}
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-2xl mx-auto font-medium leading-relaxed">
-              Browse our structured collections of high-grade electronics, fashion apparel, interior lifestyle, and luxury specialty items.
-            </p>
-          </div>
-        </div>
-      </div>
+      <PageBanner
+        title="Explore All Categories"
+        description="Browse our structured collections of high-grade electronics, fashion apparel, interior lifestyle, and luxury specialty items."
+        badge="Mrbulk Department Catalog"
+        themeColor="blue"
+        onBack={() => onNavigate?.('home')}
+        backLabel="Home"
+        backgroundImage="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1400&fm=webp"
+        backgroundAlt="Department Categories"
+        overlayGradient="bg-gradient-to-b from-white/70 via-white/40 to-white/70 dark:from-slate-950/80 dark:via-slate-950/50 dark:to-slate-950/85"
+      />
 
       {/* Main Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">

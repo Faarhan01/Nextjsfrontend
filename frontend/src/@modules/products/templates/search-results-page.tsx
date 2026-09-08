@@ -9,18 +9,15 @@ import { SafeImage } from '@modules/common/components/safe-image';
 import { StockBadge } from '@modules/common/components/stock-badge';
 import { 
   Search, 
-  ArrowLeft, 
   SlidersHorizontal, 
   Heart, 
   Plus, 
   ShoppingBag, 
-  Sparkles, 
   Check, 
   RotateCcw, 
   X, 
   Star, 
   ArrowUpDown,
-  Flame,
   Crown,
   Tag,
   Grid3X3,
@@ -31,6 +28,7 @@ import {
 import { MockCategory, MockProduct } from '@/types';
 import { getProductUrl, getCategoryUrl, getShopUrl, updateSEOMetadata } from '@/utils/seoUtils';
 import { CategoryBarCarousel } from '@components/shared/category-bar';
+import { PageBanner } from '@components/shared/page-banner';
 import { useCatalog } from '@/providers/catalog-provider';
 import { useWishlistContext } from '@/providers/wishlist-provider';
 import { useCartContext } from '@/providers/cart-provider';
@@ -441,83 +439,43 @@ export default function SearchResultsPage({
       />
 
       {/* Search Header Banner */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative w-full py-8 sm:py-12 px-4 sm:px-8 flex flex-col justify-center overflow-hidden bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-white rounded-2xl sm:rounded-3xl shadow-sm dark:shadow-lg border border-slate-200/90 dark:border-slate-800">
-          <div className="absolute inset-0 z-0">
-            <SafeImage 
-              src="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?q=80&w=1400&fm=webp" 
-              alt="Search Catalog"
-              placeholderType="banner"
-              className="w-full h-full object-cover opacity-60 dark:opacity-75 scale-105 transition-transform duration-700"
-            />
-            {/* Luminous scrim: clear center visibility with balanced readability overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/40 to-white/70 dark:from-slate-950/80 dark:via-slate-950/50 dark:to-slate-950/85" />
+      <PageBanner
+        title={searchQuery.trim() ? `Search Results for "${searchQuery}"` : 'Explore All Search Results'}
+        description={`${processedProducts.length} ${processedProducts.length === 1 ? 'item' : 'items'} found matching your search criteria across our luxury departments.`}
+        badge="Catalog Search"
+        themeColor="blue"
+        onBack={onBackToHome}
+        backLabel="Back to Home"
+        backgroundImage="https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?q=80&w=1400&fm=webp"
+        backgroundAlt="Search Catalog"
+        overlayGradient="bg-gradient-to-b from-white/70 via-white/40 to-white/70 dark:from-slate-950/80 dark:via-slate-950/50 dark:to-slate-950/85"
+        actions={
+          <div className="flex items-center justify-center gap-2 flex-wrap">
+            <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1 shrink-0">
+              Popular Searches:
+            </span>
+            <div className="flex items-center justify-center gap-1.5 flex-wrap">
+              {TRENDING_TAGS.map((tag) => (
+                <a
+                  key={tag}
+                  href={getShopUrl({ search: tag })}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onSearchQueryChange(tag);
+                  }}
+                  className={`text-[11px] font-semibold px-2.5 py-1 rounded-full border transition cursor-pointer no-underline ${
+                    searchQuery.toLowerCase() === tag.toLowerCase()
+                      ? 'bg-blue-600 text-white border-blue-500 shadow-2xs font-bold'
+                      : 'bg-white/80 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 text-slate-700 dark:text-slate-300 border-slate-300/80 dark:border-white/15 shadow-2xs'
+                  }`}
+                >
+                  {tag}
+                </a>
+              ))}
+            </div>
           </div>
-
-          <div className="relative z-10 max-w-3xl mx-auto px-4 text-center space-y-3 sm:space-y-4">
-            
-            {/* Breadcrumb Navigation */}
-            <div className="flex items-center justify-center gap-2 text-xs text-slate-600 dark:text-slate-400 select-none">
-              <a 
-                href="/"
-                onClick={(e) => {
-                  e.preventDefault();
-                  if (onBackToHome) onBackToHome();
-                }}
-                className="hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1 font-semibold no-underline text-slate-600 dark:text-slate-400"
-              >
-                <ArrowLeft className="w-3.5 h-3.5" /> Back to Home
-              </a>
-              <span>/</span>
-              <span className="text-slate-900 dark:text-white font-extrabold">Search Results</span>
-            </div>
-
-            {/* Badge Pill */}
-            <div>
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-white/90 dark:bg-white/10 text-slate-900 dark:text-white border border-slate-300/80 dark:border-white/20 backdrop-blur-md shadow-2xs">
-                <Sparkles className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" /> Catalog Search
-              </span>
-            </div>
-
-            {/* Title */}
-            <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white">
-              {searchQuery.trim() ? `Search Results for "${searchQuery}"` : 'Explore All Search Results'}
-            </h1>
-
-            {/* Description */}
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-2xl mx-auto font-medium leading-relaxed">
-              {processedProducts.length} {processedProducts.length === 1 ? 'item' : 'items'} found matching your search criteria across our luxury departments.
-            </p>
-
-            {/* Trending Searches Tags */}
-            <div className="pt-2 flex items-center justify-center gap-2 flex-wrap">
-              <span className="text-[11px] font-bold text-slate-500 dark:text-slate-400 flex items-center gap-1 shrink-0">
-                <Flame className="w-3.5 h-3.5 text-amber-500 fill-amber-500" /> Popular Searches:
-              </span>
-              <div className="flex items-center justify-center gap-1.5 flex-wrap">
-                {TRENDING_TAGS.map((tag) => (
-                  <a
-                    key={tag}
-                    href={getShopUrl({ search: tag })}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      onSearchQueryChange(tag);
-                    }}
-                    className={`text-[11px] font-semibold px-2.5 py-1 rounded-full border transition cursor-pointer no-underline ${
-                      searchQuery.toLowerCase() === tag.toLowerCase()
-                        ? 'bg-blue-600 text-white border-blue-500 shadow-2xs font-bold'
-                        : 'bg-white/80 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 text-slate-700 dark:text-slate-300 border-slate-300/80 dark:border-white/15 shadow-2xs'
-                    }`}
-                  >
-                    {tag}
-                  </a>
-                ))}
-              </div>
-            </div>
-
-          </div>
-        </div>
-      </div>
+        }
+      />
 
       {/* Main Content Area */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">

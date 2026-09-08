@@ -32,6 +32,7 @@ import { MockCategory, MockProduct } from '@/types';
 import { formatCurrency } from '@/utils/pricing';
 import { getProductUrl, getCategoryUrl, getBrandUrl, getShopUrl, getCategoriesUrl, updateSEOMetadata, formatCategoryName } from '@/utils/seoUtils';
 import { CategoryBarCarousel } from '@components/shared/category-bar';
+import { PageBanner } from '@components/shared/page-banner';
 import { useCatalog } from '@/providers/catalog-provider';
 import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
 import { useWishlistContext } from '@/providers/wishlist-provider';
@@ -579,54 +580,17 @@ export default function CategoryDetailPage({
       />
 
       {/* Category Header Hero */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative w-full py-8 sm:py-12 px-4 sm:px-8 flex items-center justify-center overflow-hidden bg-slate-900 text-white rounded-2xl sm:rounded-3xl shadow-md border border-slate-800">
-          <div className="absolute inset-0 z-0">
-            <SafeImage 
-              src={headerBackground} 
-              alt={activeCategory}
-              placeholderType="banner"
-              fallbackTitle={activeCategory}
-              className="w-full h-full object-cover opacity-60 scale-105 transition-transform duration-700"
-            />
-            {/* Rich dark contrast overlay for clean legibility in all color modes */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/65 to-slate-900/70" />
-          </div>
-
-          <div className="max-w-3xl mx-auto px-4 text-center relative z-10 space-y-3 sm:space-y-4">
-            
-            {/* Breadcrumb Navigation */}
-            <div className="flex items-center justify-center gap-2 text-xs text-slate-300 select-none">
-              <a 
-                href="/categories"
-                onClick={(e) => { e.preventDefault(); onBack(); }}
-                className="hover:text-white transition flex items-center gap-1 font-semibold no-underline text-slate-300"
-              >
-                <ArrowLeft className="w-3.5 h-3.5" /> All Departments
-              </a>
-              <span>/</span>
-              <span className="text-white font-extrabold">{activeCategory}</span>
-            </div>
-
-            {/* Badge Pill */}
-            <div>
-              <span className="inline-flex items-center px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-white/15 text-white border border-white/25 backdrop-blur-md shadow-2xs">
-                Curated Department
-              </span>
-            </div>
-
-            {/* Title */}
-            <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-white">
-              {activeCategory}
-            </h1>
-
-            {/* Description */}
-            <p className="text-xs sm:text-sm text-slate-300 max-w-2xl mx-auto font-medium leading-relaxed">
-              {categoryInfo.description || `Explore our high-end, premium collection of luxury items handpicked to upgrade your lifestyle in the ${activeCategory.toLowerCase()} category.`}
-            </p>
-          </div>
-        </div>
-      </div>
+      <PageBanner
+        title={activeCategory}
+        description={categoryInfo.description || `Explore our high-end, premium collection of luxury items handpicked to upgrade your lifestyle in the ${activeCategory.toLowerCase()} category.`}
+        badge="Curated Department"
+        themeColor="slate"
+        onBack={onBack}
+        backLabel="All Departments"
+        backgroundImage={headerBackground}
+        backgroundAlt={activeCategory}
+        overlayGradient="bg-gradient-to-t from-slate-950/90 via-slate-950/65 to-slate-900/70"
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 space-y-6 sm:space-y-8">
         
