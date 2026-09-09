@@ -258,12 +258,12 @@ export default function CheckoutPage({
 
       const orderId = response?.data?.id
         ? String(response.data.id).replace(/^order_/, '').toUpperCase()
-        : `LX-${Math.floor(10000 + Math.random() * 90000)}`;
+        : `MB-${Math.floor(10000 + Math.random() * 90000)}`;
 
       const newOrder = {
         id: orderId,
         date: new Date().toLocaleDateString('en-ZA', { month: 'long', day: 'numeric', year: 'numeric' }),
-        total: `$${grandTotal.toFixed(2)}`,
+        total: `R${grandTotal.toFixed(2)}`,
         status: paymentMethod === 'bankPayment' ? 'Awaiting EFT Payment' : 'Processing',
         items: cart.map(c => ({
           id: c.id,
@@ -284,13 +284,18 @@ export default function CheckoutPage({
         currentStep: 1
       };
 
-      // Save to local storage for instant offline access
+      // Save to local storage for instant offline access (both mrbulk and luxestore keys for full compatibility)
       try {
-        const storageKey = currentUser ? `luxestore_orders_${currentUser.id}` : 'luxestore_orders_guest';
-        const savedOrdersRaw = localStorage.getItem(storageKey);
-        let existingOrders = savedOrdersRaw ? JSON.parse(savedOrdersRaw) : [];
-        existingOrders = [newOrder, ...existingOrders];
-        localStorage.setItem(storageKey, JSON.stringify(existingOrders));
+        const keys = [
+          currentUser ? `mrbulk_orders_${currentUser.id}` : 'mrbulk_orders_guest',
+          currentUser ? `luxestore_orders_${currentUser.id}` : 'luxestore_orders_guest'
+        ];
+        for (const key of keys) {
+          const savedOrdersRaw = localStorage.getItem(key);
+          let existingOrders = savedOrdersRaw ? JSON.parse(savedOrdersRaw) : [];
+          existingOrders = [newOrder, ...existingOrders];
+          localStorage.setItem(key, JSON.stringify(existingOrders));
+        }
       } catch (err) {
         console.error('Failed to save order to localStorage:', err);
       }

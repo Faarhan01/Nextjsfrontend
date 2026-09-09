@@ -2,6 +2,7 @@
 
 import { sdk } from "@lib/config"
 import { getCacheOptions } from "./cookies"
+import { MOCK_CATEGORIES } from "../../data/presets"
 
 export async function listCategories() {
   const headers = {
@@ -20,6 +21,18 @@ export async function listCategories() {
       cache: "force-cache",
     })
     .then(({ product_categories }) => {
+      if (!product_categories || product_categories.length === 0) {
+        return MOCK_CATEGORIES.map((c) => ({
+          id: c.id,
+          name: c.name,
+          handle: c.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+          imageUrl: c.imageUrl,
+          description: c.description || `Browse quality ${c.name} in bulk and save.`,
+          icon: c.icon || "",
+          itemCount: c.itemCount ?? 15,
+          subcategories: c.subcategories || [],
+        }));
+      }
       return product_categories.map((c: any) => {
         const numericId = typeof c.id === "number"
           ? c.id
@@ -36,7 +49,18 @@ export async function listCategories() {
         }
       })
     })
-    .catch(() => [])
+    .catch(() =>
+      MOCK_CATEGORIES.map((c) => ({
+        id: c.id,
+        name: c.name,
+        handle: c.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+        imageUrl: c.imageUrl,
+        description: c.description || `Browse quality ${c.name} in bulk and save.`,
+        icon: c.icon || "",
+        itemCount: c.itemCount ?? 15,
+        subcategories: c.subcategories || [],
+      }))
+    )
 }
 
 export async function getCategoryBySlug(slug: string) {

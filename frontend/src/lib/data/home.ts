@@ -3,6 +3,7 @@ import { listProducts } from './products'
 import { listCategories } from './categories'
 import { listBrands } from './collections'
 import { SlideConfig } from '../../types'
+import { DEFAULT_SLIDES } from '../../data/presets'
 
 export type HomeData = {
   products: Awaited<ReturnType<typeof listProducts>>["products"]
@@ -21,6 +22,6 @@ export async function getHomeData(): Promise<HomeData> {
     products: productsResult.products,
     categories,
     brands,
-    slides: []
+    slides: DEFAULT_SLIDES
   }
 }

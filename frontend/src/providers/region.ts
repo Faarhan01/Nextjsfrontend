@@ -15,10 +15,27 @@ export interface UseRegionReturn {
   refresh: () => Promise<void>;
 }
 
+const DEFAULT_REGIONS: MedusaRegion[] = [
+  {
+    id: DEFAULT_REGION_ID,
+    name: 'South Africa',
+    currency_code: 'zar',
+    tax_rate: 15,
+    countries: [{ id: 'za', iso_2: 'za', iso_3: 'zaf', name: 'South Africa', display_name: 'South Africa' }]
+  },
+  {
+    id: 'reg_global',
+    name: 'International (USD)',
+    currency_code: 'usd',
+    tax_rate: 0
+  }
+];
+
 let cachedRegions: MedusaRegion[] | null = null;
+let inFlightFetch: Promise<MedusaRegion[]> | null = null;
 
 export function useRegion(): UseRegionReturn {
-  const [regions, setRegions] = useState<MedusaRegion[]>(cachedRegions || []);
+  const [regions, setRegions] = useState<MedusaRegion[]>(cachedRegions || DEFAULT_REGIONS);
   const [regionId, setRegionIdState] = useState<string>(DEFAULT_REGION_ID);
 
   useEffect(() => {
@@ -31,21 +48,36 @@ export function useRegion(): UseRegionReturn {
   }, []);
 
   const refresh = useCallback(async () => {
-    try {
-      const res = await sdk.regions.list();
-      const list = res.regions || [];
-      cachedRegions = list;
-      setRegions(list);
-    } catch (e) {
-      console.warn('[useRegion] sdk.regions.list failed, using defaults:', e);
+    if (inFlightFetch) {
+      const result = await inFlightFetch;
+      setRegions(result);
+      return;
     }
+
+    inFlightFetch = (async () => {
+      try {
+        const res = await sdk.regions.list();
+        const list = (res.regions && res.regions.length > 0) ? res.regions : DEFAULT_REGIONS;
+        cachedRegions = list;
+        return list;
+      } catch (e) {
+        console.warn('[useRegion] sdk.regions.list failed, using defaults:', e);
+        cachedRegions = DEFAULT_REGIONS;
+        return DEFAULT_REGIONS;
+      } finally {
+        inFlightFetch = null;
+      }
+    })();
+
+    const result = await inFlightFetch;
+    setRegions(result);
   }, []);
 
   useEffect(() => {
-    if (regions.length === 0) {
+    if (!cachedRegions) {
       void refresh();
     }
-  }, [refresh, regions.length]);
+  }, [refresh]);
 
   const setRegionId = useCallback((id: string) => {
     setRegionIdState(id);

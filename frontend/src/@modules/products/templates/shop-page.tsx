@@ -21,6 +21,7 @@ import {
   Grid3X3,
   List, 
   ShoppingBag,
+  ShoppingCart,
   Sparkles,
   Star,
   X,
@@ -55,7 +56,7 @@ import {
 } from 'lucide-react';
 import { MockProduct } from '@/types';
 import { formatCurrency } from '@/utils/pricing';
-import { CategoryBarCarousel } from '@components/shared/category-bar';
+import { CategoryBarCarousel, PageBanner, RecentlyViewedSection } from '@/components/shared';
 
 interface ShopPageProps {
   themeColor?: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
@@ -525,55 +526,18 @@ export default function ShopPage({
         }}
       />
 
-      {/* Category-Style Parallax Banner */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="relative w-full py-8 sm:py-12 px-4 sm:px-8 flex items-center justify-center overflow-hidden bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-white rounded-2xl sm:rounded-3xl shadow-sm dark:shadow-xl border border-slate-200/90 dark:border-slate-800">
-          <div className="absolute inset-0 z-0">
-            <SafeImage 
-              src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1400&fm=webp" 
-              alt="Shop Catalog"
-              placeholderType="banner"
-              className="w-full h-full object-cover opacity-60 dark:opacity-75 scale-105 transition-transform duration-700"
-            />
-            <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/40 to-white/70 dark:from-slate-950/80 dark:via-slate-950/50 dark:to-slate-950/85" />
-          </div>
-          <div className="relative z-10 max-w-3xl mx-auto px-4 text-center space-y-3 sm:space-y-4">
-            
-            {/* Breadcrumb Navigation */}
-            <div className="flex items-center justify-center gap-2 text-xs text-slate-600 dark:text-slate-400 select-none">
-              <a 
-                href="/" 
-                onClick={(e) => { 
-                  e.preventDefault(); 
-                  if (onNavigate) onNavigate('home');
-                }} 
-                className="hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1 font-semibold no-underline text-slate-600 dark:text-slate-400 cursor-pointer"
-              >
-                Home
-              </a>
-              <span>/</span>
-              <span className="text-slate-900 dark:text-white font-extrabold">Shop</span>
-            </div>
-
-            {/* Badge Pill */}
-            <div>
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-white/90 dark:bg-white/10 text-slate-900 dark:text-white border border-slate-300/80 dark:border-white/20 backdrop-blur-md shadow-2xs">
-                <Sparkles className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" /> Mrbulk Catalog
-              </span>
-            </div>
-
-            {/* Title */}
-            <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white">
-              {selectedCategory !== 'All' ? `${selectedCategory} Collection` : 'All Products & Collections'}
-            </h1>
-
-            {/* Description */}
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-2xl mx-auto font-medium leading-relaxed">
-              Browse our complete catalog of {products.length} luxury products with real-time stock and fast delivery.
-            </p>
-          </div>
-        </div>
-      </div>
+      {/* Category-Style Parallax Banner using shared PageBanner */}
+      <PageBanner
+        title={selectedCategory !== 'All' ? `${selectedCategory} Collection` : 'All Products & Collections'}
+        description={`Browse our complete catalog of ${products.length} luxury products with real-time stock and fast delivery.`}
+        badge="Mrbulk Catalog"
+        themeColor={themeColor}
+        logoText="Mrbulk"
+        backLabel="Home"
+        onBack={() => onNavigate ? onNavigate('home') : router.push('/')}
+        backgroundImage="https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=1400&fm=webp"
+        backgroundAlt="Shop Catalog"
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         
@@ -844,6 +808,13 @@ export default function ShopPage({
                                 <span className="hidden sm:inline">Quick View</span>
                               </button>
                             )}
+                            <button
+                              onClick={() => handleAddToCart(prod, 1)}
+                              className={`px-4 py-2 ${currentTheme.bg} text-white hover:opacity-90 active:scale-95 text-xs font-bold rounded-xl transition cursor-pointer flex items-center gap-1.5 shadow-xs`}
+                            >
+                              <ShoppingCart className="w-3.5 h-3.5" />
+                              <span>Add to Cart</span>
+                            </button>
                           </div>
                         </div>
                       </div>
@@ -952,13 +923,23 @@ export default function ShopPage({
                           </div>
                         </div>
 
-                        <div className="pt-2.5 mt-2.5 border-t border-slate-100 dark:border-slate-700/80">
+                        <div className="pt-2.5 mt-2.5 border-t border-slate-100 dark:border-slate-700/80 flex items-center justify-between gap-2">
                           <div className="flex items-baseline gap-1 flex-wrap">
                             <span className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white">{formatCurrency(prod.price)}</span>
                             {prod.originalPrice && (
                               <span className="text-[10px] text-slate-400 dark:text-slate-500 line-through font-semibold">{formatCurrency(prod.originalPrice)}</span>
                             )}
                           </div>
+                          <button
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              handleAddToCart(prod, 1);
+                            }}
+                            className={`p-2 rounded-xl ${currentTheme.bg} text-white hover:opacity-90 active:scale-95 transition-all shadow-xs flex items-center justify-center shrink-0 cursor-pointer`}
+                            title="Add to Cart"
+                          >
+                            <ShoppingCart className="w-3.5 h-3.5" />
+                          </button>
                         </div>
                       </div>
 
@@ -977,6 +958,11 @@ export default function ShopPage({
 
         </div>
 
+      </div>
+
+      {/* Recently Viewed Products */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 sm:mt-14">
+        <RecentlyViewedSection products={products} />
       </div>
 
       {/* Mobile Drawer Filter Sidebar */}

@@ -15,7 +15,8 @@ import {
   Sparkles,
   Crown,
   Tag,
-  Eye
+  Eye,
+  ShoppingCart
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { SafeImage } from '@modules/common/components/safe-image';
@@ -480,6 +481,18 @@ export default function CategoryProductCarousel({
                               <span className="text-[8px] sm:text-[9px] text-slate-400 dark:text-slate-500 block font-bold uppercase tracking-wider">Price</span>
                               <span className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white">{formatCurrency(prod.price)}</span>
                             </div>
+                            {onAddToCart && (
+                              <button
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  onAddToCart(prod);
+                                }}
+                                className={`p-1.5 sm:p-2 rounded-xl ${currentTheme.bg} text-white hover:opacity-90 active:scale-95 transition-all shadow-xs flex items-center justify-center shrink-0 cursor-pointer`}
+                                title="Add to Cart"
+                              >
+                                <ShoppingCart className="w-3 h-3 sm:w-3.5 sm:h-3.5" />
+                              </button>
+                            )}
                           </div>
                         </div>
 

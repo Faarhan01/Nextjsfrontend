@@ -3,6 +3,7 @@
 import { sdk } from "@lib/config"
 import { medusaProductToUiProduct } from "@lib/sdk/transformers"
 import { getCacheOptions } from "./cookies"
+import { MOCK_PRODUCTS } from "../../data/presets"
 
 type ProductListQueryParams = {
   limit?: number
@@ -71,12 +72,42 @@ export async function listProducts(filters: ProductListQueryParams = {}) {
         uiProducts = uiProducts.slice(0, filters.limit)
       }
 
+      if (uiProducts.length === 0 && (!products || products.length === 0)) {
+        throw new Error('No products returned from backend');
+      }
+
       return {
         products: uiProducts,
         count: uiProducts.length,
       }
     })
-    .catch(() => ({ products: [], count: 0 }))
+    .catch(() => {
+      let fallbackList = [...MOCK_PRODUCTS];
+      if (filters.category_id) {
+        fallbackList = fallbackList.filter((p) => p.categoryId === filters.category_id);
+      }
+      if (filters.brandId) {
+        fallbackList = fallbackList.filter((p) => p.brandId === filters.brandId);
+      }
+      if (filters.search || filters.q) {
+        const q = (filters.search || filters.q || '').toLowerCase();
+        fallbackList = fallbackList.filter(
+          (p) =>
+            p.name.toLowerCase().includes(q) ||
+            p.description?.toLowerCase().includes(q) ||
+            p.category?.toLowerCase().includes(q) ||
+            p.brand?.toLowerCase().includes(q) ||
+            p.tags?.some((t) => t.toLowerCase().includes(q))
+        );
+      }
+      if (filters.limit) {
+        fallbackList = fallbackList.slice(0, filters.limit);
+      }
+      return {
+        products: fallbackList,
+        count: fallbackList.length,
+      };
+    })
 }
 
 export async function getProductById(id: string) {
@@ -95,7 +126,7 @@ export async function getProductById(id: string) {
       next: next as any,
       cache: "force-cache",
     })
-    .then(({ product }) => medusaProductToUiProduct(product))
+    .then(({ product }) => (product ? medusaProductToUiProduct(product) : null))
     .catch(() => null)
 }
 
@@ -121,15 +152,30 @@ export async function getProductByHandle(handle: string) {
       cache: "force-cache",
     })
     .then(({ products }) => {
-      const product = products[0]
+      const product = products?.[0]
       return product ? medusaProductToUiProduct(product) : null
     })
     .catch(() => null)
 }
 
 export async function getProductByIdStrict(id: string) {
-  const product = await getProductById(id)
-  return product
+  let product = await getProductById(id);
+  if (!product) {
+    product = await getProductByHandle(id);
+  }
+  if (!product) {
+    const target = id.toLowerCase().trim();
+    const fallback = MOCK_PRODUCTS.find((p) => {
+      const pId = p.id.toLowerCase();
+      if (pId === target || `prod-${pId}` === target || pId.replace(/^prod-/, '') === target) return true;
+      if (target.startsWith(`${pId}-`)) return true;
+      const pSlug = p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+      if (pSlug === target || (p as any).slug === target) return true;
+      return false;
+    });
+    if (fallback) product = fallback;
+  }
+  return product;
 }
 
 export { listProducts as getProducts }

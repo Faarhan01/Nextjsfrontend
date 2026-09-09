@@ -30,6 +30,7 @@ import { sdk } from '@lib/sdk';
 import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
 import { useToastContext } from '@/providers/toast-provider';
 import { useAuthContext } from '@/providers/auth-provider';
+import { PageBanner } from '@/components/shared/page-banner';
 
 interface OrderTrackingPageProps {
   themeColor?: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
@@ -476,11 +477,11 @@ export default function OrderTrackingPage({
 
   // Form State
   const getDefaultOrderId = (user: any) => {
-    if (!user) return 'LX-9402';
-    if (user.id === 'usr-admin-01') return 'LX-9901';
-    if (user.id === 'usr-vip-02') return 'LX-8812';
-    if (user.id === 'usr-cust-03') return 'LX-7402';
-    return 'LX-9402';
+    if (!user) return 'MB-9402';
+    if (user.id === 'usr-admin-01') return 'MB-9901';
+    if (user.id === 'usr-vip-02') return 'MB-8812';
+    if (user.id === 'usr-cust-03') return 'MB-7402';
+    return 'MB-9402';
   };
 
   const initialOrderId = getDefaultOrderId(currentUser);
@@ -528,56 +529,69 @@ export default function OrderTrackingPage({
       // Backend didn't find or offline - check local fallbacks
     }
 
-    // 2. Check DUMMY_ORDERS fallback
+    // 2. Check DUMMY_ORDERS fallback (check exact, LX-, and MB- variations)
+    const normalizedDummyId = cleanId.replace(/^MB-/, 'LX-');
     if (DUMMY_ORDERS[cleanId]) {
       setCurrentOrder(DUMMY_ORDERS[cleanId]);
       showToast(`Found tracking details for order #${cleanId}`);
       setIsSearching(false);
       return;
+    } else if (DUMMY_ORDERS[normalizedDummyId]) {
+      setCurrentOrder({ ...DUMMY_ORDERS[normalizedDummyId], id: cleanId });
+      showToast(`Found tracking details for order #${cleanId}`);
+      setIsSearching(false);
+      return;
     }
 
-    // 3. Check localStorage saved orders
-    if (currentUser?.id) {
+    // 3. Check localStorage saved orders (user orders & guest orders)
+    const possibleStorageKeys = [
+      currentUser?.id ? `mrbulk_orders_${currentUser.id}` : null,
+      currentUser?.id ? `luxestore_orders_${currentUser.id}` : null,
+      'mrbulk_orders_guest',
+      'luxestore_orders_guest',
+    ].filter(Boolean) as string[];
+
+    for (const key of possibleStorageKeys) {
       try {
-        const storedOrdersRaw = localStorage.getItem(`luxestore_orders_${currentUser.id}`);
+        const storedOrdersRaw = localStorage.getItem(key);
         if (storedOrdersRaw) {
           const storedOrders = JSON.parse(storedOrdersRaw);
-          const found = storedOrders.find((o: any) => o.id === cleanId);
+          const found = storedOrders.find((o: any) => o.id?.toLowerCase() === cleanId.toLowerCase());
           if (found) {
             const formattedOrder: OrderDetails = {
               id: found.id,
-              email: currentUser.email,
+              email: found.customerEmail || currentUser?.email || 'customer@mrbulk.co.za',
               status: found.status || 'In Transit',
-              carrier: 'Mrbulk Express',
+              carrier: 'Mrbulk Express Courier',
               trackingNumber: `MB-TRACK-${found.id}`,
               trackingUrl: 'https://www.fedex.com',
-              orderDate: found.date,
-              estimatedDelivery: '3-5 Business Days',
+              orderDate: found.date || 'Recent Order',
+              estimatedDelivery: '2-4 Business Days',
               shippingAddress: {
-                name: currentUser.name,
-                street: currentUser.address?.street || '150 Industrial Rd, Crown North',
-                city: currentUser.address?.city || 'Johannesburg',
-                state: currentUser.address?.state || 'GP',
-                zip: currentUser.address?.zip || '2092',
+                name: currentUser?.name || 'Customer',
+                street: found.shippingAddress || '150 Industrial Rd, Crown North',
+                city: 'Johannesburg',
+                state: 'GP',
+                zip: '2092',
                 country: 'South Africa'
               },
-              paymentMethod: 'Credit Card / Direct Transfer',
-              subtotal: 250.00,
+              paymentMethod: found.paymentMethod || 'EFT Bank Transfer',
+              subtotal: typeof found.total === 'number' ? found.total : parseFloat(String(found.total).replace(/[^0-9.]/g, '')) || 250,
               shippingFee: 0,
-              tax: 20.00,
-              total: 270.00,
+              tax: 0,
+              total: typeof found.total === 'number' ? found.total : parseFloat(String(found.total).replace(/[^0-9.]/g, '')) || 250,
               items: (found.items || []).map((it: any, idx: number) => ({
-                id: `it-${idx}`,
+                id: it.id || `it-${idx}`,
                 name: it.name,
                 price: typeof it.price === 'number' ? it.price : 120,
-                quantity: it.qty || 1,
-                image: it.img || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=400'
+                quantity: it.qty || it.quantity || 1,
+                image: it.img || it.imageUrl || 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=400'
               })),
               timeline: [
-                { title: 'Order Placed', description: 'Payment verified.', date: found.date, location: 'Store Checkout System', completed: true },
-                { title: 'In Transit', description: 'Package dispatched.', date: 'In Transport', location: 'Regional Hub', completed: true, current: true },
-                { title: 'Out for Delivery', description: 'Final delivery run.', date: 'Scheduled', location: 'Destination Depot', completed: false },
-                { title: 'Delivered', description: 'Handed to recipient.', date: 'Pending', location: 'Destination', completed: false }
+                { title: 'Order Placed', description: 'Payment verified & order created.', date: found.date || 'Today', location: 'Mrbulk Checkout', completed: true },
+                { title: 'Processing in Warehouse', description: 'Package picked and inspected.', date: 'In Progress', location: 'Johannesburg Depot', completed: true },
+                { title: 'In Transit', description: 'Handed to courier for delivery.', date: 'En Route', location: 'Regional Distribution Center', completed: true, current: true },
+                { title: 'Delivered', description: 'Final delivery to recipient.', date: 'Pending', location: 'Delivery Address', completed: false }
               ]
             };
             setCurrentOrder(formattedOrder);
@@ -703,48 +717,15 @@ export default function OrderTrackingPage({
     <div className="bg-white dark:bg-slate-950 min-h-screen pb-24 space-y-6 sm:space-y-8">
       
       {/* Header Banner Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 space-y-6 sm:space-y-8">
-        
-        {/* Navigation Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 px-1 select-none">
-          <a
-            href="/"
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigate('home');
-            }}
-            className="hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1 cursor-pointer font-semibold no-underline text-slate-500 dark:text-slate-400"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" /> Home
-          </a>
-          <span>/</span>
-          <span className="text-slate-900 dark:text-white font-extrabold">Track Order</span>
-        </div>
-
-        <div className={`relative w-full py-8 sm:py-12 px-4 sm:px-8 ${lightBannerBg} text-slate-900 dark:text-white rounded-2xl sm:rounded-3xl shadow-sm border overflow-hidden`}>
-          <div className={`absolute top-0 right-0 w-80 h-80 ${ambientGlowClasses} rounded-full blur-3xl pointer-events-none`} />
-          <div className={`absolute bottom-0 left-0 w-64 h-64 ${ambientGlowClasses} rounded-full blur-2xl pointer-events-none`} />
-
-          <div className="max-w-3xl mx-auto relative z-10 text-center space-y-4">
-            
-            {/* Badge Pill */}
-            <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-extrabold bg-white/85 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 shadow-xs ${currentTheme.text} backdrop-blur-xs select-text`}>
-              <span>Live Shipment Dispatch</span>
-            </div>
-
-            {/* Title */}
-            <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white select-text">
-              Track Your Order
-            </h1>
-            
-            {/* Description */}
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-medium max-w-2xl mx-auto leading-relaxed select-text">
-              Enter your Store Order ID below to get live location updates, carrier status, and estimated delivery dates.
-            </p>
-
-          </div>
-        </div>
-      </div>
+      <PageBanner
+        title="Track Your Order"
+        description="Enter your Store Order ID below to get live location updates, carrier status, and estimated delivery dates."
+        badge="Live Shipment Dispatch"
+        themeColor={themeColor}
+        logoText={themeCtx?.logoText || 'Mrbulk'}
+        onBack={() => onNavigate('home')}
+        backLabel="Home"
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 space-y-6 sm:space-y-8">
         
@@ -756,7 +737,7 @@ export default function OrderTrackingPage({
               <input
                 type="text"
                 required
-                placeholder="Enter Order ID (e.g., LX-9402, LX-9401, LX-9400)"
+                placeholder="Enter Order ID (e.g., MB-9402, LX-9402, or your order number)"
                 value={orderInput}
                 onChange={(e) => setOrderInput(e.target.value)}
                 className="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl pl-11 pr-4 py-3.5 text-xs sm:text-sm focus:outline-none focus:border-blue-500 font-bold uppercase tracking-wide text-slate-900 dark:text-white"

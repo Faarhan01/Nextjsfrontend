@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Star, Eye, Heart, Flame, Crown, Tag, ArrowRight } from 'lucide-react';
+import { Star, Eye, Heart, Flame, Crown, Tag, ArrowRight, ShoppingCart } from 'lucide-react';
 import { MockProduct } from '@/types';
 import { SafeImage } from '@modules/common/components/safe-image';
 import { StockBadge } from '@modules/common/components/stock-badge';
@@ -195,13 +195,25 @@ export const BestsellersTabSection: React.FC<BestsellersTabSectionProps> = ({
                   </div>
                 </div>
 
-                <div className="pt-2.5 mt-2.5 border-t border-slate-100 dark:border-slate-700/80">
+                <div className="pt-2.5 mt-2.5 border-t border-slate-100 dark:border-slate-700/80 flex items-center justify-between gap-2">
                   <div className="flex items-baseline gap-1 flex-wrap">
                     <span className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white">{formatCurrency(prod.price)}</span>
                     {prod.originalPrice && (
                       <span className="text-[10px] text-slate-400 dark:text-slate-500 line-through font-semibold">{formatCurrency(prod.originalPrice)}</span>
                     )}
                   </div>
+                  {onAddToCart && (
+                    <button
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onAddToCart(prod);
+                      }}
+                      className={`p-2 rounded-xl ${currentTheme.bg} text-white hover:opacity-90 active:scale-95 transition-all shadow-xs flex items-center justify-center shrink-0 cursor-pointer`}
+                      title="Add to Cart"
+                    >
+                      <ShoppingCart className="w-3.5 h-3.5" />
+                    </button>
+                  )}
                 </div>
               </div>
 

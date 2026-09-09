@@ -27,8 +27,7 @@ import {
 } from 'lucide-react';
 import { MockCategory, MockProduct } from '@/types';
 import { getProductUrl, getCategoryUrl, getShopUrl, updateSEOMetadata } from '@/utils/seoUtils';
-import { CategoryBarCarousel } from '@components/shared/category-bar';
-import { PageBanner } from '@components/shared/page-banner';
+import { CategoryBarCarousel, PageBanner, RecentlyViewedSection } from '@/components/shared';
 import { useCatalog } from '@/providers/catalog-provider';
 import { useWishlistContext } from '@/providers/wishlist-provider';
 import { useCartContext } from '@/providers/cart-provider';
@@ -800,6 +799,11 @@ export default function SearchResultsPage({
 
         </div>
 
+      </div>
+
+      {/* Recently Viewed Products */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 sm:mt-14">
+        <RecentlyViewedSection products={allProducts} />
       </div>
 
       {/* Mobile Filter Slideover Drawer */}

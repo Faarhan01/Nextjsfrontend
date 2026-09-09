@@ -59,20 +59,21 @@ export class MedusaClient {
 
   public async ready(): Promise<boolean> {
     if (FRONTEND_ONLY) return false;
-    if (this.isOnline === true) return true;
-    if (this.isOnline === false) return false;
+    const now = Date.now();
+    if (this.isOnline !== null && now - this.lastHealthCheck < 30000) {
+      return this.isOnline;
+    }
     if (!this.healthPromise) {
-      this.healthPromise = this.checkHealth();
+      this.healthPromise = this.checkHealth().finally(() => {
+        this.healthPromise = null;
+      });
     }
     return this.healthPromise;
   }
 
   private async isLiveInternal(): Promise<boolean> {
     if (FRONTEND_ONLY) return false;
-    if (this.isOnline === true) return true;
-    if (this.isOnline === false) return false;
-    await this.isLiveInternal();
-    return this.isOnline === true;
+    return this.ready();
   }
 
   /**
@@ -80,7 +81,8 @@ export class MedusaClient {
    * Result is cached for 30 seconds to avoid redundant network requests.
    */
   public async checkHealth(): Promise<boolean> {
-    if (FRONTEND_ONLY || this.isOnline === false) {
+    if (FRONTEND_ONLY) {
+      this.isOnline = false;
       return false;
     }
     const now = Date.now();
@@ -89,8 +91,9 @@ export class MedusaClient {
     }
 
     try {
-      if (typeof window !== 'undefined' && !navigator.onLine) {
+      if (typeof window !== 'undefined' && typeof navigator !== 'undefined' && !navigator.onLine) {
         this.isOnline = false;
+        this.lastHealthCheck = now;
         return false;
       }
 

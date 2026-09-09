@@ -22,6 +22,7 @@ import {
   Store
 } from 'lucide-react';
 import { SafeImage } from '@modules/common/components/safe-image';
+import { PageBanner } from '@/components/shared';
 import { useRouter } from 'next/navigation';
 import { updateSEOMetadata } from '@/utils/seoUtils';
 import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
@@ -133,76 +134,43 @@ export const AboutPage: React.FC<StaticPageProps> = ({
   return (
     <div className="bg-white dark:bg-slate-950 min-h-screen pb-24 space-y-6 sm:space-y-8">
       
-      {/* Header Banner Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 space-y-6 sm:space-y-8">
-        
-        {/* Navigation Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 px-1 select-none">
-          <a
-            href="/"
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigate('home');
-            }}
-            className="hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1 cursor-pointer font-semibold no-underline text-slate-500 dark:text-slate-400"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" /> Home
-          </a>
-          <span>/</span>
-          <span className="text-slate-900 dark:text-white font-extrabold">About Us</span>
-        </div>
+      {/* Header Banner Section using shared PageBanner */}
+      <PageBanner
+        title={`About ${logoText}`}
+        description="Crafting premium shopping experiences with handpicked authentic goods, nationwide express courier delivery, and customer-first support."
+        badge="Effortless E-Commerce Standard"
+        themeColor={themeColor}
+        logoText={logoText}
+        backLabel="Home"
+        onBack={() => onNavigate('home')}
+        actions={
+          <div className="pt-2 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 select-none">
+            <a
+              href="/shop"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigate('products');
+              }}
+              className={`inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-5 sm:py-2.5 ${currentTheme?.bg || 'bg-blue-600 hover:bg-blue-700'} text-white font-bold text-xs sm:text-xs rounded-xl shadow-md transition cursor-pointer no-underline`}
+            >
+              <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+              <span>Shop Catalog</span>
+            </a>
 
-        <div className={`relative w-full py-8 sm:py-12 px-4 sm:px-8 ${lightBannerBg} text-slate-900 dark:text-white rounded-2xl sm:rounded-3xl shadow-sm border overflow-hidden`}>
-          <div className={`absolute top-0 right-0 w-80 h-80 ${ambientGlowClasses} rounded-full blur-3xl pointer-events-none`} />
-          <div className={`absolute bottom-0 left-0 w-64 h-64 ${ambientGlowClasses} rounded-full blur-2xl pointer-events-none`} />
-
-          <div className="max-w-3xl mx-auto relative z-10 text-center space-y-4">
-            
-            {/* Badge Pill */}
-            <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-extrabold bg-white/85 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 shadow-xs ${currentTheme ? currentTheme.text : 'text-blue-700 dark:text-blue-400'} backdrop-blur-xs select-text`}>
-              <span>Effortless E-Commerce Standard</span>
-            </div>
-
-            {/* Title */}
-            <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white select-text">
-              About {logoText}
-            </h1>
-
-            {/* Description */}
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-medium max-w-2xl mx-auto leading-relaxed select-text">
-              Crafting premium shopping experiences with handpicked authentic goods, nationwide express courier delivery, and customer-first support.
-            </p>
-
-            {/* Action Buttons: Shop & FAQ */}
-            <div className="pt-2 flex flex-wrap items-center justify-center gap-2.5 sm:gap-3 select-none">
-              <a
-                href="/shop"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onNavigate('products');
-                }}
-                className={`inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-5 sm:py-2.5 ${currentTheme?.bg || 'bg-blue-600 hover:bg-blue-700'} text-white font-bold text-xs sm:text-xs rounded-xl shadow-md transition cursor-pointer no-underline`}
-              >
-                <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-                <span>Shop Catalog</span>
-              </a>
-
-              <a
-                href="/faq"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onNavigate('faq');
-                }}
-                className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-5 sm:py-2.5 bg-white/90 dark:bg-slate-900/90 hover:bg-white dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 font-bold text-xs sm:text-xs rounded-xl border border-slate-200/80 dark:border-slate-700 shadow-xs hover:border-slate-300 dark:hover:border-slate-600 transition cursor-pointer backdrop-blur-md no-underline"
-              >
-                <HelpCircle className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${currentTheme?.text || 'text-blue-600 dark:text-blue-400'}`} />
-                <span>FAQ &amp; Support</span>
-              </a>
-            </div>
-
+            <a
+              href="/faq"
+              onClick={(e) => {
+                e.preventDefault();
+                onNavigate('faq');
+              }}
+              className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-5 sm:py-2.5 bg-white/90 dark:bg-slate-900/90 hover:bg-white dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 font-bold text-xs sm:text-xs rounded-xl border border-slate-200/80 dark:border-slate-700 shadow-xs hover:border-slate-300 dark:hover:border-slate-600 transition cursor-pointer backdrop-blur-md no-underline"
+            >
+              <HelpCircle className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${currentTheme?.text || 'text-blue-600 dark:text-blue-400'}`} />
+              <span>FAQ &amp; Support</span>
+            </a>
           </div>
-        </div>
-      </div>
+        }
+      />
 
       {/* Main Content Area */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">

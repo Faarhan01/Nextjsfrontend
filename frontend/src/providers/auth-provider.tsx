@@ -82,13 +82,20 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     [signIn]
   );
 
+  const handleSetAuthModalOpen = useCallback((open: boolean) => {
+    setAuthModalOpen(open);
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new CustomEvent(open ? 'mrbulk:open-auth' : 'mrbulk:close-auth'));
+    }
+  }, []);
+
   return (
     <AuthContext.Provider
       value={{
         currentUser,
         setCurrentUser,
         authModalOpen,
-        setAuthModalOpen,
+        setAuthModalOpen: handleSetAuthModalOpen,
         authModalTab,
         setAuthModalTab,
         signIn,

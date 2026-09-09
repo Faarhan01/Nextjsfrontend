@@ -2,6 +2,7 @@
 
 import { sdk } from "@lib/config"
 import { getCacheOptions } from "./cookies"
+import { MOCK_BRANDS } from "../../data/presets"
 
 export async function listCollections() {
   const headers = {
@@ -19,13 +20,13 @@ export async function listCollections() {
       next: next as any,
       cache: "force-cache",
     })
-    .then(({ collections }) => collections)
+    .then(({ collections }) => (collections && collections.length > 0 ? collections : []))
     .catch(() => [])
 }
 
 export async function listBrands() {
   const collections = await listCollections()
-  return collections
+  return (collections && collections.length > 0) ? collections : MOCK_BRANDS
 }
 
 export { listBrands as getBrands }

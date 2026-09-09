@@ -252,20 +252,42 @@ export default function HomePageClient({
             </AnimatePresence>
 
             {slides.length > 1 && (
-              <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
-                {slides.map((_, idx) => (
-                  <button
-                    key={idx}
-                    onClick={() => {
-                      setCurrentSlideIndex(idx);
-                      restartAutoplay();
-                    }}
-                    className={`h-2 rounded-full transition-all duration-300 outline-none cursor-pointer ${
-                      idx === currentSlideIndex ? 'w-6 bg-white shadow' : 'w-2 bg-white/40 hover:bg-white/70'
-                    }`}
-                  />
-                ))}
-              </div>
+              <>
+                <button
+                  onClick={() => {
+                    setCurrentSlideIndex((prev) => (prev - 1 + slides.length) % slides.length);
+                    restartAutoplay();
+                  }}
+                  className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-900/60 hover:bg-slate-900/90 text-white backdrop-blur-md flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer border border-white/10 shadow-lg"
+                  aria-label="Previous Slide"
+                >
+                  <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
+                </button>
+                <button
+                  onClick={() => {
+                    setCurrentSlideIndex((prev) => (prev + 1) % slides.length);
+                    restartAutoplay();
+                  }}
+                  className="absolute right-2.5 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-900/60 hover:bg-slate-900/90 text-white backdrop-blur-md flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer border border-white/10 shadow-lg"
+                  aria-label="Next Slide"
+                >
+                  <ChevronRight className="w-5 h-5 stroke-[2.5]" />
+                </button>
+                <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
+                  {slides.map((_, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => {
+                        setCurrentSlideIndex(idx);
+                        restartAutoplay();
+                      }}
+                      className={`h-2 rounded-full transition-all duration-300 outline-none cursor-pointer ${
+                        idx === currentSlideIndex ? 'w-6 bg-white shadow' : 'w-2 bg-white/40 hover:bg-white/70'
+                      }`}
+                    />
+                  ))}
+                </div>
+              </>
             )}
           </div>
         </div>

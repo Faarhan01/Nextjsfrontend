@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { MockProduct, CustomWishlist } from '@/types';
 import { useRouter } from 'next/navigation';
+import { PageBanner, RecentlyViewedSection } from '@/components/shared';
 import { useWishlistContext } from '@/providers/wishlist-provider';
 import { useCatalog } from '@/providers/catalog-provider';
 import { useCartContext } from '@/providers/cart-provider';
@@ -164,79 +165,37 @@ export default function WishlistPage({
   return (
     <div className="bg-white dark:bg-slate-950 min-h-screen pb-24 space-y-6 sm:space-y-8">
       
-      {/* Wishlist Header Banner */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8">
-        <div className="relative w-full py-8 sm:py-12 px-4 sm:px-8 bg-slate-100 dark:bg-slate-950 text-slate-900 dark:text-white rounded-2xl sm:rounded-3xl shadow-sm dark:shadow-lg border border-slate-200/90 dark:border-slate-800 overflow-hidden">
-          <div className="absolute inset-0 z-0 pointer-events-none">
-            <SafeImage 
-              src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1400&fm=webp" 
-              alt="Saved Wishlist"
-              placeholderType="banner"
-              className="w-full h-full object-cover opacity-60 dark:opacity-75 scale-105 transition-transform duration-700"
-            />
-            {/* Luminous scrim: clear center visibility with balanced readability overlay */}
-            <div className="absolute inset-0 bg-gradient-to-b from-white/70 via-white/40 to-white/70 dark:from-slate-950/80 dark:via-slate-950/50 dark:to-slate-950/85" />
-          </div>
-          <div className="relative z-10 max-w-3xl mx-auto text-center space-y-3 sm:space-y-4">
-          
-            {/* Breadcrumb Navigation */}
-            <div className="flex items-center justify-center gap-2 text-xs text-slate-600 dark:text-slate-400 select-none">
-              <a 
-                href="/shop"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onNavigate('shop');
-                }}
-                className="hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1 font-semibold no-underline text-slate-600 dark:text-slate-400"
+      {/* Wishlist Header Banner using shared PageBanner */}
+      <PageBanner
+        title={`My Wishlist (${wishlistedProducts.length})`}
+        description="Keep track of your favorite design items, save price drops, or move them directly into your shopping cart whenever you're ready."
+        badge="Saved Collections"
+        themeColor={themeColor}
+        logoText="Mrbulk"
+        backLabel="Continue Shopping"
+        onBack={() => onNavigate ? onNavigate('shop') : router.push('/shop')}
+        backgroundImage="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=1400&fm=webp"
+        backgroundAlt="Saved Wishlist"
+        actions={
+          wishlistedProducts.length > 0 ? (
+            <div className="pt-2 flex items-center justify-center gap-3 shrink-0 flex-wrap">
+              <button
+                onClick={handleClearAll}
+                className="px-4 py-2 bg-white dark:bg-slate-800/90 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-bold rounded-xl transition cursor-pointer flex items-center gap-2 border border-slate-300 dark:border-slate-700 shadow-2xs"
               >
-                <ArrowLeft className="w-3.5 h-3.5" /> Continue Shopping
-              </a>
-              <span>/</span>
-              <span className="text-slate-900 dark:text-white font-extrabold">Wishlist</span>
+                <Trash2 className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" /> Clear Wishlist
+              </button>
+
+              <button
+                onClick={handleAddAll}
+                className={`px-5 py-2 ${currentTheme.bg} text-white text-xs font-bold rounded-xl transition cursor-pointer flex items-center gap-2 shadow-xs hover:opacity-90`}
+              >
+                <ShoppingBag className="w-4 h-4" /> Move All to Cart
+              </button>
             </div>
-
-            {/* Badge Pill */}
-            <div>
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-white/90 dark:bg-white/10 text-slate-900 dark:text-white border border-slate-300/80 dark:border-white/20 backdrop-blur-md shadow-2xs">
-                <Heart className="w-3.5 h-3.5 fill-rose-500 text-rose-500" /> Saved Collections
-              </span>
-            </div>
-
-            {/* Title */}
-            <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white flex items-center justify-center gap-3">
-              My Wishlist
-              <span className="text-xs sm:text-sm font-black px-3 py-1 bg-rose-100 dark:bg-slate-800/80 border border-rose-200 dark:border-slate-700 text-rose-700 dark:text-rose-300 rounded-full shadow-2xs">
-                {wishlistedProducts.length} {wishlistedProducts.length === 1 ? 'item' : 'items'}
-              </span>
-            </h1>
-
-            {/* Description */}
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-2xl mx-auto font-medium leading-relaxed">
-              Keep track of your favorite design items, save price drops, or move them directly into your shopping cart whenever you're ready.
-            </p>
-
-            {/* Quick Action Buttons */}
-            {wishlistedProducts.length > 0 && (
-              <div className="pt-2 flex items-center justify-center gap-3 shrink-0 flex-wrap">
-                <button
-                  onClick={handleClearAll}
-                  className="px-4 py-2 bg-white dark:bg-slate-800/90 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-bold rounded-xl transition cursor-pointer flex items-center gap-2 border border-slate-300 dark:border-slate-700 shadow-2xs"
-                >
-                  <Trash2 className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" /> Clear Wishlist
-                </button>
-
-                <button
-                  onClick={handleAddAll}
-                  className={`px-5 py-2 ${currentTheme.bg} text-white text-xs font-bold rounded-xl transition cursor-pointer flex items-center gap-2 shadow-xs hover:opacity-90`}
-                >
-                  <ShoppingBag className="w-4 h-4" /> Move All to Cart
-                </button>
-              </div>
-            )}
-
-        </div>
-      </div>
-    </div>
+          ) : undefined
+        }
+      />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         
@@ -508,6 +467,11 @@ export default function WishlistPage({
             </div>
           </div>
         )}
+
+        {/* Recently Viewed Products */}
+        <div className="pt-8 sm:pt-12">
+          <RecentlyViewedSection products={products} />
+        </div>
 
       </div>
 

@@ -23,6 +23,7 @@ import {
   ShoppingBag
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { PageBanner } from '@/components/shared';
 import { updateSEOMetadata } from '@/utils/seoUtils';
 import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
 import { useToastContext } from '@/providers/toast-provider';
@@ -437,71 +438,38 @@ export const FaqPage: React.FC<StaticPageProps> = ({
   return (
     <div className="bg-white dark:bg-slate-950 min-h-screen pb-24 space-y-6 sm:space-y-8">
       
-      {/* Header Banner Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 space-y-6 sm:space-y-8">
-        
-        {/* Navigation Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 px-1 select-none">
-          <a
-            href="/"
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigate('home');
-            }}
-            className="hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1 cursor-pointer font-semibold no-underline text-slate-500 dark:text-slate-400"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" /> Home
-          </a>
-          <span>/</span>
-          <span className="text-slate-900 dark:text-white font-extrabold">Help Center & FAQ</span>
-        </div>
-
-        <div className={`relative w-full py-8 sm:py-12 px-4 sm:px-8 ${lightBannerBg} text-slate-900 dark:text-white rounded-2xl sm:rounded-3xl shadow-sm border overflow-hidden`}>
-          <div className={`absolute top-0 right-0 w-80 h-80 ${ambientGlowClasses} rounded-full blur-3xl pointer-events-none`} />
-          <div className={`absolute bottom-0 left-0 w-64 h-64 ${ambientGlowClasses} rounded-full blur-2xl pointer-events-none`} />
-
-          <div className="max-w-3xl mx-auto relative z-10 text-center space-y-4">
-            
-            {/* Badge Pill */}
-            <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-extrabold bg-white/85 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 shadow-xs ${currentTheme ? currentTheme.text : 'text-blue-700 dark:text-blue-400'} backdrop-blur-xs select-text`}>
-              <span>Customer Knowledge Base</span>
+      {/* Header Banner Section using shared PageBanner */}
+      <PageBanner
+        title="How can we help you today?"
+        description="Find instant answers regarding shipping speeds, return guidelines, payment methods, order status, and warranties."
+        badge="Customer Knowledge Base"
+        themeColor={themeColor}
+        logoText={logoText}
+        backLabel="Home"
+        onBack={() => onNavigate('home')}
+        actions={
+          <div className="pt-2 max-w-xl mx-auto w-full">
+            <div className="relative flex items-center">
+              <Search className="absolute left-4 w-4 h-4 text-slate-400 pointer-events-none" />
+              <input
+                type="text"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Search for answers (e.g. shipping time, return policy, payment, tracking)..."
+                className="w-full pl-11 pr-10 py-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200/90 dark:border-slate-700 rounded-2xl text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-blue-600 focus:bg-white dark:focus:bg-slate-900 shadow-xs transition"
+              />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery('')}
+                  className="absolute right-3.5 p-1 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition cursor-pointer"
+                >
+                  <X className="w-4 h-4" />
+                </button>
+              )}
             </div>
-
-            {/* Title */}
-            <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white select-text">
-              How can we help you today?
-            </h1>
-
-            {/* Description */}
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-medium max-w-2xl mx-auto leading-relaxed select-text">
-              Find instant answers regarding shipping speeds, return guidelines, payment methods, order status, and warranties.
-            </p>
-
-            {/* Banner Integrated Search Bar */}
-            <div className="pt-2 max-w-xl mx-auto">
-              <div className="relative flex items-center">
-                <Search className="absolute left-4 w-4 h-4 text-slate-400 pointer-events-none" />
-                <input
-                  type="text"
-                  value={searchQuery}
-                  onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search for answers (e.g. shipping time, return policy, payment, tracking)..."
-                  className="w-full pl-11 pr-10 py-3 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border border-slate-200/90 dark:border-slate-700 rounded-2xl text-xs sm:text-sm text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:outline-none focus:border-blue-600 focus:bg-white dark:focus:bg-slate-900 shadow-xs transition"
-                />
-                {searchQuery && (
-                  <button
-                    onClick={() => setSearchQuery('')}
-                    className="absolute right-3.5 p-1 text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 transition cursor-pointer"
-                  >
-                    <X className="w-4 h-4" />
-                  </button>
-                )}
-              </div>
-            </div>
-
           </div>
-        </div>
-      </div>
+        }
+      />
 
       {/* Main Container */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6">

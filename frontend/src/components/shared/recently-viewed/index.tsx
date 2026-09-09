@@ -2,6 +2,7 @@
 
 import React, { useRef, useState, useEffect } from 'react';
 import { Zap, ChevronLeft, ChevronRight } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import { MockProduct } from '@/types';
 import { SafeImage } from '@modules/common/components/safe-image';
 import { getProductUrl } from '@/utils/seoUtils';
@@ -11,7 +12,7 @@ export interface RecentlyViewedSectionProps {
   products: MockProduct[];
   recentlyViewedIds?: string[];
   currentProductId?: string;
-  onSelectProduct: (productId: string) => void;
+  onSelectProduct?: (productId: string) => void;
   title?: string;
   maxItems?: number;
   className?: string;
@@ -26,6 +27,7 @@ export const RecentlyViewedSection: React.FC<RecentlyViewedSectionProps> = ({
   maxItems = 10,
   className = ""
 }) => {
+  const router = useRouter();
   const scrollRef = useRef<HTMLDivElement>(null);
   const [mounted, setMounted] = useState(false);
 
@@ -108,7 +110,11 @@ export const RecentlyViewedSection: React.FC<RecentlyViewedSectionProps> = ({
             href={getProductUrl(rp.id, rp.name)}
             onClick={(e) => {
               e.preventDefault();
-              onSelectProduct(rp.id);
+              if (onSelectProduct) {
+                onSelectProduct(rp.id);
+              } else {
+                router.push(getProductUrl(rp.id, rp.name));
+              }
               window.scrollTo({ top: 0, behavior: 'smooth' });
             }}
             className="group bg-slate-50/70 dark:bg-slate-700/60 hover:bg-white dark:hover:bg-slate-700 border border-slate-200/80 dark:border-slate-600 hover:border-slate-300 dark:hover:border-slate-500 rounded-2xl p-3 transition-all duration-200 cursor-pointer shadow-2xs hover:shadow-md flex flex-col justify-between w-44 sm:w-52 shrink-0 snap-start snap-always block no-underline"

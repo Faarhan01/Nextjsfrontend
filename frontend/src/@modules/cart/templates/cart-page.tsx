@@ -11,6 +11,8 @@ import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/pr
 import { useToastContext } from '@/providers/toast-provider';
 import { useAuthContext } from '@/providers/auth-provider';
 import { useCatalog } from '@/providers/catalog-provider';
+import { RecentlyViewedSection } from '@/components/shared';
+import { getProductUrl } from '@/utils/seoUtils';
 
 interface CartPageProps {
   cart?: CartItem[];
@@ -68,6 +70,7 @@ export const CartPage: React.FC<CartPageProps> = ({
     if (page === 'home' || page === '') router.push('/');
     else if (page === 'shop' || page === 'products') router.push('/shop');
     else if (page === 'checkout') router.push('/checkout');
+    else if (page === 'product-detail' && params?.id) router.push(getProductUrl(params.id, params.name));
     else router.push(page.startsWith('/') ? page : `/${page}`);
   };
   const currentTheme = getThemeClasses(themeColor);
@@ -82,21 +85,32 @@ export const CartPage: React.FC<CartPageProps> = ({
 
   if (cart.length === 0) {
     return (
-      <div className="max-w-4xl mx-auto px-4 py-16 text-center space-y-4">
-        <div className="w-16 h-16 bg-slate-100 dark:bg-slate-800 text-slate-400 rounded-full flex items-center justify-center mx-auto">
-          <ShoppingBag className="w-8 h-8" />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-12">
+        <div className="max-w-md mx-auto text-center space-y-4">
+          <div className="w-16 h-16 bg-slate-100 dark:bg-slate-800 text-slate-400 rounded-full flex items-center justify-center mx-auto">
+            <ShoppingBag className="w-8 h-8" />
+          </div>
+          <h2 className="text-2xl font-black text-slate-900 dark:text-white">Your Cart is Currently Empty</h2>
+          <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
+            Explore our store and add wholesale or retail items to your cart.
+          </p>
+          <button
+            onClick={() => onNavigate('shop')}
+            className="mt-4 px-6 py-3 bg-blue-600 text-white text-xs font-bold rounded-xl hover:bg-blue-700 transition inline-flex items-center gap-2 cursor-pointer shadow-md"
+          >
+            <span>Browse Catalog</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
         </div>
-        <h2 className="text-2xl font-black text-slate-900 dark:text-white">Your Cart is Currently Empty</h2>
-        <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
-          Explore our store and add premium electronics, home decor, or lifestyle goods to your cart.
-        </p>
-        <button
-          onClick={() => onNavigate('shop')}
-          className="mt-4 px-6 py-3 bg-blue-600 text-white text-xs font-bold rounded-xl hover:bg-blue-700 transition inline-flex items-center gap-2 cursor-pointer shadow-md"
-        >
-          <span>Browse Catalog</span>
-          <ArrowRight className="w-4 h-4" />
-        </button>
+
+        {catalogCtx.products.length > 0 && (
+          <div className="pt-4 border-t border-slate-200/60 dark:border-slate-800">
+            <RecentlyViewedSection
+              products={catalogCtx.products}
+              title="Pick Up Where You Left Off"
+            />
+          </div>
+        )}
       </div>
     );
   }
@@ -131,8 +145,8 @@ export const CartPage: React.FC<CartPageProps> = ({
                 {/* Top Section */}
                 <div className="flex gap-3 sm:gap-4 items-start sm:items-center">
                   <div 
-                    onClick={() => onNavigate('product-detail', { id: item.id })}
-                    className="w-16 h-16 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 shrink-0 cursor-pointer border border-slate-100 dark:border-slate-700"
+                    onClick={() => onNavigate('product-detail', { id: item.id, name: item.name })}
+                    className="w-16 h-16 sm:w-24 sm:h-24 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-800 shrink-0 cursor-pointer border border-slate-100 dark:border-slate-700 hover:opacity-90 transition"
                   >
                     <SafeImage
                       src={item.imageUrl}
@@ -144,7 +158,7 @@ export const CartPage: React.FC<CartPageProps> = ({
                   <div className="flex-1 min-w-0 space-y-1">
                     <div className="flex items-start justify-between gap-2">
                       <h3 
-                        onClick={() => onNavigate('product-detail', { id: item.id })}
+                        onClick={() => onNavigate('product-detail', { id: item.id, name: item.name })}
                         className="text-xs sm:text-sm font-bold text-slate-900 dark:text-white line-clamp-2 sm:truncate cursor-pointer hover:text-blue-600 transition"
                       >
                         {item.name}
@@ -288,6 +302,15 @@ export const CartPage: React.FC<CartPageProps> = ({
           </div>
         </div>
       </div>
+
+      {catalogCtx.products.length > 0 && (
+        <div className="mt-12 sm:mt-16 pt-8 border-t border-slate-200/60 dark:border-slate-800">
+          <RecentlyViewedSection
+            products={catalogCtx.products}
+            title="Recently Viewed Items"
+          />
+        </div>
+      )}
 
       {/* Mobile Sticky Bottom Bar */}
       <div className="fixed bottom-0 left-0 right-0 p-3 sm:hidden bg-white/95 dark:bg-slate-850/95 backdrop-blur-md border-t border-slate-200 dark:border-slate-700/80 z-30 shadow-lg flex items-center justify-between gap-3">

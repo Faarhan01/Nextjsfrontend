@@ -18,6 +18,7 @@ import {
   Building2
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { PageBanner } from '@/components/shared';
 import { updateSEOMetadata } from '@/utils/seoUtils';
 import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
 import { useToastContext } from '@/providers/toast-provider';
@@ -92,58 +93,27 @@ export const MarketplaceSellerPolicyPage: React.FC<StaticPageProps> = ({
 
   return (
     <div className="bg-white dark:bg-slate-950 min-h-screen pb-24 space-y-6 sm:space-y-8">
-      {/* Header Banner Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 space-y-6 sm:space-y-8">
-        
-        {/* Navigation Breadcrumb */}
-        <div className="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 px-1 select-none">
-          <a
-            href="/"
-            onClick={(e) => {
-              e.preventDefault();
-              onNavigate('home');
-            }}
-            className="hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1 cursor-pointer font-semibold no-underline text-slate-500 dark:text-slate-400"
-          >
-            <ArrowLeft className="w-3.5 h-3.5" /> Home
-          </a>
-          <span>/</span>
-          <span className="text-slate-900 dark:text-white font-extrabold">Marketplace Seller Policy</span>
-        </div>
-
-        <div className={`relative w-full py-8 sm:py-12 px-4 sm:px-8 ${lightBannerBg} text-slate-900 dark:text-white rounded-2xl sm:rounded-3xl shadow-sm border overflow-hidden`}>
-          <div className={`absolute top-0 right-0 w-80 h-80 ${ambientGlowClasses} rounded-full blur-3xl pointer-events-none`} />
-          <div className={`absolute bottom-0 left-0 w-64 h-64 ${ambientGlowClasses} rounded-full blur-2xl pointer-events-none`} />
-
-          <div className="max-w-3xl mx-auto relative z-10 text-center space-y-4">
-            {/* Badge Pill */}
-            <div className={`inline-flex items-center px-3 py-1 rounded-full text-xs font-extrabold bg-white/85 dark:bg-slate-900/80 border border-slate-200 dark:border-slate-700 shadow-xs ${currentTheme ? currentTheme.text : 'text-blue-700 dark:text-blue-400'} backdrop-blur-xs select-text`}>
-              <span>Vendor Agreement & Operational Standards</span>
-            </div>
-
-            {/* Title */}
-            <h1 className="text-2xl sm:text-4xl font-black tracking-tight text-slate-900 dark:text-white select-text">
-              Marketplace Seller Policy
-            </h1>
-
-            {/* Subtitle Description */}
-            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 font-medium max-w-2xl mx-auto leading-relaxed select-text">
-              Comprehensive guidelines, product standards, commission structures, fulfillment requirements, and operational rules for selling on {logoText} (mrbulk.co.za).
-            </p>
-
-            {/* Print Document Action Button */}
-            <div className="pt-2 select-none flex items-center justify-center gap-3">
-              <button
-                onClick={handlePrint}
-                className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-4 sm:py-2 bg-white/90 dark:bg-slate-900/90 hover:bg-white dark:hover:bg-slate-800 active:bg-slate-100 dark:active:bg-slate-700 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white font-extrabold shadow-xs transition cursor-pointer"
-              >
-                <Printer className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 dark:text-blue-400 shrink-0" />
-                <span>Print Document</span>
-              </button>
-            </div>
+      {/* Header Banner Section using shared PageBanner */}
+      <PageBanner
+        title="Marketplace Seller Policy"
+        description={`Comprehensive guidelines, product standards, commission structures, fulfillment requirements, and operational rules for selling on ${logoText} (mrbulk.co.za).`}
+        badge="Vendor Agreement & Operational Standards"
+        themeColor={themeColor}
+        logoText={logoText}
+        backLabel="Home"
+        onBack={() => onNavigate('home')}
+        actions={
+          <div className="pt-2 select-none flex items-center justify-center gap-3">
+            <button
+              onClick={handlePrint}
+              className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-4 sm:py-2 bg-white/90 dark:bg-slate-900/90 hover:bg-white dark:hover:bg-slate-800 active:bg-slate-100 dark:active:bg-slate-700 backdrop-blur-md rounded-2xl border border-slate-200 dark:border-slate-700 text-xs text-slate-900 dark:text-white font-extrabold shadow-xs transition cursor-pointer"
+            >
+              <Printer className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-600 dark:text-blue-400 shrink-0" />
+              <span>Print Document</span>
+            </button>
           </div>
-        </div>
-      </div>
+        }
+      />
 
       {/* Main Content Area */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">

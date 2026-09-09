@@ -30,8 +30,7 @@ import { useRouter, useParams } from 'next/navigation';
 import { MockCategory, MockProduct } from '@/types';
 import { formatCurrency } from '@/utils/pricing';
 import { getProductUrl, getCategoryUrl, getBrandUrl, getShopUrl, getCategoriesUrl, updateSEOMetadata, formatCategoryName } from '@/utils/seoUtils';
-import { CategoryBarCarousel } from '@components/shared/category-bar';
-import { PageBanner } from '@components/shared/page-banner';
+import { CategoryBarCarousel, PageBanner, RecentlyViewedSection } from '@/components/shared';
 import { useCatalog } from '@/providers/catalog-provider';
 import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
 import { useWishlistContext } from '@/providers/wishlist-provider';
@@ -994,6 +993,11 @@ export default function CategoryDetailPage({
 
         </div>
 
+      </div>
+
+      {/* Recently Viewed Products */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 sm:mt-14">
+        <RecentlyViewedSection products={products} />
       </div>
 
       {/* Mobile Drawer Filter Sidebar */}
