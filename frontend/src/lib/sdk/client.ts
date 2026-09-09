@@ -8,7 +8,7 @@ import {
   MedusaCustomer,
   MedusaOrder
 } from '../../types/medusa';
-import { MOCK_WOO_PRODUCTS, MOCK_CATEGORIES } from '../../data/presets';
+import { MOCK_PRODUCTS, MOCK_CATEGORIES } from '../../data/presets';
 import { uiProductToMedusaProduct } from './transformers';
 
 export interface MedusaClientConfig {
@@ -163,7 +163,7 @@ export class MedusaClient {
       }
 
       // Local Mock Catalog (Medusa format)
-      let mockList = MOCK_WOO_PRODUCTS.map(uiProductToMedusaProduct);
+      let mockList = MOCK_PRODUCTS.map(uiProductToMedusaProduct);
       if (params?.q) {
         const q = params.q.toLowerCase();
         mockList = mockList.filter(p => p.title.toLowerCase().includes(q) || p.description?.toLowerCase().includes(q));
@@ -192,7 +192,7 @@ export class MedusaClient {
       }
 
       // Fallback from local presets
-      const allMock = MOCK_WOO_PRODUCTS.map(uiProductToMedusaProduct);
+      const allMock = MOCK_PRODUCTS.map(uiProductToMedusaProduct);
       const found = allMock.find(p => p.id === idOrHandle || p.handle === idOrHandle) || allMock[0];
       return { product: found };
     }
@@ -434,7 +434,7 @@ export class MedusaClient {
           existingItem.total = existingItem.subtotal;
         } else {
           // Find matching mock product
-          const allProds = MOCK_WOO_PRODUCTS.map(uiProductToMedusaProduct);
+          const allProds = MOCK_PRODUCTS.map(uiProductToMedusaProduct);
           const product = allProds.find(p => p.variants.some(v => v.id === item.variant_id)) || allProds[0];
           const variant = product.variants.find(v => v.id === item.variant_id) || product.variants[0];
           const unitPrice = variant.prices[0]?.amount || 9900;

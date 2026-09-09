@@ -12,7 +12,7 @@ import { useCatalog } from '@/providers/catalog-provider';
 import { useUI } from '@/providers/ui-provider';
 
 import type {
-  MockWooProduct,
+  MockProduct,
   VendorOffer,
   ProductCondition,
   UserProfile,
@@ -32,8 +32,8 @@ export { getThemeClasses };
 
 export interface StoreContextType {
   // Catalog & Content
-  products: MockWooProduct[];
-  setProducts: React.Dispatch<React.SetStateAction<MockWooProduct[]>>;
+  products: MockProduct[];
+  setProducts: React.Dispatch<React.SetStateAction<MockProduct[]>>;
   categories: MockCategoryPreset[];
   setCategories: React.Dispatch<React.SetStateAction<MockCategoryPreset[]>>;
   brands: MockBrandPreset[];
@@ -127,10 +127,10 @@ export interface StoreContextType {
   onSwitchUser: (userId: string) => void;
 
   // Modals & Drawers (delegated to UIProvider)
-  quickViewProduct: MockWooProduct | null;
+  quickViewProduct: MockProduct | null;
   quickViewOpen: boolean;
-  handleOpenQuickView: (prod: MockWooProduct) => void;
-  onOpenQuickView: (prod: MockWooProduct) => void;
+  handleOpenQuickView: (prod: MockProduct) => void;
+  onOpenQuickView: (prod: MockProduct) => void;
   setQuickViewOpen: (open: boolean) => void;
   mobileMenuOpen: boolean;
   setMobileMenuOpen: (open: boolean) => void;
@@ -280,3 +280,4 @@ export const useStore = () => {
   if (!context) { throw new Error('useStore must be used within a StoreProvider'); }
   return context;
 };
+

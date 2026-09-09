@@ -1,35 +1,57 @@
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
-import { INITIAL_SELLER_ACCOUNTS } from '@/data/presets';
 import { StorefrontView } from '@modules/seller/templates/storefront-view';
+import { getSellers } from '@lib/data/sellers';
 
 export const metadata: Metadata = {
   title: 'Seller Store — Mrbulk',
   description: 'Browse products from verified marketplace sellers on Mrbulk.',
 };
 
-export const dynamic = 'force-dynamic';
+export async function generateStaticParams() {
+  try {
+    const sellers = await getSellers();
+    return sellers.map((seller) => ({
+      sellerId: seller.id,
+    }));
+  } catch {
+    return [];
+  }
+}
 
-function sellerExists(sellerId: string): boolean {
-  const target = sellerId.toLowerCase().trim();
-  if (!target) return false;
-  
-  // Direct match by ID, userId, or slugified store name
-  return INITIAL_SELLER_ACCOUNTS.some((s, idx) => {
-    if (s.id.toLowerCase() === target) return true;
-    if (s.userId?.toLowerCase() === target) return true;
-    const storeSlug = s.storeName.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-    if (storeSlug === target) return true;
-    if (s.storeName.toLowerCase().replace(/\s+/g, '-') === target) return true;
-    if (target === `seller-${idx + 1}` || target === `seller-0${idx + 1}`) return true;
-    return false;
-  });
+function resolveSellerId(rawId: string, sellers: any[]): string | null {
+  const target = rawId.toLowerCase().trim();
+  if (!target) return null;
+
+  const seller = sellers.find((s) => s.id === target || s.slug === target);
+  if (seller) return seller.id;
+
+  const indexMatch = target.match(/^seller-0?(\d+)$/);
+  if (indexMatch) {
+    const idx = parseInt(indexMatch[1], 10) - 1;
+    if (idx >= 0 && idx < sellers.length) {
+      return sellers[idx].id;
+    }
+  }
+
+  return null;
 }
 
 export default async function StorefrontPage({ params }: { params: Promise<{ sellerId: string }> }) {
   const { sellerId } = await params;
-  if (!sellerExists(sellerId)) notFound();
+  const sellers = await getSellers();
 
-  return <StorefrontView sellerId={sellerId} />;
+  if (sellers.length === 0) {
+    notFound();
+  }
+
+  const resolvedSellerId = resolveSellerId(sellerId, sellers);
+  if (!resolvedSellerId) {
+    notFound();
+  }
+
+  const seller = sellers.find((s) => s.id === resolvedSellerId);
+
+  return <StorefrontView sellerId={resolvedSellerId} seller={seller} />;
 }
 

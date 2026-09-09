@@ -9,6 +9,7 @@ import {
   ProductCategory
 } from '../services/productStore.ts';
 import { getOrderById, createOrder, OrderRecord } from '../services/orderStore.ts';
+import { dbManager } from '../services/dbManager.ts';
 
 // ----- Helpers -----
 
@@ -625,4 +626,26 @@ export function lookupOrder(req: Request, res: Response): void {
     return;
   }
   res.json({ order });
+}
+
+// ----- Sellers -----
+
+export function listSellers(_req: Request, res: Response): void {
+  try {
+    const sellers = dbManager.getUsers()
+      .filter(entry => entry.user.role === 'seller')
+      .map(entry => ({
+        id: entry.user.sellerId || entry.user.id,
+        name: entry.user.name,
+        email: entry.user.email,
+        avatarUrl: entry.user.avatarUrl,
+        status: entry.user.status,
+        joinedDate: entry.user.joinedDate,
+        storeName: entry.user.name,
+        slug: entry.user.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
+      }));
+    res.json({ sellers, count: sellers.length });
+  } catch (error: any) {
+    errorRes(res, 500, error.message || 'Failed to fetch sellers.');
+  }
 }

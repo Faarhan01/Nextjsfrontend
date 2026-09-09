@@ -2,7 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useRef, ReactNode } from 'react';
 import {
-  MockWooProduct,
+  MockProduct,
   SlideConfig,
   SliderSettings,
   CategoryCarouselSettings,
@@ -15,7 +15,7 @@ import {
   ProductCondition
 } from '@/types';
 import {
-  MOCK_WOO_PRODUCTS, MOCK_CATEGORIES, MOCK_BRANDS, DEFAULT_SLIDES,
+  MOCK_PRODUCTS, MOCK_CATEGORIES, MOCK_BRANDS, DEFAULT_SLIDES,
   MockCategoryPreset, MockBrandPreset, INITIAL_VENDOR_APPLICATIONS,
   INITIAL_SELLER_ACCOUNTS, INITIAL_PRODUCT_SUBMISSIONS
 } from '@/data/presets';
@@ -24,8 +24,8 @@ import { useToastContext } from '@/providers/toast-provider';
 import { useAuthContext } from '@/providers/auth-provider';
 
 export interface CatalogContextType {
-  products: MockWooProduct[];
-  setProducts: React.Dispatch<React.SetStateAction<MockWooProduct[]>>;
+  products: MockProduct[];
+  setProducts: React.Dispatch<React.SetStateAction<MockProduct[]>>;
   categories: MockCategoryPreset[];
   setCategories: React.Dispatch<React.SetStateAction<MockCategoryPreset[]>>;
   brands: MockBrandPreset[];
@@ -82,7 +82,7 @@ export function generateRandomMerchantId(existingIds: string[] = []): string {
 }
 
 export const CatalogProvider = ({ children }: { children: ReactNode }) => {
-  const [products, setProducts] = useState<MockWooProduct[]>(MOCK_WOO_PRODUCTS);
+  const [products, setProducts] = useState<MockProduct[]>(MOCK_PRODUCTS);
   const [categories, setCategories] = useState<MockCategoryPreset[]>(MOCK_CATEGORIES);
   const [brands, setBrands] = useState<MockBrandPreset[]>(MOCK_BRANDS);
   const [slides, setSlides] = useState<SlideConfig[]>(DEFAULT_SLIDES);
@@ -246,7 +246,7 @@ export const CatalogProvider = ({ children }: { children: ReactNode }) => {
     const sub = productSubmissions.find((s) => s.id === submissionId);
     if (!sub) return;
     const newProdId = `prod-${Date.now().toString().slice(-4)}`;
-    const newProduct: MockWooProduct = {
+    const newProduct: MockProduct = {
       id: newProdId, name: sub.name, price: `R ${sub.price.toFixed(2)}`,
       originalPrice: sub.originalPrice ? `R ${sub.originalPrice.toFixed(2)}` : undefined,
       isSale: !!sub.originalPrice && sub.originalPrice > sub.price,
@@ -294,3 +294,4 @@ export const useCatalog = () => {
   if (!context) throw new Error('useCatalog must be used within a CatalogProvider');
   return context;
 };
+

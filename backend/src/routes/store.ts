@@ -17,7 +17,8 @@ import {
   addShippingMethod,
   createPaymentSessions,
   listBrands,
-  lookupOrder
+  lookupOrder,
+  listSellers
 } from '../controllers/storeController.ts';
 import {
   handleRegister,
@@ -49,6 +50,9 @@ router.get('/collections', listCollections);
 
 // Brands
 router.get('/brands', listBrands);
+
+// Sellers
+router.get('/sellers', listSellers);
 
 // Regions
 router.get('/regions', listRegions);

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Zap, ChevronLeft, ChevronRight } from 'lucide-react';
 import { MockProduct } from '@/types';
 import { SafeImage } from '@modules/common/components/safe-image';
@@ -27,13 +27,18 @@ export const RecentlyViewedSection: React.FC<RecentlyViewedSectionProps> = ({
   className = ""
 }) => {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   // Derive recently viewed products list
   const recentProds = React.useMemo(() => {
     let ids: string[] = [];
     if (recentlyViewedIds && recentlyViewedIds.length > 0) {
       ids = recentlyViewedIds;
-    } else {
+    } else if (mounted) {
       try {
         const saved = localStorage.getItem('luxestore_recently_viewed');
         if (saved) {
@@ -52,9 +57,9 @@ export const RecentlyViewedSection: React.FC<RecentlyViewedSectionProps> = ({
       .map((id) => products.find((p) => p.id === id))
       .filter((p): p is MockProduct => Boolean(p))
       .slice(0, maxItems);
-  }, [products, recentlyViewedIds, currentProductId, maxItems]);
+  }, [products, recentlyViewedIds, currentProductId, maxItems, mounted]);
 
-  if (recentProds.length === 0) return null;
+  if (!mounted || recentProds.length === 0) return null;
 
   const scroll = (direction: 'left' | 'right') => {
     if (scrollRef.current) {

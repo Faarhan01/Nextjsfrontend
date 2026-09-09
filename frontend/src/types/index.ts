@@ -227,8 +227,6 @@ export interface MockProduct {
   specifications?: Record<string, string>;
 }
 
-export type MockWooProduct = MockProduct;
-
 export interface MockBrand {
   id: number;
   name: string;

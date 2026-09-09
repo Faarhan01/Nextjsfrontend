@@ -5,16 +5,16 @@ import { useRouter } from 'next/navigation';
 import { motion } from 'motion/react';
 import { Search, Sparkles, ArrowRight, ShoppingCart } from 'lucide-react';
 import { SafeImage } from '@modules/common/components/safe-image';
-import { MockWooProduct } from '../../../types';
+import { MockProduct } from '../../../types';
 import { getProductUrl } from '../../../utils/seoUtils';
 
 interface SearchMegamenuOverlayProps {
   searchQuery: string;
   setSearchQuery: (q: string) => void;
-  searchSuggestions: MockWooProduct[];
+  searchSuggestions: MockProduct[];
   onClose: () => void;
   onPerformSearch: (overrideQuery?: string) => void;
-  onAddToCart: (prod: MockWooProduct) => void;
+  onAddToCart: (prod: MockProduct) => void;
 }
 
 const POPULAR_SEARCH_TAGS = ['Audio', 'Watches', 'Furniture', 'Nova', 'Lighting', 'Noise Cancelling'];
@@ -159,3 +159,4 @@ export const SearchMegamenuOverlay: React.FC<SearchMegamenuOverlayProps> = ({
     </>
   );
 };
+

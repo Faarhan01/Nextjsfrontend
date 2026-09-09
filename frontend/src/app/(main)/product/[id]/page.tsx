@@ -1,13 +1,27 @@
-import { getProductByIdStrict } from '@lib/data/products';
+import { getProductByIdStrict, listProducts } from '@lib/data/products';
 import ProductDetailTemplate from '@modules/products/templates/product-detail-page';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
+
+export async function generateStaticParams() {
+  try {
+    const { products } = await listProducts({ limit: 100 });
+    return products
+      .filter((p) => p.id)
+      .map((product) => ({
+        id: product.id,
+      }));
+  } catch (error) {
+    console.error('Failed to generate static params for product pages:', error);
+    return [];
+  }
+}
 
 export async function generateMetadata({ params }: { params: Promise<{ id: string }> }): Promise<Metadata> {
   const { id } = await params;
   const product = await getProductByIdStrict(id);
   if (!product) {
-    return { title: 'Product not found', description: 'The requested product does not exist.', other: { 'data-nextjs-not-found': 'true' } };
+    return { title: 'Product not found', description: 'The requested product does not exist.' };
   }
   return {
     title: `${product.name} | Mrbulk`,
@@ -21,8 +35,6 @@ export async function generateMetadata({ params }: { params: Promise<{ id: strin
   };
 }
 
-export const dynamic = 'force-dynamic';
-
 export default async function ProductPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
   const product = await getProductByIdStrict(id);
@@ -33,5 +45,3 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
 
   return <ProductDetailTemplate productId={product.id} />;
 }
-
-

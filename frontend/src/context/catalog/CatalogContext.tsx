@@ -1,12 +1,12 @@
 'use client';
 
 import React, { createContext, useContext, useState, useEffect, useCallback, ReactNode } from 'react';
-import { MockWooProduct, SlideConfig, SliderSettings, CategoryCarouselSettings, BrandCarouselSettings, ProductsSettings } from '../../types';
-import { MOCK_WOO_PRODUCTS, MOCK_CATEGORIES, MOCK_BRANDS, DEFAULT_SLIDES, MockCategoryPreset, MockBrandPreset } from '../../data/presets';
+import { MockProduct, SlideConfig, SliderSettings, CategoryCarouselSettings, BrandCarouselSettings, ProductsSettings } from '../../types';
+import { MOCK_PRODUCTS, MOCK_CATEGORIES, MOCK_BRANDS, DEFAULT_SLIDES, MockCategoryPreset, MockBrandPreset } from '../../data/presets';
 
 export interface CatalogContextType {
-  products: MockWooProduct[];
-  setProducts: React.Dispatch<React.SetStateAction<MockWooProduct[]>>;
+  products: MockProduct[];
+  setProducts: React.Dispatch<React.SetStateAction<MockProduct[]>>;
   categories: MockCategoryPreset[];
   setCategories: React.Dispatch<React.SetStateAction<MockCategoryPreset[]>>;
   brands: MockBrandPreset[];
@@ -29,7 +29,7 @@ export interface CatalogContextType {
 const CatalogContext = createContext<CatalogContextType | undefined>(undefined);
 
 export function CatalogProvider({ children }: { children: ReactNode }) {
-  const [products, setProducts] = useState<MockWooProduct[]>([]);
+  const [products, setProducts] = useState<MockProduct[]>([]);
   const [categories, setCategories] = useState<MockCategoryPreset[]>([]);
   const [brands, setBrands] = useState<MockBrandPreset[]>([]);
   const [slides, setSlides] = useState<SlideConfig[]>([]);
@@ -77,7 +77,7 @@ export function CatalogProvider({ children }: { children: ReactNode }) {
   });
 
   useEffect(() => {
-    setProducts(MOCK_WOO_PRODUCTS);
+    setProducts(MOCK_PRODUCTS);
     setCategories(MOCK_CATEGORIES as MockCategoryPreset[]);
     setBrands(MOCK_BRANDS as MockBrandPreset[]);
     setSlides(DEFAULT_SLIDES);
@@ -129,3 +129,4 @@ export function useCatalog() {
   }
   return context;
 }
+

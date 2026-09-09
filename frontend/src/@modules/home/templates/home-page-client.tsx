@@ -23,10 +23,10 @@ import { TechElectronicsShowcase } from '@modules/products/components/tech-elect
 import { HomeLivingShowcase } from '@modules/products/components/home-living-showcase';
 import { TestimonialsSection } from '@modules/layout/components/testimonials-section';
 import { getProductUrl, getCategoryUrl } from '@/utils/seoUtils';
-import { MockWooProduct } from '@/types';
+import { MockProduct } from '@/types';
 
 interface HomePageClientProps {
-  _initialProducts?: MockWooProduct[];
+  _initialProducts?: MockProduct[];
   _initialCategories?: any[];
   _initialBrands?: any[];
   _initialSlides?: any[];
@@ -121,7 +121,7 @@ export default function HomePageClient({
 
   const recentProducts = recentlyViewedIds
     .map((id) => products.find((p) => p.id === id))
-    .filter((p): p is MockWooProduct => Boolean(p))
+    .filter((p): p is MockProduct => Boolean(p))
     .slice(0, 10);
 
   return (
@@ -485,3 +485,4 @@ export default function HomePageClient({
     </div>
   );
 }
+

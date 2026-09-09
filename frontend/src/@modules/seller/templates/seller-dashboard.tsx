@@ -12,7 +12,7 @@ import {
   SellerAccount,
   VendorOffer,
   ProductCondition,
-  MockWooProduct,
+  MockProduct,
   VendorProductSubmission
 } from '@/types';
 import { formatCurrency } from '@/utils/pricing';
@@ -377,7 +377,7 @@ export function SellerDashboard() {
   // Option 1: Search Existing Products State
   const [existingSearchQuery, setExistingSearchQuery] = useState('');
   const [existingCategoryFilter, setExistingCategoryFilter] = useState<string>('all');
-  const [selectedExistingProduct, setSelectedExistingProduct] = useState<MockWooProduct | null>(null);
+  const [selectedExistingProduct, setSelectedExistingProduct] = useState<MockProduct | null>(null);
 
   // Filtered existing products available on the platform
   const filteredPlatformProducts = useMemo(() => {
@@ -478,7 +478,7 @@ export function SellerDashboard() {
   // Offers belonging to this seller across all products
   const sellerOffers = useMemo(() => {
     const list: {
-      product: MockWooProduct;
+      product: MockProduct;
       offer: VendorOffer;
     }[] = [];
 
@@ -544,7 +544,7 @@ export function SellerDashboard() {
     setAddModalOpen(true);
   };
 
-  const handleSelectExistingProduct = (prod: MockWooProduct) => {
+  const handleSelectExistingProduct = (prod: MockProduct) => {
     setSelectedExistingProduct(prod);
     const basePrice = Number(prod.price.replace(/[^0-9.]/g, '')) || 999;
     const baseOriginal = prod.originalPrice ? Number(prod.originalPrice.replace(/[^0-9.]/g, '')) : undefined;
@@ -2635,3 +2635,4 @@ export function SellerDashboard() {
     </div>
   );
 }
+

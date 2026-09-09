@@ -130,7 +130,9 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <head>
-        <script
+        <Script
+          id="dark-mode-init"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
@@ -150,8 +152,10 @@ export default function RootLayout({
             `,
           }}
         />
-        <script
+        <Script
+          id="json-ld"
           type="application/ld+json"
+          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
         />
       </head>

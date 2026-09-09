@@ -49,7 +49,20 @@ export async function getCategoryBySlug(slug: string) {
 
 export async function getCategoryBySlugStrict(slug: string) {
   const categories = await listCategories()
-  return categories.find((c) => c.name.toLowerCase().replace(/\s+/g, "-") === slug) || null
+  if (!categories.length) return null
+
+  const target = slug.toLowerCase().trim()
+
+  const byHandle = categories.find((c) => c.handle.toLowerCase() === target)
+  if (byHandle) return byHandle
+
+  const byNameSpaces = categories.find((c) => c.name.toLowerCase().replace(/\s+/g, "-") === target)
+  if (byNameSpaces) return byNameSpaces
+
+  const byNameNoPunct = categories.find((c) => c.name.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "") === target)
+  if (byNameNoPunct) return byNameNoPunct
+
+  return null
 }
 
 export { listCategories as getCategories }

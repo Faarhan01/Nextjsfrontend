@@ -668,8 +668,6 @@ export const MOCK_USERS: UserProfile[] = [
   }
 ];
 
-export const MOCK_WOO_PRODUCTS = MOCK_PRODUCTS;
-
 export const MOCK_CATEGORIES: MockCategoryPreset[] = [
   { 
     id: 1, 

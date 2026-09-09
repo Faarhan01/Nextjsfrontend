@@ -453,7 +453,7 @@ class DatabaseManager {
   }
 
   public getProductById(id: string): ProductItem | null {
-    return this.db.products.find(p => p.id === id) || null;
+    return this.db.products.find(p => p.id === id || p.url?.endsWith(`/${id}`)) || null;
   }
 
   public saveProduct(product: Partial<ProductItem>): ProductItem {

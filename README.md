@@ -1,4 +1,4 @@
-# LuxeStore WooCommerce Storefront
+# LuxeStore Storefront
 
 A high-performance e-commerce storefront with Express API backend and Next.js App Router frontend, featuring an AI Concierge powered by Gemini, live product catalog management, custom wishlists, checkout, and order tracking.
 

@@ -2,11 +2,11 @@
 
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import { useRouter } from 'next/navigation';
-import { MockWooProduct } from '@/types';
+import { MockProduct } from '@/types';
 
 export interface UIContextType {
-  quickViewProduct: MockWooProduct | null;
-  setQuickViewProduct: React.Dispatch<React.SetStateAction<MockWooProduct | null>>;
+  quickViewProduct: MockProduct | null;
+  setQuickViewProduct: React.Dispatch<React.SetStateAction<MockProduct | null>>;
   quickViewOpen: boolean;
   setQuickViewOpen: (open: boolean) => void;
   cartOpen: boolean;
@@ -29,8 +29,8 @@ export interface UIContextType {
   setSearchQuery: (query: string) => void;
   handlePerformSearch: (queryToUse?: string) => void;
   navigateTo: (path: string) => void;
-  handleOpenQuickView: (prod: MockWooProduct) => void;
-  openQuickView: (prod: MockWooProduct) => void;
+  handleOpenQuickView: (prod: MockProduct) => void;
+  openQuickView: (prod: MockProduct) => void;
 }
 
 const UIContext = createContext<UIContextType | undefined>(undefined);
@@ -38,7 +38,7 @@ const UIContext = createContext<UIContextType | undefined>(undefined);
 export const UIProvider = ({ children }: { children: ReactNode }) => {
   const router = useRouter();
 
-  const [quickViewProduct, setQuickViewProduct] = useState<MockWooProduct | null>(null);
+  const [quickViewProduct, setQuickViewProduct] = useState<MockProduct | null>(null);
   const [quickViewOpen, setQuickViewOpen] = useState<boolean>(false);
   const [cartOpen, setCartOpen] = useState<boolean>(false);
   const [authModalOpen, setAuthModalOpen] = useState<boolean>(false);
@@ -50,7 +50,7 @@ export const UIProvider = ({ children }: { children: ReactNode }) => {
   const [activeEditorTab, setActiveEditorTab] = useState<'settings' | 'codebase'>('settings');
   const [searchQuery, setSearchQuery] = useState<string>('');
 
-  const handleOpenQuickView = (prod: MockWooProduct) => {
+  const handleOpenQuickView = (prod: MockProduct) => {
     setQuickViewProduct(prod);
     setQuickViewOpen(true);
   };
@@ -69,7 +69,7 @@ export const UIProvider = ({ children }: { children: ReactNode }) => {
     else router.push('/shop');
   };
 
-  const openQuickView = (prod: MockWooProduct) => handleOpenQuickView(prod);
+  const openQuickView = (prod: MockProduct) => handleOpenQuickView(prod);
 
   return (
     <UIContext.Provider value={{
@@ -87,3 +87,4 @@ export const useUI = () => {
   if (!context) throw new Error('useUI must be used within a UIProvider');
   return context;
 };
+

@@ -3,13 +3,13 @@ import {
   MedusaProductVariant,
   MedusaLineItem
 } from '../../types/medusa';
-import { MockWooProduct, CartItem } from '../../types';
+import { MockProduct, CartItem } from '../../types';
 import { slugify } from '../../utils/seoUtils';
 
 /**
  * Transforms a Medusa product into the storefront UI product format.
  */
-export function medusaProductToUiProduct(medusa: MedusaProduct, currency: string = 'zar'): MockWooProduct {
+export function medusaProductToUiProduct(medusa: MedusaProduct, currency: string = 'zar'): MockProduct {
   const primaryVariant = medusa.variants?.[0];
   const priceObj = primaryVariant?.prices?.find(p => p.currency_code.toLowerCase() === currency.toLowerCase()) || primaryVariant?.prices?.[0];
   
@@ -46,9 +46,9 @@ export function medusaProductToUiProduct(medusa: MedusaProduct, currency: string
 }
 
 /**
- * Transforms a UI product (MockWooProduct) into a compliant MedusaProduct.
+ * Transforms a UI product (MockProduct) into a compliant MedusaProduct.
  */
-export function uiProductToMedusaProduct(uiProduct: MockWooProduct): MedusaProduct {
+export function uiProductToMedusaProduct(uiProduct: MockProduct): MedusaProduct {
   const cleanPriceStr = (uiProduct.price || '0').replace(/[^0-9.]/g, '');
   const numericPrice = parseFloat(cleanPriceStr) || 0;
   // Medusa uses cents: R100 -> 10000
@@ -166,3 +166,4 @@ export function formatMedusaPrice(amount: number, currencyCode: string = 'ZAR'):
     maximumFractionDigits: 2
   }).format(standardAmount);
 }
+
