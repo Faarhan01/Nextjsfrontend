@@ -113,7 +113,7 @@ export default function QuickViewModal({
                   <div className="flex items-center justify-between gap-2 mt-2.5 mb-1.5 flex-wrap">
                     <div className="flex items-center gap-2">
                       <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800 text-amber-700 dark:text-amber-300 text-xs font-bold">
-                        <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-400" />
+                        <Star className="w-3 h-3 fill-amber-400 text-amber-400" />
                         <span>4.9 Rating</span>
                       </div>
                       <StockBadge product={product} size="md" />
@@ -237,7 +237,7 @@ export default function QuickViewModal({
                     }}
                     className="w-full text-center text-xs font-bold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 flex items-center justify-center gap-1 transition py-1 cursor-pointer"
                   >
-                    View Full Product Details <ArrowRight className="w-3.5 h-3.5" />
+                    View Full Product Details <ArrowRight className="w-3 h-3" />
                   </button>
                 </div>
 

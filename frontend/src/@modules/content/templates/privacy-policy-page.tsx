@@ -104,7 +104,7 @@ export const PrivacyPolicyPage: React.FC<StaticPageProps> = ({
             }}
             className="hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1 cursor-pointer font-semibold no-underline text-slate-500 dark:text-slate-400"
           >
-            <ArrowLeft className="w-3.5 h-3.5" /> Home
+            <ArrowLeft className="w-3 h-3" /> Home
           </a>
           <span>/</span>
           <span className="text-slate-900 dark:text-white font-extrabold">Privacy Policy</span>
@@ -212,19 +212,19 @@ export const PrivacyPolicyPage: React.FC<StaticPageProps> = ({
               </div>
               <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-300">
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
+                  <span className="w-1 h-1 rounded-full bg-blue-500 mt-1.5 shrink-0" />
                   <span>Account registration (name, email, password hash)</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
+                  <span className="w-1 h-1 rounded-full bg-blue-500 mt-1.5 shrink-0" />
                   <span>Billing & shipping address details</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
+                  <span className="w-1 h-1 rounded-full bg-blue-500 mt-1.5 shrink-0" />
                   <span>Payment method details (processed via PCI-DSS compliant gateways)</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
+                  <span className="w-1 h-1 rounded-full bg-blue-500 mt-1.5 shrink-0" />
                   <span>Customer service correspondence & feedback</span>
                 </li>
               </ul>
@@ -237,19 +237,19 @@ export const PrivacyPolicyPage: React.FC<StaticPageProps> = ({
               </div>
               <ul className="space-y-2 text-xs text-slate-600 dark:text-slate-300">
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
+                  <span className="w-1 h-1 rounded-full bg-blue-500 mt-1.5 shrink-0" />
                   <span>IP address, browser type, and operating system</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
+                  <span className="w-1 h-1 rounded-full bg-blue-500 mt-1.5 shrink-0" />
                   <span>Shopping behavior, page views, and items added to cart</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
+                  <span className="w-1 h-1 rounded-full bg-blue-500 mt-1.5 shrink-0" />
                   <span>Referral sources and URL timestamps</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-blue-500 mt-1.5 shrink-0" />
+                  <span className="w-1 h-1 rounded-full bg-blue-500 mt-1.5 shrink-0" />
                   <span>Device identifiers and session cookies</span>
                 </li>
               </ul>

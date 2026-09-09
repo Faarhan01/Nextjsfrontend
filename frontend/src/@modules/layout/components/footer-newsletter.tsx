@@ -59,7 +59,7 @@ export const FooterNewsletter: React.FC<FooterNewsletterProps> = ({ currentTheme
             className={`px-5 py-2.5 ${currentTheme.bg} hover:brightness-110 text-white font-bold text-xs rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 shrink-0 shadow-md active:scale-95`}
           >
             <span>Subscribe</span>
-            <Send className="w-3.5 h-3.5" />
+            <Send className="w-3 h-3" />
           </button>
         </form>
       </div>

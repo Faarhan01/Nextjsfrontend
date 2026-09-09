@@ -40,7 +40,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
           aria-pressed={!darkMode}
           title="Switch to Light Mode"
         >
-          <Sun className="w-3.5 h-3.5" />
+          <Sun className="w-3 h-3" />
           <span>Light</span>
         </button>
         <button
@@ -56,7 +56,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
           aria-pressed={darkMode}
           title="Switch to Dark Mode"
         >
-          <Moon className="w-3.5 h-3.5" />
+          <Moon className="w-3 h-3" />
           <span>Dark</span>
         </button>
       </div>
@@ -79,7 +79,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
                 : 'bg-amber-50 text-amber-600 border border-amber-200/80'
             }`}
           >
-            {darkMode ? <Moon className="w-3.5 h-3.5" /> : <Sun className="w-3.5 h-3.5" />}
+            {darkMode ? <Moon className="w-3 h-3" /> : <Sun className="w-3 h-3" />}
           </div>
           <div>
             <div className="font-extrabold">{darkMode ? 'Dark Mode Active' : 'Light Mode Active'}</div>
@@ -106,7 +106,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
     <button
       type="button"
       onClick={toggleDarkMode}
-      className={`w-8.5 h-8.5 sm:w-9 sm:h-9 flex items-center justify-center rounded-full transition-all duration-200 cursor-pointer relative hover:scale-105 active:scale-95 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/90 dark:hover:bg-slate-800/90 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 dark:focus-visible:ring-offset-slate-900 ${className}`}
+      className={`w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-full transition-all duration-200 cursor-pointer relative hover:scale-105 active:scale-95 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/90 dark:hover:bg-slate-800/90 border border-transparent hover:border-slate-200 dark:hover:border-slate-700 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500 focus-visible:ring-offset-1 dark:focus-visible:ring-offset-slate-900 ${className}`}
       aria-label={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
       title={darkMode ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
     >

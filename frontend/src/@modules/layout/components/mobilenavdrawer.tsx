@@ -180,7 +180,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
                     }}
                     className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
                   >
-                    <User className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
+                    <User className="w-3 h-3 text-slate-400 dark:text-slate-500" />
                     <span>{currentUser ? 'My Profile' : 'Sign In / Register'}</span>
                   </Link>
                   <Link
@@ -188,7 +188,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
                     onClick={onClose}
                     className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
                   >
-                    <Truck className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500" />
+                    <Truck className="w-3 h-3 text-slate-400 dark:text-slate-500" />
                     <span>Track Package</span>
                   </Link>
                   <Link
@@ -197,7 +197,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
                     className="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
                   >
                     <span className="flex items-center gap-2">
-                      <Heart className="w-3.5 h-3.5 text-rose-500 fill-rose-500" />
+                      <Heart className="w-3 h-3 text-rose-500 fill-rose-500" />
                       <span>Wishlist</span>
                     </span>
                     {wishlistLength > 0 && (
@@ -212,7 +212,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
                     onClick={onClose}
                     className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300"
                   >
-                    <Building2 className="w-3.5 h-3.5" />
+                    <Building2 className="w-3 h-3" />
                     <span>{currentUser?.role === 'seller' ? 'Seller Portal Dashboard' : 'Sell on Mrbulk'}</span>
                   </Link>
                 </div>

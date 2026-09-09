@@ -46,7 +46,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
     <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
       <div className="text-center max-w-2xl mx-auto mb-10">
         <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-xs font-bold uppercase tracking-wider mb-3 shadow-2xs ${pillClass}`}>
-          <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-500" /> Customer Stories
+          <Star className="w-3 h-3 fill-amber-400 text-amber-500" /> Customer Stories
         </div>
         <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
           Trusted by 10,000+ Happy Shoppers
@@ -85,7 +85,7 @@ export const TestimonialsSection: React.FC<TestimonialsSectionProps> = ({
               <div>
                 <div className="flex items-center gap-1.5">
                   <h4 className="text-xs font-bold text-slate-900 dark:text-white">{rev.name}</h4>
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500 fill-emerald-50" />
+                  <CheckCircle2 className="w-3 h-3 text-emerald-500 fill-emerald-50" />
                 </div>
                 <span className="text-[11px] text-slate-400 dark:text-slate-500 font-medium">{rev.role} • {rev.date}</span>
               </div>

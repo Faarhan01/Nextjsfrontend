@@ -112,7 +112,7 @@ export const CartPage: React.FC<CartPageProps> = ({
           onClick={onClearCart}
           className="text-xs font-bold text-rose-600 hover:text-rose-700 transition flex items-center gap-1 p-1.5 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-lg cursor-pointer"
         >
-          <Trash2 className="w-3.5 h-3.5" /> Clear Cart
+          <Trash2 className="w-3 h-3" /> Clear Cart
         </button>
       </div>
 
@@ -192,7 +192,7 @@ export const CartPage: React.FC<CartPageProps> = ({
                         className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition min-w-[36px] min-h-[36px] flex items-center justify-center cursor-pointer"
                         aria-label="Decrease quantity"
                       >
-                        <Minus className="w-3.5 h-3.5" />
+                        <Minus className="w-3 h-3" />
                       </button>
                       <span className="px-3 text-xs font-bold text-slate-900 dark:text-white">{item.quantity}</span>
                       <button
@@ -200,7 +200,7 @@ export const CartPage: React.FC<CartPageProps> = ({
                         className="p-2 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-600 dark:text-slate-300 transition min-w-[36px] min-h-[36px] flex items-center justify-center cursor-pointer"
                         aria-label="Increase quantity"
                       >
-                        <Plus className="w-3.5 h-3.5" />
+                        <Plus className="w-3 h-3" />
                       </button>
                     </div>
 
@@ -265,7 +265,7 @@ export const CartPage: React.FC<CartPageProps> = ({
             </div>
             {shipping === 0 && (
               <div className="text-[11px] text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/50 dark:border-emerald-800/50 p-2.5 rounded-xl font-medium flex items-center gap-1.5">
-                <Tag className="w-3.5 h-3.5 shrink-0" /> Free Shipping unlocked on orders over R500!
+                <Tag className="w-3 h-3 shrink-0" /> Free Shipping unlocked on orders over R500!
               </div>
             )}
             <div className="pt-3 border-t border-slate-100 dark:border-slate-700/80 flex justify-between text-sm font-black text-slate-900 dark:text-white">

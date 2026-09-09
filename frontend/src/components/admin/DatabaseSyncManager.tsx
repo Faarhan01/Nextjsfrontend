@@ -202,7 +202,7 @@ export function DatabaseSyncManager() {
         <div className="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="space-y-2 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-bold">
-              <GitBranch className="w-3.5 h-3.5" /> Git-Synced Database Architecture
+              <GitBranch className="w-3 h-3" /> Git-Synced Database Architecture
             </div>
             <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">
               Cross-Platform Database Sync
@@ -222,7 +222,7 @@ export function DatabaseSyncManager() {
             </div>
 
             <div className="bg-slate-800/90 border border-slate-700/80 p-4 rounded-2xl flex items-center gap-3">
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 animate-pulse" />
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
               <div>
                 <span className="text-[11px] text-slate-400 font-semibold block">Sync Status</span>
                 <span className="text-xs font-bold text-emerald-400">Ready & Tracked</span>
@@ -330,7 +330,7 @@ export function DatabaseSyncManager() {
           </div>
           {status?.lastSyncedAt && (
             <div className="flex items-center gap-1.5 text-xs text-slate-400 font-semibold">
-              <Clock className="w-3.5 h-3.5" />
+              <Clock className="w-3 h-3" />
               <span>Last active: {new Date(status.lastSyncedAt).toLocaleTimeString()}</span>
             </div>
           )}
@@ -415,7 +415,7 @@ export function DatabaseSyncManager() {
                 onClick={() => rawDbJson && copyToClipboard(rawDbJson, 999)}
                 className="text-blue-400 hover:text-blue-300 flex items-center gap-1 text-[11px]"
               >
-                {copiedIndex === 999 ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                {copiedIndex === 999 ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
                 {copiedIndex === 999 ? 'Copied' : 'Copy All'}
               </button>
             </div>
@@ -460,7 +460,7 @@ export function DatabaseSyncManager() {
                     onClick={() => copyToClipboard('git pull origin main', 1)}
                     className="text-slate-400 hover:text-white ml-2 cursor-pointer"
                   >
-                    {copiedIndex === 1 ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    {copiedIndex === 1 ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
                   </button>
                 </div>
               </li>
@@ -488,7 +488,7 @@ export function DatabaseSyncManager() {
                     onClick={() => copyToClipboard('git add data/db.json && git commit -m "Update store database" && git push', 2)}
                     className="text-slate-400 hover:text-white ml-2 cursor-pointer"
                   >
-                    {copiedIndex === 2 ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                    {copiedIndex === 2 ? <Check className="w-3 h-3 text-emerald-400" /> : <Copy className="w-3 h-3" />}
                   </button>
                 </div>
               </li>

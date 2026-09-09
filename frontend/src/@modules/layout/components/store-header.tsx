@@ -106,7 +106,7 @@ export const StoreHeader: React.FC = () => {
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="group flex items-center gap-2 text-slate-900 dark:text-slate-100 focus:outline-none">
               <div
-                className={`w-7.5 h-7.5 rounded-full ${currentTheme.bg} text-white flex items-center justify-center shadow-xs ${currentTheme.shadow} group-hover:scale-105 transition-transform duration-200`}
+                className={`w-7 h-7 rounded-full ${currentTheme.bg} text-white flex items-center justify-center shadow-xs ${currentTheme.shadow} group-hover:scale-105 transition-transform duration-200`}
               >
                 <ShoppingCart className="w-4 h-4 stroke-[2.2]" />
               </div>

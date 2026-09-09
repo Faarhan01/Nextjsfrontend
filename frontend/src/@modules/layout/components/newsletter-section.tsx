@@ -40,7 +40,7 @@ export const NewsletterSection: React.FC<NewsletterSectionProps> = ({
 
         <div className="relative z-10 max-w-2xl mx-auto text-center space-y-4">
           <div className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full border text-xs font-bold uppercase tracking-wider shadow-2xs ${badgeClasses}`}>
-            <Sparkles className="w-3.5 h-3.5" /> VIP Perks &amp; Product Drops
+            <Sparkles className="w-3 h-3" /> VIP Perks &amp; Product Drops
           </div>
           <h2 className="text-2xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
             Unlock 15% Off Your First Order

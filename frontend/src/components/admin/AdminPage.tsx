@@ -2088,11 +2088,11 @@ export default function AdminPage({
                   onClick={() => onNavigate('home')} 
                   className="text-xs text-slate-500 hover:text-slate-900 transition flex items-center gap-1 cursor-pointer font-semibold"
                 >
-                  <ArrowLeft className="w-3.5 h-3.5" /> Back to Storefront
+                  <ArrowLeft className="w-3 h-3" /> Back to Storefront
                 </button>
                 <span className="text-slate-300">/</span>
                 <span className="text-xs text-blue-700 font-extrabold flex items-center gap-1 bg-blue-50 px-2.5 py-0.5 rounded-full border border-blue-200/60 shadow-2xs">
-                  <ShieldCheck className="w-3.5 h-3.5 text-blue-600" /> Admin Management Suite
+                  <ShieldCheck className="w-3 h-3 text-blue-600" /> Admin Management Suite
                 </span>
               </div>
 
@@ -2110,7 +2110,7 @@ export default function AdminPage({
                 onClick={handleExportCSV}
                 className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 border border-slate-200 text-slate-800 font-extrabold text-xs rounded-xl transition flex items-center gap-1.5 cursor-pointer shadow-2xs"
               >
-                <Download className="w-3.5 h-3.5 text-emerald-600" /> Export CSV
+                <Download className="w-3 h-3 text-emerald-600" /> Export CSV
               </button>
 
               <button
@@ -2118,7 +2118,7 @@ export default function AdminPage({
                 onClick={() => setShowAddCustomerModal(true)}
                 className={`px-3.5 py-2 ${currentTheme.bg} text-white font-extrabold text-xs rounded-xl transition flex items-center gap-1.5 cursor-pointer shadow-xs hover:scale-102 active:scale-98`}
               >
-                <UserPlus className="w-3.5 h-3.5" /> Add Customer
+                <UserPlus className="w-3 h-3" /> Add Customer
               </button>
             </div>
           </div>
@@ -2134,7 +2134,7 @@ export default function AdminPage({
                 : 'bg-slate-100 text-slate-600 hover:text-slate-900'
             }`}
           >
-            <BarChart3 className="w-3.5 h-3.5" /> Overview
+            <BarChart3 className="w-3 h-3" /> Overview
           </button>
 
           <button
@@ -2145,7 +2145,7 @@ export default function AdminPage({
                 : 'bg-slate-100 text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Package className="w-3.5 h-3.5" /> Products ({catalogProducts.length})
+            <Package className="w-3 h-3" /> Products ({catalogProducts.length})
           </button>
 
           <button
@@ -2156,7 +2156,7 @@ export default function AdminPage({
                 : 'bg-slate-100 text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Users className="w-3.5 h-3.5" /> Customers ({totalCustomersCount})
+            <Users className="w-3 h-3" /> Customers ({totalCustomersCount})
           </button>
 
           <button
@@ -2167,7 +2167,7 @@ export default function AdminPage({
                 : 'bg-slate-100 text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Building2 className="w-3.5 h-3.5 text-emerald-300" /> Vendors
+            <Building2 className="w-3 h-3 text-emerald-300" /> Vendors
           </button>
 
           <button
@@ -2178,7 +2178,7 @@ export default function AdminPage({
                 : 'bg-slate-100 text-slate-600 hover:text-slate-900'
             }`}
           >
-            <TrendingUp className="w-3.5 h-3.5" /> Analytics
+            <TrendingUp className="w-3 h-3" /> Analytics
           </button>
 
           <button
@@ -2189,7 +2189,7 @@ export default function AdminPage({
                 : 'bg-slate-100 text-slate-600 hover:text-slate-900'
             }`}
           >
-            <ShoppingBag className="w-3.5 h-3.5" /> Orders ({ordersList.length})
+            <ShoppingBag className="w-3 h-3" /> Orders ({ordersList.length})
           </button>
 
           <button
@@ -2200,7 +2200,7 @@ export default function AdminPage({
                 : 'bg-slate-100 text-slate-600 hover:text-slate-900'
             }`}
           >
-            <MessageSquare className="w-3.5 h-3.5" /> Reviews ({reviewsList.length})
+            <MessageSquare className="w-3 h-3" /> Reviews ({reviewsList.length})
           </button>
 
           <button
@@ -2211,7 +2211,7 @@ export default function AdminPage({
                 : 'bg-slate-100 text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Ticket className="w-3.5 h-3.5" /> Coupons ({couponsList.length})
+            <Ticket className="w-3 h-3" /> Coupons ({couponsList.length})
           </button>
 
           <button
@@ -2222,7 +2222,7 @@ export default function AdminPage({
                 : 'bg-slate-100 text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Megaphone className="w-3.5 h-3.5" /> Marketing
+            <Megaphone className="w-3 h-3" /> Marketing
           </button>
 
           <button
@@ -2233,7 +2233,7 @@ export default function AdminPage({
                 : 'bg-slate-100 text-slate-600 hover:text-slate-900'
             }`}
           >
-            <Settings className="w-3.5 h-3.5" /> Settings
+            <Settings className="w-3 h-3" /> Settings
           </button>
 
           <button
@@ -2244,7 +2244,7 @@ export default function AdminPage({
                 : 'bg-slate-100 text-slate-600 hover:text-slate-900'
             }`}
           >
-            <ShieldAlert className="w-3.5 h-3.5 text-rose-300" /> Security
+            <ShieldAlert className="w-3 h-3 text-rose-300" /> Security
           </button>
         </div>
 
@@ -2464,7 +2464,7 @@ export default function AdminPage({
                   <div className="flex items-baseline gap-2 mt-1">
                     <span className="text-2xl font-extrabold text-slate-900">{totalCustomersCount}</span>
                     <span className="text-xs font-bold text-emerald-600 flex items-center gap-0.5">
-                      <ArrowUpRight className="w-3.5 h-3.5" /> +14.2%
+                      <ArrowUpRight className="w-3 h-3" /> +14.2%
                     </span>
                   </div>
                   <span className="text-[11px] text-slate-500 block mt-1">{vipCount} VIP members</span>
@@ -2480,7 +2480,7 @@ export default function AdminPage({
                   <div className="flex items-baseline gap-2 mt-1">
                     <span className="text-2xl font-extrabold text-slate-900">${totalRevenue.toLocaleString('en-US', { minimumFractionDigits: 2 })}</span>
                     <span className="text-xs font-bold text-emerald-600 flex items-center gap-0.5">
-                      <ArrowUpRight className="w-3.5 h-3.5" /> +18.6%
+                      <ArrowUpRight className="w-3 h-3" /> +18.6%
                     </span>
                   </div>
                   <span className="text-[11px] text-slate-500 block mt-1">All processed transactions</span>
@@ -2496,7 +2496,7 @@ export default function AdminPage({
                   <div className="flex items-baseline gap-2 mt-1">
                     <span className="text-2xl font-extrabold text-slate-900">{totalOrders}</span>
                     <span className="text-xs font-bold text-emerald-600 flex items-center gap-0.5">
-                      <ArrowUpRight className="w-3.5 h-3.5" /> +9.8%
+                      <ArrowUpRight className="w-3 h-3" /> +9.8%
                     </span>
                   </div>
                   <span className="text-[11px] text-slate-500 block mt-1">Avg. ${(avgOrderValue).toFixed(2)} / order</span>
@@ -2512,7 +2512,7 @@ export default function AdminPage({
                   <div className="flex items-baseline gap-2 mt-1">
                     <span className="text-2xl font-extrabold text-slate-900">3.84%</span>
                     <span className="text-xs font-bold text-emerald-600 flex items-center gap-0.5">
-                      <ArrowUpRight className="w-3.5 h-3.5" /> +0.6%
+                      <ArrowUpRight className="w-3 h-3" /> +0.6%
                     </span>
                   </div>
                   <span className="text-[11px] text-slate-500 block mt-1">3,420 monthly visitors</span>
@@ -2592,7 +2592,7 @@ export default function AdminPage({
                             <h4 className="text-xs font-bold text-slate-900">{cust.name}</h4>
                             {cust.status === 'vip' && (
                               <span className="px-2 py-0.5 bg-amber-100 text-amber-800 text-[9px] font-extrabold rounded-full flex items-center gap-1">
-                                <Crown className="w-2.5 h-2.5" /> VIP
+                                <Crown className="w-2 h-2" /> VIP
                               </span>
                             )}
                           </div>
@@ -2668,7 +2668,7 @@ export default function AdminPage({
                     }}
                     className="w-full py-2.5 bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-bold rounded-xl transition cursor-pointer flex items-center justify-center gap-2"
                   >
-                    <RefreshCw className="w-3.5 h-3.5" /> Flush Store Cache
+                    <RefreshCw className="w-3 h-3" /> Flush Store Cache
                   </button>
                   <button
                     onClick={() => {
@@ -2676,7 +2676,7 @@ export default function AdminPage({
                     }}
                     className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition cursor-pointer flex items-center justify-center gap-2"
                   >
-                    <Activity className="w-3.5 h-3.5" /> Run Diagnostic Check
+                    <Activity className="w-3 h-3" /> Run Diagnostic Check
                   </button>
                 </div>
               </div>
@@ -2710,7 +2710,7 @@ export default function AdminPage({
                       productSubTab === 'products' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
                     }`}
                   >
-                    <Package className="w-3.5 h-3.5 text-blue-500" /> Products ({catalogProducts.length})
+                    <Package className="w-3 h-3 text-blue-500" /> Products ({catalogProducts.length})
                   </button>
 
                   <button
@@ -2719,7 +2719,7 @@ export default function AdminPage({
                       productSubTab === 'categories' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
                     }`}
                   >
-                    <FolderTree className="w-3.5 h-3.5 text-emerald-500" /> Categories ({catalogCategories.length})
+                    <FolderTree className="w-3 h-3 text-emerald-500" /> Categories ({catalogCategories.length})
                   </button>
 
                   <button
@@ -2728,7 +2728,7 @@ export default function AdminPage({
                       productSubTab === 'brands' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
                     }`}
                   >
-                    <Building2 className="w-3.5 h-3.5 text-amber-500" /> Brands ({catalogBrands.length})
+                    <Building2 className="w-3 h-3 text-amber-500" /> Brands ({catalogBrands.length})
                   </button>
 
                   <button
@@ -2737,7 +2737,7 @@ export default function AdminPage({
                       productSubTab === 'tags' ? 'bg-white text-slate-900 shadow-xs' : 'text-slate-600 hover:text-slate-900'
                     }`}
                   >
-                    <Tag className="w-3.5 h-3.5 text-rose-500" /> Tags ({uniqueTagsList.length})
+                    <Tag className="w-3 h-3 text-rose-500" /> Tags ({uniqueTagsList.length})
                   </button>
                 </div>
               </div>
@@ -2763,7 +2763,7 @@ export default function AdminPage({
                             onClick={() => setProductSearch('')}
                             className="absolute right-3 top-2.5 text-slate-400 hover:text-slate-600 cursor-pointer"
                           >
-                            <X className="w-3.5 h-3.5" />
+                            <X className="w-3 h-3" />
                           </button>
                         )}
                       </div>
@@ -2870,7 +2870,7 @@ export default function AdminPage({
                                   }`}
                                   title={prod.isFeatured ? 'Featured Product' : 'Mark as Featured'}
                                 >
-                                  <Star className="w-3.5 h-3.5 fill-current" />
+                                  <Star className="w-3 h-3 fill-current" />
                                 </button>
 
                                 <button
@@ -2882,7 +2882,7 @@ export default function AdminPage({
                                   }`}
                                   title={prod.isSale ? 'On Sale' : 'Set On Sale'}
                                 >
-                                  <Tag className="w-3.5 h-3.5" />
+                                  <Tag className="w-3 h-3" />
                                 </button>
                               </div>
 
@@ -2890,7 +2890,7 @@ export default function AdminPage({
                                 onClick={() => handleOpenEditProduct(prod)}
                                 className="px-3.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs rounded-xl transition cursor-pointer flex items-center gap-1.5"
                               >
-                                <Edit3 className="w-3.5 h-3.5" /> Edit Product
+                                <Edit3 className="w-3 h-3" /> Edit Product
                               </button>
                             </div>
                           </div>
@@ -3001,7 +3001,7 @@ export default function AdminPage({
                                         }`}
                                         title={prod.isFeatured ? 'Featured Product (Click to toggle)' : 'Mark as Featured'}
                                       >
-                                        <Star className="w-3.5 h-3.5 fill-current" />
+                                        <Star className="w-3 h-3 fill-current" />
                                       </button>
 
                                       <button
@@ -3013,7 +3013,7 @@ export default function AdminPage({
                                         }`}
                                         title={prod.isSale ? 'On Sale (Click to toggle)' : 'Set On Sale'}
                                       >
-                                        <Tag className="w-3.5 h-3.5" />
+                                        <Tag className="w-3 h-3" />
                                       </button>
                                     </div>
                                   </td>
@@ -3026,7 +3026,7 @@ export default function AdminPage({
                                         className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs rounded-xl transition cursor-pointer flex items-center gap-1"
                                         title="Edit Product"
                                       >
-                                        <Edit3 className="w-3.5 h-3.5" /> Edit
+                                        <Edit3 className="w-3 h-3" /> Edit
                                       </button>
                                     </div>
                                   </td>
@@ -3053,7 +3053,7 @@ export default function AdminPage({
                       onClick={handleOpenAddCategory}
                       className={`px-3.5 py-2 ${currentTheme.bg} text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5 cursor-pointer`}
                     >
-                      <Plus className="w-3.5 h-3.5" /> Add Category
+                      <Plus className="w-3 h-3" /> Add Category
                     </button>
                   </div>
 
@@ -3078,14 +3078,14 @@ export default function AdminPage({
                               className="p-1.5 text-slate-500 hover:text-blue-600 hover:bg-slate-100 rounded-lg cursor-pointer"
                               title="Edit Category"
                             >
-                              <Edit3 className="w-3.5 h-3.5" />
+                              <Edit3 className="w-3 h-3" />
                             </button>
                             <button
                               onClick={() => handleDeleteCategory(cat.id, cat.name)}
                               className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg cursor-pointer"
                               title="Delete Category"
                             >
-                              <Trash2 className="w-3.5 h-3.5" />
+                              <Trash2 className="w-3 h-3" />
                             </button>
                           </div>
                         </div>
@@ -3107,7 +3107,7 @@ export default function AdminPage({
                       onClick={handleOpenAddBrand}
                       className={`px-3.5 py-2 ${currentTheme.bg} text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5 cursor-pointer`}
                     >
-                      <Plus className="w-3.5 h-3.5" /> Add Brand
+                      <Plus className="w-3 h-3" /> Add Brand
                     </button>
                   </div>
 
@@ -3132,14 +3132,14 @@ export default function AdminPage({
                               className="p-1.5 text-slate-500 hover:text-blue-600 hover:bg-slate-100 rounded-lg cursor-pointer"
                               title="Edit Brand"
                             >
-                              <Edit3 className="w-3.5 h-3.5" />
+                              <Edit3 className="w-3 h-3" />
                             </button>
                             <button
                               onClick={() => handleDeleteBrand(brand.id, brand.name)}
                               className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg cursor-pointer"
                               title="Delete Brand"
                             >
-                              <Trash2 className="w-3.5 h-3.5" />
+                              <Trash2 className="w-3 h-3" />
                             </button>
                           </div>
                         </div>
@@ -3161,7 +3161,7 @@ export default function AdminPage({
                       onClick={() => setShowTagModal(true)}
                       className={`px-3.5 py-2 ${currentTheme.bg} text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-1.5 cursor-pointer`}
                     >
-                      <Plus className="w-3.5 h-3.5" /> Add New Tag
+                      <Plus className="w-3 h-3" /> Add New Tag
                     </button>
                   </div>
 
@@ -3173,7 +3173,7 @@ export default function AdminPage({
                         const count = catalogProducts.filter(p => p.tags?.includes(tag)).length;
                         return (
                           <div key={idx} className="inline-flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-1.5 text-xs font-bold text-slate-700 shadow-2xs">
-                            <Tag className="w-3.5 h-3.5 text-blue-500" />
+                            <Tag className="w-3 h-3 text-blue-500" />
                             <span>#{tag}</span>
                             <span className="bg-slate-200 text-slate-600 px-1.5 py-0.2 text-[10px] rounded-full font-extrabold">{count}</span>
                             <button
@@ -3181,7 +3181,7 @@ export default function AdminPage({
                               className="text-slate-400 hover:text-rose-600 cursor-pointer ml-1"
                               title="Remove Tag from Store"
                             >
-                              <X className="w-3.5 h-3.5" />
+                              <X className="w-3 h-3" />
                             </button>
                           </div>
                         );
@@ -3217,7 +3217,7 @@ export default function AdminPage({
               {/* Status Filter Pills */}
               <div className="flex items-center gap-2 overflow-x-auto scrollbar-none">
                 <span className="text-xs font-bold text-slate-400 mr-1 flex items-center gap-1">
-                  <Filter className="w-3.5 h-3.5" /> Filter:
+                  <Filter className="w-3 h-3" /> Filter:
                 </span>
                 {(['all', 'active', 'vip', 'inactive'] as const).map((st) => (
                   <button
@@ -3287,7 +3287,7 @@ export default function AdminPage({
                           onClick={() => setSelectedCustomer(cust)}
                           className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs rounded-xl transition cursor-pointer flex items-center gap-1"
                         >
-                          <Eye className="w-3.5 h-3.5" /> Details
+                          <Eye className="w-3 h-3" /> Details
                         </button>
                         <button
                           onClick={() => handleToggleCustomerStatus(cust.id)}
@@ -3562,25 +3562,25 @@ export default function AdminPage({
                       onClick={() => setShowInvoiceModal(selectedOrderForEdit)}
                       className="px-3.5 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition flex items-center gap-1.5 cursor-pointer"
                     >
-                      <Printer className="w-3.5 h-3.5" /> Print Invoice
+                      <Printer className="w-3 h-3" /> Print Invoice
                     </button>
                     <button
                       onClick={() => handleDownloadInvoice(selectedOrderForEdit)}
                       className="px-3.5 py-2 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs rounded-xl transition flex items-center gap-1.5 cursor-pointer"
                     >
-                      <Download className="w-3.5 h-3.5" /> Download Invoice
+                      <Download className="w-3 h-3" /> Download Invoice
                     </button>
                     <button
                       onClick={() => handleDeleteOrder(selectedOrderForEdit.id)}
                       className="px-3 py-2 bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs rounded-xl transition flex items-center gap-1.5 cursor-pointer"
                     >
-                      <Trash2 className="w-3.5 h-3.5" /> Delete
+                      <Trash2 className="w-3 h-3" /> Delete
                     </button>
                     <button
                       onClick={handleSaveOrderChanges}
                       className={`px-4 py-2 ${currentTheme.bg} text-white font-extrabold text-xs rounded-xl shadow-md transition flex items-center gap-1.5 cursor-pointer`}
                     >
-                      <Save className="w-3.5 h-3.5" /> Save Changes
+                      <Save className="w-3 h-3" /> Save Changes
                     </button>
                   </div>
                 </div>
@@ -3696,7 +3696,7 @@ export default function AdminPage({
                           disabled={!newItemProductId}
                           className="w-full sm:w-auto px-4 py-2 bg-blue-600 hover:bg-blue-700 disabled:opacity-50 text-white font-bold text-xs rounded-xl transition cursor-pointer flex items-center justify-center gap-1"
                         >
-                          <Plus className="w-3.5 h-3.5" /> Add Item
+                          <Plus className="w-3 h-3" /> Add Item
                         </button>
                       </div>
                     </div>
@@ -4143,7 +4143,7 @@ export default function AdminPage({
                                   onClick={() => setSelectedOrderForEdit(ord)}
                                   className="px-3.5 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs rounded-xl transition cursor-pointer flex items-center gap-1.5"
                                 >
-                                  <Edit className="w-3.5 h-3.5" /> Manage Order
+                                  <Edit className="w-3 h-3" /> Manage Order
                                 </button>
 
                                 <div className="flex items-center gap-1">
@@ -4276,7 +4276,7 @@ export default function AdminPage({
                                     className="px-3 py-1.5 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-xs rounded-xl transition cursor-pointer flex items-center gap-1"
                                     title="Edit & Manage Order Details"
                                   >
-                                    <Edit className="w-3.5 h-3.5" /> Manage
+                                    <Edit className="w-3 h-3" /> Manage
                                   </button>
 
                                   <button
@@ -4475,7 +4475,7 @@ export default function AdminPage({
                               className="px-2.5 py-1 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold text-[11px] rounded-lg transition cursor-pointer flex items-center gap-1"
                               title="Approve Review"
                             >
-                              <CheckCircle className="w-3.5 h-3.5" /> Approve
+                              <CheckCircle className="w-3 h-3" /> Approve
                             </button>
                           )}
 
@@ -4486,7 +4486,7 @@ export default function AdminPage({
                               className="px-2.5 py-1 bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-[11px] rounded-lg transition cursor-pointer flex items-center gap-1"
                               title="Flag as Spam"
                             >
-                              <XCircle className="w-3.5 h-3.5" /> Spam
+                              <XCircle className="w-3 h-3" /> Spam
                             </button>
                           )}
 
@@ -4545,7 +4545,7 @@ export default function AdminPage({
                       <div className="bg-slate-50 p-4 rounded-2xl border border-slate-200/80 space-y-1">
                         <div className="flex items-center justify-between">
                           <span className="text-[11px] font-bold text-blue-600 flex items-center gap-1">
-                            <MessageCircle className="w-3.5 h-3.5" /> Official Store Reply ({rev.storeReplyDate})
+                            <MessageCircle className="w-3 h-3" /> Official Store Reply ({rev.storeReplyDate})
                           </span>
                           <button
                             onClick={() => {
@@ -4599,7 +4599,7 @@ export default function AdminPage({
                             }}
                             className="text-xs font-bold text-blue-600 hover:text-blue-700 flex items-center gap-1 cursor-pointer"
                           >
-                            <MessageCircle className="w-3.5 h-3.5" /> Reply as Store Admin
+                            <MessageCircle className="w-3 h-3" /> Reply as Store Admin
                           </button>
                         )}
                       </div>
@@ -4703,7 +4703,7 @@ export default function AdminPage({
                       <div className="flex items-center justify-between gap-3 border-b border-slate-100 pb-3">
                         <div className="flex items-center gap-2">
                           <span className="font-mono font-black text-sm px-3 py-1 bg-slate-900 text-amber-300 rounded-xl tracking-wider uppercase flex items-center gap-1.5 shadow-xs">
-                            <Tag className="w-3.5 h-3.5 text-amber-400" /> {cpn.code}
+                            <Tag className="w-3 h-3 text-amber-400" /> {cpn.code}
                           </span>
                           <button
                             type="button"
@@ -4714,7 +4714,7 @@ export default function AdminPage({
                             className="p-1.5 text-slate-400 hover:text-slate-600 hover:bg-slate-100 rounded-lg transition cursor-pointer"
                             title="Copy code"
                           >
-                            <Copy className="w-3.5 h-3.5" />
+                            <Copy className="w-3 h-3" />
                           </button>
                         </div>
 
@@ -4849,7 +4849,7 @@ export default function AdminPage({
                 <div className="bg-gradient-to-r from-slate-900 via-blue-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl relative overflow-hidden border border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-6">
                   <div className="relative z-10">
                     <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/20 border border-blue-400/30 text-blue-300 text-xs font-extrabold mb-3">
-                      <Sliders className="w-3.5 h-3.5" /> Website & System Infrastructure
+                      <Sliders className="w-3 h-3" /> Website & System Infrastructure
                     </div>
                     <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">Site Settings</h2>
                     <p className="text-xs sm:text-sm text-slate-300 mt-1.5 max-w-2xl leading-relaxed">
@@ -4902,7 +4902,7 @@ export default function AdminPage({
                           onClick={onOpenSeoInspector}
                           className="w-full py-2.5 px-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-extrabold text-xs transition cursor-pointer flex items-center justify-center gap-1.5 shadow-xs"
                         >
-                          <Search className="w-3.5 h-3.5" />
+                          <Search className="w-3 h-3" />
                           <span>Launch SEO Inspector</span>
                         </button>
                       </div>
@@ -4926,7 +4926,7 @@ export default function AdminPage({
                           onClick={onOpenExportNextjs}
                           className="w-full py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-700 text-white font-extrabold text-xs transition cursor-pointer flex items-center justify-center gap-1.5 shadow-xs"
                         >
-                          <Boxes className="w-3.5 h-3.5 text-blue-200" />
+                          <Boxes className="w-3 h-3 text-blue-200" />
                           <span>Export Next.js Project</span>
                         </button>
                       </div>
@@ -4951,7 +4951,7 @@ export default function AdminPage({
                           </div>
                         </div>
                         <span className="px-2.5 py-1 bg-emerald-100 text-emerald-800 font-extrabold text-[10px] rounded-full uppercase flex items-center gap-1">
-                          <span className="w-1.5 h-1.5 rounded-full bg-emerald-600 animate-pulse" /> Active
+                          <span className="w-1 h-1 rounded-full bg-emerald-600 animate-pulse" /> Active
                         </span>
                       </div>
 
@@ -5046,7 +5046,7 @@ export default function AdminPage({
                             onClick={() => showToast('SMTP Mail Server configuration saved successfully!')}
                             className="flex-1 py-2.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl transition cursor-pointer flex items-center justify-center gap-1.5"
                           >
-                            <Save className="w-3.5 h-3.5" /> Save SMTP
+                            <Save className="w-3 h-3" /> Save SMTP
                           </button>
                         </div>
 
@@ -5077,7 +5077,7 @@ export default function AdminPage({
                               }}
                               className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl transition cursor-pointer shrink-0 flex items-center gap-1 disabled:opacity-50"
                             >
-                              {isTestingSmtp ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <Send className="w-3.5 h-3.5" />}
+                              {isTestingSmtp ? <RefreshCw className="w-3 h-3 animate-spin" /> : <Send className="w-3 h-3" />}
                               Test
                             </button>
                           </div>
@@ -5153,7 +5153,7 @@ export default function AdminPage({
                           onClick={() => showToast(`Sample "${selectedEmailTemplate}" template layout sent to ${smtpSettings.fromEmail}`)}
                           className="px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs rounded-xl transition cursor-pointer flex items-center gap-1.5 self-start sm:self-auto"
                         >
-                          <SendHorizontal className="w-3.5 h-3.5" /> Test Layout
+                          <SendHorizontal className="w-3 h-3" /> Test Layout
                         </button>
                       </div>
 
@@ -5616,7 +5616,7 @@ export default function AdminPage({
                                 onClick={() => showToast('Bank details for EFT checkout saved successfully!')}
                                 className="px-5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-extrabold text-xs rounded-xl shadow-md transition cursor-pointer flex items-center gap-1.5"
                               >
-                                <Check className="w-3.5 h-3.5" /> Save Bank Details for EFT
+                                <Check className="w-3 h-3" /> Save Bank Details for EFT
                               </button>
                             </div>
                           </div>
@@ -5787,7 +5787,7 @@ export default function AdminPage({
                             onClick={handleSaveAdminGtmId}
                             className="flex-1 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold text-xs rounded-xl shadow-xs transition cursor-pointer flex items-center justify-center gap-1.5"
                           >
-                            <Check className="w-3.5 h-3.5" /> Save GTM ID
+                            <Check className="w-3 h-3" /> Save GTM ID
                           </button>
                           <button
                             type="button"
@@ -5798,7 +5798,7 @@ export default function AdminPage({
                             className="py-2.5 px-3 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition cursor-pointer flex items-center gap-1.5"
                           >
                             <span>Open GA4 Hub</span>
-                            <ArrowUpRight className="w-3.5 h-3.5" />
+                            <ArrowUpRight className="w-3 h-3" />
                           </button>
                         </div>
                       </div>
@@ -5949,10 +5949,10 @@ export default function AdminPage({
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <span className="px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 text-xs font-extrabold uppercase tracking-wider flex items-center gap-1.5 border border-amber-500/30">
-                      <Megaphone className="w-3.5 h-3.5" /> Customer Marketing Hub
+                      <Megaphone className="w-3 h-3" /> Customer Marketing Hub
                     </span>
                     <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-extrabold uppercase tracking-wider flex items-center gap-1.5 border border-emerald-500/30">
-                      <Send className="w-3.5 h-3.5" /> Mail Engine Ready
+                      <Send className="w-3 h-3" /> Mail Engine Ready
                     </span>
                   </div>
                   <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">Email Marketing & Customer Broadcasts</h2>
@@ -5969,7 +5969,7 @@ export default function AdminPage({
                       marketingSubTab === 'emails' ? 'bg-amber-500 text-slate-950 font-extrabold shadow-sm' : 'text-slate-300 hover:text-white'
                     }`}
                   >
-                    <Mail className="w-3.5 h-3.5" /> Emails Broadcaster
+                    <Mail className="w-3 h-3" /> Emails Broadcaster
                   </button>
                   <button
                     onClick={() => setMarketingSubTab('campaigns')}
@@ -5977,7 +5977,7 @@ export default function AdminPage({
                       marketingSubTab === 'campaigns' ? 'bg-amber-500 text-slate-950 font-extrabold shadow-sm' : 'text-slate-300 hover:text-white'
                     }`}
                   >
-                    <Sparkles className="w-3.5 h-3.5" /> Automated Sequences
+                    <Sparkles className="w-3 h-3" /> Automated Sequences
                   </button>
                   <button
                     onClick={() => setMarketingSubTab('subscribers')}
@@ -5985,7 +5985,7 @@ export default function AdminPage({
                       marketingSubTab === 'subscribers' ? 'bg-amber-500 text-slate-950 font-extrabold shadow-sm' : 'text-slate-300 hover:text-white'
                     }`}
                   >
-                    <Users className="w-3.5 h-3.5" /> Subscribers ({INITIAL_CUSTOMERS.length})
+                    <Users className="w-3 h-3" /> Subscribers ({INITIAL_CUSTOMERS.length})
                   </button>
                 </div>
               </div>
@@ -6362,10 +6362,10 @@ export default function AdminPage({
                 <div className="space-y-2">
                   <div className="flex items-center gap-2">
                     <span className="px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 text-xs font-extrabold uppercase tracking-wider flex items-center gap-1.5 border border-rose-500/30">
-                      <ShieldAlert className="w-3.5 h-3.5" /> Threat Defense Active
+                      <ShieldAlert className="w-3 h-3" /> Threat Defense Active
                     </span>
                     <span className="px-3 py-1 rounded-full bg-emerald-500/20 text-emerald-300 text-xs font-extrabold uppercase tracking-wider flex items-center gap-1.5 border border-emerald-500/30">
-                      <ShieldCheck className="w-3.5 h-3.5" /> WAF Protected
+                      <ShieldCheck className="w-3 h-3" /> WAF Protected
                     </span>
                   </div>
                   <h2 className="text-xl sm:text-2xl font-black text-white tracking-tight">Security & Moderation Center</h2>
@@ -6588,7 +6588,7 @@ export default function AdminPage({
 
                       <div className="flex items-center justify-between border-t border-slate-200/60 pt-2.5">
                         <span className="text-xs font-bold text-emerald-700 flex items-center gap-1">
-                          <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> {hack.status}
+                          <CheckCircle2 className="w-3 h-3 text-emerald-500" /> {hack.status}
                         </span>
                         <button
                           onClick={() => handleBanIp(hack.originIp)}
@@ -6721,7 +6721,7 @@ export default function AdminPage({
                             onClick={() => handleBanIp(susp.ip)}
                             className="px-3 py-1.5 bg-rose-50 hover:bg-rose-100 text-rose-700 font-bold text-xs rounded-xl transition cursor-pointer flex items-center gap-1"
                           >
-                            <Ban className="w-3.5 h-3.5" /> Ban IP / Lock User
+                            <Ban className="w-3 h-3" /> Ban IP / Lock User
                           </button>
                           <button
                             onClick={() => handleDismissSuspicious(susp.id)}
@@ -6948,7 +6948,7 @@ export default function AdminPage({
                   <div className="sm:col-span-2 p-4 bg-slate-50/80 border border-slate-200/90 rounded-2xl space-y-3">
                     <div className="flex items-center justify-between border-b border-slate-200/70 pb-2">
                       <label className="text-xs font-extrabold text-slate-900 flex items-center gap-1.5">
-                        <Tag className="w-3.5 h-3.5 text-blue-600" />
+                        <Tag className="w-3 h-3 text-blue-600" />
                         <span>Pricing Structure & Markups</span>
                       </label>
                       <span className="text-[10px] font-bold text-blue-600 bg-blue-50 px-2 py-0.5 rounded-md border border-blue-100">
@@ -7091,7 +7091,7 @@ export default function AdminPage({
                         />
                         <div className="flex items-center gap-2">
                           <label className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-[11px] rounded-lg cursor-pointer transition flex items-center gap-1.5 border border-slate-200">
-                            <Upload className="w-3.5 h-3.5 text-slate-600" />
+                            <Upload className="w-3 h-3 text-slate-600" />
                             <span>Upload Image</span>
                             <input
                               type="file"
@@ -7110,7 +7110,7 @@ export default function AdminPage({
                   <div className="sm:col-span-2 space-y-2.5 p-3.5 bg-slate-50 border border-slate-200/90 rounded-2xl">
                     <div className="flex items-center justify-between">
                       <label className="text-[11px] font-extrabold text-slate-800 flex items-center gap-1.5">
-                        <ImagePlus className="w-3.5 h-3.5 text-blue-600" />
+                        <ImagePlus className="w-3 h-3 text-blue-600" />
                         <span>Product Gallery Images ({productForm.galleryImages.length})</span>
                       </label>
                       <label className="px-2.5 py-1 bg-blue-50 hover:bg-blue-100 text-blue-700 font-bold text-[10px] rounded-lg cursor-pointer transition flex items-center gap-1 border border-blue-200/60">
@@ -7197,7 +7197,7 @@ export default function AdminPage({
                     </label>
 
                     <div className="text-[11px] font-semibold text-slate-500 bg-white/80 border border-slate-200/60 rounded-xl px-3 py-1.5 flex items-center gap-1.5">
-                      <Tag className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                      <Tag className="w-3 h-3 text-emerald-600 shrink-0" />
                       <span>Sale badge & % off badge are auto-calculated from Original Price</span>
                     </div>
                   </div>
@@ -7302,7 +7302,7 @@ export default function AdminPage({
                     <div className="flex-1 space-y-2">
                       <div className="flex gap-2">
                         <label className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 font-bold text-xs cursor-pointer transition">
-                          <Upload className="w-3.5 h-3.5" />
+                          <Upload className="w-3 h-3" />
                           <span>Upload File</span>
                           <input
                             type="file"
@@ -7317,7 +7317,7 @@ export default function AdminPage({
                             onClick={() => setCategoryForm({ ...categoryForm, imageUrl: '' })}
                             className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-100 font-bold text-xs cursor-pointer transition"
                           >
-                            <Trash2 className="w-3.5 h-3.5" />
+                            <Trash2 className="w-3 h-3" />
                             <span>Remove Image</span>
                           </button>
                         )}
@@ -7405,7 +7405,7 @@ export default function AdminPage({
                     <div className="flex-1 space-y-2">
                       <div className="flex gap-2">
                         <label className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-blue-50 text-blue-700 hover:bg-blue-100 font-bold text-xs cursor-pointer transition">
-                          <Upload className="w-3.5 h-3.5" />
+                          <Upload className="w-3 h-3" />
                           <span>Upload File</span>
                           <input
                             type="file"
@@ -7420,7 +7420,7 @@ export default function AdminPage({
                             onClick={() => setBrandForm({ ...brandForm, imageUrl: '' })}
                             className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-rose-50 text-rose-600 hover:bg-rose-100 font-bold text-xs cursor-pointer transition"
                           >
-                            <Trash2 className="w-3.5 h-3.5" />
+                            <Trash2 className="w-3 h-3" />
                             <span>Remove Image</span>
                           </button>
                         )}
@@ -7792,7 +7792,7 @@ export default function AdminPage({
                     onClick={() => window.print()}
                     className="px-4 py-2 bg-blue-600 text-white font-bold text-xs rounded-xl shadow-xs hover:bg-blue-700 transition cursor-pointer flex items-center gap-1.5"
                   >
-                    <Printer className="w-3.5 h-3.5" /> Print Invoice
+                    <Printer className="w-3 h-3" /> Print Invoice
                   </button>
                   <button
                     onClick={() => setShowInvoiceModal(null)}

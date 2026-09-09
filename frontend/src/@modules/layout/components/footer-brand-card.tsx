@@ -33,7 +33,7 @@ export const FooterBrandCard: React.FC<FooterBrandCardProps> = ({ logoText, curr
         </p>
       </div>
       <div className="pt-2 flex items-center gap-2 text-[11px] text-slate-400 dark:text-slate-500 font-semibold border-t border-slate-100 dark:border-slate-800">
-        <ShieldCheck className={`w-3.5 h-3.5 ${currentTheme.text}`} />
+        <ShieldCheck className={`w-3 h-3 ${currentTheme.text}`} />
         <span>Operated by Mr Cheap General Dealer ZA</span>
       </div>
     </div>

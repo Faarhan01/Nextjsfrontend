@@ -53,7 +53,7 @@ export const HeaderActions: React.FC<HeaderActionsProps> = ({
           if (!currentUser) setAuthModalOpen(true);
           else router.push('/account');
         }}
-        className={`hidden lg:flex w-8.5 h-8.5 sm:w-9 sm:h-9 items-center justify-center rounded-full border transition-all duration-150 cursor-pointer relative hover:scale-105 active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
+        className={`hidden lg:flex w-8 h-8 sm:w-9 sm:h-9 items-center justify-center rounded-full border transition-all duration-150 cursor-pointer relative hover:scale-105 active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
           isActive('/account')
             ? `${currentTheme.lightBg} ${currentTheme.text} ${currentTheme.border.split(' ')[0]} dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
             : 'border-transparent text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
@@ -76,7 +76,7 @@ export const HeaderActions: React.FC<HeaderActionsProps> = ({
       {/* Wishlist button */}
       <Link
         href="/wishlist"
-        className={`hidden lg:flex w-8.5 h-8.5 sm:w-9 sm:h-9 items-center justify-center rounded-full border transition-all duration-150 cursor-pointer relative hover:scale-105 active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40 ${
+        className={`hidden lg:flex w-8 h-8 sm:w-9 sm:h-9 items-center justify-center rounded-full border transition-all duration-150 cursor-pointer relative hover:scale-105 active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-rose-500/40 ${
           isActive('/wishlist')
             ? 'bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 border-rose-200 dark:border-rose-800'
             : 'border-transparent text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
@@ -94,7 +94,7 @@ export const HeaderActions: React.FC<HeaderActionsProps> = ({
       {/* Cart drawer button */}
       <button
         onClick={() => setCartOpen(true)}
-        className={`w-8.5 h-8.5 sm:w-9 sm:h-9 flex items-center justify-center rounded-full border transition-all duration-150 cursor-pointer relative hover:scale-105 active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
+        className={`w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-full border transition-all duration-150 cursor-pointer relative hover:scale-105 active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
           cartOpen || isActive('/cart')
             ? `${currentTheme.text} ${currentTheme.lightBg} ${currentTheme.border.split(' ')[0]} dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
             : 'border-transparent text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
@@ -114,7 +114,7 @@ export const HeaderActions: React.FC<HeaderActionsProps> = ({
       {/* Mobile search toggle */}
       <button
         onClick={onToggleMobileSearch}
-        className={`lg:hidden w-8.5 h-8.5 sm:w-9 sm:h-9 flex items-center justify-center rounded-full border transition-all duration-150 cursor-pointer shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
+        className={`lg:hidden w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-full border transition-all duration-150 cursor-pointer shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
           showSearchResults
             ? `${currentTheme.text} ${currentTheme.lightBg} ${currentTheme.border.split(' ')[0]} dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
             : 'border-transparent text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
@@ -127,14 +127,14 @@ export const HeaderActions: React.FC<HeaderActionsProps> = ({
       {/* Mobile menu toggle */}
       <button
         onClick={handleToggleMobileMenu}
-        className={`lg:hidden w-8.5 h-8.5 sm:w-9 sm:h-9 flex items-center justify-center rounded-full border transition-all duration-150 cursor-pointer shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
+        className={`lg:hidden w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-full border transition-all duration-150 cursor-pointer shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
           mobileMenuOpen
             ? `${currentTheme.text} ${currentTheme.lightBg} ${currentTheme.border.split(' ')[0]} dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
             : 'border-transparent text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
         }`}
         aria-label="Toggle Navigation Menu"
       >
-        {mobileMenuOpen ? <X className="w-4.5 h-4.5" /> : <Menu className="w-4.5 h-4.5 primary-icon" />}
+        {mobileMenuOpen ? <X className="w-4 h-4" /> : <Menu className="w-4 h-4 primary-icon" />}
       </button>
     </div>
   );

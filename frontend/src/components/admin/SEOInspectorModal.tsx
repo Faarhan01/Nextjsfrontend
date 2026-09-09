@@ -46,7 +46,7 @@ export const SEOInspectorModal: React.FC<SEOInspectorModalProps> = ({
           {/* Google Search Result Preview */}
           <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-1">
             <div className="flex items-center gap-2 text-slate-500 text-[11px]">
-              <Globe className="w-3.5 h-3.5" />
+              <Globe className="w-3 h-3" />
               <span>https://www.{storeName.toLowerCase().replace(/[^a-z]/g, '')}.com</span>
             </div>
             <h4 className="text-sm font-bold text-blue-700 hover:underline cursor-pointer">

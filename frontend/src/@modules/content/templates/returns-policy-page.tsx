@@ -94,7 +94,7 @@ export const ReturnsPolicyPage: React.FC<StaticPageProps> = ({
             }}
             className="hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1 cursor-pointer font-semibold no-underline text-slate-500 dark:text-slate-400"
           >
-            <ArrowLeft className="w-3.5 h-3.5" /> Home
+            <ArrowLeft className="w-3 h-3" /> Home
           </a>
           <span>/</span>
           <span className="text-slate-900 dark:text-white font-extrabold">Returns & Refund Policy</span>
@@ -198,7 +198,7 @@ export const ReturnsPolicyPage: React.FC<StaticPageProps> = ({
         <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-xs space-y-6">
           <div className="space-y-1 border-b border-slate-100 dark:border-slate-800 pb-4">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-900">
-              <RotateCcw className="w-3.5 h-3.5" />
+              <RotateCcw className="w-3 h-3" />
               <span>Step-by-Step Guide</span>
             </div>
             <h2 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">
@@ -286,7 +286,7 @@ export const ReturnsPolicyPage: React.FC<StaticPageProps> = ({
         <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-xs space-y-4">
           <div className="space-y-1 border-b border-slate-100 dark:border-slate-800 pb-4">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-900">
-              <AlertCircle className="w-3.5 h-3.5" />
+              <AlertCircle className="w-3 h-3" />
               <span>Special Restrictions</span>
             </div>
             <h2 className="text-xl font-black text-slate-900 dark:text-white tracking-tight">

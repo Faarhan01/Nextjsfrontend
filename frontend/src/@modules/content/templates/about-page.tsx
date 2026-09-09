@@ -146,7 +146,7 @@ export const AboutPage: React.FC<StaticPageProps> = ({
             }}
             className="hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1 cursor-pointer font-semibold no-underline text-slate-500 dark:text-slate-400"
           >
-            <ArrowLeft className="w-3.5 h-3.5" /> Home
+            <ArrowLeft className="w-3 h-3" /> Home
           </a>
           <span>/</span>
           <span className="text-slate-900 dark:text-white font-extrabold">About Us</span>
@@ -183,7 +183,7 @@ export const AboutPage: React.FC<StaticPageProps> = ({
                 }}
                 className={`inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-5 sm:py-2.5 ${currentTheme?.bg || 'bg-blue-600 hover:bg-blue-700'} text-white font-bold text-xs sm:text-xs rounded-xl shadow-md transition cursor-pointer no-underline`}
               >
-                <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <ShoppingBag className="w-3 h-3 sm:w-4 sm:h-4" />
                 <span>Shop Catalog</span>
               </a>
 
@@ -195,7 +195,7 @@ export const AboutPage: React.FC<StaticPageProps> = ({
                 }}
                 className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-5 sm:py-2.5 bg-white/90 dark:bg-slate-900/90 hover:bg-white dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 font-bold text-xs sm:text-xs rounded-xl border border-slate-200/80 dark:border-slate-700 shadow-xs hover:border-slate-300 dark:hover:border-slate-600 transition cursor-pointer backdrop-blur-md no-underline"
               >
-                <HelpCircle className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${currentTheme?.text || 'text-blue-600 dark:text-blue-400'}`} />
+                <HelpCircle className={`w-3 h-3 sm:w-4 sm:h-4 ${currentTheme?.text || 'text-blue-600 dark:text-blue-400'}`} />
                 <span>FAQ &amp; Support</span>
               </a>
             </div>
@@ -268,7 +268,7 @@ export const AboutPage: React.FC<StaticPageProps> = ({
         <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-xs space-y-6">
           <div className="space-y-2">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-blue-50 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800">
-              <BookOpen className="w-3.5 h-3.5" />
+              <BookOpen className="w-3 h-3" />
               <span>Our Story</span>
             </div>
             <h2 className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white tracking-tight">
@@ -375,7 +375,7 @@ export const AboutPage: React.FC<StaticPageProps> = ({
         <div className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-xs space-y-6">
           <div className="space-y-2">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-blue-50 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800">
-              <TrendingUp className="w-3.5 h-3.5" />
+              <TrendingUp className="w-3 h-3" />
               <span>Journey & Growth</span>
             </div>
             <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">Our Growth Story</h2>

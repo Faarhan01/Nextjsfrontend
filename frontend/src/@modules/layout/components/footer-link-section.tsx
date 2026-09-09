@@ -26,7 +26,7 @@ export const FooterLinkSection: React.FC<FooterLinkSectionProps> = ({
   return (
     <div className="space-y-3">
       <h4 className="text-xs font-black uppercase tracking-wider text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-800 pb-2 flex items-center gap-1.5">
-        <Icon className={`w-3.5 h-3.5 ${iconClassName}`} />
+        <Icon className={`w-3 h-3 ${iconClassName}`} />
         <span>{title}</span>
       </h4>
       <ul className="space-y-2 text-xs font-semibold text-slate-600 dark:text-slate-400">

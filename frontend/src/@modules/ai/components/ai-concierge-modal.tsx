@@ -224,7 +224,7 @@ export default function AiConciergeModal({
                           className="p-2 rounded-xl bg-slate-100 dark:bg-slate-700 hover:bg-blue-600 dark:hover:bg-blue-600 hover:text-white dark:hover:text-white text-slate-700 dark:text-slate-200 transition shrink-0 cursor-pointer"
                           title="Add to Cart"
                         >
-                          <ShoppingBag className="w-3.5 h-3.5" />
+                          <ShoppingBag className="w-3 h-3" />
                         </button>
                       </div>
                     ))}
@@ -263,7 +263,7 @@ export default function AiConciergeModal({
                 <Bot className="w-4 h-4 text-blue-400 animate-spin" />
               </div>
               <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl px-4 py-3 text-xs text-slate-500 dark:text-slate-400 flex items-center gap-2 shadow-xs">
-                <RefreshCw className="w-3.5 h-3.5 animate-spin text-blue-500" /> Concierge is styling recommendations...
+                <RefreshCw className="w-3 h-3 animate-spin text-blue-500" /> Concierge is styling recommendations...
               </div>
             </div>
           )}

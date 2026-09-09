@@ -450,7 +450,7 @@ export const FaqPage: React.FC<StaticPageProps> = ({
             }}
             className="hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1 cursor-pointer font-semibold no-underline text-slate-500 dark:text-slate-400"
           >
-            <ArrowLeft className="w-3.5 h-3.5" /> Home
+            <ArrowLeft className="w-3 h-3" /> Home
           </a>
           <span>/</span>
           <span className="text-slate-900 dark:text-white font-extrabold">Help Center & FAQ</span>
@@ -631,7 +631,7 @@ export const FaqPage: React.FC<StaticPageProps> = ({
                                 : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700'
                             }`}
                           >
-                            <ThumbsUp className="w-3.5 h-3.5" />
+                            <ThumbsUp className="w-3 h-3" />
                             <span>Yes</span>
                           </button>
 
@@ -643,7 +643,7 @@ export const FaqPage: React.FC<StaticPageProps> = ({
                                 : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700'
                             }`}
                           >
-                            <ThumbsDown className="w-3.5 h-3.5" />
+                            <ThumbsDown className="w-3 h-3" />
                             <span>No</span>
                           </button>
                         </div>
@@ -675,7 +675,7 @@ export const FaqPage: React.FC<StaticPageProps> = ({
               className="text-xs font-extrabold text-amber-600 dark:text-amber-400 hover:text-amber-700 dark:hover:text-amber-300 flex items-center gap-1 pt-1 cursor-pointer no-underline"
             >
               <span>Go to Order Tracker</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3 h-3" />
             </a>
           </div>
 
@@ -696,7 +696,7 @@ export const FaqPage: React.FC<StaticPageProps> = ({
               className="text-xs font-extrabold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 flex items-center gap-1 pt-1 cursor-pointer no-underline"
             >
               <span>View Returns Policy</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3 h-3" />
             </a>
           </div>
 
@@ -717,7 +717,7 @@ export const FaqPage: React.FC<StaticPageProps> = ({
               className="text-xs font-extrabold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700 dark:hover:text-emerald-300 flex items-center gap-1 pt-1 cursor-pointer no-underline"
             >
               <span>Read Privacy Policy</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3 h-3" />
             </a>
           </div>
         </div>

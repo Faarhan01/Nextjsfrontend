@@ -43,9 +43,9 @@ export function MedusaStatusBadge() {
             Medusa: {isLive ? 'Live API' : 'Design Mode'}
           </span>
           {expanded ? (
-            <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+            <ChevronDown className="w-3 h-3 text-slate-400" />
           ) : (
-            <ChevronUp className="w-3.5 h-3.5 text-slate-400" />
+            <ChevronUp className="w-3 h-3 text-slate-400" />
           )}
         </button>
 
@@ -53,7 +53,7 @@ export function MedusaStatusBadge() {
           <div className="p-3 border-t border-slate-100 dark:border-slate-800 space-y-2.5 max-w-xs">
             <div className="flex items-center justify-between text-slate-600 dark:text-slate-300">
               <span className="flex items-center gap-1.5">
-                <Server className="w-3.5 h-3.5 text-slate-400" />
+                <Server className="w-3 h-3 text-slate-400" />
                 Backend Endpoint
               </span>
               <code className="text-[11px] bg-slate-100 dark:bg-slate-800 px-1.5 py-0.5 rounded text-slate-700 dark:text-slate-300 truncate max-w-[140px]">
@@ -63,7 +63,7 @@ export function MedusaStatusBadge() {
 
             <div className="flex items-center justify-between text-slate-600 dark:text-slate-300">
               <span className="flex items-center gap-1.5">
-                <Database className="w-3.5 h-3.5 text-slate-400" />
+                <Database className="w-3 h-3 text-slate-400" />
                 Store Mode
               </span>
               <span className="text-[11px] font-medium text-slate-700 dark:text-slate-200">

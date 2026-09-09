@@ -343,9 +343,9 @@ export default function CheckoutPage({
 
           <div className="flex items-center gap-1.5 text-xs font-semibold text-slate-400">
             <span className="text-slate-500 dark:text-slate-400 font-bold cursor-pointer" onClick={() => onNavigate('cart')}>Cart</span>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-300 dark:text-slate-600" />
+            <ChevronRight className="w-3 h-3 text-slate-300 dark:text-slate-600" />
             <span className="text-slate-900 dark:text-white font-extrabold">Checkout</span>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-300 dark:text-slate-600 text-hidden sm:inline" />
+            <ChevronRight className="w-3 h-3 text-slate-300 dark:text-slate-600 text-hidden sm:inline" />
             <span className="hidden sm:inline">Confirmation</span>
           </div>
         </div>
@@ -749,7 +749,7 @@ export default function CheckoutPage({
                   {/* Express Payment Quick Bar */}
                   <div className="checkout-step-surface space-y-3">
                     <p className="text-[11px] font-extrabold uppercase tracking-wider text-slate-400 flex items-center gap-1.5">
-                      <Zap className="w-3.5 h-3.5 text-amber-500" /> Fast Checkout Methods
+                      <Zap className="w-3 h-3 text-amber-500" /> Fast Checkout Methods
                     </p>
                     <div className="grid grid-cols-3 gap-2">
                       <button
@@ -762,7 +762,7 @@ export default function CheckoutPage({
                           paymentMethod === 'bankPayment' ? 'bg-blue-700 text-white' : 'bg-slate-900 dark:bg-slate-700 text-white hover:bg-slate-800 dark:hover:bg-slate-600'
                         }`}
                       >
-                        <Building2 className="w-3.5 h-3.5 text-blue-300" />
+                        <Building2 className="w-3 h-3 text-blue-300" />
                         <span className="truncate">Bank EFT</span>
                       </button>
 
@@ -776,7 +776,7 @@ export default function CheckoutPage({
                           paymentMethod === 'card' ? 'bg-blue-700 text-white' : 'bg-slate-900 dark:bg-slate-700 text-white hover:bg-slate-800 dark:hover:bg-slate-600'
                         }`}
                       >
-                        <CreditCard className="w-3.5 h-3.5 text-blue-300" />
+                        <CreditCard className="w-3 h-3 text-blue-300" />
                         <span className="truncate">Card</span>
                       </button>
 
@@ -913,7 +913,7 @@ export default function CheckoutPage({
                               className="p-1.5 bg-slate-700 hover:bg-slate-600 rounded-lg text-slate-300 hover:text-white transition cursor-pointer"
                               title="Copy Account Number"
                             >
-                              <Copy className="w-3.5 h-3.5" />
+                              <Copy className="w-3 h-3" />
                             </button>
                           </div>
                           <div className="bg-slate-800/80 p-3 rounded-xl border border-slate-700/80">
@@ -1077,7 +1077,7 @@ export default function CheckoutPage({
                   </div>
                   {appliedPromoName && (
                     <p className="text-[11px] font-bold text-emerald-600 dark:text-emerald-400 mt-1 flex items-center gap-1">
-                      <Check className="w-3.5 h-3.5" /> Code "{appliedPromoName}" applied ({discountPercent * 100}% off)
+                      <Check className="w-3 h-3" /> Code "{appliedPromoName}" applied ({discountPercent * 100}% off)
                     </p>
                   )}
                 </div>
@@ -1147,11 +1147,11 @@ export default function CheckoutPage({
                 {/* Trust Badges */}
                 <div className="pt-3 border-t border-slate-100 dark:border-slate-700 space-y-2 text-[11px] text-slate-400">
                   <div className="flex items-center gap-2">
-                    <ShieldCheck className="w-3.5 h-3.5 text-emerald-500 shrink-0" />
+                    <ShieldCheck className="w-3 h-3 text-emerald-500 shrink-0" />
                     <span>Encrypted 256-bit SSL Protection</span>
                   </div>
                   <div className="flex items-center gap-2">
-                    <Truck className="w-3.5 h-3.5 text-blue-500 shrink-0" />
+                    <Truck className="w-3 h-3 text-blue-500 shrink-0" />
                     <span>Courier Door Delivery with Instant SMS Updates</span>
                   </div>
                 </div>
@@ -1192,7 +1192,7 @@ export default function CheckoutPage({
                 <span>Processing...</span>
               ) : (
                 <>
-                  <Lock className="w-3.5 h-3.5" />
+                  <Lock className="w-3 h-3" />
                   <span>Place Order</span>
                 </>
               )}

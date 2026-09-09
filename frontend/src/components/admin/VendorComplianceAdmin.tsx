@@ -218,7 +218,7 @@ export function VendorComplianceAdmin() {
                 : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
-            <FileText className="w-3.5 h-3.5" />
+            <FileText className="w-3 h-3" />
             <span>Applications Queue</span>
             {pendingCount > 0 && (
               <span className="px-1.5 py-0.2 rounded-full bg-amber-400 text-slate-900 text-[10px] font-black">
@@ -235,7 +235,7 @@ export function VendorComplianceAdmin() {
                 : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
-            <Package className="w-3.5 h-3.5" />
+            <Package className="w-3 h-3" />
             <span>Product Submissions</span>
             {pendingProductsCount > 0 && (
               <span className="px-1.5 py-0.2 rounded-full bg-blue-500 text-white text-[10px] font-black animate-pulse">
@@ -252,7 +252,7 @@ export function VendorComplianceAdmin() {
                 : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
             }`}
           >
-            <Store className="w-3.5 h-3.5" />
+            <Store className="w-3 h-3" />
             <span>Active Merchants</span>
             <span className="text-[10px] opacity-80">({sellerAccounts.length})</span>
           </button>
@@ -261,7 +261,7 @@ export function VendorComplianceAdmin() {
         {/* Search & Status Filter */}
         <div className="flex items-center gap-2">
           <div className="relative w-full sm:w-64">
-            <Search className="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-3 h-3 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               value={searchQuery}
@@ -378,7 +378,7 @@ export function VendorComplianceAdmin() {
                         onClick={() => setSelectedAppForInspection(app)}
                         className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center gap-1.5 cursor-pointer"
                       >
-                        <Eye className="w-3.5 h-3.5 text-blue-500" />
+                        <Eye className="w-3 h-3 text-blue-500" />
                         <span>Inspect ({app.documents.length} Docs)</span>
                       </button>
 
@@ -388,14 +388,14 @@ export function VendorComplianceAdmin() {
                             onClick={() => handleApproveVendorApplication(app.id)}
                             className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-xs transition flex items-center gap-1.5 cursor-pointer"
                           >
-                            <CheckCircle2 className="w-3.5 h-3.5" />
+                            <CheckCircle2 className="w-3 h-3" />
                             <span>Approve Partner</span>
                           </button>
                           <button
                             onClick={() => setRejectingAppId(app.id)}
                             className="px-3 py-1.5 rounded-xl border border-rose-200 dark:border-rose-900/60 text-rose-600 dark:text-rose-400 text-xs font-bold hover:bg-rose-50 dark:hover:bg-rose-950/40 transition flex items-center gap-1.5 cursor-pointer"
                           >
-                            <XCircle className="w-3.5 h-3.5" />
+                            <XCircle className="w-3 h-3" />
                             <span>Reject</span>
                           </button>
                         </>
@@ -502,12 +502,12 @@ export function VendorComplianceAdmin() {
 
                         <div className="text-xs text-slate-500 flex flex-wrap items-center gap-2.5">
                           <span className="flex items-center gap-1 font-semibold text-slate-700 dark:text-slate-300">
-                            <Store className="w-3.5 h-3.5 text-emerald-600" />
+                            <Store className="w-3 h-3 text-emerald-600" />
                             Merchant: {sub.sellerName} (ID: {sub.sellerId})
                           </span>
                           <span>•</span>
                           <span className="flex items-center gap-1">
-                            <Clock className="w-3.5 h-3.5 text-slate-400" />
+                            <Clock className="w-3 h-3 text-slate-400" />
                             {new Date(sub.createdAt).toLocaleDateString('en-ZA', {
                               day: 'numeric',
                               month: 'short',
@@ -530,7 +530,7 @@ export function VendorComplianceAdmin() {
                         onClick={() => setSelectedSubmissionForDetail(sub)}
                         className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center gap-1.5 cursor-pointer"
                       >
-                        <Eye className="w-3.5 h-3.5 text-blue-500" />
+                        <Eye className="w-3 h-3 text-blue-500" />
                         <span>Inspect Specs</span>
                       </button>
 
@@ -540,14 +540,14 @@ export function VendorComplianceAdmin() {
                             onClick={() => handleApproveProductSubmission(sub.id)}
                             className="px-4 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black shadow-xs transition flex items-center gap-1.5 cursor-pointer"
                           >
-                            <CheckCircle2 className="w-3.5 h-3.5" />
+                            <CheckCircle2 className="w-3 h-3" />
                             <span>Approve &amp; Publish</span>
                           </button>
                           <button
                             onClick={() => setRejectingProdId(sub.id)}
                             className="px-3 py-1.5 rounded-xl border border-rose-200 dark:border-rose-900/60 text-rose-600 dark:text-rose-400 text-xs font-bold hover:bg-rose-50 dark:hover:bg-rose-950/40 transition flex items-center gap-1.5 cursor-pointer"
                           >
-                            <XCircle className="w-3.5 h-3.5" />
+                            <XCircle className="w-3 h-3" />
                             <span>Reject</span>
                           </button>
                         </>
@@ -695,7 +695,7 @@ export function VendorComplianceAdmin() {
                         }}
                         className="px-3 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center gap-1.5 cursor-pointer"
                       >
-                        <Percent className="w-3.5 h-3.5 text-blue-500" />
+                        <Percent className="w-3 h-3 text-blue-500" />
                         <span>Commission ({seller.commissionRate || 10}%)</span>
                       </button>
 
@@ -961,7 +961,7 @@ export function VendorComplianceAdmin() {
                           onClick={() => setPreviewDocument(doc)}
                           className="px-3 py-1.5 rounded-xl bg-slate-200 dark:bg-slate-700 text-xs font-bold hover:bg-slate-300 dark:hover:bg-slate-600 transition flex items-center gap-1.5 cursor-pointer"
                         >
-                          <Eye className="w-3.5 h-3.5" />
+                          <Eye className="w-3 h-3" />
                           <span>View Preview</span>
                         </button>
                       )}

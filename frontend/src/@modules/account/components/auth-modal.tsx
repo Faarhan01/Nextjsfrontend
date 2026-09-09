@@ -288,7 +288,7 @@ export default function AuthModal({
                   mode === 'signin' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-white'
                 }`}
               >
-                <LogIn className="w-3.5 h-3.5" /> Sign In
+                <LogIn className="w-3 h-3" /> Sign In
               </button>
               <button
                 onClick={() => { setMode('signup'); setResetSent(false); }}
@@ -296,7 +296,7 @@ export default function AuthModal({
                   mode === 'signup' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-400 hover:text-white'
                 }`}
               >
-                <UserPlus className="w-3.5 h-3.5" /> Register
+                <UserPlus className="w-3 h-3" /> Register
               </button>
             </div>
           </div>

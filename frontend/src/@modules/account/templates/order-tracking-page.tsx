@@ -715,7 +715,7 @@ export default function OrderTrackingPage({
             }}
             className="hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1 cursor-pointer font-semibold no-underline text-slate-500 dark:text-slate-400"
           >
-            <ArrowLeft className="w-3.5 h-3.5" /> Home
+            <ArrowLeft className="w-3 h-3" /> Home
           </a>
           <span>/</span>
           <span className="text-slate-900 dark:text-white font-extrabold">Track Order</span>
@@ -812,7 +812,7 @@ export default function OrderTrackingPage({
                   : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
               }`}
             >
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" /> LX-9402 (Delivered)
+              <CheckCircle2 className="w-3 h-3 text-emerald-600 dark:text-emerald-400" /> LX-9402 (Delivered)
             </button>
 
             <button
@@ -829,7 +829,7 @@ export default function OrderTrackingPage({
                   : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
               }`}
             >
-              <Truck className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" /> LX-9401 (In Transit)
+              <Truck className="w-3 h-3 text-blue-600 dark:text-blue-400" /> LX-9401 (In Transit)
             </button>
 
             <button
@@ -846,7 +846,7 @@ export default function OrderTrackingPage({
                   : 'bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-700'
               }`}
             >
-              <Clock className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" /> LX-9400 (Processing)
+              <Clock className="w-3 h-3 text-amber-600 dark:text-amber-400" /> LX-9400 (Processing)
             </button>
           </div>
 
@@ -883,7 +883,7 @@ export default function OrderTrackingPage({
                     onClick={() => handleCopyTracking(currentOrder.trackingNumber)}
                     className="px-3.5 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 font-bold text-xs rounded-xl transition cursor-pointer flex items-center gap-1.5"
                   >
-                    <Copy className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" /> Copy Tracking #
+                    <Copy className="w-3 h-3 text-slate-500 dark:text-slate-400" /> Copy Tracking #
                   </button>
 
                   <a
@@ -892,7 +892,7 @@ export default function OrderTrackingPage({
                     rel="noreferrer"
                     className="px-3.5 py-2 bg-blue-50 dark:bg-blue-950/40 hover:bg-blue-100 dark:hover:bg-blue-900/50 text-blue-700 dark:text-blue-300 font-bold text-xs rounded-xl transition cursor-pointer flex items-center gap-1.5"
                   >
-                    Carrier Site <ExternalLink className="w-3.5 h-3.5" />
+                    Carrier Site <ExternalLink className="w-3 h-3" />
                   </a>
                 </div>
               </div>
@@ -987,7 +987,7 @@ export default function OrderTrackingPage({
                         ? 'bg-emerald-500 text-white'
                         : 'bg-slate-100 dark:bg-slate-800 text-slate-400 dark:text-slate-500 border border-slate-300 dark:border-slate-700'
                     }`}>
-                      {event.completed ? <CheckCircle2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" /> : idx + 1}
+                      {event.completed ? <CheckCircle2 className="w-3 h-3 sm:w-4 sm:h-4" /> : idx + 1}
                     </div>
 
                     <div className="flex-1 bg-slate-50 dark:bg-slate-800/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 group-hover:border-slate-200 dark:group-hover:border-slate-700 transition">
@@ -1104,7 +1104,7 @@ export default function OrderTrackingPage({
                       onClick={() => showToast('Opening Live Chat with Customer Care...')}
                       className="w-full py-2.5 bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs rounded-xl transition cursor-pointer flex items-center justify-center gap-2"
                     >
-                      <Phone className="w-3.5 h-3.5" /> Contact Support Concierge
+                      <Phone className="w-3 h-3" /> Contact Support Concierge
                     </button>
                   </div>
                 </div>

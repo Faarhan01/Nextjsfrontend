@@ -88,7 +88,7 @@ export const BestsellersTabSection: React.FC<BestsellersTabSectionProps> = ({
                     : 'bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200'
                 }`}
               >
-                <Icon className={`w-3.5 h-3.5 ${isActive ? 'text-white' : 'text-slate-500 dark:text-slate-400'}`} />
+                <Icon className={`w-3 h-3 ${isActive ? 'text-white' : 'text-slate-500 dark:text-slate-400'}`} />
                 <span>{tab.label}</span>
               </button>
             );
@@ -127,13 +127,13 @@ export const BestsellersTabSection: React.FC<BestsellersTabSectionProps> = ({
                     <div className="absolute top-2.5 left-2.5 z-10 flex flex-col gap-1 items-start">
                       {sale.isSale && (
                         <div className="px-2 py-0.5 rounded-full bg-rose-600 text-white font-extrabold text-[10px] tracking-wider uppercase shadow-2xs flex items-center gap-1 border border-rose-500/50">
-                          <Tag className="w-2.5 h-2.5 text-white" />
+                          <Tag className="w-2 h-2 text-white" />
                           <span>{sale.badgeText}</span>
                         </div>
                       )}
                       {(prod.isFeatured || (!sale.isSale && prod.isFeatured !== false)) && (
                         <div className="px-2 py-0.5 rounded-full bg-slate-900/80 backdrop-blur-md text-white font-extrabold text-[10px] tracking-wider uppercase border border-slate-700/50 shadow-2xs flex items-center gap-1">
-                          <Crown className="w-2.5 h-2.5 text-amber-400" />
+                          <Crown className="w-2 h-2 text-amber-400" />
                           <span>Featured</span>
                         </div>
                       )}
@@ -183,12 +183,12 @@ export const BestsellersTabSection: React.FC<BestsellersTabSectionProps> = ({
                     <StockBadge product={prod} />
                     {ratingInfo.hasReviews ? (
                       <div className="flex items-center gap-0.5 text-amber-600 dark:text-amber-400 bg-amber-50/80 dark:bg-amber-950/50 px-1 py-0.5 rounded border border-amber-200/50 dark:border-amber-900/50 text-[9px] sm:text-[10px] font-extrabold w-max" suppressHydrationWarning>
-                        <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-500 shrink-0" />
+                        <Star className="w-2 h-2 fill-amber-400 text-amber-500 shrink-0" />
                         <span>{ratingInfo.ratingFormatted}</span>
                       </div>
                     ) : (
                       <div className="flex items-center gap-0.5 text-slate-400 dark:text-slate-500 bg-slate-50 dark:bg-slate-800/80 px-1 py-0.5 rounded border border-slate-200/60 dark:border-slate-700 text-[9px] sm:text-[10px] font-medium w-max" suppressHydrationWarning>
-                        <Star className="w-2.5 h-2.5 text-slate-300 dark:text-slate-600 shrink-0" />
+                        <Star className="w-2 h-2 text-slate-300 dark:text-slate-600 shrink-0" />
                         <span>0.0</span>
                       </div>
                     )}

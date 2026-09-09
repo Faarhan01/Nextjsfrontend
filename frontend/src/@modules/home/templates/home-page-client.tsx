@@ -282,7 +282,7 @@ export default function HomePageClient({
             className="text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-400 hover:text-blue-600 dark:hover:text-blue-400 transition flex items-center gap-1"
           >
             <span>View All</span>
-            <ArrowRight className="w-3.5 h-3.5" />
+            <ArrowRight className="w-3 h-3" />
           </Link>
         </div>
 
@@ -405,7 +405,7 @@ export default function HomePageClient({
                 className={`text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-400 hover:${currentTheme.text} transition flex items-center gap-1 mr-1`}
               >
                 <span>View all</span>
-                <ArrowRight className="w-3.5 h-3.5" />
+                <ArrowRight className="w-3 h-3" />
               </Link>
               <button
                 onClick={() => scrollBrands('left')}

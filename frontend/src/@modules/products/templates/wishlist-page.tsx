@@ -189,7 +189,7 @@ export default function WishlistPage({
                 }}
                 className="hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1 font-semibold no-underline text-slate-600 dark:text-slate-400"
               >
-                <ArrowLeft className="w-3.5 h-3.5" /> Continue Shopping
+                <ArrowLeft className="w-3 h-3" /> Continue Shopping
               </a>
               <span>/</span>
               <span className="text-slate-900 dark:text-white font-extrabold">Wishlist</span>
@@ -198,7 +198,7 @@ export default function WishlistPage({
             {/* Badge Pill */}
             <div>
               <span className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full text-xs font-extrabold uppercase tracking-wider bg-white/90 dark:bg-white/10 text-slate-900 dark:text-white border border-slate-300/80 dark:border-white/20 backdrop-blur-md shadow-2xs">
-                <Heart className="w-3.5 h-3.5 fill-rose-500 text-rose-500" /> Saved Collections
+                <Heart className="w-3 h-3 fill-rose-500 text-rose-500" /> Saved Collections
               </span>
             </div>
 
@@ -222,7 +222,7 @@ export default function WishlistPage({
                   onClick={handleClearAll}
                   className="px-4 py-2 bg-white dark:bg-slate-800/90 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white text-xs font-bold rounded-xl transition cursor-pointer flex items-center gap-2 border border-slate-300 dark:border-slate-700 shadow-2xs"
                 >
-                  <Trash2 className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" /> Clear Wishlist
+                  <Trash2 className="w-3 h-3 text-slate-500 dark:text-slate-400" /> Clear Wishlist
                 </button>
 
                 <button
@@ -251,7 +251,7 @@ export default function WishlistPage({
                   : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700'
               }`}
             >
-              <Heart className="w-3.5 h-3.5 fill-rose-500 text-rose-500" />
+              <Heart className="w-3 h-3 fill-rose-500 text-rose-500" />
               <span>All Collections</span>
               <span className={`px-1.5 py-0.2 rounded-md text-[10px] ${selectedListId === 'all' ? 'bg-slate-800 text-slate-200' : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}`}>
                 {wishlist.length}
@@ -270,7 +270,7 @@ export default function WishlistPage({
                       : 'bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700'
                   }`}
                 >
-                  <Heart className={`w-3.5 h-3.5 ${isSelected ? 'fill-white' : 'text-slate-400'}`} />
+                  <Heart className={`w-3 h-3 ${isSelected ? 'fill-white' : 'text-slate-400'}`} />
                   <span>{list.name}</span>
                   <span className={`px-1.5 py-0.2 rounded-md text-[10px] ${isSelected ? 'bg-rose-700 text-rose-100' : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300'}`}>
                     {list.productIds.length}
@@ -304,7 +304,7 @@ export default function WishlistPage({
               </span>
 
               <div className="flex items-center gap-2">
-                <SlidersHorizontal className="w-3.5 h-3.5 text-slate-400" />
+                <SlidersHorizontal className="w-3 h-3 text-slate-400" />
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as any)}
@@ -352,13 +352,13 @@ export default function WishlistPage({
                       <div className="absolute top-3 left-3 z-10 flex flex-col gap-1 items-start">
                         {(product.isSale || product.originalPrice || product.id === 'prod-2' || product.id === 'prod-5') && (
                           <div className="px-2 py-0.5 rounded-full bg-rose-600 text-white font-extrabold text-[10px] tracking-wider uppercase shadow-2xs flex items-center gap-1 border border-rose-500/50">
-                            <Tag className="w-2.5 h-2.5 text-white" />
+                            <Tag className="w-2 h-2 text-white" />
                             <span>{product.saleBadgeText || 'Sale'}</span>
                           </div>
                         )}
                         {(product.isFeatured || (!product.isSale && product.id !== 'prod-2' && product.id !== 'prod-5')) && (
                           <div className="px-2 py-0.5 rounded-full bg-slate-900/80 backdrop-blur-md text-white font-extrabold text-[10px] tracking-wider uppercase border border-slate-700/50 shadow-2xs flex items-center gap-1">
-                            <Crown className="w-2.5 h-2.5 text-amber-400" />
+                            <Crown className="w-2 h-2 text-amber-400" />
                             <span>Featured</span>
                           </div>
                         )}
@@ -401,7 +401,7 @@ export default function WishlistPage({
                         <div className="flex items-center gap-1.5 flex-wrap mt-1.5">
                           <StockBadge product={product} />
                           <div className="flex items-center gap-0.5 text-amber-600 bg-amber-50/80 dark:bg-amber-950/40 px-1.5 py-0.5 rounded border border-amber-200/50 dark:border-amber-700/50 text-[10px] sm:text-[11px] font-extrabold w-max">
-                            <Star className="w-2.5 h-2.5 text-amber-500 fill-amber-400 shrink-0" />
+                            <Star className="w-2 h-2 text-amber-500 fill-amber-400 shrink-0" />
                             <span>4.9</span>
                           </div>
                         </div>
@@ -423,7 +423,7 @@ export default function WishlistPage({
                       onClick={() => onAddToCart(product)}
                       className={`flex-1 py-2.5 ${currentTheme.bg} text-white font-bold text-xs rounded-xl transition cursor-pointer flex items-center justify-center gap-1.5 shadow-xs`}
                     >
-                      <ShoppingBag className="w-3.5 h-3.5" /> Add to Cart
+                      <ShoppingBag className="w-3 h-3" /> Add to Cart
                     </button>
                   </div>
 
@@ -484,7 +484,7 @@ export default function WishlistPage({
                 onClick={() => onNavigate('shop')}
                 className="text-xs font-bold text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 transition flex items-center gap-1 cursor-pointer"
               >
-                View All <ArrowRight className="w-3.5 h-3.5" />
+                View All <ArrowRight className="w-3 h-3" />
               </button>
             </div>
 

@@ -309,13 +309,13 @@ export const GoogleMarketingHub: React.FC<GoogleMarketingHubProps> = ({
                 )}
                 {connectionStatus === 'not_connected' && (
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-slate-100 text-slate-600 border border-slate-300">
-                    <AlertCircle className="w-3.5 h-3.5" />
+                    <AlertCircle className="w-3 h-3" />
                     Not Connected
                   </span>
                 )}
                 {connectionStatus === 'sync_error' && (
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-rose-100 text-rose-800 border border-rose-300">
-                    <AlertTriangle className="w-3.5 h-3.5" />
+                    <AlertTriangle className="w-3 h-3" />
                     Sync Warning
                   </span>
                 )}
@@ -391,7 +391,7 @@ export const GoogleMarketingHub: React.FC<GoogleMarketingHubProps> = ({
                 rel="noreferrer noopener"
                 className="px-3.5 py-2.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs rounded-xl transition flex items-center justify-center gap-1.5 cursor-pointer shrink-0"
               >
-                <ExternalLink className="w-3.5 h-3.5" />
+                <ExternalLink className="w-3 h-3" />
                 <span className="hidden sm:inline">Open GMC</span>
               </a>
             </div>
@@ -427,12 +427,12 @@ export const GoogleMarketingHub: React.FC<GoogleMarketingHubProps> = ({
 
           {isVerified ? (
             <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0">
-              <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+              <CheckCircle2 className="w-3 h-3 text-emerald-600" />
               Verified & Claimed
             </span>
           ) : (
             <span className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-black bg-amber-50 text-amber-700 border border-amber-200 shrink-0">
-              <Clock className="w-3.5 h-3.5 text-amber-600" />
+              <Clock className="w-3 h-3 text-amber-600" />
               Pending Check
             </span>
           )}
@@ -468,12 +468,12 @@ export const GoogleMarketingHub: React.FC<GoogleMarketingHubProps> = ({
               >
                 {copiedMetaTag ? (
                   <>
-                    <Check className="w-3.5 h-3.5 text-emerald-600" />
+                    <Check className="w-3 h-3 text-emerald-600" />
                     <span className="text-emerald-700">Copied Tag</span>
                   </>
                 ) : (
                   <>
-                    <Copy className="w-3.5 h-3.5 text-slate-500" />
+                    <Copy className="w-3 h-3 text-slate-500" />
                     <span>Copy Meta Tag</span>
                   </>
                 )}
@@ -486,12 +486,12 @@ export const GoogleMarketingHub: React.FC<GoogleMarketingHubProps> = ({
               >
                 {isTestingVerification ? (
                   <>
-                    <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                    <RefreshCw className="w-3 h-3 animate-spin" />
                     <span>Crawling &lt;head&gt;...</span>
                   </>
                 ) : (
                   <>
-                    <ShieldCheck className="w-3.5 h-3.5" />
+                    <ShieldCheck className="w-3 h-3" />
                     <span>Test & Confirm Meta Tag</span>
                   </>
                 )}
@@ -543,7 +543,7 @@ export const GoogleMarketingHub: React.FC<GoogleMarketingHubProps> = ({
               disabled={isSyncing}
               className="px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-black transition flex items-center gap-2 cursor-pointer shadow-xs disabled:opacity-50"
             >
-              <RefreshCw className={`w-3.5 h-3.5 ${isSyncing ? 'animate-spin text-amber-400' : ''}`} />
+              <RefreshCw className={`w-3 h-3 ${isSyncing ? 'animate-spin text-amber-400' : ''}`} />
               <span>{isSyncing ? 'Regenerating Feed...' : 'Sync Feed Now'}</span>
             </button>
           </div>
@@ -553,7 +553,7 @@ export const GoogleMarketingHub: React.FC<GoogleMarketingHubProps> = ({
         <div className="bg-slate-900 text-white p-5 rounded-2xl shadow-inner space-y-3">
           <div className="flex items-center justify-between text-xs">
             <span className="text-slate-400 font-bold uppercase tracking-wider flex items-center gap-2">
-              <LinkIcon className="w-3.5 h-3.5 text-amber-400" />
+              <LinkIcon className="w-3 h-3 text-amber-400" />
               Primary Shopping XML Feed Route
             </span>
             <span className="text-amber-400 font-mono text-[11px] bg-amber-500/10 px-2 py-0.5 rounded-md border border-amber-500/20">
@@ -599,7 +599,7 @@ export const GoogleMarketingHub: React.FC<GoogleMarketingHubProps> = ({
 
           <div className="flex flex-wrap items-center justify-between gap-2 pt-1 text-xs text-slate-400">
             <span className="flex items-center gap-1.5">
-              <Clock className="w-3.5 h-3.5 text-slate-500" />
+              <Clock className="w-3 h-3 text-slate-500" />
               Last Catalog Sync: <strong className="text-slate-200">{lastSyncTime}</strong>
             </span>
             <span className="text-[11px] text-slate-500">
@@ -743,7 +743,7 @@ export const GoogleMarketingHub: React.FC<GoogleMarketingHubProps> = ({
               </span>
               <span className="text-xs text-slate-400 font-semibold">SKUs in catalog</span>
             </div>
-            <div className="mt-3 w-full bg-slate-200 h-1.5 rounded-full overflow-hidden">
+            <div className="mt-3 w-full bg-slate-200 h-1 rounded-full overflow-hidden">
               <div className="bg-slate-700 h-full rounded-full w-full" />
             </div>
           </div>
@@ -762,7 +762,7 @@ export const GoogleMarketingHub: React.FC<GoogleMarketingHubProps> = ({
               </span>
               <span className="text-xs font-bold text-emerald-700">({approvalRate}%)</span>
             </div>
-            <div className="mt-3 w-full bg-emerald-200 h-1.5 rounded-full overflow-hidden">
+            <div className="mt-3 w-full bg-emerald-200 h-1 rounded-full overflow-hidden">
               <div
                 className="bg-emerald-500 h-full rounded-full transition-all duration-500"
                 style={{ width: `${approvalRate}%` }}
@@ -784,7 +784,7 @@ export const GoogleMarketingHub: React.FC<GoogleMarketingHubProps> = ({
               </span>
               <span className="text-xs font-bold text-rose-700">Need attention</span>
             </div>
-            <div className="mt-3 w-full bg-rose-200 h-1.5 rounded-full overflow-hidden">
+            <div className="mt-3 w-full bg-rose-200 h-1 rounded-full overflow-hidden">
               <div
                 className="bg-rose-500 h-full rounded-full"
                 style={{ width: `${Math.round((disapprovedCount / totalProducts) * 100)}%` }}
@@ -806,7 +806,7 @@ export const GoogleMarketingHub: React.FC<GoogleMarketingHubProps> = ({
               </span>
               <span className="text-xs font-bold text-amber-700">Googlebot evaluating</span>
             </div>
-            <div className="mt-3 w-full bg-amber-200 h-1.5 rounded-full overflow-hidden">
+            <div className="mt-3 w-full bg-amber-200 h-1 rounded-full overflow-hidden">
               <div
                 className="bg-amber-500 h-full rounded-full"
                 style={{ width: `${Math.round((pendingCount / totalProducts) * 100)}%` }}
@@ -828,7 +828,7 @@ export const GoogleMarketingHub: React.FC<GoogleMarketingHubProps> = ({
             {/* Filter Pills & Search */}
             <div className="flex flex-wrap items-center gap-2">
               <div className="relative">
-                <Search className="w-3.5 h-3.5 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
+                <Search className="w-3 h-3 absolute left-3 top-1/2 -translate-y-1/2 text-slate-400" />
                 <input
                   type="text"
                   value={issueSearch}
@@ -968,7 +968,7 @@ export const GoogleMarketingHub: React.FC<GoogleMarketingHubProps> = ({
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6 pb-6 border-b border-slate-800">
           <div className="space-y-2 max-w-2xl">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 text-amber-300 border border-amber-500/30 text-xs font-black">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+              <Sparkles className="w-3 h-3 text-amber-400" />
               Paid Acquisition & Free Google Listings
             </div>
             <h3 className="text-xl sm:text-2xl font-black text-white tracking-tight">
@@ -1066,7 +1066,7 @@ export const GoogleMarketingHub: React.FC<GoogleMarketingHubProps> = ({
             className="text-amber-400 hover:text-amber-300 font-bold inline-flex items-center gap-1 shrink-0"
           >
             <span>Learn About Free Listings</span>
-            <ExternalLink className="w-3.5 h-3.5" />
+            <ExternalLink className="w-3 h-3" />
           </a>
         </div>
       </div>

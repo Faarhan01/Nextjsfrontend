@@ -105,8 +105,8 @@ export function VendorOffersBuyBox({
           </span>
         </div>
         <div className="flex items-center gap-4 text-[11px] text-slate-500 dark:text-slate-400 pt-1">
-          <span className="flex items-center gap-1"><Truck className="w-3.5 h-3.5 text-slate-400" /> 1-2 day dispatch</span>
-          <span className="flex items-center gap-1"><RotateCcw className="w-3.5 h-3.5 text-slate-400" /> 30-Day returns</span>
+          <span className="flex items-center gap-1"><Truck className="w-3 h-3 text-slate-400" /> 1-2 day dispatch</span>
+          <span className="flex items-center gap-1"><RotateCcw className="w-3 h-3 text-slate-400" /> 30-Day returns</span>
         </div>
       </div>
     );
@@ -138,7 +138,7 @@ export function VendorOffersBuyBox({
 
           <div className="flex items-center gap-2 sm:self-center">
             <div className="flex items-center gap-1 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/60 px-2.5 py-1 rounded-xl">
-              <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-500" />
+              <Star className="w-3 h-3 fill-amber-400 text-amber-500" />
               <span className="text-xs font-black text-amber-900 dark:text-amber-300">{currentSeller.rating?.toFixed(1) || '4.9'}</span>
               <span className="text-[10px] text-amber-700/80 dark:text-amber-400 font-medium">/ 5.0</span>
             </div>
@@ -265,7 +265,7 @@ export function VendorOffersBuyBox({
 
                             {offer.isFeatured && (
                               <span className="text-[10px] font-extrabold px-2 py-0.5 rounded-md bg-amber-100 dark:bg-amber-950 text-amber-800 dark:text-amber-300 flex items-center gap-0.5">
-                                <Sparkles className="w-2.5 h-2.5 fill-current" /> Top Value
+                                <Sparkles className="w-2 h-2 fill-current" /> Top Value
                               </span>
                             )}
                           </div>
@@ -327,7 +327,7 @@ export function VendorOffersBuyBox({
                               onClick={() => onAddToCartWithOffer(product, 1, offer)}
                               className="px-3 py-1.5 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-xs font-extrabold transition flex items-center gap-1.5 shadow-2xs cursor-pointer active:scale-95"
                             >
-                              <ShoppingCart className="w-3.5 h-3.5" /> Add
+                              <ShoppingCart className="w-3 h-3" /> Add
                             </button>
                           </div>
                         </div>

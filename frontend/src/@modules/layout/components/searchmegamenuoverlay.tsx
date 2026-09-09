@@ -142,7 +142,7 @@ export const SearchMegamenuOverlay: React.FC<SearchMegamenuOverlayProps> = ({
                       className="p-2 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-blue-600 dark:hover:bg-blue-600 hover:text-white dark:hover:text-white text-slate-700 dark:text-slate-200 border border-slate-200/60 dark:border-slate-700 transition shrink-0"
                       title="Quick add to cart"
                     >
-                      <ShoppingCart className="w-3.5 h-3.5" />
+                      <ShoppingCart className="w-3 h-3" />
                     </button>
                   </div>
                 ))}

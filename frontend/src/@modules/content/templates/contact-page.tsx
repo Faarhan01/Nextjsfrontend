@@ -239,7 +239,7 @@ export const ContactPage: React.FC<StaticPageProps> = ({
             }}
             className="hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1 cursor-pointer font-semibold no-underline text-slate-500 dark:text-slate-400"
           >
-            <ArrowLeft className="w-3.5 h-3.5" /> Home
+            <ArrowLeft className="w-3 h-3" /> Home
           </a>
           <span>/</span>
           <span className="text-slate-900 dark:text-white font-extrabold">Contact Us</span>
@@ -278,7 +278,7 @@ export const ContactPage: React.FC<StaticPageProps> = ({
                 }}
                 className={`inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-5 sm:py-2.5 ${currentTheme?.bg || 'bg-blue-600 hover:bg-blue-700'} text-white font-bold text-xs sm:text-xs rounded-xl shadow-md transition cursor-pointer`}
               >
-                <Send className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                <Send className="w-3 h-3 sm:w-4 sm:h-4" />
                 <span>Contact Form</span>
               </button>
 
@@ -292,7 +292,7 @@ export const ContactPage: React.FC<StaticPageProps> = ({
                 }}
                 className="inline-flex items-center justify-center gap-1.5 sm:gap-2 px-3.5 py-2 sm:px-5 sm:py-2.5 bg-white/90 dark:bg-slate-900/90 hover:bg-white dark:hover:bg-slate-800 text-slate-800 dark:text-slate-100 font-bold text-xs sm:text-xs rounded-xl border border-slate-200/80 dark:border-slate-700 shadow-xs hover:border-slate-300 dark:hover:border-slate-600 transition cursor-pointer backdrop-blur-md"
               >
-                <Store className={`w-3.5 h-3.5 sm:w-4 sm:h-4 ${currentTheme?.text || 'text-blue-600 dark:text-blue-400'}`} />
+                <Store className={`w-3 h-3 sm:w-4 sm:h-4 ${currentTheme?.text || 'text-blue-600 dark:text-blue-400'}`} />
                 <span>Physical Store</span>
               </button>
             </div>
@@ -373,7 +373,7 @@ export const ContactPage: React.FC<StaticPageProps> = ({
         <div id="contact-form" className="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-xs space-y-6 scroll-mt-6 sm:scroll-mt-8">
           <div className="space-y-2 border-b border-slate-100 dark:border-slate-800 pb-5">
             <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-blue-50 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800">
-              <Send className="w-3.5 h-3.5" />
+              <Send className="w-3 h-3" />
               <span>Send a Message</span>
             </div>
             <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
@@ -489,7 +489,7 @@ export const ContactPage: React.FC<StaticPageProps> = ({
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-5">
             <div className="space-y-1">
               <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-extrabold bg-blue-50 dark:bg-blue-900/50 text-blue-700 dark:text-blue-300 border border-blue-100 dark:border-blue-800">
-                <Store className="w-3.5 h-3.5" />
+                <Store className="w-3 h-3" />
                 <span>OUR FLAGSHIP STORES</span>
               </div>
               <h2 className="text-2xl font-black text-slate-900 dark:text-white tracking-tight">
@@ -521,7 +521,7 @@ export const ContactPage: React.FC<StaticPageProps> = ({
               <div>
                 <h3 className="text-lg font-black text-slate-900 dark:text-white mb-1">{currentStore.name}</h3>
                 <p className="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
-                  <MapPin className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
+                  <MapPin className="w-3 h-3 text-blue-600 dark:text-blue-400 shrink-0" />
                   <span>{currentStore.address}</span>
                 </p>
               </div>
@@ -564,9 +564,9 @@ export const ContactPage: React.FC<StaticPageProps> = ({
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-2 w-full py-3 bg-slate-900 dark:bg-slate-800 hover:bg-slate-800 dark:hover:bg-slate-700 active:bg-black text-white font-extrabold text-xs rounded-xl transition shadow-xs cursor-pointer"
             >
-              <Send className="w-3.5 h-3.5 text-blue-400" />
+              <Send className="w-3 h-3 text-blue-400" />
               <span>Get Directions on Google Maps</span>
-              <ExternalLink className="w-3.5 h-3.5 opacity-60" />
+              <ExternalLink className="w-3 h-3 opacity-60" />
             </a>
           </div>
 

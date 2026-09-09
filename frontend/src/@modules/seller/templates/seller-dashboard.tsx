@@ -669,7 +669,7 @@ export function SellerDashboard() {
             {/* Unique Merchant Identity & Actions */}
             <div className="flex flex-wrap items-center gap-2">
               <div className="hidden sm:flex items-center gap-2 bg-slate-100 dark:bg-slate-800/80 px-3 py-1.5 rounded-xl text-xs border border-slate-200/60 dark:border-slate-700/60">
-                <ShieldCheck className="w-3.5 h-3.5 text-emerald-500" />
+                <ShieldCheck className="w-3 h-3 text-emerald-500" />
                 <span className="font-semibold text-slate-700 dark:text-slate-300">
                   Unique Merchant Account
                 </span>
@@ -682,7 +682,7 @@ export function SellerDashboard() {
                 href={`/store/${activeSeller.id}`}
                 className="px-3.5 py-1.5 rounded-xl border border-slate-200 dark:border-slate-700 text-xs font-bold hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center gap-1.5 text-slate-700 dark:text-slate-300 cursor-pointer"
               >
-                <Eye className="w-3.5 h-3.5 text-blue-500" />
+                <Eye className="w-3 h-3 text-blue-500" />
                 <span>View Storefront</span>
                 <ArrowUpRight className="w-3 h-3 opacity-60" />
               </Link>
@@ -699,7 +699,7 @@ export function SellerDashboard() {
                   : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              <TrendingUp className="w-3.5 h-3.5" />
+              <TrendingUp className="w-3 h-3" />
               <span>Overview</span>
             </button>
 
@@ -711,7 +711,7 @@ export function SellerDashboard() {
                   : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              <Package className="w-3.5 h-3.5" />
+              <Package className="w-3 h-3" />
               <span>Offers ({sellerOffers.length})</span>
             </button>
 
@@ -723,7 +723,7 @@ export function SellerDashboard() {
                   : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              <Truck className="w-3.5 h-3.5" />
+              <Truck className="w-3 h-3" />
               <span>Orders ({currentSellerOrders.length})</span>
               {pendingOrdersCount > 0 && (
                 <span className="px-1.5 py-0.2 rounded-full bg-amber-400 text-slate-950 text-[10px] font-black">
@@ -740,7 +740,7 @@ export function SellerDashboard() {
                   : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              <DollarSign className="w-3.5 h-3.5" />
+              <DollarSign className="w-3 h-3" />
               <span>Payouts</span>
             </button>
 
@@ -752,7 +752,7 @@ export function SellerDashboard() {
                   : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
-              <Building className="w-3.5 h-3.5" />
+              <Building className="w-3 h-3" />
               <span>Profile</span>
             </button>
           </div>
@@ -905,7 +905,7 @@ export function SellerDashboard() {
                   {formatCurrency(totalSalesGMV)}
                 </div>
                 <div className="text-xs text-emerald-600 font-bold flex items-center gap-1 mt-1">
-                  <ArrowUpRight className="w-3.5 h-3.5" />
+                  <ArrowUpRight className="w-3 h-3" />
                   <span>+18.4% this month</span>
                 </div>
               </div>
@@ -976,7 +976,7 @@ export function SellerDashboard() {
                   onClick={() => setActiveTab('orders')}
                   className="px-4 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shadow-xs transition flex items-center gap-2 shrink-0 cursor-pointer"
                 >
-                  <Truck className="w-3.5 h-3.5" />
+                  <Truck className="w-3 h-3" />
                   <span>Open Orders Queue</span>
                 </button>
               </div>
@@ -998,7 +998,7 @@ export function SellerDashboard() {
                   className="text-xs font-bold text-emerald-600 hover:text-emerald-700 flex items-center gap-1 cursor-pointer"
                 >
                   <span>View All Orders</span>
-                  <ChevronRight className="w-3.5 h-3.5" />
+                  <ChevronRight className="w-3 h-3" />
                 </button>
               </div>
 
@@ -1079,14 +1079,14 @@ export function SellerDashboard() {
                   onClick={() => handleOpenAddModal('existing')}
                   className="px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 text-xs font-bold transition flex items-center gap-1.5 cursor-pointer shadow-2xs"
                 >
-                  <Search className="w-3.5 h-3.5 text-slate-400" />
+                  <Search className="w-3 h-3 text-slate-400" />
                   <span>Choose Existing Product</span>
                 </button>
                 <button
                   onClick={() => handleOpenAddModal('new_product')}
                   className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black shadow-xs transition flex items-center gap-1.5 cursor-pointer"
                 >
-                  <Plus className="w-3.5 h-3.5" />
+                  <Plus className="w-3 h-3" />
                   <span>Submit New Product</span>
                 </button>
               </div>
@@ -1102,7 +1102,7 @@ export function SellerDashboard() {
                     : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
                 }`}
               >
-                <Package className="w-3.5 h-3.5" />
+                <Package className="w-3 h-3" />
                 <span>Live Catalog Offers</span>
                 <span className={`px-1.5 py-0.2 rounded-full text-[10px] font-bold ${
                   offersSubTab === 'live_offers'
@@ -1121,7 +1121,7 @@ export function SellerDashboard() {
                     : 'text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800'
                 }`}
               >
-                <Send className="w-3.5 h-3.5" />
+                <Send className="w-3 h-3" />
                 <span>Product Submissions</span>
                 {pendingSubmissionsCount > 0 && (
                   <span className="px-1.5 py-0.2 rounded-full bg-amber-500 text-slate-950 text-[10px] font-black animate-pulse">
@@ -1157,14 +1157,14 @@ export function SellerDashboard() {
                         onClick={() => handleOpenAddModal('existing')}
                         className="px-4 py-2 rounded-xl bg-slate-200 dark:bg-slate-800 hover:bg-slate-300 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 text-xs font-bold cursor-pointer inline-flex items-center gap-1.5"
                       >
-                        <Search className="w-3.5 h-3.5" />
+                        <Search className="w-3 h-3" />
                         <span>Search Catalog</span>
                       </button>
                       <button
                         onClick={() => handleOpenAddModal('new_product')}
                         className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold cursor-pointer inline-flex items-center gap-1.5"
                       >
-                        <Plus className="w-3.5 h-3.5" />
+                        <Plus className="w-3 h-3" />
                         <span>Submit New Product</span>
                       </button>
                     </div>
@@ -1283,7 +1283,7 @@ export function SellerDashboard() {
                       onClick={() => handleOpenAddModal('new_product')}
                       className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold cursor-pointer inline-flex items-center gap-1.5"
                     >
-                      <Plus className="w-3.5 h-3.5" />
+                      <Plus className="w-3 h-3" />
                       <span>Submit Your First Product</span>
                     </button>
                   </div>
@@ -1344,19 +1344,19 @@ export function SellerDashboard() {
                             <div>
                               {sub.status === 'pending_approval' && (
                                 <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-950/80 text-amber-800 dark:text-amber-300 text-xs font-black">
-                                  <Clock className="w-3.5 h-3.5 animate-spin" />
+                                  <Clock className="w-3 h-3 animate-spin" />
                                   <span>Pending Admin Review</span>
                                 </div>
                               )}
                               {sub.status === 'approved' && (
                                 <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 text-xs font-black">
-                                  <CheckCircle2 className="w-3.5 h-3.5" />
+                                  <CheckCircle2 className="w-3 h-3" />
                                   <span>Approved &amp; Live</span>
                                 </div>
                               )}
                               {sub.status === 'rejected' && (
                                 <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-rose-100 dark:bg-rose-950/80 text-rose-800 dark:text-rose-300 text-xs font-black">
-                                  <AlertCircle className="w-3.5 h-3.5" />
+                                  <AlertCircle className="w-3 h-3" />
                                   <span>Rejected</span>
                                 </div>
                               )}
@@ -1402,7 +1402,7 @@ export function SellerDashboard() {
 
               {/* Status Filter */}
               <div className="flex items-center gap-2">
-                <Filter className="w-3.5 h-3.5 text-slate-400" />
+                <Filter className="w-3 h-3 text-slate-400" />
                 <select
                   value={orderStatusFilter}
                   onChange={(e) => setOrderStatusFilter(e.target.value)}
@@ -1463,7 +1463,7 @@ export function SellerDashboard() {
                             onClick={() => handleUpdateOrderStatus(ord.id, 'Packed')}
                             className="px-3.5 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold shadow-xs transition flex items-center gap-1.5 cursor-pointer"
                           >
-                            <Check className="w-3.5 h-3.5" />
+                            <Check className="w-3 h-3" />
                             <span>Mark as Packed</span>
                           </button>
                         )}
@@ -1473,7 +1473,7 @@ export function SellerDashboard() {
                             onClick={() => handleUpdateOrderStatus(ord.id, 'Shipped')}
                             className="px-3.5 py-1.5 rounded-xl bg-purple-600 hover:bg-purple-700 text-white text-xs font-bold shadow-xs transition flex items-center gap-1.5 cursor-pointer"
                           >
-                            <Truck className="w-3.5 h-3.5" />
+                            <Truck className="w-3 h-3" />
                             <span>Dispatch with Courier</span>
                           </button>
                         )}
@@ -1483,7 +1483,7 @@ export function SellerDashboard() {
                             onClick={() => handleUpdateOrderStatus(ord.id, 'Delivered')}
                             className="px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-xs transition flex items-center gap-1.5 cursor-pointer"
                           >
-                            <CheckCircle2 className="w-3.5 h-3.5" />
+                            <CheckCircle2 className="w-3 h-3" />
                             <span>Confirm Delivery</span>
                           </button>
                         )}
@@ -2460,7 +2460,7 @@ export function SellerDashboard() {
                       type="submit"
                       className="px-6 py-2 rounded-full bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black shadow-xs transition cursor-pointer flex items-center gap-1.5"
                     >
-                      <Send className="w-3.5 h-3.5" />
+                      <Send className="w-3 h-3" />
                       <span>Submit for Admin Approval</span>
                     </button>
                   </div>

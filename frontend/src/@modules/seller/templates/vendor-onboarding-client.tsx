@@ -182,9 +182,9 @@ export default function VendorOnboardingClient() {
               href="/sell/dashboard"
               className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold text-white shadow-xs ${currentTheme.bg} hover:opacity-90 transition`}
             >
-              <Store className="w-3.5 h-3.5" />
+              <Store className="w-3 h-3" />
               <span>Go to Seller Portal</span>
-              <ArrowRight className="w-3.5 h-3.5" />
+              <ArrowRight className="w-3 h-3" />
             </Link>
           )}
         </div>
@@ -298,7 +298,7 @@ export default function VendorOnboardingClient() {
                   className={`w-full sm:w-auto px-6 py-2.5 rounded-full text-white font-bold text-xs shadow-xs ${currentTheme.bg} hover:opacity-90 transition flex items-center justify-center gap-2`}
                 >
                   <span>Review in Admin Hub</span>
-                  <ArrowRight className="w-3.5 h-3.5" />
+                  <ArrowRight className="w-3 h-3" />
                 </Link>
               )}
             </div>
@@ -648,7 +648,7 @@ export default function VendorOnboardingClient() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-2xs space-y-1.5">
               <div className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-2">
-                <HelpCircle className="w-3.5 h-3.5 text-blue-500" />
+                <HelpCircle className="w-3 h-3 text-blue-500" />
                 <span>How long does verification take?</span>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
@@ -658,7 +658,7 @@ export default function VendorOnboardingClient() {
 
             <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-2xs space-y-1.5">
               <div className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-2">
-                <HelpCircle className="w-3.5 h-3.5 text-blue-500" />
+                <HelpCircle className="w-3 h-3 text-blue-500" />
                 <span>What are the seller commission rates?</span>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
@@ -668,7 +668,7 @@ export default function VendorOnboardingClient() {
 
             <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-2xs space-y-1.5">
               <div className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-2">
-                <HelpCircle className="w-3.5 h-3.5 text-blue-500" />
+                <HelpCircle className="w-3 h-3 text-blue-500" />
                 <span>How do customer payouts work?</span>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
@@ -678,7 +678,7 @@ export default function VendorOnboardingClient() {
 
             <div className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 shadow-2xs space-y-1.5">
               <div className="text-xs font-black text-slate-900 dark:text-white flex items-center gap-2">
-                <HelpCircle className="w-3.5 h-3.5 text-blue-500" />
+                <HelpCircle className="w-3 h-3 text-blue-500" />
                 <span>Can I list items with different conditions?</span>
               </div>
               <p className="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">

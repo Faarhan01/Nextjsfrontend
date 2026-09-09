@@ -47,8 +47,8 @@ export const CartDrawer: React.FC = () => {
             {/* Cart Drawer Header */}
             <div className="px-5 py-3.5 border-b border-card flex items-center justify-between bg-card shrink-0">
               <div className="flex items-center gap-2">
-                <div className={`p-1.5 rounded-lg ${currentTheme.lightBg} ${currentTheme.text} dark:bg-slate-800`}>
-                  <ShoppingCart className="w-5 h-5 stroke-[2.2]" />
+                <div className={`p-1.5 rounded-full ${currentTheme.lightBg} ${currentTheme.text} dark:bg-slate-800`}>
+                  <ShoppingCart className="w-4 h-4 stroke-[2.2]" />
                 </div>
                 <div>
                   <h2 className="text-sm font-extrabold text-slate-900 dark:text-white leading-tight flex items-center gap-1.5">
@@ -59,14 +59,15 @@ export const CartDrawer: React.FC = () => {
                       </span>
                     )}
                   </h2>
-                  <p className="text-[10px] text-slate-400 dark:text-slate-500 font-medium leading-none mt-0.5">Quick order review</p>
                 </div>
               </div>
               <button
                 onClick={() => setCartOpen(false)}
-                className="p-1.5 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition cursor-pointer"
+                className={`p-1.5 rounded-full border transition-all duration-150 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
+                  `${currentTheme.text} ${currentTheme.lightBg} ${currentTheme.border.split(' ')[0]} dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
+                }`}
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
@@ -74,7 +75,7 @@ export const CartDrawer: React.FC = () => {
             {cart.length > 0 && (
               <div className="bg-emerald-50/80 dark:bg-emerald-950/40 border-b border-emerald-100/80 dark:border-emerald-900/40 px-5 py-2 flex items-center justify-between gap-3 shrink-0 text-xs">
                 <div className="flex items-center gap-1.5 min-w-0 font-semibold text-emerald-900 dark:text-emerald-300">
-                  <Truck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400 shrink-0" />
+                  <Truck className="w-3 h-3 text-emerald-600 dark:text-emerald-400 shrink-0" />
                   {cartSubtotal >= freeShippingThreshold ? (
                     <span className="text-emerald-700 dark:text-emerald-300 font-extrabold text-[11px] truncate">🎉 Free Shipping Unlocked!</span>
                   ) : (
@@ -83,7 +84,7 @@ export const CartDrawer: React.FC = () => {
                     </span>
                   )}
                 </div>
-                <div className="w-20 bg-emerald-200/70 dark:bg-emerald-900/60 rounded-full h-1.5 overflow-hidden shrink-0">
+                <div className="w-20 bg-emerald-200/70 dark:bg-emerald-900/60 rounded-full h-1 overflow-hidden shrink-0">
                   <div
                     className="bg-emerald-600 dark:bg-emerald-500 h-full rounded-full transition-all duration-300"
                     style={{ width: `${Math.min(100, (cartSubtotal / freeShippingThreshold) * 100)}%` }}
@@ -176,7 +177,7 @@ export const CartDrawer: React.FC = () => {
                         <div className="flex items-center space-x-2 mt-1.5">
                           <button
                             onClick={() => adjustQuantity(item.id, -1)}
-                            className="w-5.5 h-5.5 rounded-md bg-white dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-200 border border-slate-200 dark:border-slate-600 flex items-center justify-center text-xs font-bold transition select-none active:scale-95 cursor-pointer"
+                            className="w-5 h-5 rounded-md bg-white dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-200 border border-slate-200 dark:border-slate-600 flex items-center justify-center text-xs font-bold transition select-none active:scale-95 cursor-pointer"
                           >
                             -
                           </button>
@@ -185,7 +186,7 @@ export const CartDrawer: React.FC = () => {
                           </span>
                           <button
                             onClick={() => adjustQuantity(item.id, 1)}
-                            className="w-5.5 h-5.5 rounded-md bg-white dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-200 border border-slate-200 dark:border-slate-600 flex items-center justify-center text-xs font-bold transition select-none active:scale-95 cursor-pointer"
+                            className="w-5 h-5 rounded-md bg-white dark:bg-slate-700 hover:bg-slate-100 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-200 border border-slate-200 dark:border-slate-600 flex items-center justify-center text-xs font-bold transition select-none active:scale-95 cursor-pointer"
                           >
                             +
                           </button>
@@ -198,7 +199,7 @@ export const CartDrawer: React.FC = () => {
                         className="absolute right-2.5 top-2.5 p-1 text-slate-300 dark:text-slate-500 hover:text-rose-500 rounded-md hover:bg-white dark:hover:bg-slate-700 transition cursor-pointer"
                         title="Remove Item"
                       >
-                        <Trash2 className="w-3.5 h-3.5" />
+                        <Trash2 className="w-3 h-3" />
                       </button>
                     </div>
                   );
@@ -223,7 +224,7 @@ export const CartDrawer: React.FC = () => {
                     }}
                     className="w-full bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-bold py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 shadow-2xs flex items-center justify-center gap-1.5 active:scale-95 transition cursor-pointer text-xs"
                   >
-                    <ShoppingCart className="w-3.5 h-3.5 text-slate-600 dark:text-slate-300" />
+                    <ShoppingCart className="w-3 h-3 text-slate-600 dark:text-slate-300" />
                     <span>View Cart</span>
                   </button>
 

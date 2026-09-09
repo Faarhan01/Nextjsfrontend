@@ -88,7 +88,7 @@ interface StorefrontViewProps {
   themeColor?: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
 }
 
-const CategoryIcon: React.FC<{ category: string; className?: string }> = ({ category, className = 'w-3.5 h-3.5' }) => {
+const CategoryIcon: React.FC<{ category: string; className?: string }> = ({ category, className = 'w-3 h-3' }) => {
   const cat = category.toLowerCase().trim();
 
   if (cat === 'all') return <LayoutGrid className={className} />;
@@ -434,7 +434,7 @@ export function StorefrontView({
                 <div className="flex items-center gap-2 truncate">
                   <CategoryIcon
                     category={cat}
-                    className={`w-3.5 h-3.5 ${isSelected ? 'text-white' : 'text-blue-500'} shrink-0`}
+                    className={`w-3 h-3 ${isSelected ? 'text-white' : 'text-blue-500'} shrink-0`}
                   />
                   <span className="truncate">{cat}</span>
                 </div>
@@ -442,7 +442,7 @@ export function StorefrontView({
                   <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-200/60 dark:bg-slate-700 text-slate-500 dark:text-slate-300'}`}>
                     {count}
                   </span>
-                  {isSelected && <Check className="w-3.5 h-3.5" />}
+                  {isSelected && <Check className="w-3 h-3" />}
                 </div>
               </button>
             );
@@ -482,7 +482,7 @@ export function StorefrontView({
                     <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-200/60 dark:bg-slate-700 text-slate-500 dark:text-slate-300'}`}>
                       {count}
                     </span>
-                    {isSelected && <Check className="w-3.5 h-3.5" />}
+                    {isSelected && <Check className="w-3 h-3" />}
                   </div>
                 </button>
               );
@@ -542,10 +542,10 @@ export function StorefrontView({
                 }`}
               >
                 <div className="flex items-center gap-1.5">
-                  <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-400" />
+                  <Star className="w-3 h-3 text-amber-500 fill-amber-400" />
                   <span>{opt.label}</span>
                 </div>
-                {isSelected && <Check className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />}
+                {isSelected && <Check className="w-3 h-3 text-amber-600 dark:text-amber-400" />}
               </button>
             );
           })}
@@ -556,7 +556,7 @@ export function StorefrontView({
       <div className="pt-4 border-t border-slate-100 dark:border-slate-800">
         <label className="flex items-center justify-between cursor-pointer">
           <span className="text-xs font-bold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-            <CheckCircle2 className="w-3.5 h-3.5 text-emerald-500" /> In-Stock Only
+            <CheckCircle2 className="w-3 h-3 text-emerald-500" /> In-Stock Only
           </span>
           <input
             type="checkbox"
@@ -680,24 +680,24 @@ export function StorefrontView({
                       {seller.storeName}
                     </h1>
                     <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/80 text-emerald-800 dark:text-emerald-300 text-xs font-extrabold border border-emerald-200 dark:border-emerald-800 shadow-2xs">
-                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
+                      <ShieldCheck className="w-3 h-3 text-emerald-600 dark:text-emerald-400" />
                       {seller.verifiedBadgeText || 'Verified Merchant'}
                     </span>
                   </div>
 
                   <div className="flex items-center gap-3 sm:gap-4 mt-1.5 text-xs text-slate-500 dark:text-slate-400 flex-wrap">
                     <span className="flex items-center gap-1 font-medium">
-                      <MapPin className="w-3.5 h-3.5 text-slate-400" />
+                      <MapPin className="w-3 h-3 text-slate-400" />
                       {seller.location || 'South Africa'}
                     </span>
                     <span>•</span>
                     <span className="flex items-center gap-1 font-medium">
-                      <Calendar className="w-3.5 h-3.5 text-slate-400" />
+                      <Calendar className="w-3 h-3 text-slate-400" />
                       Member since {seller.joinedDate}
                     </span>
                     <span>•</span>
                     <span className="flex items-center gap-1 text-amber-600 dark:text-amber-400 font-bold">
-                      <Star className="w-3.5 h-3.5 fill-amber-400 text-amber-500" />
+                      <Star className="w-3 h-3 fill-amber-400 text-amber-500" />
                       {seller.rating?.toFixed(1) || '4.9'} ({seller.ordersCount || 50}+ orders fulfilled)
                     </span>
                   </div>
@@ -724,7 +724,7 @@ export function StorefrontView({
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-slate-100 dark:border-slate-800 mt-6">
               <div className="p-3 bg-slate-50/80 dark:bg-slate-800/60 rounded-2xl border border-slate-100 dark:border-slate-700/60 flex items-center gap-3">
                 <div className="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
-                  <Truck className="w-4.5 h-4.5" />
+                  <Truck className="w-4 h-4" />
                 </div>
                 <div>
                   <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Fulfillment SLA</span>
@@ -734,7 +734,7 @@ export function StorefrontView({
 
               <div className="p-3 bg-slate-50/80 dark:bg-slate-800/60 rounded-2xl border border-slate-100 dark:border-slate-700/60 flex items-center gap-3">
                 <div className="w-9 h-9 rounded-xl bg-purple-100 dark:bg-purple-950 text-purple-600 dark:text-purple-400 flex items-center justify-center shrink-0">
-                  <RotateCcw className="w-4.5 h-4.5" />
+                  <RotateCcw className="w-4 h-4" />
                 </div>
                 <div>
                   <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Return Window</span>
@@ -744,7 +744,7 @@ export function StorefrontView({
 
               <div className="p-3 bg-slate-50/80 dark:bg-slate-800/60 rounded-2xl border border-slate-100 dark:border-slate-700/60 flex items-center gap-3">
                 <div className="w-9 h-9 rounded-xl bg-emerald-100 dark:bg-emerald-950 text-emerald-600 dark:text-emerald-400 flex items-center justify-center shrink-0">
-                  <BadgeCheck className="w-4.5 h-4.5" />
+                  <BadgeCheck className="w-4 h-4" />
                 </div>
                 <div>
                   <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Authenticity</span>
@@ -754,7 +754,7 @@ export function StorefrontView({
 
               <div className="p-3 bg-slate-50/80 dark:bg-slate-800/60 rounded-2xl border border-slate-100 dark:border-slate-700/60 flex items-center gap-3">
                 <div className="w-9 h-9 rounded-xl bg-amber-100 dark:bg-amber-950 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
-                  <Layers className="w-4.5 h-4.5" />
+                  <Layers className="w-4 h-4" />
                 </div>
                 <div>
                   <span className="block text-[10px] font-bold text-slate-400 uppercase tracking-wider">Store Catalog</span>
@@ -824,7 +824,7 @@ export function StorefrontView({
                     onClick={() => setSearchQuery('')}
                     className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 cursor-pointer"
                   >
-                    <X className="w-3.5 h-3.5" />
+                    <X className="w-3 h-3" />
                   </button>
                 )}
               </div>
@@ -834,7 +834,7 @@ export function StorefrontView({
                 {/* Sort Dropdown Filter */}
                 <div className="flex items-center gap-2">
                   <label htmlFor="store-sort-select" className="text-xs font-extrabold text-slate-700 dark:text-slate-200 whitespace-nowrap flex items-center gap-1.5 shrink-0">
-                    <ArrowUpDown className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                    <ArrowUpDown className="w-3 h-3 text-blue-600 dark:text-blue-400" />
                     <span className="hidden sm:inline">Sort:</span>
                   </label>
                   <div className="relative w-44 sm:w-52">
@@ -864,7 +864,7 @@ export function StorefrontView({
                       className="p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 rounded-xl transition cursor-pointer shrink-0 flex items-center justify-center border border-slate-200/60 dark:border-slate-700 shadow-2xs"
                       title="Reshuffle products randomly"
                     >
-                      <Shuffle className="w-3.5 h-3.5 text-slate-700 dark:text-slate-200" />
+                      <Shuffle className="w-3 h-3 text-slate-700 dark:text-slate-200" />
                     </button>
                   )}
                 </div>
@@ -874,7 +874,7 @@ export function StorefrontView({
                   onClick={() => setMobileFiltersOpen(true)}
                   className="lg:hidden flex items-center gap-1.5 px-3 py-2 rounded-xl bg-slate-900 dark:bg-slate-800 text-white text-xs font-bold shadow-xs hover:bg-slate-800 transition cursor-pointer"
                 >
-                  <SlidersHorizontal className="w-3.5 h-3.5" />
+                  <SlidersHorizontal className="w-3 h-3" />
                   <span>Filters</span>
                   {activeFiltersCount > 0 && (
                     <span className="w-4 h-4 rounded-full bg-blue-500 text-white text-[10px] flex items-center justify-center font-bold">
@@ -987,7 +987,7 @@ export function StorefrontView({
                               </span>
                               {sale.isSale && (
                                 <div className="px-2 py-0.5 rounded-md bg-rose-600 text-white font-extrabold text-[10px] tracking-wider uppercase shadow-2xs flex items-center gap-1">
-                                  <Tag className="w-2.5 h-2.5 text-white" />
+                                  <Tag className="w-2 h-2 text-white" />
                                   <span>{sale.badgeText || 'SALE'}</span>
                                 </div>
                               )}
@@ -1070,7 +1070,7 @@ export function StorefrontView({
                                   onClick={() => handleTriggerQuickView(prod, offer)}
                                   className="px-3.5 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 text-xs font-bold rounded-xl transition cursor-pointer flex items-center gap-1.5"
                                 >
-                                  <Eye className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+                                  <Eye className="w-3 h-3 text-slate-500 dark:text-slate-400" />
                                   <span className="hidden sm:inline">Quick View</span>
                                 </button>
                                 <button
@@ -1083,7 +1083,7 @@ export function StorefrontView({
                                   }}
                                   className="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-extrabold transition flex items-center gap-1.5 shadow-sm active:scale-95 cursor-pointer"
                                 >
-                                  <ShoppingCart className="w-3.5 h-3.5" /> Add to Cart
+                                  <ShoppingCart className="w-3 h-3" /> Add to Cart
                                 </button>
                               </div>
                             </div>
@@ -1131,13 +1131,13 @@ export function StorefrontView({
                               </span>
                               {sale.isSale && (
                                 <div className="px-2 py-0.5 rounded-md bg-rose-600 text-white font-extrabold text-[10px] tracking-wider uppercase shadow-2xs flex items-center gap-1">
-                                  <Tag className="w-2.5 h-2.5 text-white" />
+                                  <Tag className="w-2 h-2 text-white" />
                                   <span>{sale.badgeText || 'SALE'}</span>
                                 </div>
                               )}
                               {(prod.isFeatured || (!sale.isSale && prod.isFeatured !== false)) && (
                                 <div className="px-2 py-0.5 rounded-md bg-slate-900/80 backdrop-blur-md text-white font-extrabold text-[10px] tracking-wider uppercase border border-slate-700/50 shadow-2xs flex items-center gap-1">
-                                  <Crown className="w-2.5 h-2.5 text-amber-400" />
+                                  <Crown className="w-2 h-2 text-amber-400" />
                                   <span>Featured</span>
                                 </div>
                               )}
@@ -1182,7 +1182,7 @@ export function StorefrontView({
                               <div className="flex items-center gap-1.5 flex-wrap mt-1.5">
                                 <StockBadge product={prod} />
                                 <div className="flex items-center gap-0.5 text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/50 px-1.5 py-0.5 rounded border border-amber-200/50 dark:border-amber-900/50 text-[10px] font-extrabold w-max">
-                                  <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-500 shrink-0" />
+                                  <Star className="w-2 h-2 fill-amber-400 text-amber-500 shrink-0" />
                                   <span>{offer?.rating?.toFixed(1) || ratingInfo.ratingFormatted}</span>
                                 </div>
                               </div>
@@ -1382,7 +1382,7 @@ export function StorefrontView({
                       <span className="text-[11px] text-slate-400">({rev.city})</span>
                       {rev.verified && (
                         <span className="inline-flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-emerald-50 dark:bg-emerald-950 text-emerald-700 dark:text-emerald-300 text-[10px] font-bold">
-                          <CheckCircle2 className="w-2.5 h-2.5" /> Verified Buyer
+                          <CheckCircle2 className="w-2 h-2" /> Verified Buyer
                         </span>
                       )}
                     </div>
@@ -1391,7 +1391,7 @@ export function StorefrontView({
 
                   <div className="flex text-amber-400 mb-2">
                     {Array.from({ length: rev.rating }).map((_, i) => (
-                      <Star key={i} className="w-3.5 h-3.5 fill-current" />
+                      <Star key={i} className="w-3 h-3 fill-current" />
                     ))}
                   </div>
 
@@ -1621,7 +1621,7 @@ export function StorefrontView({
                       type="submit"
                       className="w-full py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-extrabold transition flex items-center justify-center gap-2 shadow-xs cursor-pointer active:scale-95"
                     >
-                      <Send className="w-3.5 h-3.5" /> Send Message
+                      <Send className="w-3 h-3" /> Send Message
                     </button>
                   </form>
                 )}

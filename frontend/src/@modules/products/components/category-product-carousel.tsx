@@ -297,7 +297,7 @@ export default function CategoryProductCarousel({
             <div className="flex items-center gap-1 shrink-0">
               <button 
                 onClick={() => scrollCarousel('left')}
-                className="w-7.5 h-7.5 sm:w-8 sm:h-8 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-slate-900 dark:hover:bg-slate-700 hover:text-white transition active:scale-95 shadow-2xs cursor-pointer shrink-0"
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-slate-900 dark:hover:bg-slate-700 hover:text-white transition active:scale-95 shadow-2xs cursor-pointer shrink-0"
                 aria-label="Scroll left"
                 title="Scroll left"
               >
@@ -305,7 +305,7 @@ export default function CategoryProductCarousel({
               </button>
               <button 
                 onClick={() => scrollCarousel('right')}
-                className="w-7.5 h-7.5 sm:w-8 sm:h-8 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-slate-900 dark:hover:bg-slate-700 hover:text-white transition active:scale-95 shadow-2xs cursor-pointer shrink-0"
+                className="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 flex items-center justify-center hover:bg-slate-900 dark:hover:bg-slate-700 hover:text-white transition active:scale-95 shadow-2xs cursor-pointer shrink-0"
                 aria-label="Scroll right"
                 title="Scroll right"
               >
@@ -319,7 +319,7 @@ export default function CategoryProductCarousel({
               className={`px-3 sm:px-4 py-1.5 sm:py-2 bg-slate-900 dark:bg-slate-800 hover:${currentTheme.bg} text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-all duration-200 flex items-center gap-1 sm:gap-1.5 cursor-pointer group hover:scale-[1.02] active:scale-95 shrink-0 whitespace-nowrap`}
             >
               <span>Explore All</span>
-              <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-0.5 transition-transform" />
+              <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
             </button>
           </div>
         </div>
@@ -353,7 +353,7 @@ export default function CategoryProductCarousel({
                       src={cat.imageUrl} 
                       alt={cat.name} 
                       placeholderType="category"
-                      className="w-3.5 h-3.5 rounded-full object-cover shrink-0" 
+                      className="w-3 h-3 rounded-full object-cover shrink-0" 
                     />
                   )}
                   <span>{cat.name}</span>
@@ -429,13 +429,13 @@ export default function CategoryProductCarousel({
                               <div className="absolute top-2 left-2 z-10 flex flex-col gap-1 items-start">
                                 {sale.isSale && (
                                   <div className="px-2 py-0.5 rounded-full bg-rose-600 text-white font-extrabold text-[9px] sm:text-[10px] tracking-wider uppercase shadow-2xs flex items-center gap-1 border border-rose-500/50">
-                                    <Tag className="w-2.5 h-2.5 text-white" />
+                                    <Tag className="w-2 h-2 text-white" />
                                     <span>{sale.badgeText}</span>
                                   </div>
                                 )}
                                 {(prod.isFeatured || (!sale.isSale && prod.isFeatured !== false)) && (
                                   <div className="px-2 py-0.5 rounded-full bg-slate-900/80 backdrop-blur-md text-white font-extrabold text-[9px] sm:text-[10px] tracking-wider uppercase border border-slate-700/50 shadow-2xs flex items-center gap-1">
-                                    <Crown className="w-2.5 h-2.5 text-amber-400" />
+                                    <Crown className="w-2 h-2 text-amber-400" />
                                     <span>Featured</span>
                                   </div>
                                 )}
@@ -451,10 +451,10 @@ export default function CategoryProductCarousel({
                                   e.stopPropagation();
                                   onQuickView(prod);
                                 }}
-                                className={`w-7.5 h-7.5 sm:w-8 sm:h-8 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-md text-slate-600 dark:text-slate-200 hover:${currentTheme.text} hover:${currentTheme.lightBg} shadow-2xs transition-all duration-200 hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-100 flex items-center justify-center shrink-0 cursor-pointer`}
+                                className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-md text-slate-600 dark:text-slate-200 hover:${currentTheme.text} hover:${currentTheme.lightBg} shadow-2xs transition-all duration-200 hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-100 flex items-center justify-center shrink-0 cursor-pointer`}
                                 title="Quick View"
                               >
-                                <Eye className="w-3.5 h-3.5 stroke-[2.5]" />
+                                <Eye className="w-3 h-3 stroke-[2.5]" />
                               </button>
                             </div>
                           )}
@@ -469,7 +469,7 @@ export default function CategoryProductCarousel({
                             <div className="flex items-center gap-1.5 flex-wrap mt-1.5">
                               <StockBadge product={prod} />
                               <div className="flex items-center gap-0.5 text-amber-600 dark:text-amber-400 bg-amber-50/80 dark:bg-amber-950/50 px-1 py-0.5 rounded border border-amber-200/50 dark:border-amber-900/50 text-[9px] sm:text-[10px] font-extrabold w-max">
-                                <Star className="w-2.5 h-2.5 text-amber-500 fill-amber-400 shrink-0" />
+                                <Star className="w-2 h-2 text-amber-500 fill-amber-400 shrink-0" />
                                 <span>{ratingScore}</span>
                               </div>
                             </div>
@@ -492,7 +492,7 @@ export default function CategoryProductCarousel({
                     <div className="absolute top-0 right-0 w-24 h-24 bg-blue-500/20 rounded-full blur-xl pointer-events-none" />
                     
                     <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-lg bg-white/10 flex items-center justify-center mb-2 sm:mb-2.5 group-hover/end:scale-110 transition-transform">
-                      <Grid className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-blue-300" />
+                      <Grid className="w-3 h-3 sm:w-4 sm:h-4 text-blue-300" />
                     </div>
 
                     <h4 className="font-extrabold text-[11px] sm:text-xs mb-0.5">

@@ -72,7 +72,7 @@ export const PageBanner: React.FC<PageBannerProps> = ({
           onClick={handleBack}
           className="hover:text-slate-900 dark:hover:text-white transition flex items-center gap-1 cursor-pointer font-semibold bg-transparent border-none p-0"
         >
-          <ArrowLeft className="w-3.5 h-3.5" /> {backLabel}
+          <ArrowLeft className="w-3 h-3" /> {backLabel}
         </button>
         <span>/</span>
         <span className="text-slate-900 dark:text-white font-extrabold">{title}</span>

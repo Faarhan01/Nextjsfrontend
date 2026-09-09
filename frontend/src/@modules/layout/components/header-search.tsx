@@ -36,7 +36,7 @@ export const HeaderSearch: React.FC<HeaderSearchProps> = ({
         onKeyDown={onKeyDown}
         className="w-full text-xs pl-8 pr-3.5 py-1.5 bg-slate-100/80 hover:bg-slate-100 dark:bg-slate-800/90 dark:hover:bg-slate-800 border border-slate-200/80 dark:border-slate-700/80 focus:border-blue-500 dark:focus:border-blue-400 focus:bg-white dark:focus:bg-slate-800 focus:ring-2 focus:ring-blue-500/20 rounded-full transition-all font-medium placeholder-slate-400 dark:placeholder-slate-500 text-slate-900 dark:text-slate-100"
       />
-      <Search className="absolute left-2.5 top-2 w-3.5 h-3.5 text-slate-400 dark:text-slate-500 pointer-events-none" />
+      <Search className="absolute left-2.5 top-2 w-3 h-3 text-slate-400 dark:text-slate-500 pointer-events-none" />
     </div>
   );
 };
