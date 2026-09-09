@@ -13,6 +13,7 @@ import { useToastContext } from '@/providers/toast-provider';
 import { getThemeClasses } from '@/providers/theme-provider';
 import { SafeImage } from '@modules/common/components/safe-image';
 import { formatCurrency, getCartItemUnitPrice } from '@/utils/pricing';
+import { getProductUrl } from '@/utils/seoUtils';
 
 export const CartDrawer: React.FC = () => {
   const router = useRouter();
@@ -101,7 +102,7 @@ export const CartDrawer: React.FC = () => {
                     <ShoppingCart className="w-7 h-7" />
                   </div>
                   <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200">Your shopping cart is empty</h4>
-                  <p className="text-[11px] text-slate-400 dark:text-slate-500 max-w-xs mt-1 leading-normal">Browse our catalog to discover luxury products!</p>
+                  <p className="text-[11px] text-slate-400 dark:text-slate-500 max-w-xs mt-1 leading-normal">Browse our catalog to discover premium wholesale & retail products!</p>
                   <button
                     onClick={() => {
                       setCartOpen(false);
@@ -122,22 +123,35 @@ export const CartDrawer: React.FC = () => {
                     productsSettings?.minWholesaleQuantity ||
                     6;
                   const isWholesaleActive = item.quantity >= minWholesaleQty;
+                  const productLink = getProductUrl(item.id, item.name);
 
                   return (
                     <div
                       key={item.id}
                       className="flex items-center gap-3 bg-slate-50/70 dark:bg-slate-800/60 hover:bg-slate-50 dark:hover:bg-slate-800 p-2.5 border border-slate-200/70 dark:border-slate-700 rounded-xl relative group transition"
                     >
-                      <SafeImage
-                        src={item.imageUrl}
-                        className="w-12 h-12 object-cover rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950 shrink-0"
-                        alt={item.name}
-                        placeholderType="product"
-                        fallbackTitle={item.name}
-                      />
+                      <Link
+                        href={productLink}
+                        onClick={() => setCartOpen(false)}
+                        className="shrink-0 hover:opacity-90 transition"
+                      >
+                        <SafeImage
+                          src={item.imageUrl}
+                          className="w-12 h-12 object-cover rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950"
+                          alt={item.name}
+                          placeholderType="product"
+                          fallbackTitle={item.name}
+                        />
+                      </Link>
 
                       <div className="flex-1 min-w-0 pr-5">
-                        <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate leading-snug">{item.name}</h4>
+                        <Link
+                          href={productLink}
+                          onClick={() => setCartOpen(false)}
+                          className="block hover:text-blue-600 dark:hover:text-blue-400 transition"
+                        >
+                          <h4 className="text-xs font-bold text-slate-800 dark:text-slate-200 truncate leading-snug">{item.name}</h4>
+                        </Link>
 
                         {item.sellerName && (
                           <div className="flex items-center gap-1.5 text-[10px] text-slate-400 dark:text-slate-500 truncate mt-0.5">

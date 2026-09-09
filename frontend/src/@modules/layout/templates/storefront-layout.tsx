@@ -10,8 +10,8 @@ import { useCartContext } from '@/providers/cart-provider';
 import { useWishlistContext } from '@/providers/wishlist-provider';
 import { useCatalog } from '@/providers/catalog-provider';
 import { getThemeClasses } from '@/providers/theme-provider';
-import { StoreHeader } from '@modules/layout/components/store-header';
-import { StoreFooter } from '@modules/layout/components/store-footer';
+import { Nav } from '@modules/layout/templates/nav';
+import { Footer } from '@modules/layout/templates/footer';
 import { CartDrawer } from '@modules/cart/components/cart-drawer';
 import QuickViewModal from '@modules/products/components/quick-view-modal';
 import AuthModal from '@modules/account/components/auth-modal';
@@ -26,13 +26,19 @@ export const StorefrontLayout: React.FC<{ children: React.ReactNode }> = ({ chil
   const pathname = usePathname();
   const router = useRouter();
   const { themeColor, logoText } = useThemeContext();
-  const { toasts, handleDismissToast } = useToastContext();
+  const { toasts, handleDismissToast, showToast } = useToastContext();
   const { authModalOpen, setAuthModalOpen, quickViewOpen, setQuickViewOpen, quickViewProduct, aiConciergeOpen, setAiConciergeOpen, nextjsModalOpen, setNextjsModalOpen, seoModalOpen, setSeoModalOpen, setEditorOpen } = useUI();
-  const { currentUser, signIn } = useAuthContext();
+  const { currentUser, signIn, authModalOpen: authCtxModalOpen, setAuthModalOpen: setAuthCtxModalOpen } = useAuthContext();
   const { cart, addToCart } = useCartContext();
   const { wishlist, toggleWishlist } = useWishlistContext();
   const { products } = useCatalog();
   const currentTheme = getThemeClasses(themeColor);
+
+  const isAuthModalVisible = authModalOpen || authCtxModalOpen;
+  const handleCloseAuthModal = () => {
+    setAuthModalOpen(false);
+    setAuthCtxModalOpen(false);
+  };
 
   const isAdminPage = pathname.startsWith('/admin');
 
@@ -50,14 +56,14 @@ export const StorefrontLayout: React.FC<{ children: React.ReactNode }> = ({ chil
         }
       `}</style>
 
-      {/* Header */}
-      {!isAdminPage && <StoreHeader />}
+      {/* Header Navigation */}
+      {!isAdminPage && <Nav />}
 
       {/* Main Content Area */}
       <main className="flex-1 w-full flex flex-col">{children}</main>
 
       {/* Footer */}
-      {!isAdminPage && <StoreFooter />}
+      {!isAdminPage && <Footer />}
 
       {/* Cart Drawer */}
       <CartDrawer />
@@ -80,12 +86,12 @@ export const StorefrontLayout: React.FC<{ children: React.ReactNode }> = ({ chil
 
       {/* Auth Modal */}
       <AuthModal
-        isOpen={authModalOpen}
-        onClose={() => setAuthModalOpen(false)}
+        isOpen={isAuthModalVisible}
+        onClose={handleCloseAuthModal}
         onSignIn={signIn}
         themeColor={themeColor}
         getThemeClasses={getThemeClasses}
-        showToast={() => {}}
+        showToast={showToast}
       />
 
       {/* AI Concierge Modal */}
@@ -107,7 +113,7 @@ export const StorefrontLayout: React.FC<{ children: React.ReactNode }> = ({ chil
       <NextjsExporterModal
         isOpen={nextjsModalOpen}
         onClose={() => setNextjsModalOpen(false)}
-        showToast={() => {}}
+        showToast={showToast}
         storeName={logoText}
       />
 
@@ -115,7 +121,7 @@ export const StorefrontLayout: React.FC<{ children: React.ReactNode }> = ({ chil
       <SEOInspectorModal
         isOpen={seoModalOpen}
         onClose={() => setSeoModalOpen(false)}
-        showToast={() => {}}
+        showToast={showToast}
         storeName={logoText}
       />
 

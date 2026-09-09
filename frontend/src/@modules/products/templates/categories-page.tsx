@@ -18,8 +18,7 @@ import { MockCategory, MockProduct } from '@/types';
 import { useRouter } from 'next/navigation';
 import { SafeImage } from '@modules/common/components/safe-image';
 import { getCategoryUrl, getCategoriesUrl, updateSEOMetadata } from '@/utils/seoUtils';
-import { CategoryBarCarousel } from '@components/shared/category-bar';
-import { PageBanner } from '@components/shared/page-banner';
+import { CategoryBarCarousel, PageBanner, RecentlyViewedSection } from '@/components/shared';
 import { useCatalog } from '@/providers/catalog-provider';
 import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
 
@@ -341,6 +340,11 @@ export const CategoriesPage: React.FC<CategoriesPageProps> = ({
             </button>
           </div>
         )}
+
+        {/* Recently Viewed Products */}
+        <div className="pt-10 sm:pt-14">
+          <RecentlyViewedSection products={products} />
+        </div>
       </div>
     </div>
   );

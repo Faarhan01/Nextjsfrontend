@@ -69,6 +69,7 @@ import { getProductRatingDetails } from '@/utils/productRating';
 import { getProductUrl } from '@/utils/seoUtils';
 import { SafeImage } from '@modules/common/components/safe-image';
 import { StockBadge } from '@modules/common/components/stock-badge';
+import { RecentlyViewedSection } from '@/components/shared';
 import { useCatalog } from '@/providers/catalog-provider';
 import { useWishlistContext } from '@/providers/wishlist-provider';
 import { useCartContext } from '@/providers/cart-provider';
@@ -1404,6 +1405,11 @@ export function StorefrontView({
           </div>
         )}
 
+      </div>
+
+      {/* Recently Viewed Products */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 sm:mt-14">
+        <RecentlyViewedSection products={allProducts} />
       </div>
 
       {/* ========================================================================= */}

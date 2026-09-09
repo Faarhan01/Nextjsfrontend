@@ -114,6 +114,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
       trackAddToCart({ id: product.id, name: product.name, price: p }, qty, 'ZAR');
       toast.showToast(`Added ${product.name} to cart!`, 'success');
+
+      // Automatically open the cart drawer to provide instant visual confirmation
+      if (typeof window !== 'undefined') {
+        window.dispatchEvent(new CustomEvent('mrbulk:open-cart'));
+      }
     },
     [toast]
   );
