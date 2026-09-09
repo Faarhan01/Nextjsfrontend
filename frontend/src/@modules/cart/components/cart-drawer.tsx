@@ -48,7 +48,7 @@ export const CartDrawer: React.FC = () => {
             {/* Cart Drawer Header */}
             <div className="px-5 py-3.5 border-b border-card flex items-center justify-between bg-card shrink-0">
               <div className="flex items-center gap-2">
-                <div className={`p-1.5 rounded-full ${currentTheme.lightBg} ${currentTheme.text} dark:bg-slate-800`}>
+                <div className={`w-8 h-8 p-1.5 rounded-full ${currentTheme.lightBg} ${currentTheme.text} dark:bg-slate-800 flex items-center justify-center`}>
                   <ShoppingCart className="w-4 h-4 stroke-[2.2]" />
                 </div>
                 <div>
@@ -64,7 +64,7 @@ export const CartDrawer: React.FC = () => {
               </div>
               <button
                 onClick={() => setCartOpen(false)}
-                className={`p-1.5 rounded-full border transition-all duration-150 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
+                className={`w-8 h-8 p-1.5 rounded-full border transition-all duration-150 cursor-pointer flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
                   `${currentTheme.text} ${currentTheme.lightBg} ${currentTheme.border.split(' ')[0]} dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
                 }`}
               >
