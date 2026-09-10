@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48" width="48" height="48" fill="none">
+  <defs>
+    <linearGradient id="luxeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6366f1" />
+      <stop offset="100%" stop-color="#4338ca" />
+    </linearGradient>
+  </defs>
+  <rect width="48" height="48" rx="12" fill="url(#luxeGrad)" />
+  <path d="M16 18V14C16 9.58172 19.5817 6 24 6C28.4183 6 32 9.58172 32 14V18" stroke="#ffffff" stroke-width="3" stroke-linecap="round" />
+  <path d="M12 18H36L38 40H10L12 18Z" fill="#ffffff" fill-opacity="0.2" stroke="#ffffff" stroke-width="3" stroke-linejoin="round" />
+  <circle cx="24" cy="28" r="3" fill="#ffffff" />
+</svg>

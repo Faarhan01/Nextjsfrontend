@@ -97,8 +97,8 @@ export const StoreHeader: React.FC = () => {
       <div
         className={`pointer-events-auto rounded-2xl sm:rounded-full border backdrop-blur-2xl px-4 sm:px-6 py-1.5 sm:py-2 flex items-center justify-between gap-2 sm:gap-4 relative z-50 transition-[box-shadow,background-color,border-color] duration-150 ${
           mobileMenuOpen || showSearchResults || isScrolled
-            ? 'bg-card/95 border-card text-theme-primary shadow-xl shadow-slate-900/10 dark:shadow-black/40 ring-1 ring-slate-900/5 dark:ring-slate-800/80'
-            : 'bg-card/90 border-card text-theme-primary shadow-lg shadow-slate-900/5 dark:shadow-black/30 hover:bg-card hover:border-card ring-1 ring-slate-900/5 dark:ring-slate-800/80'
+            ? 'bg-card-translucent-strong border-card text-theme-primary shadow-xl shadow-slate-900/10 dark:shadow-black/40 ring-1 ring-slate-900/5 dark:ring-slate-800/80'
+            : 'bg-card-translucent border-card text-theme-primary shadow-lg shadow-slate-900/5 dark:shadow-black/30 ring-1 ring-slate-900/5 dark:ring-slate-800/80'
         }`}
       >
         <div className="w-full flex items-center justify-between gap-2 sm:gap-4 h-9 sm:h-10">
@@ -108,7 +108,11 @@ export const StoreHeader: React.FC = () => {
               <div
                 className={`w-7 h-7 rounded-full ${currentTheme.bg} text-white flex items-center justify-center shadow-xs ${currentTheme.shadow} group-hover:scale-105 transition-transform duration-200`}
               >
-                <ShoppingCart className="w-4 h-4 stroke-[2.2]" />
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                  <path d="M3 6h18"></path>
+                  <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
               </div>
               <span className="font-sans font-extrabold text-sm sm:text-lg tracking-tight text-slate-900 dark:text-slate-100">
                 {logoText}

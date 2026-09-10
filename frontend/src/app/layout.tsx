@@ -137,7 +137,7 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
-                  var saved = localStorage.getItem('luxestore_dark_mode');
+                  var saved = localStorage.getItem('mrbulk_dark_mode') || localStorage.getItem('luxestore_dark_mode');
                   var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
                   var isDark = saved === 'true' || (saved === null && prefersDark);
                   if (isDark) {

@@ -23,7 +23,7 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
   if (variant === 'pill') {
     return (
       <div
-        className={`inline-flex items-center p-1 rounded-full bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 transition-colors duration-200 ${className}`}
+        className={`inline-flex items-center p-1 rounded-full bg-surface border border-default transition-colors duration-200 ${className}`}
         role="group"
         aria-label="Color theme switcher"
       >
@@ -34,8 +34,8 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
           }}
           className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer ${
             !darkMode
-              ? 'bg-white text-amber-600 shadow-xs border border-amber-200/60'
-              : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
+              ? 'bg-card text-amber-600 shadow-xs border border-amber-200/60'
+              : 'text-muted hover:text-primary'
           }`}
           aria-pressed={!darkMode}
           title="Switch to Light Mode"
@@ -50,8 +50,8 @@ export const ThemeToggle: React.FC<ThemeToggleProps> = ({
           }}
           className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-bold transition-all duration-200 cursor-pointer ${
             darkMode
-              ? 'bg-slate-900 text-blue-400 shadow-xs border border-blue-500/30'
-              : 'text-slate-500 hover:text-slate-800 dark:text-slate-400 dark:hover:text-slate-200'
+              ? 'bg-elevated text-blue-400 shadow-xs border border-blue-500/30'
+              : 'text-muted hover:text-primary'
           }`}
           aria-pressed={darkMode}
           title="Switch to Dark Mode"

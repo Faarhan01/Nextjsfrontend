@@ -57,7 +57,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
         exit={{ opacity: 0 }}
         transition={{ duration: 0.2 }}
         onClick={onClose}
-        className="fixed inset-0 bg-slate-950/50 backdrop-blur-xs z-30 lg:hidden pointer-events-auto"
+        className="fixed inset-0 bg-overlay backdrop-blur-xs z-30 lg:hidden pointer-events-auto"
       />
 
       <motion.div
@@ -67,14 +67,14 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
         transition={{ duration: 0.25, ease: 'easeOut' }}
         className="absolute top-full left-0 right-0 mt-2 px-4 sm:px-6 z-40 lg:hidden pointer-events-auto"
       >
-        <div className="drawer-surface rounded-3xl border border-card p-4 space-y-3 max-h-[85vh] overflow-y-auto shadow-2xl">
-          {/* Header Theme Switcher Pill in Mobile Drawer */}
-          <div className="flex items-center justify-between p-2.5 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200/80 dark:border-slate-700/80">
-            <div className="text-xs font-bold text-slate-700 dark:text-slate-200">
-              Appearance
-            </div>
-            <ThemeToggle variant="pill" />
-          </div>
+<div className="drawer-surface rounded-3xl border border-card p-4 space-y-3 max-h-[85vh] overflow-y-auto shadow-2xl">
+           {/* Header Theme Switcher Pill in Mobile Drawer */}
+           <div className="flex items-center justify-between p-2.5 rounded-2xl bg-surface-subtle border border-subtle">
+             <div className="text-xs font-bold text-primary">
+               Appearance
+             </div>
+             <ThemeToggle variant="pill" />
+           </div>
 
           <nav className="space-y-1">
             <Link
@@ -83,10 +83,10 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
               className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
                 isActive('/')
                   ? `${currentTheme.lightBg} ${currentTheme.text} font-bold shadow-2xs dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
-                  : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
+                  : 'text-primary hover:bg-surface-subtle'
               }`}
             >
-              <Home className={`w-4 h-4 ${isActive('/') ? currentTheme.text : 'text-slate-400 dark:text-slate-500'}`} />
+              <Home className={`w-4 h-4 ${isActive('/') ? currentTheme.text : 'muted'}`} />
               <span>Home</span>
             </Link>
 
@@ -96,10 +96,10 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
               className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
                 isActive('/shop')
                   ? `${currentTheme.lightBg} ${currentTheme.text} font-bold shadow-2xs dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
-                  : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
+                  : 'text-primary hover:bg-surface-subtle'
               }`}
             >
-              <ShoppingBag className={`w-4 h-4 ${isActive('/shop') ? currentTheme.text : 'text-slate-400 dark:text-slate-500'}`} />
+              <ShoppingBag className={`w-4 h-4 ${isActive('/shop') ? currentTheme.text : 'muted'}`} />
               <span>Shop</span>
             </Link>
 
@@ -109,45 +109,45 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
               className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
                 isActive('/categories')
                   ? `${currentTheme.lightBg} ${currentTheme.text} font-bold shadow-2xs dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
-                  : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
+                  : 'text-primary hover:bg-surface-subtle'
               }`}
             >
-              <LayoutGrid className={`w-4 h-4 ${isActive('/categories') ? currentTheme.text : 'text-slate-400 dark:text-slate-500'}`} />
+              <LayoutGrid className={`w-4 h-4 ${isActive('/categories') ? currentTheme.text : 'muted'}`} />
               <span>Categories</span>
             </Link>
 
             {/* Mobile Company Accordion */}
-            <div className="border-t border-slate-100 dark:border-slate-800 pt-1 mt-1">
+            <div className="border-t border-subtle pt-1 mt-1">
               <button
                 onClick={() => setMobileCompanyOpen(!mobileCompanyOpen)}
                 className="w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer"
               >
                 <span className="flex items-center gap-2.5">
-                  <Building2 className="w-4 h-4 text-slate-400 dark:text-slate-500" />
+                  <Building2 className="w-4 h-4 muted" />
                   <span>Company</span>
                 </span>
-                <ChevronDown className={`w-4 h-4 transition-transform text-slate-400 dark:text-slate-500 ${mobileCompanyOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`w-4 h-4 transition-transform muted ${mobileCompanyOpen ? 'rotate-180' : ''}`} />
               </button>
               {mobileCompanyOpen && (
-                <div className="pl-6 pr-2 py-1 space-y-1 bg-slate-50/70 dark:bg-slate-800/50 rounded-xl mb-1">
+                <div className="pl-6 pr-2 py-1 space-y-1 bg-surface-subtle rounded-xl mb-1">
                   <Link
                     href="/about"
                     onClick={onClose}
-                    className="block px-3 py-2 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
+                    className="block px-3 py-2 rounded-lg text-xs font-bold text-secondary hover:text-primary"
                   >
                     About Us
                   </Link>
                   <Link
                     href="/contact"
                     onClick={onClose}
-                    className="block px-3 py-2 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
+                    className="block px-3 py-2 rounded-lg text-xs font-bold text-secondary hover:text-primary"
                   >
                     Contact &amp; Support
                   </Link>
                   <Link
                     href="/faq"
                     onClick={onClose}
-                    className="block px-3 py-2 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
+                    className="block px-3 py-2 rounded-lg text-xs font-bold text-secondary hover:text-primary"
                   >
                     Frequently Asked Questions
                   </Link>
@@ -156,19 +156,19 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
             </div>
 
             {/* Mobile User Accordion */}
-            <div className="border-t border-slate-100 dark:border-slate-800 pt-1 mt-1">
+            <div className="border-t border-subtle pt-1 mt-1">
               <button
                 onClick={() => setMobileUserOpen(!mobileUserOpen)}
                 className="w-full text-left px-4 py-2.5 rounded-xl text-sm font-semibold flex items-center justify-between text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 cursor-pointer"
               >
                 <span className="flex items-center gap-2.5">
-                  <User className="w-4 h-4 text-slate-400 dark:text-slate-500" />
+                  <User className="w-4 h-4 muted" />
                   <span>{currentUser ? currentUser.name : 'Account & Orders'}</span>
                 </span>
-                <ChevronDown className={`w-4 h-4 transition-transform text-slate-400 dark:text-slate-500 ${mobileUserOpen ? 'rotate-180' : ''}`} />
+                <ChevronDown className={`w-4 h-4 transition-transform muted ${mobileUserOpen ? 'rotate-180' : ''}`} />
               </button>
               {mobileUserOpen && (
-                <div className="pl-6 pr-2 py-1 space-y-1 bg-slate-50/70 dark:bg-slate-800/50 rounded-xl mb-1">
+                <div className="pl-6 pr-2 py-1 space-y-1 bg-surface-subtle rounded-xl mb-1">
                   <Link
                     href="/account"
                     onClick={(e) => {
@@ -178,23 +178,23 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
                         onOpenAuthModal();
                       }
                     }}
-                    className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold text-secondary hover:text-primary"
                   >
-                    <User className="w-3 h-3 text-slate-400 dark:text-slate-500" />
+                    <User className="w-3 h-3 muted" />
                     <span>{currentUser ? 'My Profile' : 'Sign In / Register'}</span>
                   </Link>
                   <Link
                     href="/order-tracking"
                     onClick={onClose}
-                    className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
+                    className="flex items-center gap-2 px-3 py-2 rounded-lg text-xs font-bold text-secondary hover:text-primary"
                   >
-                    <Truck className="w-3 h-3 text-slate-400 dark:text-slate-500" />
+                    <Truck className="w-3 h-3 muted" />
                     <span>Track Package</span>
                   </Link>
                   <Link
                     href="/wishlist"
                     onClick={onClose}
-                    className="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white"
+                    className="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-bold text-secondary hover:text-primary"
                   >
                     <span className="flex items-center gap-2">
                       <Heart className="w-3 h-3 text-rose-500 fill-rose-500" />
@@ -225,7 +225,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
               className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
                 pathname.startsWith('/sell')
                   ? `${currentTheme.lightBg} ${currentTheme.text} font-bold shadow-2xs dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
-                  : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
+                  : 'text-primary hover:bg-surface-subtle'
               }`}
             >
               <Building2 className="w-4 h-4 text-emerald-500" />

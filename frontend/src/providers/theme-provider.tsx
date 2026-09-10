@@ -129,8 +129,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
             document.documentElement.classList.remove('disable-transitions');
           }, 80);
         }
-        localStorage.setItem('luxestore_dark_mode', nextVal ? 'true' : 'false');
         localStorage.setItem('mrbulk_dark_mode', nextVal ? 'true' : 'false');
+        localStorage.setItem('luxestore_dark_mode', nextVal ? 'true' : 'false');
       } catch {}
       return nextVal;
     });
