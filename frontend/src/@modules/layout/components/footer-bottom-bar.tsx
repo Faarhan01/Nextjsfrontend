@@ -3,7 +3,6 @@
 import React from 'react';
 import { ArrowUp } from 'lucide-react';
 import { CountrySelect } from '@modules/layout/components/country-select';
-import { MedusaCTA } from '@modules/layout/components/medusa-cta';
 
 interface FooterBottomBarProps {
   logoText: string;
@@ -28,7 +27,6 @@ export const FooterBottomBar: React.FC<FooterBottomBarProps> = ({ logoText }) =>
         </div>
 
         <div className="flex items-center gap-3">
-          <MedusaCTA />
           <button
             type="button"
             onClick={scrollToTop}
@@ -49,7 +47,7 @@ export const FooterBottomBar: React.FC<FooterBottomBarProps> = ({ logoText }) =>
 
         {/* Payment Badges */}
         <div className="flex items-center gap-1.5 flex-wrap justify-center sm:justify-end">
-          {['Visa', 'Mastercard', 'Apple Pay', 'Instant EFT', 'Ozow', 'PayFast'].map((pay) => (
+          {['Visa', 'Mastercard', 'Instant EFT', 'PayFast'].map((pay) => (
             <span
               key={pay}
               className="px-2 py-0.5 rounded-md bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 text-[10px] font-extrabold text-slate-700 dark:text-slate-300 shadow-2xs tracking-tight"

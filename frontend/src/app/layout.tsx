@@ -129,37 +129,38 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
-      <head>
-        <Script
+      <body className="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased selection:bg-blue-500 selection:text-white font-sans" suppressHydrationWarning>
+        <script
           id="dark-mode-init"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{
             __html: `
               (function() {
                 try {
-                  var saved = localStorage.getItem('mrbulk_dark_mode') || localStorage.getItem('luxestore_dark_mode');
+                  var saved = localStorage.getItem('mrbulk_dark_mode');
+                  if (saved === null) {
+                    saved = localStorage.getItem('luxestore_dark_mode');
+                  }
                   var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
                   var isDark = saved === 'true' || (saved === null && prefersDark);
                   if (isDark) {
                     document.documentElement.classList.add('dark');
                     document.documentElement.style.colorScheme = 'dark';
+                    if (document.body) document.body.classList.add('dark');
                   } else {
                     document.documentElement.classList.remove('dark');
                     document.documentElement.style.colorScheme = 'light';
+                    if (document.body) document.body.classList.remove('dark');
                   }
                 } catch(e) {}
               })();
             `,
           }}
         />
-        <Script
+        <script
           id="json-ld"
           type="application/ld+json"
-          strategy="beforeInteractive"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
         />
-      </head>
-      <body className="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased selection:bg-blue-500 selection:text-white font-sans" suppressHydrationWarning>
         {/* Google Tag Manager Initializer Script */}
         <Script
           id="gtm-inline-init"

@@ -1409,7 +1409,7 @@ export function StorefrontView({
 
       {/* Recently Viewed Products */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 sm:mt-14">
-        <RecentlyViewedSection products={allProducts} />
+        <RecentlyViewedSection products={products} />
       </div>
 
       {/* ========================================================================= */}

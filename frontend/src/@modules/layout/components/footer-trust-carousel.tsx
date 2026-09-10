@@ -93,7 +93,7 @@ export const FooterTrustCarousel: React.FC<FooterTrustCarouselProps> = ({
       id: 'payments',
       icon: CreditCard,
       title: 'Flexible Payment Methods',
-      description: 'Apple Pay, Cards, Instant EFT'
+      description: 'Cards, Instant EFT, PayFast'
     }
   ];
 
