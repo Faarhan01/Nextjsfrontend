@@ -19,7 +19,7 @@ export interface MedusaClientConfig {
 
 const DEFAULT_BACKEND_URL =
   process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL ||
-  (typeof window !== 'undefined' ? `${window.location.origin}/api` : '/api');
+  (typeof window !== 'undefined' ? '/api' : '/api');
 const FRONTEND_ONLY = process.env.NEXT_PUBLIC_FRONTEND_ONLY === 'true';
 const CART_STORAGE_KEY = 'medusa_cart_id';
 const LOCAL_CART_CACHE_KEY = 'medusa_local_cart_state';
