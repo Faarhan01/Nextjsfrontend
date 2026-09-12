@@ -64,9 +64,7 @@ export const CartDrawer: React.FC = () => {
               </div>
               <button
                 onClick={() => setCartOpen(false)}
-                className={`w-8 h-8 p-1.5 rounded-full border transition-all duration-150 cursor-pointer flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
-                  `${currentTheme.text} ${currentTheme.lightBg} ${currentTheme.border.split(' ')[0]} dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
-                }`}
+                className={`w-8 h-8 p-1.5 rounded-full border transition-all duration-150 cursor-pointer flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${currentTheme.lightBg} ${currentTheme.border.split(' ')[0]}`}
               >
                 <X className="w-4 h-4" />
               </button>
@@ -81,7 +79,7 @@ export const CartDrawer: React.FC = () => {
                     <span className="text-emerald-700 dark:text-emerald-300 font-extrabold text-[11px] truncate">🎉 Free Shipping Unlocked!</span>
                   ) : (
                     <span className="text-[11px] text-slate-700 dark:text-slate-300 truncate">
-                      Add <strong className="text-blue-600 dark:text-blue-400 font-extrabold">{formatCurrency(freeShippingThreshold - cartSubtotal)}</strong> for <strong className="text-emerald-600 dark:text-emerald-400 font-bold">FREE Shipping</strong>
+                      Add <strong className={`${currentTheme.text} font-extrabold`}>{formatCurrency(freeShippingThreshold - cartSubtotal)}</strong> for <strong className="text-emerald-600 dark:text-emerald-400 font-bold">FREE Shipping</strong>
                     </span>
                   )}
                 </div>
@@ -168,7 +166,7 @@ export const CartDrawer: React.FC = () => {
                               <span className="font-bold text-slate-700 dark:text-slate-300 truncate">{item.sellerName}</span>
                             )}
                             {item.condition && (
-                              <span className="px-1 py-0.2 rounded bg-slate-200/70 dark:bg-slate-700 text-[9px] font-bold text-slate-600 dark:text-slate-300 shrink-0">
+                              <span className="px-1.5 py-0.5 rounded bg-slate-200/70 dark:bg-slate-700 text-[9px] font-bold text-slate-600 dark:text-slate-300 shrink-0">
                                 {item.condition}
                               </span>
                             )}
@@ -181,7 +179,7 @@ export const CartDrawer: React.FC = () => {
                           </span>
                           <span className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">({formatCurrency(unitPrice)} ea)</span>
                           {isWholesaleActive && (
-                            <span className="text-[8px] font-extrabold text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/80 px-1 py-0.2 rounded border border-blue-200 dark:border-blue-800 uppercase">
+                            <span className={`text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider ${currentTheme.lightBg} border border-current/20`}>
                               Wholesale
                             </span>
                           )}

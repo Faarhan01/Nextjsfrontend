@@ -142,14 +142,14 @@ export const FooterTrustCarousel: React.FC<FooterTrustCarouselProps> = ({
       <div className="relative">
         {/* Left Gradient Fade */}
         <div
-          className={`absolute left-0 top-0 bottom-0 w-8 sm:w-12 bg-gradient-to-r from-slate-50 dark:from-slate-950 to-transparent z-10 pointer-events-none transition-opacity duration-200 ${
+          className={`absolute left-0 top-0 bottom-0 w-8 sm:w-12 bg-gradient-to-r from-white dark:from-slate-950 to-transparent z-10 pointer-events-none transition-opacity duration-200 ${
             canScrollLeft ? 'opacity-100' : 'opacity-0'
           }`}
         />
 
         {/* Right Gradient Fade */}
         <div
-          className={`absolute right-0 top-0 bottom-0 w-8 sm:w-12 bg-gradient-to-l from-slate-50 dark:from-slate-950 to-transparent z-10 pointer-events-none transition-opacity duration-200 ${
+          className={`absolute right-0 top-0 bottom-0 w-8 sm:w-12 bg-gradient-to-l from-white dark:from-slate-950 to-transparent z-10 pointer-events-none transition-opacity duration-200 ${
             canScrollRight ? 'opacity-100' : 'opacity-0'
           }`}
         />

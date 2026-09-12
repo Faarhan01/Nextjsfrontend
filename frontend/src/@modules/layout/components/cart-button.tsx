@@ -22,9 +22,7 @@ export const CartButton: React.FC<CartButtonProps> = ({ isActive = false }) => {
       onClick={() => setCartOpen(true)}
       className={`w-8.5 h-8.5 sm:w-9 sm:h-9 flex items-center justify-center rounded-full border transition-all duration-150 cursor-pointer relative hover:scale-105 active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
         cartOpen || isActive
-          ? `${currentTheme.text} ${currentTheme.lightBg} ${
-              currentTheme.border.split(' ')[0]
-            } dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
+          ? `${currentTheme.lightBg} ${currentTheme.border.split(' ')[0]}`
           : 'border-transparent text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
       }`}
       title="Shopping Cart"

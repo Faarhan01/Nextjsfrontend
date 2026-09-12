@@ -99,7 +99,7 @@ export const CompanyDropdown: React.FC<CompanyDropdownProps> = ({
           onClick={() => setIsOpen(false)}
           className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-2.5 transition ${
             pathname === '/about'
-              ? `${currentTheme.lightBg} ${currentTheme.text} dark:bg-blue-950/60 dark:text-blue-400`
+              ? `${currentTheme.lightBg} font-bold`
               : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
           }`}
         >
@@ -119,7 +119,7 @@ export const CompanyDropdown: React.FC<CompanyDropdownProps> = ({
           onClick={() => setIsOpen(false)}
           className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-2.5 transition ${
             pathname === '/contact'
-              ? `${currentTheme.lightBg} ${currentTheme.text} dark:bg-blue-950/60 dark:text-blue-400`
+              ? `${currentTheme.lightBg} font-bold`
               : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
           }`}
         >
@@ -139,7 +139,7 @@ export const CompanyDropdown: React.FC<CompanyDropdownProps> = ({
           onClick={() => setIsOpen(false)}
           className={`w-full text-left px-3 py-2 rounded-xl text-xs font-semibold flex items-center gap-2.5 transition ${
             pathname === '/faq'
-              ? `${currentTheme.lightBg} ${currentTheme.text} dark:bg-blue-950/60 dark:text-blue-400`
+              ? `${currentTheme.lightBg} font-bold`
               : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
           }`}
         >

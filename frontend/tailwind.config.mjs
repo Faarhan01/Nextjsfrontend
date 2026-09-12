@@ -10,25 +10,7 @@ const config = {
   theme: {
     extend: {},
   },
-  plugins: [
-    function ({ addUtilities }) {
-      const newUtilities = {
-        '.bg-card\\/90': {
-          'background-color': 'color-mix(in srgb, var(--card-bg) 90%, transparent) !important',
-        },
-        '.bg-card\\/95': {
-          'background-color': 'color-mix(in srgb, var(--card-bg) 95%, transparent) !important',
-        },
-        '.bg-surface\\/90': {
-          'background-color': 'color-mix(in srgb, var(--bg-surface) 90%, transparent) !important',
-        },
-        '.bg-surface\\/95': {
-          'background-color': 'color-mix(in srgb, var(--bg-surface) 95%, transparent) !important',
-        },
-      };
-      addUtilities(newUtilities);
-    },
-  ],
+  plugins: [],
 };
 
 export default config;

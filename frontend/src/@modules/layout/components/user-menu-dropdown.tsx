@@ -106,7 +106,7 @@ export const UserMenuDropdown: React.FC<UserMenuDropdownProps> = ({
         aria-expanded={isOpen}
         className={`px-2.5 lg:px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer outline-none flex items-center gap-1.5 ${
           isUserSectionActive
-            ? `${currentTheme.lightBg} ${currentTheme.text} font-bold shadow-2xs dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
+            ? `${currentTheme.lightBg} font-bold shadow-2xs`
             : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
         }`}
       >
@@ -236,7 +236,7 @@ export const UserMenuDropdown: React.FC<UserMenuDropdownProps> = ({
         >
           <div className="flex items-center gap-2.5">
             <div
-              className={`w-6 h-6 rounded-lg ${currentTheme.lightBg} ${currentTheme.text} dark:bg-blue-950/60 dark:text-blue-400 flex items-center justify-center shrink-0`}
+              className={`w-6 h-6 rounded-lg ${currentTheme.lightBg} flex items-center justify-center shrink-0`}
             >
               <ShoppingCart className="w-3.5 h-3.5" />
             </div>

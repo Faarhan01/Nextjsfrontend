@@ -596,9 +596,11 @@ export default function CategoryDetailPage({
         <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           
           {/* Sort Dropdown Selector */}
-          <div className="flex items-center gap-3 sm:gap-3.5 w-full sm:w-auto">
-            <label htmlFor="category-sort-select" className="text-xs font-extrabold text-slate-700 dark:text-slate-300 whitespace-nowrap flex items-center gap-2.5 shrink-0 cursor-pointer">
-              <ArrowUpDown className={`w-3.5 h-3.5 ${currentTheme.text} shrink-0`} />
+          <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
+            <label htmlFor="category-sort-select" className="text-xs font-extrabold text-slate-700 dark:text-slate-300 whitespace-nowrap flex items-center gap-3 shrink-0 cursor-pointer select-none">
+              <span className={`w-7 h-7 rounded-xl ${currentTheme.lightBg} border border-slate-200/80 dark:border-slate-700/80 flex items-center justify-center shrink-0 shadow-2xs`}>
+                <ArrowUpDown className={`w-3.5 h-3.5 ${currentTheme.text}`} />
+              </span>
               <span>Sort By:</span>
             </label>
             <div className="flex items-center gap-2 w-full sm:w-auto">

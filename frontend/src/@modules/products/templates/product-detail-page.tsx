@@ -990,7 +990,7 @@ export default function ProductDetailPage({
                   <div className="space-y-2 pt-3 border-t border-slate-100 dark:border-slate-800">
                     <div className="flex items-center gap-3 flex-wrap">
                       <span className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">{formatCurrency(wholesaleDisplay)}</span>
-                      <span className="text-xs font-black text-blue-700 dark:text-blue-300 bg-blue-50 dark:bg-blue-950/60 px-2.5 py-1 rounded-full border border-blue-200 dark:border-blue-800 uppercase tracking-wider">
+                      <span className={`text-xs font-black px-2.5 py-1 rounded-full uppercase tracking-wider ${currentTheme.lightBg} border border-current/20`}>
                         Wholesale Price
                       </span>
                       {product.originalPrice && (
@@ -1007,7 +1007,7 @@ export default function ProductDetailPage({
                       <div className="flex items-center gap-2 text-xs font-semibold text-slate-500 dark:text-slate-400">
                         <span>Retail Price: <span className="font-extrabold text-slate-700 dark:text-slate-200">{formatCurrency(retailDisplay)}</span></span>
                         <span>•</span>
-                        <span className="text-blue-600 dark:text-blue-400 font-bold">Min. Purchase: {product.minWholesaleQuantity || 6} pieces for Wholesale</span>
+                        <span className={`${currentTheme.text} font-bold`}>Min. Purchase: {product.minWholesaleQuantity || 6} pieces for Wholesale</span>
                       </div>
                     )}
                   </div>
@@ -1242,7 +1242,7 @@ export default function ProductDetailPage({
             <button
               onClick={() => setActiveTab('details')}
               className={`pb-4 transition border-b-2 cursor-pointer outline-none ${
-                activeTab === 'details' ? 'border-blue-600 text-slate-900 dark:text-white' : 'border-transparent text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                activeTab === 'details' ? `${currentTheme.border.split(' ')[0]} ${currentTheme.text} font-extrabold` : 'border-transparent text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
               }`}
             >
               Full Description
@@ -1250,7 +1250,7 @@ export default function ProductDetailPage({
             <button
               onClick={() => setActiveTab('shipping')}
               className={`pb-4 transition border-b-2 cursor-pointer outline-none ${
-                activeTab === 'shipping' ? 'border-blue-600 text-slate-900 dark:text-white' : 'border-transparent text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
+                activeTab === 'shipping' ? `${currentTheme.border.split(' ')[0]} ${currentTheme.text} font-extrabold` : 'border-transparent text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300'
               }`}
             >
               Shipping & Returns

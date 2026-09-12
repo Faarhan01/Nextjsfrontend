@@ -440,7 +440,7 @@ export function StorefrontView({
                   <span className="truncate">{cat}</span>
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0 ml-2">
-                  <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-200/60 dark:bg-slate-700 text-slate-500 dark:text-slate-300'}`}>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-200/60 dark:bg-slate-700 text-slate-500 dark:text-slate-300'}`}>
                     {count}
                   </span>
                   {isSelected && <Check className="w-3 h-3" />}
@@ -480,7 +480,7 @@ export function StorefrontView({
                     <span className="truncate">{brandName}</span>
                   </div>
                   <div className="flex items-center gap-1.5 shrink-0 ml-2">
-                    <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-200/60 dark:bg-slate-700 text-slate-500 dark:text-slate-300'}`}>
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-200/60 dark:bg-slate-700 text-slate-500 dark:text-slate-300'}`}>
                       {count}
                     </span>
                     {isSelected && <Check className="w-3 h-3" />}
@@ -833,12 +833,14 @@ export function StorefrontView({
               {/* Sort Dropdown & Layout Controls */}
               <div className="flex items-center justify-between md:justify-end gap-3 flex-wrap">
                 {/* Sort Dropdown Filter */}
-                <div className="flex items-center gap-2.5 sm:gap-3">
-                  <label htmlFor="store-sort-select" className="text-xs font-extrabold text-slate-700 dark:text-slate-200 whitespace-nowrap flex items-center gap-2 shrink-0 cursor-pointer">
-                    <ArrowUpDown className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
-                    <span className="hidden sm:inline">Sort:</span>
+                <div className="flex items-center gap-3 sm:gap-3.5">
+                  <label htmlFor="store-sort-select" className="text-xs font-extrabold text-slate-700 dark:text-slate-200 whitespace-nowrap flex items-center gap-2.5 sm:gap-3 shrink-0 cursor-pointer select-none">
+                    <span className="w-7 h-7 rounded-xl bg-blue-50 dark:bg-blue-950/60 border border-slate-200/80 dark:border-slate-700/80 flex items-center justify-center shrink-0 shadow-2xs">
+                      <ArrowUpDown className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
+                    </span>
+                    <span className="hidden sm:inline">Sort By:</span>
                   </label>
-                  <div className="relative w-44 sm:w-52">
+                  <div className="relative w-44 sm:w-56">
                     <select
                       id="store-sort-select"
                       value={sortBy}

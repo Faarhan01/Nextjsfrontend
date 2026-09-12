@@ -138,7 +138,7 @@ export const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({
                 onClick={() => setIsOpen(false)}
                 className={`w-full text-left px-2.5 py-2 rounded-xl text-xs font-semibold flex items-center justify-between gap-2.5 transition ${
                   isActiveCat
-                    ? `${currentTheme.lightBg} ${currentTheme.text} dark:bg-blue-950/60 dark:text-blue-400`
+                    ? `${currentTheme.lightBg} font-bold`
                     : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
@@ -181,7 +181,7 @@ export const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({
           <Link
             href="/categories"
             onClick={() => setIsOpen(false)}
-            className={`w-full text-center px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 ${currentTheme.lightBg} ${currentTheme.text} hover:opacity-90 dark:bg-blue-950/60 dark:text-blue-400`}
+            className={`w-full text-center px-3 py-1.5 rounded-xl text-xs font-bold transition flex items-center justify-center gap-1.5 ${currentTheme.lightBg} hover:opacity-90`}
           >
             <Layers className="w-3.5 h-3.5" />
             <span>Explore All Categories</span>

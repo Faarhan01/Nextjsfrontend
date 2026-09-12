@@ -420,7 +420,7 @@ export default function ShopPage({
                   <span className="truncate">{cat}</span>
                 </div>
                 <div className="flex items-center gap-1.5 shrink-0 ml-2">
-                  <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-200/60 dark:bg-slate-700 text-slate-500 dark:text-slate-300'}`}>
+                  <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-200/60 dark:bg-slate-700 text-slate-500 dark:text-slate-300'}`}>
                     {count}
                   </span>
                   {isSelected && <Check className="w-3 h-3" />}
@@ -460,7 +460,7 @@ export default function ShopPage({
                     <span className="truncate">{brandName}</span>
                   </div>
                   <div className="flex items-center gap-1.5 shrink-0 ml-2">
-                    <span className={`text-[10px] px-1.5 py-0.2 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-200/60 dark:bg-slate-700 text-slate-500 dark:text-slate-300'}`}>
+                    <span className={`text-[10px] px-1.5 py-0.5 rounded-full ${isSelected ? 'bg-white/20 text-white' : 'bg-slate-200/60 dark:bg-slate-700 text-slate-500 dark:text-slate-300'}`}>
                       {count}
                     </span>
                     {isSelected && <Check className="w-3 h-3" />}
@@ -581,9 +581,11 @@ export default function ShopPage({
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
           
           {/* Sort Dropdown Filter */}
-          <div className="flex items-center gap-3 sm:gap-3.5 w-full sm:w-auto">
-            <label htmlFor="shop-sort-select" className="text-xs font-extrabold text-slate-700 dark:text-slate-200 whitespace-nowrap flex items-center gap-2.5 shrink-0 cursor-pointer">
-              <ArrowUpDown className={`w-3.5 h-3.5 ${currentTheme.text} shrink-0`} />
+          <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
+            <label htmlFor="shop-sort-select" className="text-xs font-extrabold text-slate-700 dark:text-slate-200 whitespace-nowrap flex items-center gap-3 shrink-0 cursor-pointer select-none">
+              <span className={`w-7 h-7 rounded-xl ${currentTheme.lightBg} border border-slate-200/80 dark:border-slate-700/80 flex items-center justify-center shrink-0 shadow-2xs`}>
+                <ArrowUpDown className={`w-3.5 h-3.5 ${currentTheme.text}`} />
+              </span>
               <span>Sort By:</span>
             </label>
             <div className="flex items-center gap-2 w-full sm:w-auto">
@@ -639,9 +641,9 @@ export default function ShopPage({
             {activeFiltersCount > 0 && (
               <div className="hidden sm:flex items-center gap-1.5 flex-wrap">
                 {selectedCategory !== 'All' && (
-                  <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300 text-[11px] font-bold border border-blue-200/60 dark:border-blue-800">
+                  <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg ${currentTheme.lightBg} text-[11px] font-bold border border-slate-200/80 dark:border-slate-700/80 shadow-2xs`}>
                     Category: {selectedCategory}
-                    <button onClick={() => setSelectedCategory('All')} className="hover:text-blue-900 dark:hover:text-blue-200 cursor-pointer">
+                    <button onClick={() => setSelectedCategory('All')} className="hover:opacity-75 cursor-pointer ml-0.5">
                       <X className="w-3 h-3" />
                     </button>
                   </span>

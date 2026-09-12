@@ -4,8 +4,8 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "cd frontend && npx next dev --webpack",
-    "build": "cd frontend && npx next build --webpack",
+    "dev": "cd frontend && npx next dev",
+    "build": "cd frontend && npx next build",
     "start": "cd frontend && npx next start -p 3000",
     "clean": "rm -rf frontend/.next",
     "lint": "npx tsc --noEmit",

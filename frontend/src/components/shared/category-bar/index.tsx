@@ -4,6 +4,7 @@ import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react'
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { MockCategoryPreset } from '@/data/presets';
 import { formatCategoryName } from '@/utils/seoUtils';
+import { useThemeContext } from '@/providers/theme-provider';
 
 interface CategoryBarCarouselProps {
   categories: MockCategoryPreset[];
@@ -34,6 +35,10 @@ export const CategoryBarCarousel: React.FC<CategoryBarCarouselProps> = ({
   currentTheme,
   className = ''
 }) => {
+  const themeCtx = useThemeContext();
+  const effectiveTheme = currentTheme || themeCtx?.currentTheme;
+  const effectiveThemeColor = themeColor || themeCtx?.themeColor || 'blue';
+
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -110,16 +115,16 @@ export const CategoryBarCarousel: React.FC<CategoryBarCarouselProps> = ({
   };
 
   // Theme-driven active styles
-  const activeStyle = currentTheme?.bg
-    ? `${currentTheme.bg} text-white shadow-xs`
+  const activeStyle = effectiveTheme?.bg
+    ? `${effectiveTheme.bg} text-white shadow-xs font-bold`
     : {
-        blue: 'bg-blue-600 text-white shadow-xs',
-        indigo: 'bg-indigo-600 text-white shadow-xs',
-        emerald: 'bg-emerald-600 text-white shadow-xs',
-        rose: 'bg-rose-600 text-white shadow-xs',
-        amber: 'bg-amber-600 text-white shadow-xs',
-        slate: 'bg-slate-900 text-white shadow-xs',
-      }[themeColor] || 'bg-blue-600 text-white shadow-xs';
+        blue: 'bg-blue-600 text-white shadow-xs font-bold',
+        indigo: 'bg-indigo-600 text-white shadow-xs font-bold',
+        emerald: 'bg-emerald-600 text-white shadow-xs font-bold',
+        rose: 'bg-rose-600 text-white shadow-xs font-bold',
+        amber: 'bg-amber-600 text-white shadow-xs font-bold',
+        slate: 'bg-slate-900 text-white shadow-xs font-bold',
+      }[effectiveThemeColor] || 'bg-blue-600 text-white shadow-xs font-bold';
 
   const hoverStyle = {
     blue: 'hover:text-blue-600 hover:border-blue-200 dark:hover:border-blue-800',
@@ -128,7 +133,7 @@ export const CategoryBarCarousel: React.FC<CategoryBarCarouselProps> = ({
     rose: 'hover:text-rose-600 hover:border-rose-200 dark:hover:border-rose-800',
     amber: 'hover:text-amber-600 hover:border-amber-200 dark:hover:border-amber-800',
     slate: 'hover:text-slate-900 dark:hover:text-white hover:border-slate-300 dark:hover:border-slate-600',
-  }[themeColor] || 'hover:text-blue-600 hover:border-blue-200 dark:hover:border-blue-800';
+  }[effectiveThemeColor] || 'hover:text-blue-600 hover:border-blue-200 dark:hover:border-blue-800';
 
   const allItems = [{ id: 'all', name: 'All' }, ...categories];
 
@@ -138,8 +143,8 @@ export const CategoryBarCarousel: React.FC<CategoryBarCarouselProps> = ({
       className={`w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 ${className}`}
       aria-label="Category Navigation"
     >
-      {/* Clean control bar without border */}
-      <div className="relative flex items-center bg-transparent rounded-2xl p-1.5 sm:p-2">
+      {/* Clean control bar */}
+      <div className="relative flex items-center gap-1.5 sm:gap-2.5 bg-transparent rounded-2xl p-1 sm:p-1.5">
         
         {/* Left Scroll Button */}
         <button
@@ -148,19 +153,14 @@ export const CategoryBarCarousel: React.FC<CategoryBarCarouselProps> = ({
           onClick={() => handleScroll('left')}
           disabled={!canScrollLeft}
           aria-label="Scroll left"
-          className={`shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center bg-slate-100/90 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700 shadow-2xs transition-all cursor-pointer select-none active:scale-95 z-10 ${
-            canScrollLeft ? 'opacity-100 hover:bg-slate-200/90 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white' : 'opacity-30 cursor-not-allowed pointer-events-none'
+          className={`shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700 shadow-2xs transition-all select-none active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
+            canScrollLeft
+              ? 'opacity-100 hover:bg-slate-200/90 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white cursor-pointer'
+              : 'opacity-25 cursor-not-allowed pointer-events-none'
           }`}
         >
           <ChevronLeft className="w-4 h-4 stroke-[2.5]" />
         </button>
-
-        {/* Left Subtle Gradient Indicator */}
-        <div 
-          className={`absolute left-10 sm:left-12 top-1.5 bottom-1.5 w-6 bg-gradient-to-r from-white/90 dark:from-slate-950/90 to-transparent pointer-events-none z-1 transition-opacity duration-200 ${
-            canScrollLeft ? 'opacity-100' : 'opacity-0'
-          }`}
-        />
 
         {/* Carousel Scrollable Buttons Track */}
         <div
@@ -170,7 +170,7 @@ export const CategoryBarCarousel: React.FC<CategoryBarCarouselProps> = ({
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUpOrLeave}
           onMouseLeave={handleMouseUpOrLeave}
-          className="flex items-center gap-1.5 sm:gap-2 overflow-x-auto scrollbar-none px-2 py-0.5 select-none scroll-smooth cursor-grab active:cursor-grabbing w-full"
+          className="flex-1 min-w-0 flex items-center gap-1.5 sm:gap-2 overflow-x-auto scrollbar-none py-1 px-0.5 select-none scroll-smooth cursor-grab active:cursor-grabbing w-full"
           style={{ WebkitOverflowScrolling: 'touch' }}
         >
           {allItems.map((cat) => {
@@ -187,10 +187,10 @@ export const CategoryBarCarousel: React.FC<CategoryBarCarouselProps> = ({
                     onSelectCategory(cat.name, cat.id);
                   }
                 }}
-                className={`shrink-0 px-4 sm:px-5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-150 cursor-pointer whitespace-nowrap active:scale-95 ${
+                className={`shrink-0 px-3.5 sm:px-4.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-150 cursor-pointer whitespace-nowrap active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
                   isSelected
                     ? activeStyle
-                    : `bg-slate-100/90 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 border border-slate-200/70 dark:border-slate-700 shadow-2xs hover:bg-slate-200/90 dark:hover:bg-slate-700 ${hoverStyle}`
+                    : `bg-slate-100 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 border border-slate-200/70 dark:border-slate-700 shadow-2xs hover:bg-slate-200/90 dark:hover:bg-slate-700 ${hoverStyle}`
                 }`}
               >
                 {cat.name}
@@ -199,13 +199,6 @@ export const CategoryBarCarousel: React.FC<CategoryBarCarouselProps> = ({
           })}
         </div>
 
-        {/* Right Subtle Gradient Indicator */}
-        <div 
-          className={`absolute right-10 sm:right-12 top-1.5 bottom-1.5 w-6 bg-gradient-to-l from-white/90 dark:from-slate-950/90 to-transparent pointer-events-none z-1 transition-opacity duration-200 ${
-            canScrollRight ? 'opacity-100' : 'opacity-0'
-          }`}
-        />
-
         {/* Right Scroll Button */}
         <button
           id="category-carousel-next"
@@ -213,8 +206,10 @@ export const CategoryBarCarousel: React.FC<CategoryBarCarouselProps> = ({
           onClick={() => handleScroll('right')}
           disabled={!canScrollRight}
           aria-label="Scroll right"
-          className={`shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center bg-slate-100/90 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700 shadow-2xs transition-all cursor-pointer select-none active:scale-95 z-10 ${
-            canScrollRight ? 'opacity-100 hover:bg-slate-200/90 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white' : 'opacity-30 cursor-not-allowed pointer-events-none'
+          className={`shrink-0 w-8 h-8 sm:w-9 sm:h-9 rounded-xl flex items-center justify-center bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200/80 dark:border-slate-700 shadow-2xs transition-all select-none active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
+            canScrollRight
+              ? 'opacity-100 hover:bg-slate-200/90 dark:hover:bg-slate-700 hover:text-slate-900 dark:hover:text-white cursor-pointer'
+              : 'opacity-25 cursor-not-allowed pointer-events-none'
           }`}
         >
           <ChevronRight className="w-4 h-4 stroke-[2.5]" />

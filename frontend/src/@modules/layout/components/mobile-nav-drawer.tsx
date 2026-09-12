@@ -92,7 +92,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
               onClick={onClose}
               className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
                 isActive('/')
-                  ? `${currentTheme.lightBg} ${currentTheme.text} font-bold shadow-2xs dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
+                  ? `${currentTheme.lightBg} font-bold shadow-2xs`
                   : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
@@ -112,7 +112,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
               onClick={onClose}
               className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
                 isActive('/shop')
-                  ? `${currentTheme.lightBg} ${currentTheme.text} font-bold shadow-2xs dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
+                  ? `${currentTheme.lightBg} font-bold shadow-2xs`
                   : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
@@ -134,7 +134,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
                   onClick={onClose}
                   className={`flex-1 text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
                     isActive('/categories')
-                      ? `${currentTheme.lightBg} ${currentTheme.text} font-bold dark:bg-blue-950/60 dark:text-blue-400`
+                      ? `${currentTheme.lightBg} font-bold shadow-2xs`
                       : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
                   }`}
                 >
@@ -329,7 +329,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
               onClick={onClose}
               className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
                 isActive('/order-tracking')
-                  ? `${currentTheme.lightBg} ${currentTheme.text} font-bold dark:bg-blue-950/60 dark:text-blue-400`
+                  ? `${currentTheme.lightBg} font-bold shadow-2xs`
                   : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
@@ -349,7 +349,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
               onClick={onClose}
               className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
                 pathname.startsWith('/sell')
-                  ? `${currentTheme.lightBg} ${currentTheme.text} font-bold dark:bg-blue-950/60 dark:text-blue-400`
+                  ? `${currentTheme.lightBg} font-bold shadow-2xs`
                   : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
               }`}
             >
@@ -368,12 +368,12 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
                 onClick={onClose}
                 className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
                   isActive('/admin')
-                    ? `${currentTheme.lightBg} ${currentTheme.text} font-bold dark:bg-blue-950/60 dark:text-blue-400`
+                    ? `${currentTheme.lightBg} font-bold shadow-2xs`
                     : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
                 }`}
               >
                 <ShieldCheck
-                  className={`w-4 h-4 ${currentTheme.text} dark:text-blue-400`}
+                  className={`w-4 h-4 ${currentTheme.text}`}
                 />
                 <span>Admin Panel</span>
               </Link>
