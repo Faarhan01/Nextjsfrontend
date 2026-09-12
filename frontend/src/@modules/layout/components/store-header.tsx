@@ -21,11 +21,11 @@ import { useCatalog } from '@/providers/catalog-provider';
 import { getThemeClasses } from '@/providers/theme-provider';
 import { SafeImage } from '@modules/common/components/safe-image';
 import { ThemeToggle } from '@modules/common/components/theme-toggle';
-import { DesktopNavLinks } from '@modules/layout/components/desktopnavlinks';
+import { DesktopNavLinks } from '@modules/layout/components/desktop-nav-links';
 import { HeaderSearch } from '@modules/layout/components/header-search';
 import { HeaderActions } from '@modules/layout/components/header-actions';
-import { SearchMegamenuOverlay } from '@modules/layout/components/searchmegamenuoverlay';
-import { MobileNavDrawer } from '@modules/layout/components/mobilenavdrawer';
+import { SearchMegamenuOverlay } from '@modules/layout/components/search-megamenu-overlay';
+import { MobileNavDrawer } from '@modules/layout/components/mobile-nav-drawer';
 
 export const StoreHeader: React.FC = () => {
   const router = useRouter();

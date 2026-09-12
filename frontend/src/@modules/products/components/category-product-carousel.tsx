@@ -317,7 +317,7 @@ export default function CategoryProductCarousel({
             {/* Explore All Button */}
             <button
               onClick={() => onViewMoreCategory(selectedCategory)}
-              className={`px-3 sm:px-4 py-1.5 sm:py-2 bg-slate-900 dark:bg-slate-800 hover:${currentTheme.bg} text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-all duration-200 flex items-center gap-1 sm:gap-1.5 cursor-pointer group hover:scale-[1.02] active:scale-95 shrink-0 whitespace-nowrap`}
+              className={`px-3 sm:px-4 py-1.5 sm:py-2 bg-slate-900 dark:bg-slate-800 ${currentTheme.hoverBg} text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-all duration-200 flex items-center gap-1 sm:gap-1.5 cursor-pointer group hover:scale-[1.02] active:scale-95 shrink-0 whitespace-nowrap`}
             >
               <span>Explore All</span>
               <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
@@ -452,7 +452,7 @@ export default function CategoryProductCarousel({
                                   e.stopPropagation();
                                   onQuickView(prod);
                                 }}
-                                className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-md text-slate-600 dark:text-slate-200 hover:${currentTheme.text} hover:${currentTheme.lightBg} shadow-2xs transition-all duration-200 hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-100 flex items-center justify-center shrink-0 cursor-pointer`}
+                                className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-md text-slate-600 dark:text-slate-200 ${currentTheme.hoverText} ${currentTheme.hoverLightBg} shadow-2xs transition-all duration-200 hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-100 flex items-center justify-center shrink-0 cursor-pointer`}
                                 title="Quick View"
                               >
                                 <Eye className="w-3 h-3 stroke-[2.5]" />
@@ -464,7 +464,7 @@ export default function CategoryProductCarousel({
                         {/* Content Block */}
                         <div className="p-3 sm:p-3.5 flex-1 flex flex-col justify-between bg-white dark:bg-slate-800">
                           <div className="cursor-pointer" onClick={() => onSelectProduct(prod.id)}>
-                            <h3 className={`text-xs sm:text-xs font-extrabold text-slate-900 dark:text-white group-hover:${currentTheme.text} transition-colors duration-200 line-clamp-2 leading-tight sm:leading-snug w-full`}>
+                            <h3 className={`text-xs sm:text-xs font-extrabold text-slate-900 dark:text-white ${currentTheme.groupHoverText} transition-colors duration-200 line-clamp-2 leading-tight sm:leading-snug w-full`}>
                               {prod.name}
                             </h3>
                             <div className="flex items-center gap-1.5 flex-wrap mt-1.5">

@@ -80,7 +80,7 @@ export const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({
           onClick={() => setIsOpen(false)}
           className={`pl-2.5 lg:pl-3 pr-1 py-1.5 rounded-l-full transition-all duration-200 cursor-pointer outline-none ${
             isCategoriesActive
-              ? `${currentTheme.lightBg} ${currentTheme.text} font-bold shadow-2xs dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
+              ? `${currentTheme.lightBg} font-bold shadow-2xs`
               : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
           }`}
         >
@@ -94,7 +94,7 @@ export const CategoriesDropdown: React.FC<CategoriesDropdownProps> = ({
           aria-label="Toggle categories menu"
           className={`pr-2 lg:pr-2.5 pl-0.5 py-1.5 rounded-r-full transition-all duration-200 cursor-pointer outline-none flex items-center ${
             isCategoriesActive
-              ? `${currentTheme.lightBg} ${currentTheme.text} dark:bg-blue-950/60 dark:text-blue-400`
+              ? `${currentTheme.lightBg}`
               : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
           }`}
         >

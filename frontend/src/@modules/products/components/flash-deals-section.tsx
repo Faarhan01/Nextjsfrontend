@@ -6,18 +6,12 @@ import { MockProduct } from '@/types';
 import { SafeImage } from '@modules/common/components/safe-image';
 import { StockBadge } from '@modules/common/components/stock-badge';
 import { formatCurrency } from '@/utils/pricing';
+import { ThemeClasses } from '@/providers/theme-provider';
 
 interface FlashDealsSectionProps {
   products: MockProduct[];
   themeColor?: string;
-  getThemeClasses: (color?: string) => {
-    bg: string;
-    text: string;
-    lightBg: string;
-    border: string;
-    badge: string;
-    shadow: string;
-  };
+  getThemeClasses: (color?: string) => ThemeClasses;
   wishlist: string[];
   onToggleWishlist: (productId: string) => void;
   onAddToCart: (product: MockProduct) => void;

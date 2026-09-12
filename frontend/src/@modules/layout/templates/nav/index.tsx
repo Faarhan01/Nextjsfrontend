@@ -14,7 +14,7 @@ import { useCatalog } from '@/providers/catalog-provider';
 import { DesktopNavLinks } from '@modules/layout/components/desktop-nav-links';
 import { HeaderSearch } from '@modules/layout/components/header-search';
 import { HeaderActions } from '@modules/layout/components/header-actions';
-import { SearchMegamenuOverlay } from '@modules/layout/components/searchmegamenuoverlay';
+import { SearchMegamenuOverlay } from '@modules/layout/components/search-megamenu-overlay';
 import { MobileNavDrawer } from '@modules/layout/components/mobile-nav-drawer';
 
 /**

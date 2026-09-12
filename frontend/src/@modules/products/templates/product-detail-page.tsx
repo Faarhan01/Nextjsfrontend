@@ -574,7 +574,7 @@ export default function ProductDetailPage({
                         <ChevronLeft className="w-3 h-3 text-slate-400 dark:text-slate-500" /> Previous Product
                       </span>
                       <span className="text-slate-900 dark:text-white font-extrabold text-xs">
-                        {typeof (prevProduct as any).price === 'number' ? `$${(prevProduct as any).price.toFixed(2)}` : String((prevProduct as any).price).startsWith('$') ? (prevProduct as any).price : `$${(prevProduct as any).price}`}
+                        {formatCurrency((prevProduct as any).price)}
                       </span>
                     </div>
                     <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-700/80 p-2 rounded-xl border border-slate-100 dark:border-slate-700/60">
@@ -641,7 +641,7 @@ export default function ProductDetailPage({
                         Next Product <ChevronRight className="w-3 h-3 text-slate-400 dark:text-slate-500" />
                       </span>
                       <span className="text-slate-900 dark:text-white font-extrabold text-xs">
-                        {typeof (nextProduct as any).price === 'number' ? `$${(nextProduct as any).price.toFixed(2)}` : String((nextProduct as any).price).startsWith('$') ? (nextProduct as any).price : `$${(nextProduct as any).price}`}
+                        {formatCurrency((nextProduct as any).price)}
                       </span>
                     </div>
                     <div className="flex items-center gap-3 bg-slate-50 dark:bg-slate-700/80 p-2 rounded-xl border border-slate-100 dark:border-slate-700/60">

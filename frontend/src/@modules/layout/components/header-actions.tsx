@@ -55,7 +55,7 @@ export const HeaderActions: React.FC<HeaderActionsProps> = ({
         }}
         className={`hidden lg:flex w-8 h-8 sm:w-9 sm:h-9 items-center justify-center rounded-full border transition-all duration-150 cursor-pointer relative hover:scale-105 active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
           isActive('/account')
-            ? `${currentTheme.lightBg} ${currentTheme.text} ${currentTheme.border.split(' ')[0]} dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
+            ? `${currentTheme.lightBg} border-current/20 shadow-2xs`
             : 'border-transparent text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
         }`}
         title={currentUser ? `My Account (${currentUser.name})` : 'My Account'}
@@ -96,7 +96,7 @@ export const HeaderActions: React.FC<HeaderActionsProps> = ({
         onClick={() => setCartOpen(true)}
         className={`w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-full border transition-all duration-150 cursor-pointer relative hover:scale-105 active:scale-95 shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
           cartOpen || isActive('/cart')
-            ? `${currentTheme.text} ${currentTheme.lightBg} ${currentTheme.border.split(' ')[0]} dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
+            ? `${currentTheme.lightBg} border-current/20 shadow-2xs`
             : 'border-transparent text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
         }`}
         title="Shopping Cart"
@@ -116,7 +116,7 @@ export const HeaderActions: React.FC<HeaderActionsProps> = ({
         onClick={onToggleMobileSearch}
         className={`lg:hidden w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-full border transition-all duration-150 cursor-pointer shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
           showSearchResults
-            ? `${currentTheme.text} ${currentTheme.lightBg} ${currentTheme.border.split(' ')[0]} dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
+            ? `${currentTheme.lightBg} border-current/20 shadow-2xs`
             : 'border-transparent text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
         }`}
         title="Search Products"
@@ -129,7 +129,7 @@ export const HeaderActions: React.FC<HeaderActionsProps> = ({
         onClick={handleToggleMobileMenu}
         className={`lg:hidden w-8 h-8 sm:w-9 sm:h-9 flex items-center justify-center rounded-full border transition-all duration-150 cursor-pointer shrink-0 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
           mobileMenuOpen
-            ? `${currentTheme.text} ${currentTheme.lightBg} ${currentTheme.border.split(' ')[0]} dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
+            ? `${currentTheme.lightBg} border-current/20 shadow-2xs`
             : 'border-transparent text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
         }`}
         aria-label="Toggle Navigation Menu"

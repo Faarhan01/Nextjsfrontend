@@ -319,7 +319,7 @@ export default function HomePageClient({
               href={getCategoryUrl(cat.name)}
               className="snap-start shrink-0 w-24 sm:w-28 md:w-32 flex flex-col items-center group cursor-pointer text-center"
             >
-              <div className={`w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-800 border-2 border-transparent group-hover:${currentTheme.border} transition-all duration-300 shadow-sm group-hover:scale-105`}>
+              <div className={`w-20 h-20 sm:w-24 sm:h-24 md:w-28 md:h-28 rounded-full overflow-hidden bg-slate-100 dark:bg-slate-800 border-2 border-transparent ${currentTheme.groupHoverBorder} transition-all duration-300 shadow-sm group-hover:scale-105`}>
                 <SafeImage
                   src={cat.imageUrl}
                   alt={cat.name}
@@ -328,7 +328,7 @@ export default function HomePageClient({
                   className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
                 />
               </div>
-              <span className={`text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 group-hover:${currentTheme.text} transition mt-2.5 truncate max-w-full`}>
+              <span className={`text-xs sm:text-sm font-bold text-slate-800 dark:text-slate-200 ${currentTheme.groupHoverText} transition mt-2.5 truncate max-w-full`}>
                 {cat.name}
               </span>
             </Link>
@@ -424,7 +424,7 @@ export default function HomePageClient({
             <div className="flex items-center gap-2">
               <Link
                 href="/shop"
-                className={`text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-400 hover:${currentTheme.text} transition flex items-center gap-1 mr-1`}
+                className={`text-xs sm:text-sm font-bold text-slate-600 dark:text-slate-400 ${currentTheme.hoverText} transition flex items-center gap-1 mr-1`}
               >
                 <span>View all</span>
                 <ArrowRight className="w-3 h-3" />
@@ -493,7 +493,7 @@ export default function HomePageClient({
                       </div>
                     )}
                   </div>
-                  <span className={`text-xs font-bold text-slate-800 dark:text-slate-200 group-hover:${currentTheme.text} transition truncate max-w-full mt-2 select-text`}>
+                  <span className={`text-xs font-bold text-slate-800 dark:text-slate-200 ${currentTheme.groupHoverText} transition truncate max-w-full mt-2 select-text`}>
                     {brand.name}
                   </span>
                 </div>

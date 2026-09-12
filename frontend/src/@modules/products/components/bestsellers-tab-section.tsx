@@ -8,18 +8,12 @@ import { StockBadge } from '@modules/common/components/stock-badge';
 import { getProductSaleDetails } from '@/utils/productUtils';
 import { getProductRatingDetails } from '@/utils/productRating';
 import { formatCurrency } from '@/utils/pricing';
+import { ThemeClasses } from '@/providers/theme-provider';
 
 interface BestsellersTabSectionProps {
   products: MockProduct[];
   themeColor?: string;
-  getThemeClasses: (color?: string) => {
-    bg: string;
-    text: string;
-    lightBg: string;
-    border: string;
-    badge: string;
-    shadow: string;
-  };
+  getThemeClasses: (color?: string) => ThemeClasses;
   wishlist: string[];
   onToggleWishlist: (productId: string) => void;
   onAddToCart?: (product: MockProduct) => void;
@@ -176,7 +170,7 @@ export const BestsellersTabSection: React.FC<BestsellersTabSectionProps> = ({
                       <span>{prod.category}</span>
                     </div>
                   )}
-                  <h3 className={`text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white group-hover:${currentTheme.text} transition-colors line-clamp-2 leading-snug w-full`}>
+                  <h3 className={`text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white ${currentTheme.groupHoverText} transition-colors line-clamp-2 leading-snug w-full`}>
                     {prod.name}
                   </h3>
                   <div className="flex items-center gap-1.5 flex-wrap mt-1.5" suppressHydrationWarning>

@@ -43,5 +43,8 @@ export default async function ProductPage({ params }: { params: Promise<{ id: st
     notFound();
   }
 
-  return <ProductDetailTemplate productId={product.id} />;
+  const { products: allProducts } = await listProducts({ limit: 50 });
+  const products = [product, ...allProducts.filter((p) => p.id !== product.id)];
+
+  return <ProductDetailTemplate productId={product.id} products={products} />;
 }

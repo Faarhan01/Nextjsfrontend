@@ -258,7 +258,7 @@ export default function CategoryDetailPage({
         {
           id: 'sale-1',
           name: 'Premium Wireless Headphones (Spring Sale)',
-          price: '$149.00',
+          price: '1490.00',
           imageUrl: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?q=80&w=600&auto=format&fit=crop&fm=webp',
           url: '',
           description: 'Special seasonal price reduction.',
@@ -267,7 +267,7 @@ export default function CategoryDetailPage({
         {
           id: 'sale-2',
           name: 'Designer Retro Sunglasses (Flash Sale)',
-          price: '$59.00',
+          price: '590.00',
           imageUrl: 'https://images.unsplash.com/photo-1577803645773-f96470509666?q=80&w=600&auto=format&fit=crop&fm=webp',
           url: '',
           description: 'Limited inventory sale.',
@@ -290,25 +290,25 @@ export default function CategoryDetailPage({
     switch (activeCategory) {
       case 'Personal Care & Wellness':
         return [
-          { id: 'wellness-1', name: 'Artisan Bamboo Beard Grooming Kit', price: '$39.00', imageUrl: 'https://images.unsplash.com/photo-1621607512214-68297480165e?q=80&w=600&fm=webp', url: '', brand: 'Condere' },
-          { id: 'wellness-2', name: 'Cold-Pressed Eucalyptus Essential Oil Set', price: '$25.00', imageUrl: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?q=80&w=600&fm=webp', url: '', brand: 'Sunlight' },
-          { id: 'wellness-3', name: 'Organic Herbal Sleep Bath Salts', price: '$18.00', imageUrl: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=600&fm=webp', url: '', brand: 'Apex Labs' }
+          { id: 'wellness-1', name: 'Artisan Bamboo Beard Grooming Kit', price: '390.00', imageUrl: 'https://images.unsplash.com/photo-1621607512214-68297480165e?q=80&w=600&fm=webp', url: '', brand: 'Condere' },
+          { id: 'wellness-2', name: 'Cold-Pressed Eucalyptus Essential Oil Set', price: '250.00', imageUrl: 'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?q=80&w=600&fm=webp', url: '', brand: 'Sunlight' },
+          { id: 'wellness-3', name: 'Organic Herbal Sleep Bath Salts', price: '180.00', imageUrl: 'https://images.unsplash.com/photo-1515377905703-c4788e51af15?q=80&w=600&fm=webp', url: '', brand: 'Apex Labs' }
         ];
       case 'Beauty & Accessories':
         return [
-          { id: 'beauty-1', name: 'Rose Quartz Facial Roller & Gua Sha Set', price: '$32.00', imageUrl: 'https://images.unsplash.com/photo-1617897903246-719242758050?q=80&w=600&fm=webp', url: '', brand: 'Nova' },
-          { id: 'beauty-2', name: 'Sandalwood & Neroli Organic Face Mist', price: '$22.00', imageUrl: 'https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?q=80&w=600&fm=webp', url: '', brand: 'Wetell' }
+          { id: 'beauty-1', name: 'Rose Quartz Facial Roller & Gua Sha Set', price: '320.00', imageUrl: 'https://images.unsplash.com/photo-1617897903246-719242758050?q=80&w=600&fm=webp', url: '', brand: 'Nova' },
+          { id: 'beauty-2', name: 'Sandalwood & Neroli Organic Face Mist', price: '220.00', imageUrl: 'https://images.unsplash.com/photo-1601049541289-9b1b7bbbfe19?q=80&w=600&fm=webp', url: '', brand: 'Wetell' }
         ];
       case 'Sports & Outdoors':
         return [
-          { id: 'sport-1', name: 'Eco-Friendly High-Grip TPE Yoga Mat', price: '$34.00', imageUrl: 'https://images.unsplash.com/photo-1592432678016-e910b452f9a2?q=80&w=600&fm=webp', url: '', brand: 'Apex Labs' },
-          { id: 'sport-2', name: 'Heavy Duty Latex Resistance Band Set', price: '$22.00', imageUrl: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&fm=webp', url: '', brand: 'Sunlight' }
+          { id: 'sport-1', name: 'Eco-Friendly High-Grip TPE Yoga Mat', price: '340.00', imageUrl: 'https://images.unsplash.com/photo-1592432678016-e910b452f9a2?q=80&w=600&fm=webp', url: '', brand: 'Apex Labs' },
+          { id: 'sport-2', name: 'Heavy Duty Latex Resistance Band Set', price: '220.00', imageUrl: 'https://images.unsplash.com/photo-1517838277536-f5f99be501cd?q=80&w=600&fm=webp', url: '', brand: 'Sunlight' }
         ];
       default:
         return [
-          { id: `generic-${categoryInfo.id}-1`, name: `${activeCategory} Premium Starter Set`, price: '$89.00', imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=600&fm=webp', url: '', brand: 'Nova' },
-          { id: `generic-${categoryInfo.id}-2`, name: `Aesthetic ${activeCategory} Craft Accessory`, price: '$35.00', imageUrl: 'https://images.unsplash.com/photo-1513507688996-c75259e8ae5b?q=80&w=600&fm=webp', url: '', brand: 'Reddison' },
-          { id: `generic-${categoryInfo.id}-3`, name: `Minimalist ${activeCategory} Designer Piece`, price: '$120.00', imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&fm=webp', url: '', brand: 'Wetell' }
+          { id: `generic-${categoryInfo.id}-1`, name: `${activeCategory} Premium Starter Set`, price: '890.00', imageUrl: 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?q=80&w=600&fm=webp', url: '', brand: 'Nova' },
+          { id: `generic-${categoryInfo.id}-2`, name: `Aesthetic ${activeCategory} Craft Accessory`, price: '350.00', imageUrl: 'https://images.unsplash.com/photo-1513507688996-c75259e8ae5b?q=80&w=600&fm=webp', url: '', brand: 'Reddison' },
+          { id: `generic-${categoryInfo.id}-3`, name: `Minimalist ${activeCategory} Designer Piece`, price: '1200.00', imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&fm=webp', url: '', brand: 'Wetell' }
         ];
     }
   }, [activeCategory, products, categoryInfo]);
@@ -596,9 +596,9 @@ export default function CategoryDetailPage({
         <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700/80 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           
           {/* Sort Dropdown Selector */}
-          <div className="flex items-center gap-2.5 w-full sm:w-auto">
-            <label htmlFor="category-sort-select" className="text-xs font-extrabold text-slate-700 dark:text-slate-300 whitespace-nowrap flex items-center gap-1.5 shrink-0">
-              <ArrowUpDown className={`w-3 h-3 ${currentTheme.text}`} />
+          <div className="flex items-center gap-3 sm:gap-3.5 w-full sm:w-auto">
+            <label htmlFor="category-sort-select" className="text-xs font-extrabold text-slate-700 dark:text-slate-300 whitespace-nowrap flex items-center gap-2.5 shrink-0 cursor-pointer">
+              <ArrowUpDown className={`w-3.5 h-3.5 ${currentTheme.text} shrink-0`} />
               <span>Sort By:</span>
             </label>
             <div className="flex items-center gap-2 w-full sm:w-auto">
@@ -807,7 +807,7 @@ export default function CategoryDetailPage({
                                 e.stopPropagation();
                                 onQuickView(prod);
                               }}
-                              className={`w-8 h-8 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-md text-slate-600 dark:text-slate-300 hover:${currentTheme.text} hover:${currentTheme.lightBg} shadow-2xs transition-all duration-200 hover:scale-110 active:scale-95 sm:opacity-0 group-hover:opacity-100 flex items-center justify-center shrink-0 cursor-pointer`}
+                              className={`w-8 h-8 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-md text-slate-600 dark:text-slate-300 ${currentTheme.hoverText} ${currentTheme.hoverLightBg} shadow-2xs transition-all duration-200 hover:scale-110 active:scale-95 sm:opacity-0 group-hover:opacity-100 flex items-center justify-center shrink-0 cursor-pointer`}
                               title="Quick View"
                             >
                               <Eye className="w-4 h-4 stroke-[2.5]" />
@@ -825,7 +825,7 @@ export default function CategoryDetailPage({
                               e.preventDefault();
                               onSelectProduct(prod.id);
                             }}
-                            className={`text-base sm:text-lg font-extrabold text-slate-900 dark:text-white group-hover:${currentTheme.text} transition line-clamp-2 cursor-pointer w-full leading-snug block`}
+                            className={`text-base sm:text-lg font-extrabold text-slate-900 dark:text-white ${currentTheme.groupHoverText} transition line-clamp-2 cursor-pointer w-full leading-snug block`}
                           >
                             {prod.name}
                           </a>
@@ -936,7 +936,7 @@ export default function CategoryDetailPage({
                                 e.stopPropagation();
                                 onQuickView(prod);
                               }}
-                              className={`w-8 h-8 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-md text-slate-600 dark:text-slate-300 hover:${currentTheme.text} hover:${currentTheme.lightBg} shadow-2xs transition-all duration-200 hover:scale-110 active:scale-95 sm:opacity-0 group-hover:opacity-100 flex items-center justify-center shrink-0 cursor-pointer`}
+                              className={`w-8 h-8 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-md text-slate-600 dark:text-slate-300 ${currentTheme.hoverText} ${currentTheme.hoverLightBg} shadow-2xs transition-all duration-200 hover:scale-110 active:scale-95 sm:opacity-0 group-hover:opacity-100 flex items-center justify-center shrink-0 cursor-pointer`}
                               title="Quick View"
                             >
                               <Eye className="w-4 h-4 stroke-[2.5]" />
@@ -954,7 +954,7 @@ export default function CategoryDetailPage({
                             onSelectProduct(prod.id);
                           }}
                         >
-                          <h3 className={`text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white group-hover:${currentTheme.text} transition-colors line-clamp-2 leading-snug w-full`}>
+                          <h3 className={`text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white ${currentTheme.groupHoverText} transition-colors line-clamp-2 leading-snug w-full`}>
                             {prod.name}
                           </h3>
                           <div className="flex items-center gap-1.5 flex-wrap mt-1.5">

@@ -6,3 +6,4 @@ export const sdk = medusa;
 export * from './types';
 export * from './transformers';
 export { MedusaClient } from './client';
+export { useMedusa } from '@/hooks/useMedusa';

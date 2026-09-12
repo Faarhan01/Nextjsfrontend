@@ -27,6 +27,7 @@ import {
 } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { sdk } from '@lib/sdk';
+import { formatCurrency } from '@/utils/pricing';
 import { useThemeContext, getThemeClasses as defaultGetThemeClasses } from '@/providers/theme-provider';
 import { useToastContext } from '@/providers/toast-provider';
 import { useAuthContext } from '@/providers/auth-provider';
@@ -1046,11 +1047,11 @@ export default function OrderTrackingPage({
                         {item.variant && (
                           <span className="text-[11px] text-slate-500 dark:text-slate-400 block">Variant: {item.variant}</span>
                         )}
-                        <span className="text-xs text-slate-600 dark:text-slate-400 mt-1 block">Qty: {item.quantity} × ${item.price.toFixed(2)}</span>
+                        <span className="text-xs text-slate-600 dark:text-slate-400 mt-1 block">Qty: {item.quantity} × {formatCurrency(item.price)}</span>
                       </div>
                       <div className="text-right shrink-0">
                         <span className="text-sm font-extrabold text-slate-900 dark:text-white">
-                          ${(item.price * item.quantity).toFixed(2)}
+                          {formatCurrency(item.price * item.quantity)}
                         </span>
                       </div>
                     </div>

@@ -18,6 +18,7 @@ import {
   X, 
   Star, 
   ArrowUpDown,
+  ChevronDown,
   Crown,
   Tag,
   Grid3X3,
@@ -483,23 +484,26 @@ export default function SearchResultsPage({
         <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           
           {/* Sort Dropdown Selector */}
-          <div className="flex items-center gap-2.5 w-full sm:w-auto">
-            <label htmlFor="search-sort-select" className="text-xs font-extrabold text-slate-700 dark:text-slate-300 whitespace-nowrap flex items-center gap-1.5 shrink-0">
-              <ArrowUpDown className={`w-3 h-3 ${currentTheme.text}`} />
+          <div className="flex items-center gap-3 sm:gap-3.5 w-full sm:w-auto">
+            <label htmlFor="search-sort-select" className="text-xs font-extrabold text-slate-700 dark:text-slate-300 whitespace-nowrap flex items-center gap-2.5 shrink-0 cursor-pointer">
+              <ArrowUpDown className={`w-3.5 h-3.5 ${currentTheme.text} shrink-0`} />
               <span>Sort By:</span>
             </label>
-            <select
-              id="search-sort-select"
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value as any)}
-              className="bg-slate-50 dark:bg-slate-700/60 border border-slate-200 dark:border-slate-600 focus:border-slate-400 rounded-xl px-3.5 py-2 text-xs font-extrabold text-slate-800 dark:text-white focus:outline-none transition shadow-2xs cursor-pointer w-full sm:w-64"
-            >
-              <option value="random">Random</option>
-              <option value="price-asc">Price: Low to High</option>
-              <option value="price-desc">Price: High to Low</option>
-              <option value="newest">Newest Arrivals</option>
-              <option value="rating-desc">Highest Rated</option>
-            </select>
+            <div className="relative w-full sm:w-64">
+              <select
+                id="search-sort-select"
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value as any)}
+                className="bg-slate-50 dark:bg-slate-700/60 border border-slate-200 dark:border-slate-600 focus:border-slate-400 rounded-xl pl-3.5 pr-9 py-2 text-xs font-extrabold text-slate-800 dark:text-white focus:outline-none transition shadow-2xs cursor-pointer w-full appearance-none"
+              >
+                <option value="random">Recommended / Random</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+                <option value="newest">Newest Arrivals</option>
+                <option value="rating-desc">Highest Rated</option>
+              </select>
+              <ChevronDown className="w-4 h-4 text-slate-500 dark:text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
+            </div>
           </div>
 
           <div className="flex items-center justify-between sm:justify-end gap-3">

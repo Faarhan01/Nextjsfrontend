@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { getCategories, getCategoryBySlugStrict } from '@lib/data/categories';
+import { listProducts } from '@lib/data/products';
 import CategoryDetailTemplate from '@modules/products/templates/category-detail-page';
 import { notFound } from 'next/navigation';
 
@@ -27,6 +28,18 @@ export default async function CategoryPage({ params }: { params: Promise<{ slug:
   const category = await getCategoryBySlugStrict(slug);
   if (!category) notFound();
 
-  return <CategoryDetailTemplate slug={slug} categoryName={category.name} />;
+  const [allCategories, { products: categoryProducts }] = await Promise.all([
+    getCategories(),
+    listProducts({ category_id: category.id }),
+  ]);
+
+  return (
+    <CategoryDetailTemplate
+      slug={slug}
+      categoryName={category.name}
+      categories={allCategories}
+      products={categoryProducts}
+    />
+  );
 }
 

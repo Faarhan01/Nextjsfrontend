@@ -833,9 +833,9 @@ export function StorefrontView({
               {/* Sort Dropdown & Layout Controls */}
               <div className="flex items-center justify-between md:justify-end gap-3 flex-wrap">
                 {/* Sort Dropdown Filter */}
-                <div className="flex items-center gap-2">
-                  <label htmlFor="store-sort-select" className="text-xs font-extrabold text-slate-700 dark:text-slate-200 whitespace-nowrap flex items-center gap-1.5 shrink-0">
-                    <ArrowUpDown className="w-3 h-3 text-blue-600 dark:text-blue-400" />
+                <div className="flex items-center gap-2.5 sm:gap-3">
+                  <label htmlFor="store-sort-select" className="text-xs font-extrabold text-slate-700 dark:text-slate-200 whitespace-nowrap flex items-center gap-2 shrink-0 cursor-pointer">
+                    <ArrowUpDown className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400 shrink-0" />
                     <span className="hidden sm:inline">Sort:</span>
                   </label>
                   <div className="relative w-44 sm:w-52">

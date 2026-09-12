@@ -1150,9 +1150,9 @@ export default function AdminPage({
           <tr>
             <td><strong>${item.name}</strong></td>
             <td style="color: #64748b; font-family: monospace;">${item.sku || 'N/A'}</td>
-            <td style="text-align: right;">$${item.price.toFixed(2)}</td>
+            <td style="text-align: right;">R${item.price.toFixed(2)}</td>
             <td style="text-align: center;">${item.quantity}</td>
-            <td style="text-align: right; font-weight: 700;">$${(item.price * item.quantity).toFixed(2)}</td>
+            <td style="text-align: right; font-weight: 700;">R${(item.price * item.quantity).toFixed(2)}</td>
           </tr>
         `).join('')}
       </tbody>
@@ -1161,25 +1161,25 @@ export default function AdminPage({
     <div class="totals">
       <div class="totals-row">
         <span>Subtotal</span>
-        <span>$${order.subtotal.toFixed(2)}</span>
+        <span>R${order.subtotal.toFixed(2)}</span>
       </div>
       ${order.discount > 0 ? `
       <div class="totals-row" style="color: #16a34a;">
         <span>Discount</span>
-        <span>-$${order.discount.toFixed(2)}</span>
+        <span>-R${order.discount.toFixed(2)}</span>
       </div>
       ` : ''}
       <div class="totals-row">
         <span>Tax</span>
-        <span>$${order.tax.toFixed(2)}</span>
+        <span>R${order.tax.toFixed(2)}</span>
       </div>
       <div class="totals-row">
         <span>Shipping Cost</span>
-        <span>${order.shippingCost === 0 ? 'FREE' : '$' + order.shippingCost.toFixed(2)}</span>
+        <span>${order.shippingCost === 0 ? 'FREE' : 'R' + order.shippingCost.toFixed(2)}</span>
       </div>
       <div class="totals-row grand">
         <span>Total Paid</span>
-        <span>$${order.total.toFixed(2)}</span>
+        <span>R${order.total.toFixed(2)}</span>
       </div>
     </div>
 
@@ -2839,9 +2839,9 @@ export default function AdminPage({
                                 <h4 className="font-bold text-slate-900 text-sm line-clamp-1">{prod.name}</h4>
                                 <span className="text-[10px] font-mono text-slate-400 block mt-0.5">ID: {prod.id}</span>
                                 <div className="flex items-center gap-2 mt-1.5 flex-wrap">
-                                  <span className="font-extrabold text-slate-900 text-xs">${prod.price}</span>
+                                  <span className="font-extrabold text-slate-900 text-xs">{formatCurrency(prod.price)}</span>
                                   {prod.originalPrice && (
-                                    <span className="text-[10px] text-slate-400 line-through">${prod.originalPrice}</span>
+                                    <span className="text-[10px] text-slate-400 line-through">{formatCurrency(prod.originalPrice)}</span>
                                   )}
                                 </div>
                               </div>
@@ -3661,7 +3661,7 @@ export default function AdminPage({
                               {/* Item Total */}
                               <div className="text-right min-w-[70px]">
                                 <span className="text-[10px] text-slate-400 block uppercase font-bold">Line Total</span>
-                                <span className="text-xs font-extrabold text-slate-900">${(item.price * item.quantity).toFixed(2)}</span>
+                                <span className="text-xs font-extrabold text-slate-900">{formatCurrency(item.price * item.quantity)}</span>
                               </div>
 
                               {/* Delete Item */}
@@ -3687,7 +3687,7 @@ export default function AdminPage({
                         >
                           <option value="">-- Add Product to Order --</option>
                           {catalogProducts.map(p => (
-                            <option key={p.id} value={p.id}>{p.name} (${Number(p.price).toFixed(2)})</option>
+                            <option key={p.id} value={p.id}>{p.name} ({formatCurrency(p.price)})</option>
                           ))}
                         </select>
                         <button
