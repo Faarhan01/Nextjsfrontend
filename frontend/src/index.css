@@ -1,4 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400;1,600&family=Inter:ital,opsz,wght@0,14..32,300..800;1,14..32,300..800&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+@import "tailwindcss";
 
 @tailwind base;
 @tailwind components;
@@ -9,6 +11,14 @@
  * Three-layer token system: Primitive → Semantic → Component
  * Compatible with Tailwind v3, works cross-platform (Windows, macOS, Termux)
  * ============================================================================ */
+/* Design tokens - CSS custom properties used throughout */
+:root {
+  --font-sans: "Plus Jakarta Sans", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, monospace;
+  --font-weight-black: 750;
+  --font-weight-extrabold: 700;
+  --font-weight-bold: 600;
+}
 
 /* ---------------------------------------------------------------------------
  * LAYER 1: PRIMITIVE TOKENS (raw values)
@@ -991,37 +1001,38 @@ button:disabled {
   .scrollbar-none {
     -ms-overflow-style: none;
     scrollbar-width: none;
-    &::-webkit-scrollbar {
-      display: none;
-    }
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
   }
 
   .scrollbar-thin {
     scrollbar-width: thin;
     scrollbar-color: #cbd5e1 transparent;
-    &::-webkit-scrollbar {
-      width: 6px;
-      height: 6px;
-    }
-    &::-webkit-scrollbar-track {
-      background: transparent;
-    }
-    &::-webkit-scrollbar-thumb {
-      background: #cbd5e1;
-      border-radius: 9999px;
-    }
-    &::-webkit-scrollbar-thumb:hover {
-      background: #94a3b8;
-    }
   }
-}
-
-.dark .scrollbar-thin {
-  scrollbar-color: #475569 transparent;
-  &::-webkit-scrollbar-thumb {
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 9999px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+  }
+  }
+  .dark .scrollbar-thin {
+    scrollbar-color: #475569 transparent;
+  }
+  .dark .scrollbar-thin::-webkit-scrollbar-thumb {
     background: #334155;
   }
-  &::-webkit-scrollbar-thumb:hover {
+  .dark .scrollbar-thin::-webkit-scrollbar-thumb:hover {
     background: #475569;
   }
 }
@@ -1316,11 +1327,11 @@ button:disabled {
   background-color: var(--card-bg) !important;
 }
 
-.bg-card\/90 {
+.bg-card-translucent {
   background-color: color-mix(in srgb, var(--card-bg) 90%, transparent) !important;
 }
 
-.bg-card\/95 {
+.bg-card-translucent-strong {
   background-color: color-mix(in srgb, var(--card-bg) 95%, transparent) !important;
 }
 
@@ -1352,6 +1363,14 @@ button:disabled {
   background-color: var(--bg-surface-hover) !important;
 }
 
+.bg-overlay {
+  background-color: var(--bg-overlay) !important;
+}
+
+.bg-surface-active {
+  background-color: var(--bg-surface-active) !important;
+}
+
 .text-theme-primary {
   color: var(--text-primary) !important;
 }
@@ -1368,8 +1387,28 @@ button:disabled {
   color: var(--text-accent) !important;
 }
 
+.text-primary {
+  color: var(--text-primary) !important;
+}
+
+.text-muted {
+  color: var(--text-muted) !important;
+}
+
+.text-secondary {
+  color: var(--text-secondary) !important;
+}
+
 .border-theme {
   border-color: var(--border-default) !important;
+}
+
+.border-default {
+  border-color: var(--border-default) !important;
+}
+
+.border-subtle {
+  border-color: var(--border-subtle) !important;
 }
 
 .border-theme-subtle {
@@ -1378,6 +1417,10 @@ button:disabled {
 
 .border-theme-strong {
   border-color: var(--border-strong) !important;
+}
+
+.bg-elevated {
+  background-color: var(--bg-surface-elevated) !important;
 }
 
 /* Header, Navbar & Footer Surfaces */

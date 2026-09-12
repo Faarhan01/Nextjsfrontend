@@ -74,7 +74,7 @@ export const CompanyDropdown: React.FC<CompanyDropdownProps> = ({
         aria-expanded={isOpen}
         className={`px-2.5 lg:px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer outline-none flex items-center gap-1 ${
           isCompanyActive
-            ? `${currentTheme.lightBg} ${currentTheme.text} font-bold shadow-2xs dark:bg-blue-950/60 dark:text-blue-400 dark:border-blue-800`
+            ? `${currentTheme.lightBg} font-bold shadow-2xs`
             : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
         }`}
       >

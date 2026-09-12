@@ -80,7 +80,8 @@ export const CartPage: React.FC<CartPageProps> = ({
     return acc + p * item.quantity;
   }, 0);
 
-  const shipping = subtotal > 500 || cart.length === 0 ? 0 : 75;
+  const shippingThreshold = freeShippingThreshold || 500;
+  const shipping = subtotal >= shippingThreshold || cart.length === 0 ? 0 : 75;
   const total = subtotal + shipping;
 
   if (cart.length === 0) {
@@ -279,7 +280,7 @@ export const CartPage: React.FC<CartPageProps> = ({
             </div>
             {shipping === 0 && (
               <div className="text-[11px] text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200/50 dark:border-emerald-800/50 p-2.5 rounded-xl font-medium flex items-center gap-1.5">
-                <Tag className="w-3 h-3 shrink-0" /> Free Shipping unlocked on orders over R500!
+                <Tag className="w-3 h-3 shrink-0" /> Free Shipping unlocked on orders over {formatCurrency(shippingThreshold)}!
               </div>
             )}
             <div className="pt-3 border-t border-slate-100 dark:border-slate-700/80 flex justify-between text-sm font-black text-slate-900 dark:text-white">

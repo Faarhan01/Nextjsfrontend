@@ -14,6 +14,11 @@ export interface ThemeClasses {
   primaryHex: string;
   shadow: string;
   ring: string;
+  hoverBg: string;
+  hoverLightBg: string;
+  hoverText: string;
+  groupHoverText: string;
+  groupHoverBorder: string;
 }
 
 export function getThemeClasses(color: string): ThemeClasses {
@@ -21,64 +26,89 @@ export function getThemeClasses(color: string): ThemeClasses {
     case 'emerald':
       return {
         bg: 'bg-emerald-600 hover:bg-emerald-700',
-        text: 'text-emerald-600',
-        border: 'border-emerald-200 focus:border-emerald-500 focus:ring-emerald-500/20',
-        lightBg: 'bg-emerald-50 text-emerald-700',
+        text: 'text-emerald-600 dark:text-emerald-400',
+        border: 'border-emerald-200 dark:border-emerald-800 focus:border-emerald-500 focus:ring-emerald-500/20',
+        lightBg: 'bg-emerald-50 text-emerald-700 dark:bg-emerald-950/60 dark:text-emerald-400',
         badge: 'bg-emerald-500',
         accent: 'emerald',
         primaryHex: '#10b981',
         shadow: 'shadow-emerald-500/25',
-        ring: 'focus:ring-emerald-500/30'
+        ring: 'focus:ring-emerald-500/30',
+        hoverBg: 'hover:bg-emerald-600 dark:hover:bg-emerald-600',
+        hoverLightBg: 'hover:bg-emerald-50 dark:hover:bg-emerald-950/60',
+        hoverText: 'hover:text-emerald-600 dark:hover:text-emerald-400',
+        groupHoverText: 'group-hover:text-emerald-600 dark:group-hover:text-emerald-400',
+        groupHoverBorder: 'group-hover:border-emerald-500 dark:group-hover:border-emerald-500'
       };
     case 'rose':
       return {
         bg: 'bg-rose-600 hover:bg-rose-700',
-        text: 'text-rose-600',
-        border: 'border-rose-200 focus:border-rose-500 focus:ring-rose-500/20',
-        lightBg: 'bg-rose-50 text-rose-700',
+        text: 'text-rose-600 dark:text-rose-400',
+        border: 'border-rose-200 dark:border-rose-800 focus:border-rose-500 focus:ring-rose-500/20',
+        lightBg: 'bg-rose-50 text-rose-700 dark:bg-rose-950/60 dark:text-rose-400',
         badge: 'bg-rose-500',
         accent: 'rose',
         primaryHex: '#f43f5e',
         shadow: 'shadow-rose-500/25',
-        ring: 'focus:ring-rose-500/30'
+        ring: 'focus:ring-rose-500/30',
+        hoverBg: 'hover:bg-rose-600 dark:hover:bg-rose-600',
+        hoverLightBg: 'hover:bg-rose-50 dark:hover:bg-rose-950/60',
+        hoverText: 'hover:text-rose-600 dark:hover:text-rose-400',
+        groupHoverText: 'group-hover:text-rose-600 dark:group-hover:text-rose-400',
+        groupHoverBorder: 'group-hover:border-rose-500 dark:group-hover:border-rose-500'
       };
     case 'amber':
       return {
         bg: 'bg-amber-600 hover:bg-amber-700',
-        text: 'text-amber-600',
-        border: 'border-amber-200 focus:border-amber-500 focus:ring-amber-500/20',
-        lightBg: 'bg-amber-50 text-amber-700',
+        text: 'text-amber-600 dark:text-amber-400',
+        border: 'border-amber-200 dark:border-amber-800 focus:border-amber-500 focus:ring-amber-500/20',
+        lightBg: 'bg-amber-50 text-amber-700 dark:bg-amber-950/60 dark:text-amber-400',
         badge: 'bg-amber-500',
         accent: 'amber',
         primaryHex: '#f59e0b',
         shadow: 'shadow-amber-500/25',
-        ring: 'focus:ring-amber-500/30'
+        ring: 'focus:ring-amber-500/30',
+        hoverBg: 'hover:bg-amber-600 dark:hover:bg-amber-600',
+        hoverLightBg: 'hover:bg-amber-50 dark:hover:bg-amber-950/60',
+        hoverText: 'hover:text-amber-600 dark:hover:text-amber-400',
+        groupHoverText: 'group-hover:text-amber-600 dark:group-hover:text-amber-400',
+        groupHoverBorder: 'group-hover:border-amber-500 dark:group-hover:border-amber-500'
       };
     case 'slate':
       return {
         bg: 'bg-slate-800 hover:bg-slate-900',
-        text: 'text-slate-800',
-        border: 'border-slate-300 focus:border-slate-600 focus:ring-slate-600/20',
-        lightBg: 'bg-slate-100 text-slate-900',
+        text: 'text-slate-800 dark:text-slate-200',
+        border: 'border-slate-300 dark:border-slate-700 focus:border-slate-600 focus:ring-slate-600/20',
+        lightBg: 'bg-slate-100 text-slate-900 dark:bg-slate-800 dark:text-slate-100',
         badge: 'bg-slate-800',
         accent: 'slate',
         primaryHex: '#1e293b',
         shadow: 'shadow-slate-500/25',
-        ring: 'focus:ring-slate-500/30'
+        ring: 'focus:ring-slate-500/30',
+        hoverBg: 'hover:bg-slate-800 dark:hover:bg-slate-700',
+        hoverLightBg: 'hover:bg-slate-100 dark:hover:bg-slate-800',
+        hoverText: 'hover:text-slate-900 dark:hover:text-slate-200',
+        groupHoverText: 'group-hover:text-slate-900 dark:group-hover:text-slate-200',
+        groupHoverBorder: 'group-hover:border-slate-500 dark:group-hover:border-slate-500'
       };
     case 'blue':
     case 'indigo':
     default:
       return {
         bg: 'bg-blue-600 hover:bg-blue-700',
-        text: 'text-blue-600',
-        border: 'border-blue-200 focus:border-blue-500 focus:ring-blue-500/20',
-        lightBg: 'bg-blue-50 text-blue-700',
+        text: 'text-blue-600 dark:text-blue-400',
+        border: 'border-blue-200 dark:border-blue-800 focus:border-blue-500 focus:ring-blue-500/20',
+        lightBg: 'bg-blue-50 text-blue-700 dark:bg-blue-950/60 dark:text-blue-400',
         badge: 'bg-blue-600',
         accent: 'blue',
         primaryHex: '#2563eb',
         shadow: 'shadow-blue-500/25',
-        ring: 'focus:ring-blue-500/30'
+        ring: 'focus:ring-blue-500/30',
+        hoverBg: 'hover:bg-blue-600 dark:hover:bg-blue-600',
+        hoverLightBg: 'hover:bg-blue-50 dark:hover:bg-blue-950/60',
+        hoverText: 'hover:text-blue-600 dark:hover:text-blue-400',
+        groupHoverText: 'group-hover:text-blue-600 dark:group-hover:text-blue-400',
+        groupHoverBorder: 'group-hover:border-blue-500 dark:group-hover:border-blue-500'
       };
   }
 }
@@ -129,8 +159,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
             document.documentElement.classList.remove('disable-transitions');
           }, 80);
         }
-        localStorage.setItem('luxestore_dark_mode', nextVal ? 'true' : 'false');
         localStorage.setItem('mrbulk_dark_mode', nextVal ? 'true' : 'false');
+        localStorage.setItem('luxestore_dark_mode', nextVal ? 'true' : 'false');
       } catch {}
       return nextVal;
     });

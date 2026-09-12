@@ -43,6 +43,7 @@ import { useWishlistContext } from '@/providers/wishlist-provider';
 import { useCartContext } from '@/providers/cart-provider';
 import { useToastContext } from '@/providers/toast-provider';
 import { useCatalog } from '@/providers/catalog-provider';
+import { formatCurrency } from '@/utils/pricing';
 
 interface MyAccountPageProps {
   themeColor?: 'blue' | 'indigo' | 'emerald' | 'rose' | 'amber' | 'slate';
@@ -1198,7 +1199,7 @@ export default function MyAccountPage({
                             <SafeImage src={item.img} className="w-12 h-12 object-cover rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800" alt={item.name} placeholderType="product" fallbackTitle={item.name} />
                             <div className="flex-1 min-w-0 text-xs">
                               <h4 className="font-bold text-slate-800 dark:text-slate-200 truncate">{item.name}</h4>
-                              <p className="text-slate-400 dark:text-slate-500 mt-0.5">Quantity: {item.qty} &bull; Price: ${item.price.toFixed(2)} each</p>
+                              <p className="text-slate-400 dark:text-slate-500 mt-0.5">Quantity: {item.qty} &bull; Price: {formatCurrency(item.price)} each</p>
                             </div>
                             <button 
                               onClick={() => handleAddToCart({ id: `prod-${idx + 1}`, name: item.name, price: item.price, imageUrl: item.img })}

@@ -581,9 +581,9 @@ export default function ShopPage({
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 sm:gap-4">
           
           {/* Sort Dropdown Filter */}
-          <div className="flex items-center gap-2.5 w-full sm:w-auto">
-            <label htmlFor="shop-sort-select" className="text-xs font-extrabold text-slate-700 dark:text-slate-200 whitespace-nowrap flex items-center gap-1.5 shrink-0">
-              <ArrowUpDown className={`w-3 h-3 ${currentTheme.text}`} />
+          <div className="flex items-center gap-3 sm:gap-3.5 w-full sm:w-auto">
+            <label htmlFor="shop-sort-select" className="text-xs font-extrabold text-slate-700 dark:text-slate-200 whitespace-nowrap flex items-center gap-2.5 shrink-0 cursor-pointer">
+              <ArrowUpDown className={`w-3.5 h-3.5 ${currentTheme.text} shrink-0`} />
               <span>Sort By:</span>
             </label>
             <div className="flex items-center gap-2 w-full sm:w-auto">
@@ -803,7 +803,7 @@ export default function ShopPage({
                           )}
                           <h3 
                             onClick={() => onSelectProduct(prod.id)}
-                            className={`text-base sm:text-lg font-extrabold text-slate-900 dark:text-white group-hover:${currentTheme.text} transition line-clamp-2 cursor-pointer w-full leading-snug`}
+                            className={`text-base sm:text-lg font-extrabold text-slate-900 dark:text-white ${currentTheme.groupHoverText} transition line-clamp-2 cursor-pointer w-full leading-snug`}
                           >
                             {prod.name}
                           </h3>
@@ -933,7 +933,7 @@ export default function ShopPage({
                               <span>{prod.category}</span>
                             </div>
                           )}
-                          <h3 className={`text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white group-hover:${currentTheme.text} transition-colors line-clamp-2 leading-snug w-full`}>
+                          <h3 className={`text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white ${currentTheme.groupHoverText} transition-colors line-clamp-2 leading-snug w-full`}>
                             {prod.name}
                           </h3>
                           <div className="flex items-center gap-1.5 flex-wrap mt-1.5" suppressHydrationWarning>
