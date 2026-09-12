@@ -7,9 +7,10 @@ This guide explains how to sync the Mrbulk Next.js frontend to GitHub and set it
 This repository is a **standalone Next.js frontend** for the Mrbulk e-commerce storefront.
 
 - **Framework:** Next.js 16 (App Router)
-- **UI:** React 19 + Tailwind CSS v4 + Motion
+- **UI:** React 19 + Tailwind CSS v3 + Motion
 - **Data mode:** Frontend-only by default with rich mock catalog data, or connect to a MedusaJS backend
 - **Package manager:** npm
+- **Bundler:** Webpack (`--webpack` flag; Turbopack not supported)
 - **Port:** 3000
 
 ### Key Principle
