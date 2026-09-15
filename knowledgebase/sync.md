@@ -1,6 +1,6 @@
 # Frontend Sync & Deployment Guide
 
-This guide explains how to sync the Mrbulk Next.js frontend to GitHub and set it up in Google AI Studio or any other environment.
+This guide explains how to sync the Mrbulk Next.js frontend to GitHub and set it up in Google AI Studio or any other environment..
 
 ## 1. What This Is
 
