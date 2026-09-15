@@ -677,7 +677,7 @@ export default function ProductDetailPage({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8 pb-12">
         
         {/* Product Sheet Grid */}
-        <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl sm:rounded-3xl p-3 sm:p-6 lg:p-8 shadow-xs grid grid-cols-1 md:grid-cols-12 gap-3.5 sm:gap-6 lg:gap-12">
+        <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl p-3 sm:p-6 lg:p-8 shadow-xs grid grid-cols-1 md:grid-cols-12 gap-3.5 sm:gap-6 lg:gap-12">
           
           {/* Left Block: Interactive Gallery Grid with Tablet Centering */}
           <div className="md:col-span-6 lg:col-span-5 flex flex-col gap-2.5 sm:gap-4 items-center pb-3 sm:pb-5 border-b border-slate-100 dark:border-slate-700 md:border-b-0 md:pb-0 lg:border-r lg:border-slate-100 lg:dark:border-slate-700 lg:pr-8 w-full">
@@ -740,7 +740,7 @@ export default function ProductDetailPage({
             </div>
 
             {/* TABLET & MOBILE LANDSCAPE LAYOUT (sm to md): Compact Pillarbox Stage with Centered Square Image */}
-            <div className="hidden sm:flex md:hidden relative w-full rounded-2xl sm:rounded-3xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 p-3 sm:p-4 items-center justify-between gap-3">
+            <div className="hidden sm:flex md:hidden relative w-full rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 p-3 sm:p-4 items-center justify-between gap-3">
               
               {/* Left Side: Product Badges Column */}
               <div className="flex flex-col gap-2 shrink-0 items-start z-10 self-center">
@@ -811,7 +811,7 @@ export default function ProductDetailPage({
             </div>
 
             {/* DESKTOP LAYOUT (>= md): Full-width Square Container */}
-            <div className="hidden md:block relative aspect-square w-full rounded-3xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 overflow-hidden group shadow-xs">
+            <div className="hidden md:block relative aspect-square w-full rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 overflow-hidden group shadow-xs">
               <SafeImage 
                 src={mainImage} 
                 className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105 cursor-pointer"
@@ -1236,7 +1236,7 @@ export default function ProductDetailPage({
         </div>
 
         {/* Informational Tabs Block (Full Description) */}
-        <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl p-6 sm:p-8 shadow-sm mt-8">
+        <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-sm mt-8">
           
           <div className="flex border-b border-slate-100 dark:border-slate-700 text-xs font-bold gap-8">
             <button
@@ -1285,7 +1285,7 @@ export default function ProductDetailPage({
         </div>
 
         {/* Dedicated Product Information Card */}
-        <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+        <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
           <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-4">
             <h2 className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
               <SlidersHorizontal className={`w-5 h-5 ${currentTheme?.text || 'text-blue-600 dark:text-blue-400'}`} /> Product Information
@@ -1350,7 +1350,7 @@ export default function ProductDetailPage({
         </div>
 
         {/* Customer Reviews Section */}
-        <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+        <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
           <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-4">
             <div>
               <h2 className="text-lg font-extrabold text-slate-900 dark:text-white flex items-center gap-2">
@@ -1366,7 +1366,7 @@ export default function ProductDetailPage({
         </div>
 
         {/* Related Products Carousel Showcase */}
-        <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl p-6 sm:p-8 shadow-sm space-y-6">
+        <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-sm space-y-6">
           <div className="flex items-center justify-between">
             <h2 className="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white">Recommended Collections</h2>
             <a 
@@ -1414,7 +1414,7 @@ export default function ProductDetailPage({
 
         {/* Product Categories Horizontal Carousel Card */}
         {productCategories.length > 0 && (
-          <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl p-6 sm:p-8 shadow-sm space-y-5">
+          <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-sm space-y-5">
             <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-4">
               <div className="flex items-center gap-2.5">
                 <div className="p-2 bg-blue-50 dark:bg-blue-950/60 border border-blue-100 dark:border-blue-800 rounded-xl">
@@ -1480,7 +1480,7 @@ export default function ProductDetailPage({
 
         {/* Product Tags Horizontal Carousel Card */}
         {productTags.length > 0 && (
-          <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-3xl p-6 sm:p-8 shadow-sm space-y-5">
+          <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl p-6 sm:p-8 shadow-sm space-y-5">
             <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-4">
               <div className="flex items-center gap-2.5">
                 <div className="p-2 bg-blue-50 dark:bg-blue-950/60 border border-blue-100 dark:border-blue-800 rounded-xl">
@@ -1574,7 +1574,7 @@ export default function ProductDetailPage({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 12 }}
               transition={{ duration: 0.2 }}
-              className="relative z-10 w-full max-w-3xl bg-white dark:bg-slate-800 rounded-3xl p-5 sm:p-7 shadow-2xl border border-slate-100 dark:border-slate-700 flex flex-col space-y-4 max-h-[92vh] overflow-y-auto scrollbar-none"
+              className="relative z-10 w-full max-w-3xl bg-white dark:bg-slate-800 rounded-2xl p-5 sm:p-7 shadow-2xl border border-slate-100 dark:border-slate-700 flex flex-col space-y-4 max-h-[92vh] overflow-y-auto scrollbar-none"
             >
               {/* Modal Header Bar */}
               <div className="flex items-center justify-between pb-3 border-b border-slate-100 dark:border-slate-700">
@@ -1704,7 +1704,7 @@ export default function ProductDetailPage({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 10 }}
               transition={{ duration: 0.2 }}
-              className="relative z-10 w-full max-w-md bg-white dark:bg-slate-800 rounded-3xl p-5 sm:p-6 shadow-2xl border border-slate-100 dark:border-slate-700 space-y-5"
+              className="relative z-10 w-full max-w-md bg-white dark:bg-slate-800 rounded-2xl p-5 sm:p-6 shadow-2xl border border-slate-100 dark:border-slate-700 space-y-5"
             >
               {/* Header */}
               <div className="flex items-center justify-between">
@@ -1853,7 +1853,7 @@ export default function ProductDetailPage({
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: 12 }}
               transition={{ duration: 0.2 }}
-              className="relative z-10 w-full max-w-md bg-white dark:bg-slate-800 rounded-3xl p-5 sm:p-6 shadow-2xl border border-slate-100 dark:border-slate-700 space-y-4"
+              className="relative z-10 w-full max-w-md bg-white dark:bg-slate-800 rounded-2xl p-5 sm:p-6 shadow-2xl border border-slate-100 dark:border-slate-700 space-y-4"
             >
               {/* Header */}
               <div className="flex items-center justify-between">

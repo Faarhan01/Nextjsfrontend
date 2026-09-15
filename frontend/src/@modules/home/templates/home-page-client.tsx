@@ -10,10 +10,10 @@ import { useUI } from '@/providers/ui-provider';
 import { useRecentlyViewedContext } from '@/providers/recently-viewed-provider';
 import { useCatalog } from '@/providers/catalog-provider';
 import { getThemeClasses } from '@/providers/theme-provider';
-import { motion, AnimatePresence } from 'motion/react';
 import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 import { SafeImage } from '@modules/common/components/safe-image';
-import { CategoryBarCarousel } from '@components/shared/category-bar';
+import Hero from '@modules/home/components/hero';
+import { CategoryBar } from '@modules/products/components/category-bar';
 import { RecentlyViewedSection } from '@components/shared/recently-viewed';
 import { PromoBannersGrid } from '@modules/layout/components/promo-banners-grid';
 import { FlashDealsSection } from '@modules/products/components/flash-deals-section';
@@ -46,25 +46,6 @@ export default function HomePageClient({
   const { handleOpenQuickView } = useUI();
   const { recentlyViewedIds } = useRecentlyViewedContext();
   const currentTheme = getThemeClasses(themeColor);
-
-  const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-  const autoplayTimerRef = useRef<NodeJS.Timeout | null>(null);
-
-  const restartAutoplay = () => {
-    if (autoplayTimerRef.current) clearInterval(autoplayTimerRef.current);
-    if (slides.length > 1) {
-      autoplayTimerRef.current = setInterval(() => {
-        setCurrentSlideIndex((prev) => (prev + 1) % slides.length);
-      }, 5500);
-    }
-  };
-
-  useEffect(() => {
-    restartAutoplay();
-    return () => {
-      if (autoplayTimerRef.current) clearInterval(autoplayTimerRef.current);
-    };
-  }, [slides.length]);
 
   const categoriesScrollRef = useRef<HTMLDivElement>(null);
 
@@ -127,7 +108,7 @@ export default function HomePageClient({
   return (
     <div className="space-y-12 sm:space-y-16 pb-16">
       <div className="space-y-4 sm:space-y-5">
-        <CategoryBarCarousel
+        <CategoryBar
           categories={categories}
           products={products}
           themeColor={themeColor}
@@ -142,156 +123,7 @@ export default function HomePageClient({
           onViewAllCategories={() => router.push('/categories')}
         />
 
-        <section className="w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 hero-slider-dark-scope">
-          <div className="relative w-full overflow-hidden bg-slate-900 select-none rounded-2xl sm:rounded-3xl shadow-xl border border-slate-700/60">
-          <div className="h-[210px] xs:h-[260px] sm:h-[320px] lg:h-[380px] w-full relative">
-            <AnimatePresence mode="wait">
-              {slides.map((slide, idx) => {
-                if (idx !== currentSlideIndex) return null;
-
-                const titleAnim =
-                  slide.titleAnimation === 'slideInLeft'
-                    ? { x: [-50, 0], opacity: [0, 1] }
-                    : slide.titleAnimation === 'zoomIn'
-                    ? { scale: [0.95, 1], opacity: [0, 1] }
-                    : { y: [20, 0], opacity: [0, 1] };
-
-                const subAnim =
-                  slide.subtitleAnimation === 'slideInLeft'
-                    ? { x: [-30, 0], opacity: [0, 1] }
-                    : slide.subtitleAnimation === 'zoomIn'
-                    ? { scale: [0.95, 1], opacity: [0, 1] }
-                    : { y: [15, 0], opacity: [0, 1] };
-
-                return (
-                  <motion.div
-                    key={slide.id}
-                    drag="x"
-                    dragConstraints={{ left: 0, right: 0 }}
-                    dragElastic={0.2}
-                    onDragEnd={(_, info) => {
-                      const swipeThreshold = 40;
-                      if (info.offset.x < -swipeThreshold || info.velocity.x < -200) {
-                        setCurrentSlideIndex((prev) => (prev + 1) % slides.length);
-                        restartAutoplay();
-                      } else if (info.offset.x > swipeThreshold || info.velocity.x > 200) {
-                        setCurrentSlideIndex((prev) => (prev - 1 + slides.length) % slides.length);
-                        restartAutoplay();
-                      }
-                    }}
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.6 }}
-                    className="absolute inset-0 w-full h-full flex items-center cursor-grab active:cursor-grabbing touch-pan-y"
-                    style={
-                      slide.backgroundType === 'gradient'
-                        ? { background: slide.backgroundGradient }
-                        : slide.backgroundType === 'color'
-                        ? { backgroundColor: slide.backgroundColor }
-                        : {
-                            backgroundImage: `url(${slide.backgroundImage})`,
-                            backgroundSize: 'cover',
-                            backgroundPosition: 'center'
-                          }
-                    }
-                  >
-                    <div className="absolute inset-0 bg-gradient-to-r from-slate-950/80 via-slate-900/60 to-slate-950/40 z-0 pointer-events-none" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-slate-950/20 z-0 pointer-events-none" />
-
-                    <div className="w-full px-6 sm:px-12 lg:px-16 relative z-10 pointer-events-none">
-                      <div className="max-w-xl !text-white pointer-events-auto">
-                        <motion.h2
-                          animate={titleAnim}
-                          transition={{ duration: 0.7, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
-                          style={{ color: '#ffffff' }}
-                          className="text-xl xs:text-2xl sm:text-3xl md:text-4xl font-extrabold tracking-tight mb-2 sm:mb-3 !text-white leading-tight drop-shadow-md"
-                        >
-                          {slide.title}
-                        </motion.h2>
-
-                        <motion.p
-                          animate={subAnim}
-                          transition={{ duration: 0.7, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
-                          style={{ color: '#f1f5f9' }}
-                          className="text-xs sm:text-sm md:text-base !text-slate-100 font-medium mb-4 sm:mb-6 leading-relaxed max-w-lg line-clamp-2 drop-shadow-sm"
-                        >
-                          {slide.subtitle}
-                        </motion.p>
-
-                        <motion.div
-                          initial={{ y: 15, opacity: 0 }}
-                          animate={{ y: 0, opacity: 1 }}
-                          transition={{ duration: 0.5, delay: 0.4 }}
-                        >
-                          <Link
-                            href={
-                              slide.targetPage === 'categories'
-                                ? '/categories'
-                                : slide.targetPage === 'contact'
-                                ? '/contact'
-                                : '/shop'
-                            }
-                            className={`inline-flex items-center justify-center px-4 py-2 sm:px-6 sm:py-3 text-xs sm:text-sm font-extrabold tracking-wide text-white transition-all duration-200 hover:scale-105 active:scale-95 cursor-pointer shadow-lg ${
-                              slide.buttonStyle === 'pill'
-                                ? 'rounded-full'
-                                : slide.buttonStyle === 'outline'
-                                ? 'border-2 border-white hover:bg-white hover:text-slate-900 bg-transparent'
-                                : 'rounded-2xl'
-                            } ${slide.buttonStyle !== 'outline' ? currentTheme.bg : ''} ${currentTheme.shadow}`}
-                          >
-                            <span>{slide.buttonText}</span>
-                            <ArrowRight className="w-4 h-4 ml-2" />
-                          </Link>
-                        </motion.div>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
-            </AnimatePresence>
-
-            {slides.length > 1 && (
-              <>
-                <button
-                  onClick={() => {
-                    setCurrentSlideIndex((prev) => (prev - 1 + slides.length) % slides.length);
-                    restartAutoplay();
-                  }}
-                  className="absolute left-2.5 sm:left-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-900/60 hover:bg-slate-900/90 text-white backdrop-blur-md flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer border border-white/10 shadow-lg"
-                  aria-label="Previous Slide"
-                >
-                  <ChevronLeft className="w-5 h-5 stroke-[2.5]" />
-                </button>
-                <button
-                  onClick={() => {
-                    setCurrentSlideIndex((prev) => (prev + 1) % slides.length);
-                    restartAutoplay();
-                  }}
-                  className="absolute right-2.5 sm:right-4 top-1/2 -translate-y-1/2 z-20 w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-900/60 hover:bg-slate-900/90 text-white backdrop-blur-md flex items-center justify-center transition-all duration-200 hover:scale-110 active:scale-95 cursor-pointer border border-white/10 shadow-lg"
-                  aria-label="Next Slide"
-                >
-                  <ChevronRight className="w-5 h-5 stroke-[2.5]" />
-                </button>
-                <div className="absolute bottom-4 sm:bottom-6 left-1/2 -translate-x-1/2 z-20 flex space-x-2">
-                  {slides.map((_, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => {
-                        setCurrentSlideIndex(idx);
-                        restartAutoplay();
-                      }}
-                      className={`h-2 rounded-full transition-all duration-300 outline-none cursor-pointer ${
-                        idx === currentSlideIndex ? 'w-6 bg-white shadow' : 'w-2 bg-white/40 hover:bg-white/70'
-                      }`}
-                    />
-                  ))}
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-      </section>
+        <Hero slides={slides} />
       </div>
 
       <section id="categories" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 scroll-mt-20">

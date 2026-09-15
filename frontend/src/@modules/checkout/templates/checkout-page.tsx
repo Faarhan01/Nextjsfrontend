@@ -737,7 +737,7 @@ export default function CheckoutPage({
                     <button
                       type="button"
                       onClick={handleNextToPayment}
-                      className={`w-full sm:w-auto px-8 py-3.5 rounded-2xl text-white font-extrabold text-xs uppercase tracking-wider shadow-md transition active:scale-98 cursor-pointer flex items-center justify-center gap-2 ${currentTheme.bg}`}
+                      className={`w-full sm:w-auto px-8 py-4 rounded-2xl text-white font-extrabold text-xs uppercase tracking-wider shadow-md transition active:scale-98 cursor-pointer flex items-center justify-center gap-2 ${currentTheme.bg}`}
                     >
                       <span>Proceed to Payment</span>
                       <ChevronRight className="w-4 h-4" />
@@ -1181,7 +1181,7 @@ export default function CheckoutPage({
             <button
               type="button"
               onClick={handleNextToPayment}
-              className={`px-5 py-3 rounded-xl text-white font-extrabold text-xs uppercase tracking-wider shadow-md transition active:scale-98 cursor-pointer flex items-center gap-1.5 ${currentTheme.bg}`}
+              className={`px-6 py-3 rounded-xl text-white font-extrabold text-xs uppercase tracking-wider shadow-md transition active:scale-98 cursor-pointer flex items-center gap-1.5 ${currentTheme.bg}`}
             >
               <span>Next: Payment</span>
               <ChevronRight className="w-4 h-4" />
@@ -1191,7 +1191,7 @@ export default function CheckoutPage({
               type="submit"
               onClick={handlePlaceOrder}
               disabled={isSubmitting}
-              className={`px-5 py-3 rounded-xl text-white font-extrabold text-xs uppercase tracking-wider shadow-md transition active:scale-98 cursor-pointer flex items-center gap-1.5 ${currentTheme.bg}`}
+              className={`px-6 py-3 rounded-xl text-white font-extrabold text-xs uppercase tracking-wider shadow-md transition active:scale-98 cursor-pointer flex items-center gap-1.5 ${currentTheme.bg}`}
             >
               {isSubmitting ? (
                 <span>Processing...</span>

@@ -87,12 +87,12 @@ export const CartPage: React.FC<CartPageProps> = ({
   if (cart.length === 0) {
     return (
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16 space-y-12">
-        <div className="max-w-md mx-auto text-center space-y-4">
+        <div className="bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 rounded-2xl p-8 sm:p-12 text-center max-w-lg mx-auto shadow-xs space-y-4">
           <div className="w-16 h-16 bg-slate-100 dark:bg-slate-800 text-slate-400 rounded-full flex items-center justify-center mx-auto">
             <ShoppingBag className="w-8 h-8" />
           </div>
-          <h2 className="text-2xl font-black text-slate-900 dark:text-white">Your Cart is Currently Empty</h2>
-          <p className="text-sm text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
+          <h2 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white">Your Cart is Currently Empty</h2>
+          <p className="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-sm mx-auto">
             Explore our store and add wholesale or retail items to your cart.
           </p>
           <button

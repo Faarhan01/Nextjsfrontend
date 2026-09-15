@@ -851,7 +851,7 @@ export default function MyAccountPage({
       </div>
 
       {/* Header Profile Dashboard Widget */}
-      <div className={`${lightBannerBg} rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-xs relative overflow-hidden text-slate-900 dark:text-white`}>
+      <div className={`${lightBannerBg} rounded-2xl border border-slate-200 dark:border-slate-800 p-6 sm:p-8 shadow-xs relative overflow-hidden text-slate-900 dark:text-white`}>
         <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl -mr-20 -mt-20 pointer-events-none" />
         <div className="absolute bottom-0 left-0 w-80 h-80 bg-rose-500/5 rounded-full blur-3xl -ml-20 -mb-20 pointer-events-none" />
         
@@ -940,7 +940,7 @@ export default function MyAccountPage({
         
         {/* Navigation Sidebar: Horizontal scroll on mobile/tablet, sticky vertical card on desktop */}
         <div className="lg:col-span-3 self-start lg:sticky lg:top-24 w-full">
-          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl sm:rounded-3xl p-3 sm:p-4 shadow-xs flex lg:flex-col items-center lg:items-stretch gap-2 lg:gap-1.5 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0 scrollbar-none w-full">
+          <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-3 sm:p-4 shadow-xs flex lg:flex-col items-center lg:items-stretch gap-2 lg:gap-1.5 overflow-x-auto lg:overflow-x-visible pb-2 lg:pb-0 scrollbar-none w-full">
             <button
               onClick={() => setActiveTab('profile')}
               className={`w-auto lg:w-full shrink-0 whitespace-nowrap flex items-center justify-between gap-2.5 sm:gap-3.5 px-4 py-3 rounded-2xl text-xs sm:text-sm font-semibold transition text-left cursor-pointer outline-none ${
@@ -1050,7 +1050,7 @@ export default function MyAccountPage({
             <motion.div 
               initial={{ opacity: 0, y: 10 }} 
               animate={{ opacity: 1, y: 0 }} 
-              className="w-full min-h-[560px] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col space-y-6"
+              className="w-full min-h-[560px] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col space-y-6"
             >
               <div>
                 <h2 className="text-lg font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-4 flex items-center gap-2">
@@ -1163,7 +1163,7 @@ export default function MyAccountPage({
             <motion.div 
               initial={{ opacity: 0, y: 10 }} 
               animate={{ opacity: 1, y: 0 }} 
-              className="w-full min-h-[560px] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col space-y-6"
+              className="w-full min-h-[560px] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col space-y-6"
             >
               <div>
                 <h2 className="text-lg font-bold text-slate-900 dark:text-white border-b border-slate-100 dark:border-slate-800 pb-4 flex items-center gap-2">
@@ -1246,7 +1246,7 @@ export default function MyAccountPage({
             <motion.div 
               initial={{ opacity: 0, y: 10 }} 
               animate={{ opacity: 1, y: 0 }} 
-              className="w-full min-h-[560px] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col space-y-6"
+              className="w-full min-h-[560px] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col space-y-6"
             >
               <div>
                 <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
@@ -1295,7 +1295,7 @@ export default function MyAccountPage({
                   <motion.div 
                     initial={{ scale: 0.95, opacity: 0 }}
                     animate={{ scale: 1, opacity: 1 }}
-                    className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl max-w-md w-full p-6 shadow-2xl relative text-slate-800 dark:text-slate-100"
+                    className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-md w-full p-6 shadow-2xl relative text-slate-800 dark:text-slate-100"
                   >
                     <h3 className="text-sm font-extrabold uppercase tracking-widest text-slate-800 dark:text-slate-200 mb-4">Add shipping address</h3>
                     <form onSubmit={handleAddAddress} className="space-y-4 text-xs">
@@ -1400,7 +1400,7 @@ export default function MyAccountPage({
             <motion.div 
               initial={{ opacity: 0, y: 10 }} 
               animate={{ opacity: 1, y: 0 }} 
-              className="w-full min-h-[560px] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col space-y-6"
+              className="w-full min-h-[560px] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col space-y-6"
             >
               <div className="space-y-6">
                 
@@ -1630,7 +1630,7 @@ export default function MyAccountPage({
               <motion.div
                 initial={{ opacity: 0, scale: 0.95 }}
                 animate={{ opacity: 1, scale: 1 }}
-                className="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 dark:border-slate-800 space-y-5 text-slate-800 dark:text-slate-100"
+                className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 dark:border-slate-800 space-y-5 text-slate-800 dark:text-slate-100"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2.5">
@@ -1705,7 +1705,7 @@ export default function MyAccountPage({
             <motion.div 
               initial={{ opacity: 0, y: 10 }} 
               animate={{ opacity: 1, y: 0 }} 
-              className="w-full min-h-[560px] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm flex flex-col space-y-6"
+              className="w-full min-h-[560px] bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col space-y-6"
             >
               <div>
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4 gap-3">
@@ -1856,7 +1856,7 @@ export default function MyAccountPage({
           <motion.div
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-6 shadow-2xl border border-slate-100 dark:border-slate-800 space-y-5 text-slate-800 dark:text-slate-100"
+            className="bg-white dark:bg-slate-900 rounded-2xl max-w-md w-full p-6 shadow-2xl border border-slate-100 dark:border-slate-800 space-y-5 text-slate-800 dark:text-slate-100"
           >
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2.5">

@@ -149,7 +149,7 @@ export const CategoriesPage: React.FC<CategoriesPageProps> = ({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         
         {/* Mobile-Friendly Search & Quick Department Filter Bar */}
-        <div className="bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-xs space-y-4">
+        <div className="bg-white dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 sm:p-6 shadow-xs space-y-4">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-3 sm:gap-4">
             
             {/* Search Box */}
@@ -240,7 +240,7 @@ export const CategoriesPage: React.FC<CategoriesPageProps> = ({
                     e.preventDefault();
                     onSelectCategory(cat.name);
                   }}
-                  className="group bg-white dark:bg-slate-800 rounded-2xl sm:rounded-3xl border border-slate-200/90 dark:border-slate-700 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col active:scale-[0.99] touch-manipulation no-underline"
+                  className="group bg-white dark:bg-slate-800 rounded-2xl border border-slate-200/90 dark:border-slate-700 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 cursor-pointer flex flex-col active:scale-[0.99] touch-manipulation no-underline"
                 >
                   {/* Top Image Banner Area */}
                   <div className="relative h-48 sm:h-56 w-full overflow-hidden bg-slate-100 dark:bg-slate-700">
@@ -319,7 +319,7 @@ export const CategoriesPage: React.FC<CategoriesPageProps> = ({
           </div>
         ) : (
           /* Empty Search / Filter State */
-          <div className="bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 rounded-3xl p-8 sm:p-12 text-center max-w-md mx-auto my-8 space-y-4 shadow-xs">
+          <div className="bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 rounded-2xl p-8 sm:p-12 text-center max-w-md mx-auto my-8 space-y-4 shadow-xs">
             <div className="w-16 h-16 bg-slate-100 dark:bg-slate-700 rounded-full flex items-center justify-center mx-auto text-slate-400">
               <Search className="w-8 h-8" />
             </div>

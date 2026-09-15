@@ -307,7 +307,7 @@ export default function SearchResultsPage({
 
   // Render Filter Sidebar Component (matches ShopPage)
   const renderFilterSidebar = () => (
-    <div className="bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 rounded-3xl p-6 shadow-xs space-y-6">
+    <div className="bg-white dark:bg-slate-800/90 border border-slate-200/80 dark:border-slate-700 rounded-2xl p-6 shadow-xs space-y-6">
       <div className="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-700">
         <h3 className="font-extrabold text-slate-900 dark:text-white text-sm tracking-tight flex items-center gap-2">
           <SlidersHorizontal className={`w-4 h-4 ${currentTheme.text}`} /> Filter Results
@@ -481,7 +481,7 @@ export default function SearchResultsPage({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6 sm:space-y-8">
         
         {/* Top Control Bar (Copied from ShopPage) */}
-        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           
           {/* Sort Dropdown Selector */}
           <div className="flex items-center gap-3 sm:gap-4 w-full sm:w-auto">
@@ -571,7 +571,7 @@ export default function SearchResultsPage({
 
             {/* Empty State vs Products Grid */}
             {processedProducts.length === 0 ? (
-              <div className="bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 rounded-3xl p-8 sm:p-12 text-center my-4 space-y-4 shadow-xs">
+              <div className="bg-white dark:bg-slate-800 border border-slate-200/80 dark:border-slate-700 rounded-2xl p-8 sm:p-12 text-center my-4 space-y-4 shadow-xs">
                 <div className="w-16 h-16 bg-slate-100 dark:bg-slate-700 rounded-2xl flex items-center justify-center mx-auto text-slate-400">
                   <ShoppingBag className="w-8 h-8" />
                 </div>
@@ -604,11 +604,11 @@ export default function SearchResultsPage({
                         e.preventDefault();
                         onSelectProduct(prod.id);
                       }}
-                      className="bg-white dark:bg-slate-800 border border-slate-200/90 dark:border-slate-700 rounded-2xl sm:rounded-3xl p-3.5 sm:p-5 overflow-hidden hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-md transition-all duration-300 group flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center justify-between no-underline block"
+                      className="bg-white dark:bg-slate-800 border border-slate-200/90 dark:border-slate-700 rounded-2xl p-3.5 sm:p-4 overflow-hidden hover:border-blue-500 dark:hover:border-blue-500 hover:shadow-md transition-all duration-300 group flex flex-col sm:flex-row gap-4 sm:gap-6 items-start sm:items-center justify-between no-underline block"
                     >
                       {/* Left: Image Container */}
                       <div 
-                        className="relative w-full sm:w-44 md:w-52 aspect-square overflow-hidden bg-slate-50 dark:bg-slate-700/50 rounded-xl sm:rounded-2xl shrink-0"
+                        className="relative w-full sm:w-44 md:w-52 aspect-square overflow-hidden bg-slate-50 dark:bg-slate-700/50 rounded-xl shrink-0"
                       >
                         <SafeImage 
                           src={prod.imageUrl} 
@@ -625,14 +625,14 @@ export default function SearchResultsPage({
                           return (
                             <div className="absolute top-2.5 left-2.5 z-10 flex flex-col gap-1 items-start">
                               {sale.isSale && (
-                                <div className="px-2 py-0.5 rounded-full bg-rose-600 text-white font-extrabold text-[10px] tracking-wider uppercase shadow-2xs flex items-center gap-1 border border-rose-500/50">
-                                  <Tag className="w-2 h-2 text-white" />
+                                <div className="px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-extrabold text-[11px] tracking-wider uppercase shadow-2xs flex items-center gap-1 border border-rose-500/50 whitespace-nowrap">
+                                  <Tag className="w-2.5 h-2.5 text-white" />
                                   <span>{sale.badgeText}</span>
                                 </div>
                               )}
                               {(prod.isFeatured || (!sale.isSale && prod.isFeatured !== false)) && (
-                                <div className="px-2 py-0.5 rounded-full bg-slate-900/80 backdrop-blur-md text-white font-extrabold text-[10px] tracking-wider uppercase border border-slate-700/50 shadow-2xs flex items-center gap-1">
-                                  <Crown className="w-2 h-2 text-amber-400" />
+                                <div className="px-2.5 py-0.5 rounded-full bg-slate-900/85 backdrop-blur-md text-white font-extrabold text-[11px] tracking-wider uppercase border border-slate-700/50 shadow-2xs flex items-center gap-1 whitespace-nowrap">
+                                  <Crown className="w-2.5 h-2.5 text-amber-400" />
                                   <span>Featured</span>
                                 </div>
                               )}
@@ -668,8 +668,8 @@ export default function SearchResultsPage({
                           </h3>
                           <div className="flex items-center gap-1.5 flex-wrap">
                             <StockBadge product={prod} size="md" />
-                            <div className="flex items-center gap-0.5 bg-amber-50/80 dark:bg-amber-950/40 px-1.5 py-0.5 rounded border border-amber-200/60 dark:border-amber-800 text-amber-900 dark:text-amber-300 text-[10px] sm:text-[11px] font-extrabold w-max">
-                              <Star className="w-2 h-2 text-amber-500 fill-amber-400 shrink-0" />
+                            <div className="flex items-center gap-1 bg-amber-50/80 dark:bg-amber-950/40 px-2 py-0.5 rounded-md border border-amber-200/60 dark:border-amber-800 text-amber-900 dark:text-amber-300 text-xs font-bold w-max">
+                              <Star className="w-2.5 h-2.5 text-amber-500 fill-amber-400 shrink-0" />
                               <span>{ratingScore}</span>
                             </div>
                           </div>
@@ -677,7 +677,7 @@ export default function SearchResultsPage({
 
                         <div className="flex items-center justify-between gap-4 pt-3 border-t border-slate-100 dark:border-slate-700/80 flex-wrap">
                           <div>
-                            <span className="text-[10px] text-slate-400 block font-bold uppercase tracking-wider">Price</span>
+                            <span className="text-xs text-slate-400 block font-bold uppercase tracking-wider">Price</span>
                             <span className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">{formatCurrency(prod.price)}</span>
                           </div>
 
@@ -689,9 +689,9 @@ export default function SearchResultsPage({
                                   e.stopPropagation();
                                   onQuickView(prod);
                                 }}
-                                className="px-3.5 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs font-bold rounded-xl transition cursor-pointer flex items-center gap-1.5"
+                                className="px-4 py-2 bg-slate-100 dark:bg-slate-700 hover:bg-slate-200 dark:hover:bg-slate-600 text-slate-700 dark:text-slate-200 text-xs font-bold rounded-xl transition cursor-pointer flex items-center gap-1.5"
                               >
-                                <Eye className="w-3 h-3 text-slate-500 dark:text-slate-400" />
+                                <Eye className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
                                 <span>Quick View</span>
                               </button>
                             </div>
@@ -705,7 +705,7 @@ export default function SearchResultsPage({
               </div>
             ) : (
               /* GRID VIEW (4-Column dense grid) */
-              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-3 sm:gap-5">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-3 sm:gap-4">
                 {processedProducts.map((prod) => {
                   const ratingScore = getProductRating(prod.id);
 
@@ -717,7 +717,7 @@ export default function SearchResultsPage({
                         e.preventDefault();
                         onSelectProduct(prod.id);
                       }}
-                      className="bg-white dark:bg-slate-800 rounded-2xl sm:rounded-3xl border border-slate-200/80 dark:border-slate-700 overflow-hidden shadow-2xs hover:shadow-md transition-all duration-300 flex flex-col justify-between group cursor-pointer relative no-underline block"
+                      className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200/80 dark:border-slate-700 overflow-hidden shadow-2xs hover:shadow-md transition-all duration-300 flex flex-col justify-between group cursor-pointer relative no-underline block"
                     >
                       {/* Image Container */}
                       <div className="relative aspect-square w-full overflow-hidden bg-slate-50 dark:bg-slate-700/50">
@@ -736,14 +736,14 @@ export default function SearchResultsPage({
                           return (
                             <div className="absolute top-2.5 left-2.5 z-10 flex flex-col gap-1 items-start">
                               {sale.isSale && (
-                                <div className="px-2 py-0.5 rounded-full bg-rose-600 text-white font-extrabold text-[10px] tracking-wider uppercase shadow-2xs flex items-center gap-1 border border-rose-500/50">
-                                  <Tag className="w-2 h-2 text-white" />
+                                <div className="px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-extrabold text-[11px] tracking-wider uppercase shadow-2xs flex items-center gap-1 border border-rose-500/50 whitespace-nowrap">
+                                  <Tag className="w-2.5 h-2.5 text-white" />
                                   <span>{sale.badgeText}</span>
                                 </div>
                               )}
                               {(prod.isFeatured || (!sale.isSale && prod.isFeatured !== false)) && (
-                                <div className="px-2 py-0.5 rounded-full bg-slate-900/80 backdrop-blur-md text-white font-extrabold text-[10px] tracking-wider uppercase border border-slate-700/50 shadow-2xs flex items-center gap-1">
-                                  <Crown className="w-2 h-2 text-amber-400" />
+                                <div className="px-2.5 py-0.5 rounded-full bg-slate-900/85 backdrop-blur-md text-white font-extrabold text-[11px] tracking-wider uppercase border border-slate-700/50 shadow-2xs flex items-center gap-1 whitespace-nowrap">
+                                  <Crown className="w-2.5 h-2.5 text-amber-400" />
                                   <span>Featured</span>
                                 </div>
                               )}
@@ -772,19 +772,19 @@ export default function SearchResultsPage({
                       {/* Product Details */}
                       <div className="p-3.5 sm:p-4 flex flex-col flex-1 justify-between gap-2 bg-white dark:bg-slate-800">
                         <div className="space-y-1.5">
-                          <h3 className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 line-clamp-2 leading-snug w-full transition-colors">
+                          <h3 className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 line-clamp-2 leading-snug w-full min-h-[2.5rem] transition-colors">
                             {prod.name}
                           </h3>
-                          <div className="flex items-center gap-1.5 flex-wrap">
+                          <div className="flex items-center gap-1.5 flex-wrap mt-2">
                             <StockBadge product={prod} />
-                            <div className="flex items-center gap-0.5 text-amber-600 dark:text-amber-400 bg-amber-50/80 dark:bg-amber-950/40 px-1 py-0.5 rounded border border-amber-200/50 dark:border-amber-800 text-[9px] sm:text-[10px] font-extrabold w-max">
-                              <Star className="w-2 h-2 fill-amber-400 text-amber-500 shrink-0" />
+                            <div className="flex items-center gap-1 text-amber-600 dark:text-amber-400 bg-amber-50/80 dark:bg-amber-950/40 px-1.5 py-0.5 rounded-md border border-amber-200/50 dark:border-amber-800 text-xs font-bold w-max">
+                              <Star className="w-2.5 h-2.5 fill-amber-400 text-amber-500 shrink-0" />
                               <span>{ratingScore}</span>
                             </div>
                           </div>
                         </div>
 
-                        <div className="flex items-center justify-between gap-2 pt-2 border-t border-slate-100 dark:border-slate-700/80 mt-1">
+                        <div className="flex items-center justify-between gap-2 pt-3 border-t border-slate-100 dark:border-slate-700/80 mt-1">
                           <span className="text-xs sm:text-sm font-extrabold text-slate-900 dark:text-white">
                             {formatCurrency(prod.price)}
                           </span>

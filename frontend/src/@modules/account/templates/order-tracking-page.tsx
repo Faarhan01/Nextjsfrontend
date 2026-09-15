@@ -722,7 +722,7 @@ export default function OrderTrackingPage({
           <span className="text-slate-900 dark:text-white font-extrabold">Track Order</span>
         </div>
 
-        <div className={`relative w-full py-8 sm:py-12 px-4 sm:px-8 ${lightBannerBg} text-slate-900 dark:text-white rounded-2xl sm:rounded-3xl shadow-sm border overflow-hidden`}>
+        <div className={`relative w-full py-8 sm:py-12 px-4 sm:px-8 ${lightBannerBg} text-slate-900 dark:text-white rounded-2xl shadow-sm border overflow-hidden`}>
           <div className={`absolute top-0 right-0 w-80 h-80 ${ambientGlowClasses} rounded-full blur-3xl pointer-events-none`} />
           <div className={`absolute bottom-0 left-0 w-64 h-64 ${ambientGlowClasses} rounded-full blur-2xl pointer-events-none`} />
 
@@ -750,7 +750,7 @@ export default function OrderTrackingPage({
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-20 space-y-6 sm:space-y-8">
         
         {/* Search Bar & Instant Presets Card */}
-        <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl sm:rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-6">
+        <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs space-y-6">
           
           <form onSubmit={handleSearch} className="flex flex-col sm:flex-row gap-3">
             <div className="relative flex-1">
@@ -862,7 +862,7 @@ export default function OrderTrackingPage({
             className="space-y-8"
           >
             {/* Top Shipment Status Header */}
-            <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-xs space-y-6">
+            <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs space-y-6">
               
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-6">
                 <div>
@@ -932,7 +932,7 @@ export default function OrderTrackingPage({
             </div>
 
             {/* LIVE SHIPMENT TIMELINE PROGRESS */}
-            <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-xs space-y-6">
+            <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs space-y-6">
               
               <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-100 dark:border-slate-800 pb-4">
                 <div>
@@ -1022,7 +1022,7 @@ export default function OrderTrackingPage({
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
               
               {/* Left: Itemized Product Table */}
-              <div className="lg:col-span-8 bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-xs space-y-4">
+              <div className="lg:col-span-8 bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs space-y-4">
                 <div className="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 pb-4">
                   <h3 className="text-base font-bold text-slate-900 dark:text-white flex items-center gap-2">
                     <ShoppingBag className="w-4 h-4 text-blue-600" /> Items in Package
@@ -1063,7 +1063,7 @@ export default function OrderTrackingPage({
               <div className="lg:col-span-4 space-y-6">
                 
                 {/* Cost Summary Box */}
-                <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-xs space-y-3">
+                <div className="bg-white dark:bg-slate-900 p-6 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-xs space-y-3">
                   <h3 className="text-xs font-extrabold text-slate-400 uppercase tracking-wider border-b border-slate-100 dark:border-slate-800 pb-2">
                     Payment Summary
                   </h3>
@@ -1091,7 +1091,7 @@ export default function OrderTrackingPage({
                 </div>
 
                 {/* Need Help / Support Box */}
-                <div className="bg-slate-900 dark:bg-slate-800/90 text-white p-6 rounded-3xl shadow-md space-y-3 border border-slate-800 dark:border-slate-700">
+                <div className="bg-slate-900 dark:bg-slate-800/90 text-white p-6 rounded-2xl shadow-md space-y-3 border border-slate-800 dark:border-slate-700">
                   <div className="flex items-center gap-2 text-xs font-bold text-amber-400 uppercase tracking-wider">
                     <HelpCircle className="w-4 h-4" /> Need Order Assistance?
                   </div>

@@ -106,7 +106,7 @@ export const CartDrawer: React.FC = () => {
                       setCartOpen(false);
                       router.push('/shop');
                     }}
-                    className="mt-3 px-3.5 py-1.5 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg text-xs font-semibold text-slate-600 dark:text-slate-300 transition cursor-pointer"
+                    className="mt-3 px-4 py-2 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 transition cursor-pointer"
                   >
                     Browse Catalog
                   </button>
@@ -126,7 +126,7 @@ export const CartDrawer: React.FC = () => {
                   return (
                     <div
                       key={item.id}
-                      className="flex items-center gap-3 bg-slate-50/70 dark:bg-slate-800/60 hover:bg-slate-50 dark:hover:bg-slate-800 p-2.5 border border-slate-200/70 dark:border-slate-700 rounded-xl relative group transition"
+                      className="flex items-center gap-3 bg-slate-50/70 dark:bg-slate-800/60 hover:bg-slate-50 dark:hover:bg-slate-800 p-2.5 border border-slate-200/70 dark:border-slate-700 rounded-2xl relative group transition"
                     >
                       <Link
                         href={productLink}
@@ -135,7 +135,7 @@ export const CartDrawer: React.FC = () => {
                       >
                         <SafeImage
                           src={item.imageUrl}
-                          className="w-12 h-12 object-cover rounded-lg border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950"
+                          className="w-12 h-12 object-cover rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-950"
                           alt={item.name}
                           placeholderType="product"
                           fallbackTitle={item.name}

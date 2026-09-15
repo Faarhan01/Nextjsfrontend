@@ -332,7 +332,7 @@ export default function WishlistPage({
                   initial={{ opacity: 0, scale: 0.95 }}
                   animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
-                  className="bg-white dark:bg-slate-800 rounded-2xl sm:rounded-3xl border border-slate-200/90 dark:border-slate-700 hover:border-blue-400 hover:shadow-xl hover:shadow-blue-500/8 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden"
+                  className="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200/90 dark:border-slate-700 hover:border-blue-400 hover:shadow-xl hover:shadow-blue-500/8 hover:-translate-y-1 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden"
                 >
                   <div>
                     {/* Image Area */}
@@ -351,14 +351,14 @@ export default function WishlistPage({
                       {/* Badges Overlay */}
                       <div className="absolute top-3 left-3 z-10 flex flex-col gap-1 items-start">
                         {(product.isSale || product.originalPrice || product.id === 'prod-2' || product.id === 'prod-5') && (
-                          <div className="px-2 py-0.5 rounded-full bg-rose-600 text-white font-extrabold text-[10px] tracking-wider uppercase shadow-2xs flex items-center gap-1 border border-rose-500/50">
-                            <Tag className="w-2 h-2 text-white" />
+                          <div className="px-2.5 py-0.5 rounded-full bg-rose-600 text-white font-extrabold text-[11px] tracking-wider uppercase shadow-2xs flex items-center gap-1 border border-rose-500/50 whitespace-nowrap">
+                            <Tag className="w-2.5 h-2.5 text-white" />
                             <span>{product.saleBadgeText || 'Sale'}</span>
                           </div>
                         )}
                         {(product.isFeatured || (!product.isSale && product.id !== 'prod-2' && product.id !== 'prod-5')) && (
-                          <div className="px-2 py-0.5 rounded-full bg-slate-900/80 backdrop-blur-md text-white font-extrabold text-[10px] tracking-wider uppercase border border-slate-700/50 shadow-2xs flex items-center gap-1">
-                            <Crown className="w-2 h-2 text-amber-400" />
+                          <div className="px-2.5 py-0.5 rounded-full bg-slate-900/85 backdrop-blur-md text-white font-extrabold text-[11px] tracking-wider uppercase border border-slate-700/50 shadow-2xs flex items-center gap-1 whitespace-nowrap">
+                            <Crown className="w-2.5 h-2.5 text-amber-400" />
                             <span>Featured</span>
                           </div>
                         )}
@@ -398,10 +398,10 @@ export default function WishlistPage({
                         <h3 className="font-extrabold text-sm sm:text-base text-slate-900 dark:text-white group-hover:text-blue-600 transition cursor-pointer line-clamp-2 leading-snug w-full">
                           {product.name}
                         </h3>
-                        <div className="flex items-center gap-1.5 flex-wrap mt-1.5">
+                        <div className="flex items-center gap-1.5 flex-wrap mt-2">
                           <StockBadge product={product} />
-                          <div className="flex items-center gap-0.5 text-amber-600 bg-amber-50/80 dark:bg-amber-950/40 px-1.5 py-0.5 rounded border border-amber-200/50 dark:border-amber-700/50 text-[10px] sm:text-[11px] font-extrabold w-max">
-                            <Star className="w-2 h-2 text-amber-500 fill-amber-400 shrink-0" />
+                          <div className="flex items-center gap-1 text-amber-600 bg-amber-50/80 dark:bg-amber-950/40 px-1.5 py-0.5 rounded-md border border-amber-200/50 dark:border-amber-700/50 text-xs font-bold w-max">
+                            <Star className="w-2.5 h-2.5 text-amber-500 fill-amber-400 shrink-0" />
                             <span>4.9</span>
                           </div>
                         </div>
@@ -409,7 +409,7 @@ export default function WishlistPage({
 
                       <div className="pt-2 flex items-baseline justify-between">
                         <div>
-                          <span className="text-lg font-black text-slate-900 dark:text-white">
+                          <span className="text-base sm:text-lg font-extrabold text-slate-900 dark:text-white">
                             {formatCurrency(product.price)}
                           </span>
                         </div>
@@ -433,7 +433,7 @@ export default function WishlistPage({
           </div>
         ) : wishlistedProducts.length > 0 && filteredWishlist.length === 0 ? (
           /* Filter No Match State */
-          <div className="bg-white dark:bg-slate-800 rounded-3xl p-12 text-center border border-slate-200/80 dark:border-slate-700 space-y-4 max-w-md mx-auto">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-12 text-center border border-slate-200/80 dark:border-slate-700 space-y-4 max-w-md mx-auto">
             <Search className="w-10 h-10 text-slate-300 dark:text-slate-600 mx-auto" />
             <h3 className="text-lg font-bold text-slate-900 dark:text-white">No items match "{searchTerm}"</h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">Try searching for another keyword or clear your filter.</p>
@@ -446,7 +446,7 @@ export default function WishlistPage({
           </div>
         ) : (
           /* Empty Wishlist Banner State */
-          <div className="bg-white dark:bg-slate-800 rounded-3xl p-12 sm:p-16 text-center border border-slate-200/80 dark:border-slate-700 space-y-6 max-w-2xl mx-auto shadow-xs">
+          <div className="bg-white dark:bg-slate-800 rounded-2xl p-12 sm:p-16 text-center border border-slate-200/80 dark:border-slate-700 space-y-6 max-w-2xl mx-auto shadow-xs">
             <div className="w-20 h-20 bg-rose-50 dark:bg-rose-950/40 text-rose-500 rounded-full flex items-center justify-center mx-auto ring-8 ring-rose-50/50 dark:ring-rose-950/20">
               <Heart className="w-10 h-10 fill-rose-500" />
             </div>
