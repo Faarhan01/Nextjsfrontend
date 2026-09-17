@@ -43,14 +43,17 @@ export function getCarouselCategoryProducts(
   allProducts: MockProduct[], 
   categories: MockCategory[]
 ): MockProduct[] {
-  const getCoreCategory = (id: string): string => {
-    if (id === 'prod-1' || id === 'prod-3') return 'Electronics';
-    if (id === 'prod-2' || id === 'prod-4') return 'Home & Kitchen';
-    if (id === 'prod-5' || id === 'prod-6') return 'Apparel & Fashion';
-    return 'Other';
-  };
+  const catNameLower = (categoryName || '').toLowerCase();
 
-  const matched = allProducts.filter(p => getCoreCategory(p.id) === categoryName);
+  const matched = allProducts.filter(p => {
+    const pCat = (p.category || '').toLowerCase();
+    if (pCat === catNameLower || pCat.includes(catNameLower) || catNameLower.includes(pCat)) return true;
+    const catInfo = categories.find(c => c.name.toLowerCase() === catNameLower);
+    if (catInfo && p.categoryId === catInfo.id) return true;
+    const tags = (p.tags || []).map(t => t.toLowerCase());
+    if (tags.some(t => catNameLower.includes(t) || t.includes(catNameLower))) return true;
+    return false;
+  });
 
   if (categoryName === 'Sale Items') {
     return [

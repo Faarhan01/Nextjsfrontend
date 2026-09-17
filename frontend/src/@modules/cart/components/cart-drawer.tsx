@@ -14,6 +14,7 @@ import { getThemeClasses } from '@/providers/theme-provider';
 import { SafeImage } from '@modules/common/components/safe-image';
 import { formatCurrency, getCartItemUnitPrice } from '@/utils/pricing';
 import { getProductUrl } from '@/utils/seoUtils';
+import { clx } from '@/lib/util/clx';
 
 export const CartDrawer: React.FC = () => {
   const router = useRouter();
@@ -48,14 +49,20 @@ export const CartDrawer: React.FC = () => {
             {/* Cart Drawer Header */}
             <div className="px-5 py-3.5 border-b border-card flex items-center justify-between bg-card shrink-0">
               <div className="flex items-center gap-2">
-                <div className={`w-8 h-8 p-1.5 rounded-full ${currentTheme.lightBg} ${currentTheme.text} dark:bg-slate-800 flex items-center justify-center`}>
+                <div
+                  className={clx(
+                    'w-8 h-8 p-1.5 rounded-full dark:bg-slate-800 flex items-center justify-center',
+                    currentTheme.lightBg,
+                    currentTheme.text
+                  )}
+                >
                   <ShoppingCart className="w-4 h-4 stroke-[2.2]" />
                 </div>
                 <div>
                   <h2 className="text-sm font-extrabold text-slate-900 dark:text-white leading-tight flex items-center gap-1.5">
                     <span>Shopping Cart</span>
                     {cartCount > 0 && (
-                      <span className={`px-2 py-0.5 rounded-full ${currentTheme.badge} text-white text-[10px] font-black`}>
+                      <span className={clx('px-2 py-0.5 rounded-full text-white text-[10px] font-black', currentTheme.badge)}>
                         {cartCount}
                       </span>
                     )}
@@ -64,7 +71,11 @@ export const CartDrawer: React.FC = () => {
               </div>
               <button
                 onClick={() => setCartOpen(false)}
-                className={`w-8 h-8 p-1.5 rounded-full border transition-all duration-150 cursor-pointer flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${currentTheme.lightBg} ${currentTheme.border.split(' ')[0]}`}
+                className={clx(
+                  'w-8 h-8 p-1.5 rounded-full border transition-all duration-150 cursor-pointer flex items-center justify-center focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40',
+                  currentTheme.lightBg,
+                  currentTheme.border.split(' ')[0]
+                )}
               >
                 <X className="w-4 h-4" />
               </button>
@@ -79,7 +90,7 @@ export const CartDrawer: React.FC = () => {
                     <span className="text-emerald-700 dark:text-emerald-300 font-extrabold text-[11px] truncate">🎉 Free Shipping Unlocked!</span>
                   ) : (
                     <span className="text-[11px] text-slate-700 dark:text-slate-300 truncate">
-                      Add <strong className={`${currentTheme.text} font-extrabold`}>{formatCurrency(freeShippingThreshold - cartSubtotal)}</strong> for <strong className="text-emerald-600 dark:text-emerald-400 font-bold">FREE Shipping</strong>
+                      Add <strong className={clx(currentTheme.text, 'font-extrabold')}>{formatCurrency(freeShippingThreshold - cartSubtotal)}</strong> for <strong className="text-emerald-600 dark:text-emerald-400 font-bold">FREE Shipping</strong>
                     </span>
                   )}
                 </div>
@@ -179,7 +190,7 @@ export const CartDrawer: React.FC = () => {
                           </span>
                           <span className="text-[10px] text-slate-400 dark:text-slate-500 font-medium">({formatCurrency(unitPrice)} ea)</span>
                           {isWholesaleActive && (
-                            <span className={`text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider ${currentTheme.lightBg} border border-current/20`}>
+                            <span className={clx('text-[8px] font-extrabold px-1.5 py-0.5 rounded uppercase tracking-wider border border-current/20', currentTheme.lightBg)}>
                               Wholesale
                             </span>
                           )}
@@ -249,7 +260,11 @@ export const CartDrawer: React.FC = () => {
                       setCartOpen(false);
                       router.push('/checkout');
                     }}
-                    className={`w-full ${currentTheme.bg} hover:opacity-95 text-white font-extrabold py-2.5 rounded-xl flex items-center justify-center gap-1.5 shadow-md ${currentTheme.shadow} active:scale-95 transition cursor-pointer text-xs`}
+                    className={clx(
+                      'w-full hover:opacity-95 text-white font-extrabold py-2.5 rounded-xl flex items-center justify-center gap-1.5 shadow-md active:scale-95 transition cursor-pointer text-xs',
+                      currentTheme.bg,
+                      currentTheme.shadow
+                    )}
                   >
                     <span>Checkout &rarr;</span>
                   </button>

@@ -1,11 +1,13 @@
 import Medusa, { FetchArgs, FetchInput } from "@medusajs/js-sdk"
 import { getLocaleHeader } from "./util/get-locale-header"
 
-let MEDUSA_BACKEND_URL = "http://localhost:9001"
+export const isBackendConfigured: boolean = Boolean(
+  process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL &&
+  process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL.trim() !== '' &&
+  !process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL.includes('localhost:9001')
+)
 
-if (process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL) {
-  MEDUSA_BACKEND_URL = process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL
-}
+let MEDUSA_BACKEND_URL = isBackendConfigured ? process.env.NEXT_PUBLIC_MEDUSA_BACKEND_URL! : "http://localhost:9001"
 
 export const sdk = new Medusa({
   baseUrl: MEDUSA_BACKEND_URL,
@@ -19,6 +21,10 @@ sdk.client.fetch = async <T>(
   input: FetchInput,
   init?: FetchArgs
 ): Promise<T> => {
+  if (!isBackendConfigured) {
+    throw new Error("Backend not configured; operating in standalone template mode")
+  }
+
   const headers = init?.headers ?? {}
   let localeHeader: Record<string, string | null> | undefined
   try {
@@ -30,8 +36,16 @@ sdk.client.fetch = async <T>(
     ...localeHeader,
     ...headers,
   }
+
+  // Use a 3-second timeout so offline backends fail fast
+  let signal = init?.signal
+  if (!signal && typeof AbortSignal !== 'undefined' && 'timeout' in AbortSignal) {
+    signal = AbortSignal.timeout(3000)
+  }
+
   init = {
     ...init,
+    signal,
     headers: newHeaders,
   }
   return originalFetch(input, init)

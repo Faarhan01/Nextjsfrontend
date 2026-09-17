@@ -1,6 +1,6 @@
 "use server"
 
-import { sdk } from "@lib/config"
+import { sdk, isBackendConfigured } from "@lib/config"
 import { MedusaRegion } from "../../types/medusa"
 import { getCacheOptions } from "./cookies"
 
@@ -21,6 +21,10 @@ export const DEFAULT_REGION: MedusaRegion = {
 }
 
 export async function listRegions(): Promise<MedusaRegion[]> {
+  if (!isBackendConfigured) {
+    return [DEFAULT_REGION];
+  }
+
   const headers = {
     ...(await getCacheOptions("regions")),
   }

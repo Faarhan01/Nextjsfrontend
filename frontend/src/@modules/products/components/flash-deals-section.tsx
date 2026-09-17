@@ -7,6 +7,7 @@ import { SafeImage } from '@modules/common/components/safe-image';
 import { StockBadge } from '@modules/common/components/stock-badge';
 import { formatCurrency } from '@/utils/pricing';
 import { ThemeClasses } from '@/providers/theme-provider';
+import { clx } from '@/lib/util/clx';
 
 interface FlashDealsSectionProps {
   products: MockProduct[];
@@ -162,12 +163,15 @@ export const FlashDealsSection: React.FC<FlashDealsSectionProps> = ({
                       </span>
                       <button
                         onClick={() => onToggleWishlist(product.id)}
-                        className={`p-1.5 rounded-lg transition cursor-pointer ${
-                          isWishlisted ? 'text-rose-500 bg-rose-500/10' : 'text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10'
-                        }`}
+                        className={clx(
+                          'p-1.5 rounded-lg transition cursor-pointer',
+                          isWishlisted
+                            ? 'text-rose-500 bg-rose-500/10'
+                            : 'text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-white/10'
+                        )}
                         title={isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}
                       >
-                        <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-current' : ''}`} />
+                        <Heart className={clx('w-4 h-4', isWishlisted && 'fill-current')} />
                       </button>
                     </div>
 

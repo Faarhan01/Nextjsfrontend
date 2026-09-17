@@ -1,10 +1,14 @@
 "use server"
 
-import { sdk } from "@lib/config"
+import { sdk, isBackendConfigured } from "@lib/config"
 import { getCacheOptions } from "./cookies"
 import { MOCK_BRANDS } from "../../data/presets"
 
 export async function listCollections() {
+  if (!isBackendConfigured) {
+    return MOCK_BRANDS;
+  }
+
   const headers = {
     ...(await getCacheOptions("collections")),
   }

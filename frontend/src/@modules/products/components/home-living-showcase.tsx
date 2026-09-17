@@ -25,6 +25,7 @@ import { MockProduct, MockCategory } from '@/types';
 import { formatCurrency } from '@/utils/pricing';
 import { getProductSaleDetails } from '@/utils/productUtils';
 import { getProductRatingDetails } from '@/utils/productRating';
+import { clx } from '@/lib/util/clx';
 
 interface HomeLivingShowcaseProps {
   products: MockProduct[];
@@ -401,15 +402,16 @@ export function HomeLivingShowcase({
                           e.stopPropagation();
                           onToggleWishlist(product.id, product.name);
                         }}
-                        className={`p-2 rounded-xl transition-all shadow-md active:scale-90 cursor-pointer ${
+                        className={clx(
+                          'p-2 rounded-xl transition-all shadow-md active:scale-90 cursor-pointer',
                           isWishlisted
                             ? 'bg-rose-500 text-white'
                             : 'bg-white/90 dark:bg-slate-800/90 text-slate-600 dark:text-slate-200 hover:text-rose-500 hover:bg-white dark:hover:bg-slate-700'
-                        }`}
+                        )}
                         aria-label="Wishlist"
                         title={isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}
                       >
-                        <Heart className={`w-4 h-4 ${isWishlisted ? 'fill-current' : ''}`} />
+                        <Heart className={clx('w-4 h-4', isWishlisted && 'fill-current')} />
                       </button>
 
                       <button
@@ -468,11 +470,12 @@ export function HomeLivingShowcase({
 
                   <button
                     onClick={(e) => handleAddToCartWithFeedback(e, product)}
-                    className={`inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all duration-200 cursor-pointer active:scale-95 shadow-2xs ${
+                    className={clx(
+                      'inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl text-xs font-extrabold transition-all duration-200 cursor-pointer active:scale-95 shadow-2xs',
                       isAdded
                         ? 'bg-emerald-600 text-white'
                         : 'bg-slate-900 hover:bg-slate-800 dark:bg-amber-500 dark:hover:bg-amber-400 text-white dark:text-slate-950'
-                    }`}
+                    )}
                     title="Add to Cart"
                   >
                     {isAdded ? (

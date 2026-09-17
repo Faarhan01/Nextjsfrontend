@@ -24,6 +24,7 @@ import { SafeImage } from '@modules/common/components/safe-image';
 import { StockBadge } from '@modules/common/components/stock-badge';
 import { MockProduct, MockCategory } from '@/types';
 import { getProductSaleDetails } from '@/utils/productUtils';
+import { clx } from '@/lib/util/clx';
 
 interface TechElectronicsShowcaseProps {
   products: MockProduct[];
@@ -460,14 +461,15 @@ export function TechElectronicsShowcase({
                             e.stopPropagation();
                             onToggleWishlist(prod.id, prod.name);
                           }}
-                          className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full backdrop-blur-md shadow-2xs transition-all duration-200 cursor-pointer flex items-center justify-center shrink-0 ${
+                          className={clx(
+                            'w-7 h-7 sm:w-8 sm:h-8 rounded-full backdrop-blur-md shadow-2xs transition-all duration-200 cursor-pointer flex items-center justify-center shrink-0',
                             isWishlisted
                               ? 'bg-rose-500 text-white'
                               : 'bg-white/90 dark:bg-slate-800/90 text-slate-600 dark:text-slate-200 hover:text-rose-600 hover:bg-white dark:hover:bg-slate-700'
-                          }`}
+                          )}
                           title={isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}
                         >
-                          <Heart className={`w-3 h-3 ${isWishlisted ? 'fill-white' : ''}`} />
+                          <Heart className={clx('w-3 h-3', isWishlisted && 'fill-white')} />
                         </button>
 
                         {onQuickView && (
@@ -477,7 +479,11 @@ export function TechElectronicsShowcase({
                               e.stopPropagation();
                               onQuickView(prod);
                             }}
-                            className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-md text-slate-600 dark:text-slate-200 ${currentTheme.hoverText} ${currentTheme.hoverLightBg} shadow-2xs transition-all duration-200 hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-100 flex items-center justify-center shrink-0 cursor-pointer`}
+                            className={clx(
+                              'w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-white/90 dark:bg-slate-800/90 backdrop-blur-md text-slate-600 dark:text-slate-200 shadow-2xs transition-all duration-200 hover:scale-110 active:scale-95 opacity-0 group-hover:opacity-100 flex items-center justify-center shrink-0 cursor-pointer',
+                              currentTheme.hoverText,
+                              currentTheme.hoverLightBg
+                            )}
                             title="Quick View"
                           >
                             <Eye className="w-3 h-3 stroke-[2.5]" />
@@ -489,7 +495,7 @@ export function TechElectronicsShowcase({
                     {/* Content Block */}
                     <div className="p-3 sm:p-3.5 flex-1 flex flex-col justify-between bg-white dark:bg-slate-800">
                       <div className="cursor-pointer" onClick={() => onSelectProduct(prod.id)}>
-                        <h3 className={`text-xs sm:text-xs font-extrabold text-slate-900 dark:text-white ${currentTheme.groupHoverText} transition-colors duration-200 line-clamp-2 leading-tight sm:leading-snug w-full`}>
+                        <h3 className={clx('text-xs sm:text-xs font-extrabold text-slate-900 dark:text-white transition-colors duration-200 line-clamp-2 leading-tight sm:leading-snug w-full', currentTheme.groupHoverText)}>
                           {prod.name}
                         </h3>
                         <div className="flex items-center gap-1.5 flex-wrap mt-1.5">

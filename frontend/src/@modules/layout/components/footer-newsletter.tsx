@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Mail, Send } from 'lucide-react';
+import { clx } from '@/lib/util/clx';
 import { useToastContext } from '@/providers/toast-provider';
 
 interface FooterNewsletterProps {
@@ -37,7 +38,7 @@ export const FooterNewsletter: React.FC<FooterNewsletterProps> = ({ currentTheme
       <div className="bg-white dark:bg-slate-900 border border-slate-200/90 dark:border-slate-800 p-5 sm:p-6 lg:p-7 rounded-2xl shadow-2xs w-full flex flex-col lg:flex-row lg:items-center lg:justify-between gap-5 lg:gap-8">
         <div className="space-y-1.5 max-w-xl">
           <div className="flex items-center gap-2 text-slate-900 dark:text-white">
-            <Mail className={`w-4 h-4 ${currentTheme.text}`} />
+            <Mail className={clx('w-4 h-4', currentTheme.text)} />
             <h4 className="text-xs sm:text-sm font-black uppercase tracking-wider text-slate-900 dark:text-white">Join Store Newsletter</h4>
           </div>
           <p className="text-xs text-slate-500 dark:text-slate-400 leading-normal font-medium">
@@ -56,7 +57,10 @@ export const FooterNewsletter: React.FC<FooterNewsletterProps> = ({ currentTheme
           />
           <button
             type="submit"
-            className={`px-5 py-2.5 ${currentTheme.bg} hover:brightness-110 text-white font-bold text-xs rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 shrink-0 shadow-md active:scale-95`}
+            className={clx(
+              'px-5 py-2.5 hover:brightness-110 text-white font-bold text-xs rounded-xl transition-all cursor-pointer flex items-center justify-center gap-1.5 shrink-0 shadow-md active:scale-95',
+              currentTheme.bg
+            )}
           >
             <span>Subscribe</span>
             <Send className="w-3 h-3" />
@@ -66,3 +70,4 @@ export const FooterNewsletter: React.FC<FooterNewsletterProps> = ({ currentTheme
     </div>
   );
 };
+

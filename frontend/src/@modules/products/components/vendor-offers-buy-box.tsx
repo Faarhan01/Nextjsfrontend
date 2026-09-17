@@ -20,6 +20,7 @@ import {
 } from 'lucide-react';
 import { MockProduct, VendorOffer, SellerAccount } from '@/types';
 import { formatCurrency } from '@/utils/pricing';
+import { clx } from '@/lib/util/clx';
 
 interface VendorOffersBuyBoxProps {
   product: MockProduct;
@@ -95,7 +96,7 @@ export function VendorOffersBuyBox({
 
   if (offers.length === 0) {
     return (
-      <div className={`p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-2.5 ${className}`}>
+      <div className={clx('p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 space-y-2.5', className)}>
         <div className="flex items-center gap-2 text-xs font-bold text-slate-700 dark:text-slate-200">
           <Store className="w-4 h-4 text-blue-600 dark:text-blue-400" />
           <span>Sold & Fulfilled by:</span>
@@ -113,7 +114,7 @@ export function VendorOffersBuyBox({
   }
 
   return (
-    <div className={`space-y-4 ${className}`}>
+    <div className={clx('space-y-4', className)}>
       {/* Main "Sold By" Merchant Card */}
       <div className="bg-gradient-to-br from-slate-50 to-slate-100/70 dark:from-slate-800/90 dark:to-slate-900/90 border border-slate-200/90 dark:border-slate-700/80 rounded-2xl p-4 sm:p-5 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-3.5 border-b border-slate-200/70 dark:border-slate-700/70">
@@ -227,11 +228,12 @@ export function VendorOffersBuyBox({
                         key={cond}
                         type="button"
                         onClick={() => setConditionFilter(cond)}
-                        className={`text-[11px] px-2.5 py-1 rounded-lg font-bold transition cursor-pointer shrink-0 ${
+                        className={clx(
+                          'text-[11px] px-2.5 py-1 rounded-lg font-bold transition cursor-pointer shrink-0',
                           conditionFilter === cond
                             ? 'bg-slate-900 text-white dark:bg-white dark:text-slate-900'
                             : 'bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700'
-                        }`}
+                        )}
                       >
                         {cond}
                       </button>
@@ -301,7 +303,7 @@ export function VendorOffersBuyBox({
                               {formatCurrency(offer.price)}
                             </span>
                             {priceDiff !== 0 && (
-                              <span className={`text-[10px] font-bold block ${priceDiff < 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400'}`}>
+                              <span className={clx('text-[10px] font-bold block', priceDiff < 0 ? 'text-emerald-600 dark:text-emerald-400' : 'text-slate-400')}>
                                 {priceDiff < 0 ? `Save ${formatCurrency(Math.abs(priceDiff))}` : `+${formatCurrency(priceDiff)} vs selected`}
                               </span>
                             )}

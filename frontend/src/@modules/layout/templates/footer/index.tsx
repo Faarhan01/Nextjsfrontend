@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { clx } from '@/lib/util/clx';
 import { useThemeContext, getThemeClasses } from '@/providers/theme-provider';
 import { FooterTrustCarousel } from '@modules/layout/components/footer-trust-carousel';
 import { FooterBrandCard } from '@modules/layout/components/footer-brand-card';
@@ -27,7 +28,7 @@ export const Footer: React.FC = () => {
       className="bg-white dark:bg-slate-950 text-slate-800 dark:text-slate-200 mt-auto border-t border-slate-200/90 dark:border-slate-800 relative overflow-hidden"
     >
       {/* Dynamic Theme Accent Top Glow Bar */}
-      <div className={`h-1 w-full ${currentTheme.bg}`} />
+      <div className={clx('h-1 w-full', currentTheme.bg)} />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10">
         {/* Top Features / Customer Perks Horizontal Carousel */}

@@ -1,6 +1,7 @@
 'use client';
 
 import React from 'react';
+import { clx } from '@/lib/util/clx';
 
 export interface CategoryPillProps {
   id: string | number;
@@ -37,11 +38,15 @@ export const CategoryPill: React.FC<CategoryPillProps> = React.memo(({
       data-category-name={name.toLowerCase()}
       type="button"
       onClick={handleClick}
-      className={`shrink-0 px-3.5 sm:px-4.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-150 cursor-pointer whitespace-nowrap active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40 ${
+      className={clx(
+        'shrink-0 px-3.5 sm:px-4.5 py-2 rounded-xl text-xs sm:text-sm font-semibold transition-all duration-150 cursor-pointer whitespace-nowrap active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/40',
         isSelected
           ? activeStyle
-          : `bg-slate-100 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 border border-slate-200/70 dark:border-slate-700 shadow-2xs hover:bg-slate-200/90 dark:hover:bg-slate-700 ${hoverStyle}`
-      }`}
+          : clx(
+              'bg-slate-100 dark:bg-slate-800/90 text-slate-700 dark:text-slate-200 border border-slate-200/70 dark:border-slate-700 shadow-2xs hover:bg-slate-200/90 dark:hover:bg-slate-700',
+              hoverStyle
+            )
+      )}
     >
       {name}
     </button>

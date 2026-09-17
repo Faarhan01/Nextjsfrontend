@@ -17,6 +17,7 @@ import {
   ArrowRight
 } from 'lucide-react';
 import { UserProfile } from '../../../types';
+import { clx } from '@/lib/util/clx';
 import { ThemeToggle } from '@modules/common/components/theme-toggle';
 import { useCatalog } from '@/providers/catalog-provider';
 import { useRegion } from '@/providers/region';
@@ -90,18 +91,18 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
             <Link
               href="/"
               onClick={onClose}
-              className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
+              className={clx(
+                'w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition',
                 isActive('/')
-                  ? `${currentTheme.lightBg} font-bold shadow-2xs`
+                  ? clx(currentTheme.lightBg, 'font-bold shadow-2xs')
                   : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
-              }`}
+              )}
             >
               <Home
-                className={`w-4 h-4 ${
-                  isActive('/')
-                    ? currentTheme.text
-                    : 'text-slate-400 dark:text-slate-500'
-                }`}
+                className={clx(
+                  'w-4 h-4',
+                  isActive('/') ? currentTheme.text : 'text-slate-400 dark:text-slate-500'
+                )}
               />
               <span>Home</span>
             </Link>
@@ -110,18 +111,18 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
             <Link
               href="/shop"
               onClick={onClose}
-              className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
+              className={clx(
+                'w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition',
                 isActive('/shop')
-                  ? `${currentTheme.lightBg} font-bold shadow-2xs`
+                  ? clx(currentTheme.lightBg, 'font-bold shadow-2xs')
                   : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
-              }`}
+              )}
             >
               <ShoppingBag
-                className={`w-4 h-4 ${
-                  isActive('/shop')
-                    ? currentTheme.text
-                    : 'text-slate-400 dark:text-slate-500'
-                }`}
+                className={clx(
+                  'w-4 h-4',
+                  isActive('/shop') ? currentTheme.text : 'text-slate-400 dark:text-slate-500'
+                )}
               />
               <span>Shop Catalog</span>
             </Link>
@@ -132,18 +133,18 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
                 <Link
                   href="/categories"
                   onClick={onClose}
-                  className={`flex-1 text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
+                  className={clx(
+                    'flex-1 text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition',
                     isActive('/categories')
-                      ? `${currentTheme.lightBg} font-bold shadow-2xs`
+                      ? clx(currentTheme.lightBg, 'font-bold shadow-2xs')
                       : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800'
-                  }`}
+                  )}
                 >
                   <LayoutGrid
-                    className={`w-4 h-4 ${
-                      isActive('/categories')
-                        ? currentTheme.text
-                        : 'text-slate-400 dark:text-slate-500'
-                    }`}
+                    className={clx(
+                      'w-4 h-4',
+                      isActive('/categories') ? currentTheme.text : 'text-slate-400 dark:text-slate-500'
+                    )}
                   />
                   <span>Categories</span>
                 </Link>
@@ -154,9 +155,10 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
                   className="p-2.5 text-slate-400 dark:text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 cursor-pointer"
                 >
                   <ChevronDown
-                    className={`w-4 h-4 transition-transform ${
-                      mobileCategoriesOpen ? 'rotate-180' : ''
-                    }`}
+                    className={clx(
+                      'w-4 h-4 transition-transform',
+                      mobileCategoriesOpen && 'rotate-180'
+                    )}
                   />
                 </button>
               </div>
@@ -300,19 +302,21 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
             <Link
               href="/wishlist"
               onClick={onClose}
-              className={`w-full text-left flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
+              className={clx(
+                'w-full text-left flex items-center justify-between px-4 py-2.5 rounded-xl text-sm font-semibold transition',
                 isActive('/wishlist')
                   ? 'bg-rose-50 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 font-bold'
                   : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
-              }`}
+              )}
             >
               <div className="flex items-center gap-2.5">
                 <Heart
-                  className={`w-4 h-4 ${
+                  className={clx(
+                    'w-4 h-4',
                     wishlistLength > 0
                       ? 'fill-rose-500 text-rose-500'
                       : 'text-slate-400 dark:text-slate-500'
-                  }`}
+                  )}
                 />
                 <span>Wishlist</span>
               </div>
@@ -327,18 +331,20 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
             <Link
               href="/order-tracking"
               onClick={onClose}
-              className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
+              className={clx(
+                'w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition',
                 isActive('/order-tracking')
-                  ? `${currentTheme.lightBg} font-bold shadow-2xs`
+                  ? clx(currentTheme.lightBg, 'font-bold shadow-2xs')
                   : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
-              }`}
+              )}
             >
               <Truck
-                className={`w-4 h-4 ${
+                className={clx(
+                  'w-4 h-4',
                   isActive('/order-tracking')
                     ? currentTheme.text
                     : 'text-slate-400 dark:text-slate-500'
-                }`}
+                )}
               />
               <span>Track Order</span>
             </Link>
@@ -347,11 +353,12 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
             <Link
               href={currentUser?.role === 'seller' ? '/sell/dashboard' : '/sell'}
               onClick={onClose}
-              className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
+              className={clx(
+                'w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition',
                 pathname.startsWith('/sell')
-                  ? `${currentTheme.lightBg} font-bold shadow-2xs`
+                  ? clx(currentTheme.lightBg, 'font-bold shadow-2xs')
                   : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
-              }`}
+              )}
             >
               <Building2 className="w-4 h-4 text-emerald-500" />
               <span>
@@ -366,14 +373,15 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
               <Link
                 href="/admin"
                 onClick={onClose}
-                className={`w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition ${
+                className={clx(
+                  'w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition',
                   isActive('/admin')
-                    ? `${currentTheme.lightBg} font-bold shadow-2xs`
+                    ? clx(currentTheme.lightBg, 'font-bold shadow-2xs')
                     : 'text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
-                }`}
+                )}
               >
                 <ShieldCheck
-                  className={`w-4 h-4 ${currentTheme.text}`}
+                  className={clx('w-4 h-4', currentTheme.text)}
                 />
                 <span>Admin Panel</span>
               </Link>

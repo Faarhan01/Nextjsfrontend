@@ -1,9 +1,13 @@
 "use server"
 
-import { sdk } from "@lib/config"
+import { sdk, isBackendConfigured } from "@lib/config"
 import { getCacheOptions } from "./cookies"
 
 export async function getSellers() {
+  if (!isBackendConfigured) {
+    return [];
+  }
+
   const headers = {
     ...(await getCacheOptions("sellers")),
   }

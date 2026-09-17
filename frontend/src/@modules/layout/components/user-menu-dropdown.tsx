@@ -14,6 +14,7 @@ import {
   LogIn
 } from 'lucide-react';
 import { UserProfile } from '../../../types';
+import { clx } from '@/lib/util/clx';
 import { ThemeToggle } from '@modules/common/components/theme-toggle';
 import { SafeImage } from '@modules/common/components/safe-image';
 import { useRegion } from '@/providers/region';
@@ -104,11 +105,12 @@ export const UserMenuDropdown: React.FC<UserMenuDropdownProps> = ({
         onClick={handleTriggerClick}
         aria-haspopup="true"
         aria-expanded={isOpen}
-        className={`px-2.5 lg:px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer outline-none flex items-center gap-1.5 ${
+        className={clx(
+          'px-2.5 lg:px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer outline-none flex items-center gap-1.5',
           isUserSectionActive
-            ? `${currentTheme.lightBg} font-bold shadow-2xs`
+            ? clx(currentTheme.lightBg, 'font-bold shadow-2xs')
             : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
-        }`}
+        )}
       >
         {currentUser?.avatarUrl ? (
           <SafeImage
@@ -122,19 +124,21 @@ export const UserMenuDropdown: React.FC<UserMenuDropdownProps> = ({
         )}
         <span>{currentUser ? currentUser.name.split(' ')[0] : 'Menu'}</span>
         <ChevronDown
-          className={`w-3.5 h-3.5 transition-transform duration-200 text-slate-400 dark:text-slate-500 ${
-            isOpen ? 'rotate-180 text-slate-700 dark:text-slate-300' : ''
-          }`}
+          className={clx(
+            'w-3.5 h-3.5 transition-transform duration-200 text-slate-400 dark:text-slate-500',
+            isOpen && 'rotate-180 text-slate-700 dark:text-slate-300'
+          )}
         />
       </button>
 
       {/* Popover Surface */}
       <div
-        className={`absolute top-[calc(100%+6px)] left-0 w-64 popover-surface rounded-2xl border border-card p-1.5 transition-all duration-150 z-50 transform origin-top-left shadow-xl shadow-slate-900/10 dark:shadow-black/40 before:absolute before:-top-2.5 before:left-0 before:right-0 before:h-3 ${
+        className={clx(
+          'absolute top-[calc(100%+6px)] left-0 w-64 popover-surface rounded-2xl border border-card p-1.5 transition-all duration-150 z-50 transform origin-top-left shadow-xl shadow-slate-900/10 dark:shadow-black/40 before:absolute before:-top-2.5 before:left-0 before:right-0 before:h-3',
           isOpen
             ? 'opacity-100 visible translate-y-0 pointer-events-auto'
             : 'opacity-0 invisible translate-y-1 pointer-events-none'
-        }`}
+        )}
       >
         {/* Appearance Theme Toggle */}
         <div className="px-1 py-1 border-b border-slate-100 dark:border-slate-800/80 mb-1">
@@ -166,7 +170,10 @@ export const UserMenuDropdown: React.FC<UserMenuDropdownProps> = ({
         >
           <div className="flex items-center gap-2.5">
             <div
-              className={`w-6 h-6 rounded-lg ${currentTheme.bg} text-white flex items-center justify-center shrink-0 shadow-xs`}
+              className={clx(
+                'w-6 h-6 rounded-lg text-white flex items-center justify-center shrink-0 shadow-xs',
+                currentTheme.bg
+              )}
             >
               <User className="w-3.5 h-3.5" />
             </div>
@@ -236,7 +243,10 @@ export const UserMenuDropdown: React.FC<UserMenuDropdownProps> = ({
         >
           <div className="flex items-center gap-2.5">
             <div
-              className={`w-6 h-6 rounded-lg ${currentTheme.lightBg} flex items-center justify-center shrink-0`}
+              className={clx(
+                'w-6 h-6 rounded-lg flex items-center justify-center shrink-0',
+                currentTheme.lightBg
+              )}
             >
               <ShoppingCart className="w-3.5 h-3.5" />
             </div>
@@ -249,7 +259,10 @@ export const UserMenuDropdown: React.FC<UserMenuDropdownProps> = ({
           </div>
           {cartCount > 0 && (
             <span
-              className={`px-2 py-0.5 rounded-full ${currentTheme.badge} text-white text-[10px] font-black shadow-2xs`}
+              className={clx(
+                'px-2 py-0.5 rounded-full text-white text-[10px] font-black shadow-2xs',
+                currentTheme.badge
+              )}
             >
               {cartCount}
             </span>

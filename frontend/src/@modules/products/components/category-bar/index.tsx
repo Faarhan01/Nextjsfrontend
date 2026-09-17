@@ -4,6 +4,7 @@ import React, { useMemo } from 'react';
 import { MockCategoryPreset } from '@/data/presets';
 import { formatCategoryName } from '@/utils/seoUtils';
 import { useThemeContext, getThemeClasses, ThemeClasses } from '@/providers/theme-provider';
+import { clx } from '@/lib/util/clx';
 import { CategoryNavButton } from './category-nav-button';
 import { CategoryPill } from './category-pill';
 import { useCategoryScroll } from './use-category-scroll';
@@ -96,7 +97,7 @@ export const CategoryBar: React.FC<CategoryBarProps> = ({
   return (
     <section
       id="category-carousel-bar"
-      className={`w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 ${className}`}
+      className={clx('w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8', className)}
       aria-label="Category Navigation"
     >
       <div className="relative flex items-center gap-1.5 sm:gap-2.5 bg-transparent rounded-2xl p-1 sm:p-1.5">

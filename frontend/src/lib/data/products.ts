@@ -1,20 +1,54 @@
 "use server"
 
-import { sdk } from "@lib/config"
+import { sdk, isBackendConfigured } from "@lib/config"
 import { medusaProductToUiProduct } from "@lib/sdk/transformers"
 import { getCacheOptions } from "./cookies"
 import { MOCK_PRODUCTS } from "../../data/presets"
+import { MockProduct } from "@/types"
 
 type ProductListQueryParams = {
   limit?: number
   offset?: number
   q?: string
-  category_id?: number
-  brandId?: number
+  category_id?: number | string
+  brandId?: number | string
   search?: string
 }
 
+function filterMockProducts(filters: ProductListQueryParams = {}): { products: MockProduct[]; count: number } {
+  let list = [...MOCK_PRODUCTS];
+  if (filters.category_id !== undefined && filters.category_id !== null) {
+    list = list.filter((p) => p.categoryId === filters.category_id || String(p.categoryId) === String(filters.category_id));
+  }
+  if (filters.brandId !== undefined && filters.brandId !== null) {
+    list = list.filter((p) => p.brandId === filters.brandId || String(p.brandId) === String(filters.brandId));
+  }
+  const searchStr = filters.search || filters.q;
+  if (searchStr) {
+    const q = searchStr.toLowerCase().trim();
+    list = list.filter(
+      (p) =>
+        p.name.toLowerCase().includes(q) ||
+        p.description?.toLowerCase().includes(q) ||
+        p.category?.toLowerCase().includes(q) ||
+        p.brand?.toLowerCase().includes(q) ||
+        p.tags?.some((t) => t.toLowerCase().includes(q))
+    );
+  }
+  if (filters.limit) {
+    list = list.slice(0, filters.limit);
+  }
+  return {
+    products: list,
+    count: list.length,
+  };
+}
+
 export async function listProducts(filters: ProductListQueryParams = {}) {
+  if (!isBackendConfigured) {
+    return filterMockProducts(filters);
+  }
+
   const limit = filters.limit || 100
   const offset = filters.offset || 0
 
@@ -159,21 +193,28 @@ export async function getProductByHandle(handle: string) {
 }
 
 export async function getProductByIdStrict(id: string) {
-  let product = await getProductById(id);
-  if (!product) {
-    product = await getProductByHandle(id);
-  }
-  if (!product) {
-    const target = id.toLowerCase().trim();
-    const fallback = MOCK_PRODUCTS.find((p) => {
+  const target = id.toLowerCase().trim();
+  const findInMock = () => {
+    return MOCK_PRODUCTS.find((p) => {
       const pId = p.id.toLowerCase();
       if (pId === target || `prod-${pId}` === target || pId.replace(/^prod-/, '') === target) return true;
       if (target.startsWith(`${pId}-`)) return true;
       const pSlug = p.name.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
       if (pSlug === target || (p as any).slug === target) return true;
       return false;
-    });
-    if (fallback) product = fallback;
+    }) || null;
+  };
+
+  if (!isBackendConfigured) {
+    return findInMock();
+  }
+
+  let product = await getProductById(id);
+  if (!product) {
+    product = await getProductByHandle(id);
+  }
+  if (!product) {
+    product = findInMock();
   }
   return product;
 }

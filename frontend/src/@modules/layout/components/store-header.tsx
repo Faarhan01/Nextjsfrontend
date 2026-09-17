@@ -12,6 +12,7 @@ import {
   Menu,
   X
 } from 'lucide-react';
+import { clx } from '@/lib/util/clx';
 import { useThemeContext } from '@/providers/theme-provider';
 import { useCartContext } from '@/providers/cart-provider';
 import { useWishlistContext } from '@/providers/wishlist-provider';
@@ -95,18 +96,23 @@ export const StoreHeader: React.FC = () => {
   return (
     <header className="sticky top-2 sm:top-3.5 z-50 px-4 sm:px-6 lg:px-8 w-full max-w-7xl mx-auto pointer-events-none mb-2 sm:mb-4 relative">
       <div
-        className={`pointer-events-auto rounded-2xl sm:rounded-full border backdrop-blur-2xl px-4 sm:px-6 py-1.5 sm:py-2 flex items-center justify-between gap-2 sm:gap-4 relative z-50 transition-[box-shadow,background-color,border-color] duration-150 ${
+        className={clx(
+          'pointer-events-auto rounded-2xl sm:rounded-full border backdrop-blur-2xl px-4 sm:px-6 py-1.5 sm:py-2 flex items-center justify-between gap-2 sm:gap-4 relative z-50 transition-[box-shadow,background-color,border-color] duration-150',
           mobileMenuOpen || showSearchResults || isScrolled
             ? 'bg-card-translucent-strong border-card text-theme-primary shadow-xl shadow-slate-900/10 dark:shadow-black/40 ring-1 ring-slate-900/5 dark:ring-slate-800/80'
             : 'bg-card-translucent border-card text-theme-primary shadow-lg shadow-slate-900/5 dark:shadow-black/30 ring-1 ring-slate-900/5 dark:ring-slate-800/80'
-        }`}
+        )}
       >
         <div className="w-full flex items-center justify-between gap-2 sm:gap-4 h-9 sm:h-10">
           {/* 1. Brand Logo */}
           <div className="flex-shrink-0 flex items-center">
             <Link href="/" className="group flex items-center gap-2 text-slate-900 dark:text-slate-100 focus:outline-none">
               <div
-                className={`w-7 h-7 rounded-full ${currentTheme.bg} text-white flex items-center justify-center shadow-xs ${currentTheme.shadow} group-hover:scale-105 transition-transform duration-200`}
+                className={clx(
+                  'w-7 h-7 rounded-full text-white flex items-center justify-center shadow-xs group-hover:scale-105 transition-transform duration-200',
+                  currentTheme.bg,
+                  currentTheme.shadow
+                )}
               >
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
                   <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>

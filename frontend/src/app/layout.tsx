@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import Script from 'next/script';
-import '../index.css';
+import './globals.css';
 import { StoreProvider } from '@/context/StoreContext';
 import { AppProviders } from '@/providers/app-providers';
 import { StorefrontLayout } from '@modules/layout/templates/storefront-layout';

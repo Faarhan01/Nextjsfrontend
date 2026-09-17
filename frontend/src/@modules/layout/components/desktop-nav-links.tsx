@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { Building2, ShieldCheck } from 'lucide-react';
+import { clx } from '@/lib/util/clx';
 import { UserProfile } from '../../../types';
 import { CompanyDropdown } from './company-dropdown';
 import { CategoriesDropdown } from './categories-dropdown';
@@ -39,6 +40,9 @@ export const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({
     return false;
   };
 
+  const linkBaseClasses = 'px-2.5 lg:px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer outline-none';
+  const inactiveLinkClasses = 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80';
+
   return (
     <nav
       aria-label="Main Navigation"
@@ -47,11 +51,12 @@ export const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({
       {/* 1. Home Link */}
       <Link
         href="/"
-        className={`px-2.5 lg:px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer outline-none ${
+        className={clx(
+          linkBaseClasses,
           isActive('/')
-            ? `${currentTheme.lightBg} font-bold shadow-2xs`
-            : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
-        }`}
+            ? clx(currentTheme.lightBg, 'font-bold shadow-2xs')
+            : inactiveLinkClasses
+        )}
       >
         Home
       </Link>
@@ -59,11 +64,12 @@ export const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({
       {/* 2. Shop Catalog Link */}
       <Link
         href="/shop"
-        className={`px-2.5 lg:px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer outline-none ${
+        className={clx(
+          linkBaseClasses,
           isActive('/shop')
-            ? `${currentTheme.lightBg} font-bold shadow-2xs`
-            : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
-        }`}
+            ? clx(currentTheme.lightBg, 'font-bold shadow-2xs')
+            : inactiveLinkClasses
+        )}
       >
         Shop
       </Link>
@@ -88,11 +94,13 @@ export const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({
       {/* 6. Seller Hub Link */}
       <Link
         href={currentUser?.role === 'seller' ? '/sell/dashboard' : '/sell'}
-        className={`px-2.5 lg:px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer outline-none flex items-center gap-1.5 ${
+        className={clx(
+          linkBaseClasses,
+          'flex items-center gap-1.5',
           pathname.startsWith('/sell')
-            ? `${currentTheme.lightBg} font-extrabold shadow-2xs`
-            : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
-        }`}
+            ? clx(currentTheme.lightBg, 'font-extrabold shadow-2xs')
+            : inactiveLinkClasses
+        )}
       >
         <Building2 className="w-3.5 h-3.5 text-emerald-500" />
         <span>{currentUser?.role === 'seller' ? 'Seller Hub' : 'Sell'}</span>
@@ -102,14 +110,16 @@ export const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({
       {(currentUser?.role === 'admin' || isActive('/admin')) && (
         <Link
           href="/admin"
-          className={`px-2.5 lg:px-3 py-1.5 rounded-full transition-all duration-200 cursor-pointer outline-none flex items-center gap-1.5 ${
+          className={clx(
+            linkBaseClasses,
+            'flex items-center gap-1.5',
             isActive('/admin')
-              ? `${currentTheme.lightBg} font-extrabold shadow-2xs`
-              : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80'
-          }`}
+              ? clx(currentTheme.lightBg, 'font-extrabold shadow-2xs')
+              : inactiveLinkClasses
+          )}
         >
           <ShieldCheck
-            className={`w-3.5 h-3.5 ${currentTheme.text}`}
+            className={clx('w-3.5 h-3.5', currentTheme.text)}
           />
           <span>Admin</span>
         </Link>
@@ -117,3 +127,4 @@ export const DesktopNavLinks: React.FC<DesktopNavLinksProps> = ({
     </nav>
   );
 };
+

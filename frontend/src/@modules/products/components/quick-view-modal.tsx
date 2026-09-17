@@ -7,6 +7,7 @@ import { StockBadge } from '@modules/common/components/stock-badge';
 import { getProductSaleDetails } from '@/utils/productUtils';
 import { formatCurrency } from '@/utils/pricing';
 import { X, Heart, Plus, Minus, ShoppingBag, Star, Check, ArrowRight, Eye, ShieldCheck, Truck, Building2 } from 'lucide-react';
+import { clx } from '@/lib/util/clx';
 import { MockProduct } from '@/types';
 
 interface QuickViewModalProps {
@@ -92,12 +93,13 @@ export default function QuickViewModal({
                 {/* Wishlist Floating Toggle */}
                 <button
                   onClick={() => onToggleWishlist(product.id, product.name)}
-                  className={`absolute top-4 left-4 w-11 h-11 rounded-full bg-white/95 dark:bg-slate-800/95 hover:bg-white dark:hover:bg-slate-800 shadow-md transition cursor-pointer flex items-center justify-center shrink-0 ${
+                  className={clx(
+                    'absolute top-4 left-4 w-11 h-11 rounded-full bg-white/95 dark:bg-slate-800/95 hover:bg-white dark:hover:bg-slate-800 shadow-md transition cursor-pointer flex items-center justify-center shrink-0',
                     isWishlisted ? 'text-rose-500' : 'text-slate-400 dark:text-slate-500 hover:text-rose-500'
-                  }`}
+                  )}
                   title={isWishlisted ? 'Remove from Wishlist' : 'Add to Wishlist'}
                 >
-                  <Heart className={`w-5 h-5 ${isWishlisted ? 'fill-rose-500' : ''}`} />
+                  <Heart className={clx('w-5 h-5', isWishlisted && 'fill-rose-500')} />
                 </button>
               </div>
 
@@ -175,11 +177,12 @@ export default function QuickViewModal({
                         <button
                           key={c}
                           onClick={() => setSelectedColor(c)}
-                          className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition cursor-pointer ${
+                          className={clx(
+                            'px-3 py-1.5 rounded-xl text-xs font-semibold border transition cursor-pointer',
                             selectedColor === c
                               ? 'border-blue-600 dark:border-blue-500 bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 font-bold'
                               : 'border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:border-slate-300 dark:hover:border-slate-600'
-                          }`}
+                          )}
                         >
                           {c}
                         </button>
@@ -214,9 +217,10 @@ export default function QuickViewModal({
                   <div className="flex items-center gap-3">
                     <button
                       onClick={handleAdd}
-                      className={`py-3 px-7 text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-2 shadow-sm cursor-pointer ${
+                      className={clx(
+                        'py-3 px-7 text-white text-xs font-bold rounded-xl transition flex items-center justify-center gap-2 shadow-sm cursor-pointer',
                         addedAnimation ? 'bg-emerald-600' : currentTheme.bg
-                      }`}
+                      )}
                     >
                       {addedAnimation ? (
                         <>

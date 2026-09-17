@@ -1,10 +1,27 @@
 "use server"
 
-import { sdk } from "@lib/config"
+import { sdk, isBackendConfigured } from "@lib/config"
 import { getCacheOptions } from "./cookies"
 import { MOCK_CATEGORIES } from "../../data/presets"
 
+function getMockCategoriesFormatted() {
+  return MOCK_CATEGORIES.map((c) => ({
+    id: c.id,
+    name: c.name,
+    handle: c.name.toLowerCase().replace(/[^a-z0-9]+/g, "-"),
+    imageUrl: c.imageUrl,
+    description: c.description || `Browse quality ${c.name} in bulk and save.`,
+    icon: c.icon || "",
+    itemCount: c.itemCount ?? 15,
+    subcategories: c.subcategories || [],
+  }));
+}
+
 export async function listCategories() {
+  if (!isBackendConfigured) {
+    return getMockCategoriesFormatted();
+  }
+
   const headers = {
     ...(await getCacheOptions("categories")),
   }

@@ -14,6 +14,7 @@ import {
 import { useThemeContext } from '@/providers/theme-provider';
 import { useCartContext } from '@/providers/cart-provider';
 import { getThemeClasses } from '@/providers/theme-provider';
+import { clx } from '@/lib/util/clx';
 
 interface FooterTrustCarouselProps {
   freeShippingThreshold?: number;
@@ -142,16 +143,18 @@ export const FooterTrustCarousel: React.FC<FooterTrustCarouselProps> = ({
       <div className="relative">
         {/* Left Gradient Fade */}
         <div
-          className={`absolute left-0 top-0 bottom-0 w-8 sm:w-12 bg-gradient-to-r from-white dark:from-slate-950 to-transparent z-10 pointer-events-none transition-opacity duration-200 ${
+          className={clx(
+            'absolute left-0 top-0 bottom-0 w-8 sm:w-12 bg-gradient-to-r from-white dark:from-slate-950 to-transparent z-10 pointer-events-none transition-opacity duration-200',
             canScrollLeft ? 'opacity-100' : 'opacity-0'
-          }`}
+          )}
         />
 
         {/* Right Gradient Fade */}
         <div
-          className={`absolute right-0 top-0 bottom-0 w-8 sm:w-12 bg-gradient-to-l from-white dark:from-slate-950 to-transparent z-10 pointer-events-none transition-opacity duration-200 ${
+          className={clx(
+            'absolute right-0 top-0 bottom-0 w-8 sm:w-12 bg-gradient-to-l from-white dark:from-slate-950 to-transparent z-10 pointer-events-none transition-opacity duration-200',
             canScrollRight ? 'opacity-100' : 'opacity-0'
-          }`}
+          )}
         />
 
         {/* Scrollable Container (matching smooth dragging behavior of category carousel) */}
@@ -162,9 +165,10 @@ export const FooterTrustCarousel: React.FC<FooterTrustCarouselProps> = ({
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUpOrLeave}
           onMouseLeave={handleMouseUpOrLeave}
-          className={`flex items-center gap-3 sm:gap-4 overflow-x-auto scrollbar-none py-1 px-1 select-none w-full ${
+          className={clx(
+            'flex items-center gap-3 sm:gap-4 overflow-x-auto scrollbar-none py-1 px-1 select-none w-full',
             isDragging ? 'scroll-auto cursor-grabbing' : 'scroll-smooth cursor-grab'
-          }`}
+          )}
           style={{ WebkitOverflowScrolling: 'touch' }}
         >
           {trustBadges.map((badge) => {
@@ -177,7 +181,11 @@ export const FooterTrustCarousel: React.FC<FooterTrustCarouselProps> = ({
               >
                 {/* Badge Icon with clean light theme background */}
                 <div
-                  className={`w-10 h-10 rounded-xl ${currentTheme.lightBg} ${currentTheme.text} dark:bg-slate-700 flex items-center justify-center shrink-0 shadow-2xs`}
+                  className={clx(
+                    'w-10 h-10 rounded-xl dark:bg-slate-700 flex items-center justify-center shrink-0 shadow-2xs',
+                    currentTheme.lightBg,
+                    currentTheme.text
+                  )}
                 >
                   <Icon className="w-5 h-5 stroke-[2]" />
                 </div>

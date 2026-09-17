@@ -3,6 +3,7 @@
 import React, { useState, useMemo } from 'react';
 import { Star, CheckCircle, ThumbsUp, MessageSquare, Send, Filter } from 'lucide-react';
 import { DEFAULT_STORE_REVIEWS } from '@/utils/productRating';
+import { clx } from '@/lib/util/clx';
 
 export interface ReviewItem {
   id: string;
@@ -127,7 +128,10 @@ export function ProductReviews({ productId, productTitle = 'Product', themeColor
               {Array.from({ length: 5 }).map((_, i) => (
                 <Star
                   key={i}
-                  className={`w-4 h-4 ${i < Math.round(averageRating) ? 'fill-amber-400 text-amber-400' : 'text-slate-300 dark:text-slate-700'}`}
+                  className={clx(
+                    'w-4 h-4',
+                    i < Math.round(averageRating) ? 'fill-amber-400 text-amber-400' : 'text-slate-300 dark:text-slate-700'
+                  )}
                 />
               ))}
             </div>
@@ -145,7 +149,10 @@ export function ProductReviews({ productId, productTitle = 'Product', themeColor
                 <button
                   key={stars}
                   onClick={() => setSelectedFilter(selectedFilter === stars ? null : stars)}
-                  className={`flex items-center gap-2 text-xs group text-left cursor-pointer ${selectedFilter === stars ? 'font-bold text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400'}`}
+                  className={clx(
+                    'flex items-center gap-2 text-xs group text-left cursor-pointer',
+                    selectedFilter === stars ? 'font-bold text-blue-600 dark:text-blue-400' : 'text-slate-600 dark:text-slate-400'
+                  )}
                 >
                   <span className="w-6 shrink-0">{stars} ★</span>
                   <div className="w-28 h-2 rounded-full bg-slate-200 dark:bg-slate-800 overflow-hidden">
@@ -191,7 +198,12 @@ export function ProductReviews({ productId, productTitle = 'Product', themeColor
                   onClick={() => setFormRating(star)}
                   className="p-1 text-amber-400 hover:scale-110 transition-transform cursor-pointer"
                 >
-                  <Star className={`w-6 h-6 ${star <= formRating ? 'fill-amber-400 text-amber-400' : 'text-slate-300 dark:text-slate-700'}`} />
+                  <Star
+                    className={clx(
+                      'w-6 h-6',
+                      star <= formRating ? 'fill-amber-400 text-amber-400' : 'text-slate-300 dark:text-slate-700'
+                    )}
+                  />
                 </button>
               ))}
               <span className="text-xs text-slate-500 ml-2 font-medium">{formRating} out of 5 Stars</span>
@@ -310,7 +322,10 @@ export function ProductReviews({ productId, productTitle = 'Product', themeColor
                   {Array.from({ length: 5 }).map((_, i) => (
                     <Star
                       key={i}
-                      className={`w-3 h-3 ${i < r.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-300 dark:text-slate-700'}`}
+                      className={clx(
+                        'w-3 h-3',
+                        i < r.rating ? 'fill-amber-400 text-amber-400' : 'text-slate-300 dark:text-slate-700'
+                      )}
                     />
                   ))}
                 </div>
