@@ -23,7 +23,12 @@ function resolveSellerId(rawId: string, sellers: any[]): string | null {
   const target = rawId.toLowerCase().trim();
   if (!target) return null;
 
-  const seller = sellers.find((s) => s.id === target || s.slug === target);
+  const seller = sellers.find((s) => 
+    s.id === target || 
+    s.slug === target || 
+    s.userId?.toLowerCase() === target ||
+    s.storeName?.toLowerCase().replace(/[^a-z0-9]+/g, '-') === target
+  );
   if (seller) return seller.id;
 
   const indexMatch = target.match(/^seller-0?(\d+)$/);
@@ -34,7 +39,8 @@ function resolveSellerId(rawId: string, sellers: any[]): string | null {
     }
   }
 
-  return null;
+  // Graceful fallback to first seller if unknown id
+  return sellers.length > 0 ? sellers[0].id : null;
 }
 
 export default async function StorefrontPage({ params }: { params: Promise<{ sellerId: string }> }) {
@@ -45,13 +51,9 @@ export default async function StorefrontPage({ params }: { params: Promise<{ sel
     notFound();
   }
 
-  const resolvedSellerId = resolveSellerId(sellerId, sellers);
-  if (!resolvedSellerId) {
-    notFound();
-  }
+  const resolvedSellerId = resolveSellerId(sellerId, sellers) || sellers[0].id;
+  const seller = sellers.find((s) => s.id === resolvedSellerId) || sellers[0];
 
-  const seller = sellers.find((s) => s.id === resolvedSellerId);
-
-  return <StorefrontView sellerId={resolvedSellerId} seller={seller} />;
+  return <StorefrontView sellerId={resolvedSellerId} seller={seller} allSellers={sellers} />;
 }
 

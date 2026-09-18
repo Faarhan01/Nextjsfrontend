@@ -66,6 +66,7 @@ export const FooterLinksGrid: React.FC = () => {
   const companyLinks = [
     { href: '/about', label: 'About Us' },
     { href: '/contact', label: 'Contact Us' },
+    { href: '/store', label: 'Verified Sellers' },
     { href: '/faq', label: 'Help & FAQs' },
     {
       href: '/sell',

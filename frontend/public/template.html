@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mrbulk Store — Modern E-Commerce Storefront Template</title>
+  <meta name="description" content="Fully responsive, modern standalone HTML5 e-commerce storefront template for Mrbulk Store." />
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind CSS via CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          colors: {
+            brand: {
+              DEFAULT: '#059669',
+              hover: '#047857',
+              light: '#ecfdf5',
+              border: '#a7f3d0',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body { font-family: 'Plus Jakarta Sans', sans-serif; }
+    .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+    .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 9999px; }
+    .glass-nav { backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased min-h-screen flex flex-col selection:bg-brand selection:text-white">
+
+  <!-- Top Announcement Bar -->
+  <div class="bg-slate-900 text-slate-200 text-xs py-2 px-4 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2">
+      <div class="flex items-center gap-2">
+        <span class="inline-block px-2 py-0.5 text-[10px] font-black uppercase tracking-wider bg-brand text-white rounded">Special</span>
+        <span class="font-medium">Free Express Delivery on all orders over R500 &bull; Authentic Quality Guaranteed</span>
+      </div>
+      <div class="flex items-center gap-4 text-slate-400 text-[11px]">
+        <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-400 inline-block animate-pulse"></span> Nationwide Delivery SA</span>
+        <a href="#footer" class="hover:text-white transition">24/7 Support</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Primary Sticky Header Navigation -->
+  <header class="sticky top-0 z-40 bg-white/95 glass-nav border-b border-slate-200/80 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-2.5 group shrink-0">
+        <div class="w-10 h-10 rounded-xl bg-brand text-white flex items-center justify-center font-black text-xl shadow-md shadow-brand/20 group-hover:scale-105 transition-transform">
+          M
+        </div>
+        <div>
+          <span class="text-xl sm:text-2xl font-black tracking-tight text-slate-900 block leading-none group-hover:text-brand transition-colors">
+            Mrbulk
+          </span>
+          <span class="text-[10px] font-bold text-slate-500 tracking-wider uppercase">Online Storefront</span>
+        </div>
+      </a>
+
+      <!-- Desktop Search Bar -->
+      <div class="hidden md:flex flex-1 max-w-lg mx-6 relative">
+        <input
+          type="text"
+          id="catalog-search-input"
+          placeholder="Search items, electronics, home decor..."
+          class="w-full pl-10 pr-4 py-2.5 text-sm bg-slate-100/90 border border-slate-200 rounded-full focus:outline-none focus:ring-2 focus:ring-brand focus:bg-white transition-all"
+        />
+        <svg class="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+        </svg>
+      </div>
+
+      <!-- Action Buttons -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Wishlist Button -->
+        <button
+          onclick="showToast('Wishlist: Browse your favorite products anytime!')"
+          class="p-2.5 text-slate-600 hover:text-rose-600 hover:bg-rose-50 rounded-xl transition-all relative cursor-pointer"
+          title="Wishlist"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+          </svg>
+          <span id="wishlist-badge" class="absolute -top-1 -right-1 w-4 h-4 bg-rose-500 text-white rounded-full text-[10px] font-bold flex items-center justify-center">0</span>
+        </button>
+
+        <!-- Cart Button -->
+        <button
+          onclick="toggleCartDrawer()"
+          class="flex items-center gap-2 px-4 py-2.5 bg-brand text-white rounded-xl shadow-md shadow-brand/20 hover:bg-brand-hover hover:scale-105 active:scale-95 transition-all cursor-pointer"
+          title="Open Shopping Cart"
+        >
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+          </svg>
+          <span class="text-xs font-bold hidden sm:inline">Cart</span>
+          <span id="cart-badge" class="w-5 h-5 bg-white text-brand rounded-full text-xs font-black flex items-center justify-center">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Hero Section with Rotating Promo Slides -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 w-full">
+    <div class="relative w-full rounded-2xl sm:rounded-3xl overflow-hidden shadow-xl bg-slate-950 text-white border border-slate-800">
+      <div id="hero-slider" class="relative h-[280px] xs:h-[340px] sm:h-[400px] lg:h-[440px] w-full overflow-hidden">
+        
+        <div id="slide-0" class="hero-slide absolute inset-0 w-full h-full flex items-center transition-opacity duration-700 opacity-100 z-10" style="background-image: url('https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=1600&auto=format&fit=crop'); background-size: cover; background-position: center;">
+          <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-transparent"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/20"></div>
+          <div class="relative z-20 px-6 sm:px-12 lg:px-16 max-w-xl">
+            <span class="inline-block px-3 py-1 text-xs font-black uppercase tracking-wider bg-brand text-white rounded-full mb-3 shadow">Spring Showcase</span>
+            <h1 class="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white mb-3 leading-tight drop-shadow-md">Premium Audio & Gear</h1>
+            <p class="text-sm sm:text-base text-slate-200 font-medium mb-6 line-clamp-2 drop-shadow">Experience studio-quality sound, ergonomic design, and wireless precision.</p>
+            <a href="#products-section" class="inline-flex items-center gap-2 px-6 py-3 bg-brand hover:bg-brand-hover text-white text-sm font-extrabold rounded-xl shadow-lg shadow-brand/30 hover:scale-105 active:scale-95 transition-all">
+              <span>Shop Collection</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+            </a>
+          </div>
+        </div>
+
+        <div id="slide-1" class="hero-slide absolute inset-0 w-full h-full flex items-center transition-opacity duration-700 opacity-0 z-0 pointer-events-none" style="background-image: url('https://images.unsplash.com/photo-1546868871-7041f2a55e12?q=80&w=1600&auto=format&fit=crop'); background-size: cover; background-position: center;">
+          <div class="absolute inset-0 bg-gradient-to-r from-slate-950/90 via-slate-950/70 to-transparent"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-slate-950/80 via-transparent to-slate-950/20"></div>
+          <div class="relative z-20 px-6 sm:px-12 lg:px-16 max-w-xl">
+            <span class="inline-block px-3 py-1 text-xs font-black uppercase tracking-wider bg-brand text-white rounded-full mb-3 shadow">Smart Living</span>
+            <h1 class="text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white mb-3 leading-tight drop-shadow-md">Wearables & Smart Watches</h1>
+            <p class="text-sm sm:text-base text-slate-200 font-medium mb-6 line-clamp-2 drop-shadow">Advanced biometric sensors, battery life up to 14 days, and waterproof casing.</p>
+            <a href="#products-section" class="inline-flex items-center gap-2 px-6 py-3 bg-brand hover:bg-brand-hover text-white text-sm font-extrabold rounded-xl shadow-lg shadow-brand/30 hover:scale-105 active:scale-95 transition-all">
+              <span>Explore Deals</span>
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Carousel Navigation Controls -->
+        <button onclick="prevSlide()" class="absolute left-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur border border-white/20 flex items-center justify-center transition-transform hover:scale-110 cursor-pointer shadow-lg">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" /></svg>
+        </button>
+        <button onclick="nextSlide()" class="absolute right-4 top-1/2 -translate-y-1/2 z-30 w-10 h-10 rounded-full bg-slate-900/70 hover:bg-slate-900 text-white backdrop-blur border border-white/20 flex items-center justify-center transition-transform hover:scale-110 cursor-pointer shadow-lg">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" /></svg>
+        </button>
+
+        <!-- Carousel Dots -->
+        <div class="absolute bottom-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
+          <button onclick="goToSlide(0)" id="dot-0" class="h-2 rounded-full transition-all duration-300 w-6 bg-white"></button>
+          <button onclick="goToSlide(1)" id="dot-1" class="h-2 rounded-full transition-all duration-300 w-2 bg-white/40 hover:bg-white/70"></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust Badges Section -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 w-full">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+      <div class="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-center gap-3.5">
+        <div class="w-10 h-10 rounded-xl bg-brand/10 text-brand flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>
+        </div>
+        <div>
+          <h4 class="text-xs sm:text-sm font-bold text-slate-900 leading-tight">Fast Shipping</h4>
+          <p class="text-[11px] text-slate-500">Express delivery nationwide</p>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-center gap-3.5">
+        <div class="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-600 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" /></svg>
+        </div>
+        <div>
+          <h4 class="text-xs sm:text-sm font-bold text-slate-900 leading-tight">100% Authentic</h4>
+          <p class="text-[11px] text-slate-500">Verified manufacturer stock</p>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-center gap-3.5">
+        <div class="w-10 h-10 rounded-xl bg-blue-50 text-blue-600 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" /></svg>
+        </div>
+        <div>
+          <h4 class="text-xs sm:text-sm font-bold text-slate-900 leading-tight">Secure Payments</h4>
+          <p class="text-[11px] text-slate-500">Encrypted checkout options</p>
+        </div>
+      </div>
+
+      <div class="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-xs flex items-center gap-3.5">
+        <div class="w-10 h-10 rounded-xl bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+          <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" /></svg>
+        </div>
+        <div>
+          <h4 class="text-xs sm:text-sm font-bold text-slate-900 leading-tight">30-Day Guarantee</h4>
+          <p class="text-[11px] text-slate-500">Hassle-free refunds & support</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Curated Products Showcase with Tab Switcher -->
+  <section id="products-section" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight">Featured Catalog</h2>
+        <p class="text-xs sm:text-sm text-slate-500">Hand-selected items ready for rapid dispatch</p>
+      </div>
+
+      <!-- Tab Buttons -->
+      <div class="flex items-center gap-1.5 p-1.5 bg-slate-200/80 rounded-2xl overflow-x-auto custom-scrollbar">
+        <button onclick="switchTab('all')" id="tab-all" class="product-tab px-3.5 py-2 text-xs font-black rounded-xl bg-white text-slate-900 shadow-xs transition-all cursor-pointer whitespace-nowrap">All Items</button>
+        <button onclick="switchTab('bestsellers')" id="tab-bestsellers" class="product-tab px-3.5 py-2 text-xs font-bold text-slate-600 hover:text-slate-900 rounded-xl transition-all cursor-pointer whitespace-nowrap">Bestsellers</button>
+        <button onclick="switchTab('new')" id="tab-new" class="product-tab px-3.5 py-2 text-xs font-bold text-slate-600 hover:text-slate-900 rounded-xl transition-all cursor-pointer whitespace-nowrap">New Arrivals</button>
+        <button onclick="switchTab('sale')" id="tab-sale" class="product-tab px-3.5 py-2 text-xs font-bold text-slate-600 hover:text-slate-900 rounded-xl transition-all cursor-pointer whitespace-nowrap">Special Deals</button>
+      </div>
+    </div>
+
+    <div id="product-grid" class="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
+      <!-- Populated via JavaScript on load -->
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="footer" class="mt-auto bg-slate-900 text-slate-300 border-t border-slate-800 pt-12 pb-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
+        <div class="space-y-4">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-xl bg-brand text-white flex items-center justify-center font-black text-lg">M</div>
+            <span class="text-xl font-black tracking-tight text-white">Mrbulk</span>
+          </div>
+          <p class="text-xs text-slate-400 leading-relaxed">
+            Independent modern storefront template. Providing seamless shopping, fast delivery, and verified quality.
+          </p>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-black text-white uppercase tracking-wider mb-3">Shop Collections</h4>
+          <ul class="space-y-2 text-xs text-slate-400">
+            <li><a href="#products-section" class="hover:text-white transition">Electronics & Gadgets</a></li>
+            <li><a href="#products-section" class="hover:text-white transition">Home & Kitchen</a></li>
+            <li><a href="#products-section" class="hover:text-white transition">Special Deals</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-black text-white uppercase tracking-wider mb-3">Customer Support</h4>
+          <ul class="space-y-2 text-xs text-slate-400">
+            <li><a href="#" onclick="showToast('Tracking available upon order placement.')" class="hover:text-white transition">Order Tracking</a></li>
+            <li><a href="#" onclick="showToast('Standard 30-Day Money Back Guarantee.')" class="hover:text-white transition">Returns Policy</a></li>
+            <li><a href="#" onclick="showToast('Nationwide delivery across all SA provinces.')" class="hover:text-white transition">Delivery Info</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-black text-white uppercase tracking-wider mb-3">Security & Trust</h4>
+          <div class="space-y-2 text-xs text-slate-400">
+            <p>100% Secure Checkout</p>
+            <p>Verified Merchant Network</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="pt-8 border-t border-slate-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-500">
+        <p>&copy; 2026 Mrbulk Store. Standalone HTML Storefront Template.</p>
+        <p>Crafted with clean HTML5 & Tailwind CSS</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Slide-Out Cart Drawer -->
+  <div id="cart-drawer-backdrop" onclick="toggleCartDrawer()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 transition-opacity duration-300 opacity-0 pointer-events-none"></div>
+  <aside id="cart-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white z-50 shadow-2xl flex flex-col transform translate-x-full transition-transform duration-300">
+    <div class="p-4 sm:p-5 border-b border-slate-100 flex items-center justify-between bg-slate-50/50">
+      <div class="flex items-center gap-2">
+        <svg class="w-5 h-5 text-brand" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" /></svg>
+        <h3 class="text-base font-bold text-slate-900">Your Cart</h3>
+        <span id="drawer-item-count" class="text-xs font-bold px-2 py-0.5 rounded-full bg-brand/10 text-brand">0 items</span>
+      </div>
+      <button onclick="toggleCartDrawer()" class="p-1.5 text-slate-400 hover:text-slate-700 rounded-lg hover:bg-slate-100 transition cursor-pointer">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+      </button>
+    </div>
+    <div id="cart-items-container" class="flex-1 overflow-y-auto p-4 space-y-3 custom-scrollbar"></div>
+    <div class="p-5 border-t border-slate-100 bg-slate-50 space-y-4">
+      <div class="space-y-1.5 text-xs text-slate-600">
+        <div class="flex justify-between"><span>Subtotal</span><span id="drawer-subtotal" class="font-bold text-slate-900">R0.00</span></div>
+        <div class="flex justify-between"><span>Delivery</span><span id="drawer-shipping" class="font-semibold text-emerald-600">FREE</span></div>
+        <div class="flex justify-between text-sm font-black text-slate-900 pt-2 border-t border-slate-200"><span>Total</span><span id="drawer-total" class="text-brand">R0.00</span></div>
+      </div>
+      <button onclick="checkoutSimulate()" class="w-full py-3.5 bg-brand hover:bg-brand-hover text-white text-sm font-extrabold rounded-xl shadow-lg transition-all cursor-pointer">
+        Proceed to Secure Checkout
+      </button>
+    </div>
+  </aside>
+
+  <!-- Quick View Modal -->
+  <div id="quickview-backdrop" onclick="closeQuickView()" class="fixed inset-0 bg-slate-900/60 backdrop-blur-xs z-50 transition-opacity duration-200 opacity-0 pointer-events-none flex items-center justify-center p-4">
+    <div onclick="event.stopPropagation()" class="bg-white rounded-3xl max-w-lg w-full overflow-hidden shadow-2xl border border-slate-200 transform scale-95 transition-all duration-200">
+      <div class="relative">
+        <img id="qv-image" src="" alt="Product" class="w-full h-64 sm:h-72 object-cover bg-slate-100" />
+        <button onclick="closeQuickView()" class="absolute top-3 right-3 p-1.5 bg-slate-900/70 hover:bg-slate-900 text-white rounded-full transition cursor-pointer">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" /></svg>
+        </button>
+      </div>
+      <div class="p-6 space-y-4">
+        <div>
+          <span id="qv-category" class="text-[10px] font-black uppercase tracking-wider text-brand"></span>
+          <h3 id="qv-title" class="text-lg sm:text-xl font-black text-slate-900 mt-1"></h3>
+          <p id="qv-price" class="text-base sm:text-lg font-black text-brand mt-1"></p>
+        </div>
+        <p id="qv-description" class="text-xs text-slate-600 leading-relaxed"></p>
+        <button id="qv-add-btn" class="w-full py-3 bg-brand hover:bg-brand-hover text-white text-xs sm:text-sm font-extrabold rounded-xl shadow-md transition-all cursor-pointer">
+          Add to Cart
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="fixed bottom-5 left-5 z-50 transform -translate-y-10 opacity-0 pointer-events-none transition-all duration-300 bg-slate-900 text-white text-xs font-bold px-4 py-3 rounded-2xl shadow-xl border border-slate-700 flex items-center gap-2.5">
+    <svg class="w-4 h-4 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" /></svg>
+    <span id="toast-message">Notification message</span>
+  </div>
+
+  <script>
+    const catalogProducts = [
+      { id: 'p-1', name: 'Nova Studio Wireless ANC Headphones', price: 'R2,499.00', originalPrice: 'R2,999.00', imageUrl: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?q=80&w=600&auto=format&fit=crop', category: 'Electronics', isSale: true, isFeatured: true, rating: 4.9, description: 'Active noise cancelling studio headphones with 40-hour playtime and ultra-plush memory foam earcups.' },
+      { id: 'p-2', name: 'Ceramic Pour-Over Coffee Dripper Set', price: 'R649.00', originalPrice: 'R799.00', imageUrl: 'https://images.unsplash.com/photo-1514432324607-a09d9b4aefdd?q=80&w=600&auto=format&fit=crop', category: 'Home & Kitchen', isSale: true, isFeatured: true, rating: 4.8, description: 'Handmade minimalist matte ceramic dripper set including wooden collar and heat-resistant glass server.' },
+      { id: 'p-3', name: 'Apex Ultra Smart Fitness Watch', price: 'R3,299.00', originalPrice: 'R3,899.00', imageUrl: 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?q=80&w=600&auto=format&fit=crop', category: 'Electronics', isSale: true, isFeatured: true, rating: 4.9, description: 'Titanium bezel sports timepiece with continuous heart rate, blood oxygen tracking, and 100m water resistance.' },
+      { id: 'p-4', name: 'Nordic Minimalist Oak Bedside Lamp', price: 'R899.00', imageUrl: 'https://images.unsplash.com/photo-1507473885765-e6ed057f782c?q=80&w=600&auto=format&fit=crop', category: 'Home & Kitchen', isSale: false, isFeatured: true, rating: 4.7, description: 'Natural oiled white oak table lamp with warm ambient LED bulb and brushed brass touch-switch.' },
+      { id: 'p-5', name: 'Cape Audio Portable Bluetooth Speaker', price: 'R1,199.00', originalPrice: 'R1,499.00', imageUrl: 'https://images.unsplash.com/photo-1608043152269-423dbba4e7e1?q=80&w=600&auto=format&fit=crop', category: 'Electronics', isSale: true, isFeatured: false, rating: 4.6, description: 'Rugged IPX7 waterproof outdoor Bluetooth speaker delivering 360-degree deep bass punch.' },
+      { id: 'p-6', name: 'Artisan Vegetable-Tanned Leather Wallet', price: 'R550.00', imageUrl: 'https://images.unsplash.com/photo-1627123424574-724758594e93?q=80&w=600&auto=format&fit=crop', category: 'Apparel & Fashion', isSale: false, isFeatured: false, rating: 4.9, description: 'Hand-stitched full-grain South African leather bifold wallet with RFID blocking layer.' }
+    ];
+
+    let cart = [];
+    let currentSlide = 0;
+    const totalSlides = 2;
+
+    function showSlide(idx) {
+      for (let i = 0; i < totalSlides; i++) {
+        const s = document.getElementById('slide-' + i);
+        const d = document.getElementById('dot-' + i);
+        if (s) {
+          if (i === idx) { s.classList.remove('opacity-0', 'pointer-events-none'); s.classList.add('opacity-100', 'z-10'); }
+          else { s.classList.remove('opacity-100', 'z-10'); s.classList.add('opacity-0', 'pointer-events-none'); }
+        }
+        if (d) {
+          if (i === idx) { d.classList.remove('w-2', 'bg-white/40'); d.classList.add('w-6', 'bg-white'); }
+          else { d.classList.remove('w-6', 'bg-white'); d.classList.add('w-2', 'bg-white/40'); }
+        }
+      }
+      currentSlide = idx;
+    }
+    function nextSlide() { showSlide((currentSlide + 1) % totalSlides); }
+    function prevSlide() { showSlide((currentSlide - 1 + totalSlides) % totalSlides); }
+    function goToSlide(i) { showSlide(i); }
+    setInterval(nextSlide, 5500);
+
+    function renderProductGrid(items) {
+      const grid = document.getElementById('product-grid');
+      if (!grid) return;
+      grid.innerHTML = items.map(p => \`
+        <div class="group bg-white rounded-2xl border border-slate-200/80 overflow-hidden shadow-xs hover:shadow-lg transition-all duration-300 flex flex-col">
+          <div class="relative aspect-square overflow-hidden bg-slate-100">
+            <img src="\${p.imageUrl}" alt="\${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" loading="lazy" />
+            \${p.isSale ? '<span class="absolute top-2.5 left-2.5 bg-rose-500 text-white text-[10px] font-black uppercase px-2 py-0.5 rounded-full shadow">Sale</span>' : ''}
+            <button onclick="quickViewProduct('\${p.id}')" class="absolute bottom-2.5 right-2.5 bg-white/90 hover:bg-white text-slate-900 p-2 rounded-xl shadow-md opacity-0 group-hover:opacity-100 transition-all cursor-pointer" title="Quick View">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+            </button>
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between space-y-3">
+            <div>
+              <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">\${p.category}</span>
+              <h3 class="text-xs sm:text-sm font-bold text-slate-900 group-hover:text-brand transition-colors line-clamp-2 mt-1">\${p.name}</h3>
+            </div>
+            <div class="pt-2 border-t border-slate-100 flex items-center justify-between gap-2">
+              <div>
+                <span class="text-sm sm:text-base font-black text-slate-900">\${p.price}</span>
+                \${p.originalPrice ? \`<span class="text-xs text-slate-400 line-through ml-1.5">\${p.originalPrice}</span>\` : ''}
+              </div>
+              <button onclick="addToCart('\${p.id}')" class="px-3 py-1.5 bg-brand hover:bg-brand-hover text-white text-xs font-black rounded-xl shadow-xs transition-all active:scale-95 cursor-pointer">
+                Add
+              </button>
+            </div>
+          </div>
+        </div>
+      \`).join('');
+    }
+
+    function switchTab(tab) {
+      document.querySelectorAll('.product-tab').forEach(b => {
+        b.classList.remove('bg-white', 'text-slate-900', 'shadow-xs');
+        b.classList.add('text-slate-600');
+      });
+      const btn = document.getElementById('tab-' + tab);
+      if (btn) { btn.classList.remove('text-slate-600'); btn.classList.add('bg-white', 'text-slate-900', 'shadow-xs'); }
+      let f = catalogProducts;
+      if (tab === 'bestsellers') f = catalogProducts.filter(p => p.rating >= 4.8 || p.isFeatured);
+      if (tab === 'new') f = catalogProducts.slice().reverse();
+      if (tab === 'sale') f = catalogProducts.filter(p => p.isSale);
+      renderProductGrid(f);
+    }
+
+    document.getElementById('catalog-search-input')?.addEventListener('input', (e) => {
+      const q = e.target.value.toLowerCase().trim();
+      const m = catalogProducts.filter(p => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
+      renderProductGrid(m.length ? m : catalogProducts);
+    });
+
+    function addToCart(id) {
+      const p = catalogProducts.find(x => x.id === id);
+      if (!p) return;
+      const ex = cart.find(x => x.id === id);
+      if (ex) ex.quantity++; else cart.push({ ...p, quantity: 1 });
+      updateCartUI();
+      showToast('Added ' + p.name.slice(0, 20) + '... to Cart!');
+    }
+
+    function changeQty(id, d) {
+      const it = cart.find(x => x.id === id);
+      if (!it) return;
+      it.quantity += d;
+      if (it.quantity <= 0) cart = cart.filter(x => x.id !== id);
+      updateCartUI();
+    }
+
+    function removeCartItem(id) {
+      cart = cart.filter(x => x.id !== id);
+      updateCartUI();
+    }
+
+    function updateCartUI() {
+      const count = cart.reduce((a, b) => a + b.quantity, 0);
+      document.getElementById('cart-badge').textContent = count;
+      document.getElementById('drawer-item-count').textContent = count + ' items';
+      const c = document.getElementById('cart-items-container');
+      if (cart.length === 0) {
+        c.innerHTML = '<div class="text-center py-12 text-slate-400 text-xs font-bold">Your cart is currently empty</div>';
+      } else {
+        c.innerHTML = cart.map(it => \`
+          <div class="flex items-center gap-3 p-3 bg-slate-50 rounded-2xl border border-slate-200/80">
+            <img src="\${it.imageUrl}" class="w-14 h-14 rounded-xl object-cover" />
+            <div class="flex-1 min-w-0">
+              <h4 class="text-xs font-bold text-slate-900 truncate">\${it.name}</h4>
+              <p class="text-xs font-black text-brand mt-0.5">\${it.price}</p>
+              <div class="flex items-center gap-2 mt-2">
+                <div class="inline-flex border border-slate-200 rounded-lg bg-white">
+                  <button onclick="changeQty('\${it.id}', -1)" class="px-2 text-xs">-</button>
+                  <span class="px-2 text-xs font-bold">\${it.quantity}</span>
+                  <button onclick="changeQty('\${it.id}', 1)" class="px-2 text-xs">+</button>
+                </div>
+                <button onclick="removeCartItem('\${it.id}')" class="text-[10px] text-rose-500 hover:underline">Remove</button>
+              </div>
+            </div>
+          </div>
+        \`).join('');
+      }
+      let sum = 0;
+      cart.forEach(i => {
+        const n = parseFloat(String(i.price).replace(/[^0-9.]/g, '')) || 499;
+        sum += n * i.quantity;
+      });
+      document.getElementById('drawer-subtotal').textContent = 'R' + sum.toFixed(2);
+      document.getElementById('drawer-total').textContent = 'R' + sum.toFixed(2);
+    }
+
+    function toggleCartDrawer() {
+      const d = document.getElementById('cart-drawer');
+      const b = document.getElementById('cart-drawer-backdrop');
+      const isOpen = !d.classList.contains('translate-x-full');
+      if (isOpen) {
+        d.classList.add('translate-x-full');
+        b.classList.add('opacity-0', 'pointer-events-none');
+      } else {
+        d.classList.remove('translate-x-full');
+        b.classList.remove('opacity-0', 'pointer-events-none');
+        updateCartUI();
+      }
+    }
+
+    function checkoutSimulate() {
+      if (cart.length === 0) { showToast('Add items before checkout!'); return; }
+      showToast('Order Simulation Successful!');
+      setTimeout(() => { alert('Order placed! Demo payment complete.'); cart = []; updateCartUI(); toggleCartDrawer(); }, 600);
+    }
+
+    function quickViewProduct(id) {
+      const p = catalogProducts.find(x => x.id === id);
+      if (!p) return;
+      document.getElementById('qv-image').src = p.imageUrl;
+      document.getElementById('qv-title').textContent = p.name;
+      document.getElementById('qv-category').textContent = p.category;
+      document.getElementById('qv-price').textContent = p.price;
+      document.getElementById('qv-description').textContent = p.description;
+      document.getElementById('qv-add-btn').onclick = () => { addToCart(p.id); closeQuickView(); };
+      document.getElementById('quickview-backdrop').classList.remove('opacity-0', 'pointer-events-none');
+    }
+
+    function closeQuickView() {
+      document.getElementById('quickview-backdrop').classList.add('opacity-0', 'pointer-events-none');
+    }
+
+    let toastT = null;
+    function showToast(m) {
+      const t = document.getElementById('toast');
+      document.getElementById('toast-message').textContent = m;
+      t.classList.remove('opacity-0', '-translate-y-10', 'pointer-events-none');
+      t.classList.add('opacity-100', 'translate-y-0');
+      if (toastT) clearTimeout(toastT);
+      toastT = setTimeout(() => {
+        t.classList.remove('opacity-100', 'translate-y-0');
+        t.classList.add('opacity-0', '-translate-y-10', 'pointer-events-none');
+      }, 3000);
+    }
+
+    renderProductGrid(catalogProducts);
+  </script>
+</body>
+</html>

@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { Suspense } from 'react';
 import { listProducts } from '@lib/data/products';
 import { listCategories } from '@lib/data/categories';
 import ShopTemplate from '@modules/products/templates/shop-page';
@@ -16,7 +17,11 @@ export default async function ShopPage() {
     listCategories(),
   ]);
 
-  return <ShopTemplate products={productsResult.products} categories={categories} />;
+  return (
+    <Suspense fallback={<div className="min-h-screen flex items-center justify-center text-slate-500">Loading catalog...</div>}>
+      <ShopTemplate products={productsResult.products} categories={categories} />
+    </Suspense>
+  );
 }
 
 

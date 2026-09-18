@@ -2,10 +2,11 @@
 
 import { sdk, isBackendConfigured } from "@lib/config"
 import { getCacheOptions } from "./cookies"
+import { INITIAL_SELLER_ACCOUNTS } from "@/data/presets"
 
 export async function getSellers() {
   if (!isBackendConfigured) {
-    return [];
+    return INITIAL_SELLER_ACCOUNTS;
   }
 
   const headers = {
@@ -23,6 +24,6 @@ export async function getSellers() {
       next: next as any,
       cache: "force-cache",
     })
-    .then(({ sellers }) => sellers)
-    .catch(() => [])
+    .then(({ sellers }) => (sellers && sellers.length > 0 ? sellers : INITIAL_SELLER_ACCOUNTS))
+    .catch(() => INITIAL_SELLER_ACCOUNTS)
 }

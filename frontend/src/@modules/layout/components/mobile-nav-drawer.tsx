@@ -14,13 +14,17 @@ import {
   Heart,
   Truck,
   Globe,
-  ArrowRight
+  ArrowRight,
+  Download
 } from 'lucide-react';
 import { UserProfile } from '../../../types';
 import { clx } from '@/lib/util/clx';
 import { ThemeToggle } from '@modules/common/components/theme-toggle';
 import { useCatalog } from '@/providers/catalog-provider';
 import { useRegion } from '@/providers/region';
+import { useThemeContext } from '@/providers/theme-provider';
+import { useToastContext } from '@/providers/toast-provider';
+import { downloadHtmlTemplate } from '@/utils/htmlTemplateGenerator';
 
 export interface MobileNavDrawerProps {
   pathname: string;
@@ -48,8 +52,28 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
   const [mobileCategoriesOpen, setMobileCategoriesOpen] = useState<boolean>(false);
   const [mobileCompanyOpen, setMobileCompanyOpen] = useState<boolean>(false);
   const [mobileUserOpen, setMobileUserOpen] = useState<boolean>(false);
-  const { categories } = useCatalog();
+  const { categories, products, slides } = useCatalog();
   const { region } = useRegion();
+  const { logoText, themeColor } = useThemeContext();
+  const { showToast } = useToastContext();
+
+  const handleDownloadSite = () => {
+    onClose();
+    showToast('Preparing standalone HTML storefront download...');
+    try {
+      downloadHtmlTemplate({
+        storeName: logoText,
+        themeColor,
+        products,
+        categories,
+        slides,
+      });
+      showToast('HTML storefront downloaded successfully!');
+    } catch (e) {
+      console.error(e);
+      showToast('Failed to download HTML storefront.');
+    }
+  };
 
   const isActive = (path: string) => {
     if (path === '/' && pathname === '/') return true;
@@ -386,6 +410,15 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
                 <span>Admin Panel</span>
               </Link>
             )}
+
+            {/* Download Standalone HTML Site Button */}
+            <button
+              onClick={handleDownloadSite}
+              className="w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white cursor-pointer"
+            >
+              <Download className="w-4 h-4 text-brand" />
+              <span>Download HTML Site</span>
+            </button>
 
             {/* Medusa Region Indicator */}
             <div className="pt-2 mt-2 border-t border-slate-100 dark:border-slate-800 flex items-center justify-between px-4 py-2 text-xs text-slate-500 dark:text-slate-400">

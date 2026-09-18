@@ -2,6 +2,9 @@
 
 import React from 'react';
 import { X, Code, Download, Layers, CheckCircle2 } from 'lucide-react';
+import { downloadHtmlTemplate } from '@/utils/htmlTemplateGenerator';
+import { useCatalog } from '@/providers/catalog-provider';
+import { useThemeContext } from '@/providers/theme-provider';
 
 interface NextjsExporterModalProps {
   isOpen: boolean;
@@ -16,6 +19,9 @@ export const NextjsExporterModal: React.FC<NextjsExporterModalProps> = ({
   showToast,
   storeName
 }) => {
+  const { products, categories, slides } = useCatalog();
+  const { themeColor } = useThemeContext();
+
   if (!isOpen) return null;
 
   return (
@@ -62,10 +68,26 @@ export const NextjsExporterModal: React.FC<NextjsExporterModalProps> = ({
           </div>
         </div>
 
-        <div className="p-6 bg-slate-50 border-t border-slate-100 flex justify-end gap-3">
+        <div className="p-6 bg-slate-50 border-t border-slate-100 flex items-center justify-between gap-3">
+          <button
+            onClick={() => {
+              downloadHtmlTemplate({
+                storeName: storeName || 'Mrbulk Store',
+                themeColor: themeColor || 'emerald',
+                products,
+                categories,
+                slides,
+              });
+              showToast('HTML storefront template downloaded successfully!');
+            }}
+            className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow transition cursor-pointer"
+          >
+            <Download className="w-4 h-4" />
+            <span>Download HTML Template</span>
+          </button>
           <button
             onClick={onClose}
-            className="px-4 py-2 border border-slate-200 text-slate-700 font-bold text-xs rounded-xl hover:bg-slate-100 transition"
+            className="px-4 py-2 border border-slate-200 text-slate-700 font-bold text-xs rounded-xl hover:bg-slate-100 transition cursor-pointer"
           >
             Close
           </button>

@@ -4,8 +4,6 @@ import { listProducts } from '@lib/data/products';
 import CategoryDetailTemplate from '@modules/products/templates/category-detail-page';
 import { notFound } from 'next/navigation';
 
-export const dynamic = 'force-dynamic';
-
 export async function generateStaticParams() {
   const categories = await getCategories();
   return categories.map((category) => ({

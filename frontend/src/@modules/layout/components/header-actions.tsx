@@ -6,17 +6,21 @@ import {
   User,
   Menu,
   X,
-  Search
+  Search,
+  Download
 } from 'lucide-react';
 import { clx } from '@/lib/util/clx';
 import { useThemeContext } from '@/providers/theme-provider';
 import { useCartContext } from '@/providers/cart-provider';
 import { useWishlistContext } from '@/providers/wishlist-provider';
 import { useAuthContext } from '@/providers/auth-provider';
+import { useToastContext } from '@/providers/toast-provider';
+import { useCatalog } from '@/providers/catalog-provider';
 import { useUI } from '@/providers/ui-provider';
 import { getThemeClasses } from '@/providers/theme-provider';
 import { ThemeToggle } from '@modules/common/components/theme-toggle';
 import { SafeImage } from '@modules/common/components/safe-image';
+import { downloadHtmlTemplate } from '@/utils/htmlTemplateGenerator';
 import Link from 'next/link';
 
 interface HeaderActionsProps {
@@ -31,12 +35,31 @@ export const HeaderActions: React.FC<HeaderActionsProps> = ({
   showSearchResults,
 }) => {
   const router = useRouter();
-  const { themeColor } = useThemeContext();
+  const { themeColor, logoText } = useThemeContext();
   const { cartCount } = useCartContext();
   const { wishlist } = useWishlistContext();
   const { currentUser, setAuthModalOpen } = useAuthContext();
+  const { showToast } = useToastContext();
+  const { products, categories, slides } = useCatalog();
   const { cartOpen, setCartOpen, mobileMenuOpen, setMobileMenuOpen } = useUI();
   const currentTheme = getThemeClasses(themeColor);
+
+  const handleDownloadSite = useCallback(() => {
+    showToast('Preparing standalone HTML storefront download...');
+    try {
+      downloadHtmlTemplate({
+        storeName: logoText,
+        themeColor,
+        products,
+        categories,
+        slides,
+      });
+      showToast('HTML storefront downloaded successfully!');
+    } catch (e) {
+      console.error(e);
+      showToast('Failed to download HTML storefront.');
+    }
+  }, [logoText, themeColor, products, categories, slides, showToast]);
 
   const handleToggleMobileMenu = useCallback(() => {
     const nextMenuState = !mobileMenuOpen;
@@ -47,6 +70,16 @@ export const HeaderActions: React.FC<HeaderActionsProps> = ({
     <div className="flex items-center space-x-1 sm:space-x-1.5 flex-shrink-0">
       {/* Dark / Light Mode Toggle Button */}
       <ThemeToggle variant="icon-button" />
+
+      {/* Standalone HTML Storefront Download Button */}
+      <button
+        onClick={handleDownloadSite}
+        className="hidden sm:flex w-8 h-8 sm:w-9 sm:h-9 items-center justify-center rounded-full border border-transparent text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80 transition-all duration-150 cursor-pointer relative hover:scale-105 active:scale-95 shrink-0"
+        title="Download Standalone HTML Site"
+        aria-label="Download Standalone HTML Site"
+      >
+        <Download className="w-4 h-4" />
+      </button>
 
       {/* Account button */}
       <button

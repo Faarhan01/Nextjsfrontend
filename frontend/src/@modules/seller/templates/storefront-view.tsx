@@ -29,6 +29,7 @@ import {
   Building2, 
   BadgeCheck, 
   ArrowLeft,
+  ArrowRight,
   Tag,
   Clock,
   Layers,
@@ -74,7 +75,7 @@ import { useCatalog } from '@/providers/catalog-provider';
 import { useWishlistContext } from '@/providers/wishlist-provider';
 import { useCartContext } from '@/providers/cart-provider';
 import { useUI } from '@/providers/ui-provider';
-import { useThemeContext } from '@/providers/theme-provider';
+import { useThemeContext, getThemeClasses } from '@/providers/theme-provider';
 
 interface StorefrontViewProps {
   seller?: SellerAccount;
@@ -145,6 +146,7 @@ export function StorefrontView({
   const onSelectProduct = propOnSelectProduct ?? ((id: string) => router.push(getProductUrl(id)));
   const onQuickView = propOnQuickView ?? uiCtx.openQuickView;
   const themeColor = propThemeColor ?? themeCtx.themeColor;
+  const currentTheme = getThemeClasses(themeColor);
 
   const rawSellerId = propSellerId || (params?.sellerId as string) || '';
   const seller = useMemo(() => {
@@ -230,6 +232,27 @@ export function StorefrontView({
         });
       }
     });
+
+    if (list.length === 0 && products.length > 0) {
+      // Fallback: Show verified catalog products so the seller store is never empty
+      products.slice(0, 8).forEach((prod) => {
+        const prodPriceNum = typeof prod.price === 'number' ? prod.price : parsePriceNumber(String(prod.price)) || 999;
+        list.push({
+          product: prod,
+          offer: {
+            offerId: `off-${prod.id}-${seller.id}`,
+            sellerId: seller.id,
+            sellerName: seller.storeName,
+            price: prodPriceNum,
+            stockCount: prod.stock || 12,
+            condition: 'Brand New',
+            shippingDays: 2,
+            rating: seller.rating || 4.9,
+            reviewsCount: 15
+          }
+        });
+      });
+    }
 
     return list;
   }, [products, seller.id, seller.rating, seller.storeName]);
@@ -709,7 +732,7 @@ export function StorefrontView({
               <div className="flex items-center gap-2.5 w-full sm:w-auto pt-2 sm:pt-0">
                 <button
                   onClick={() => setIsContactModalOpen(true)}
-                  className="w-full sm:w-auto px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white rounded-xl text-xs font-extrabold transition flex items-center justify-center gap-2 shadow-md cursor-pointer active:scale-95"
+                  className={`w-full sm:w-auto px-5 py-2.5 ${currentTheme.bg} text-white rounded-xl text-xs font-extrabold transition flex items-center justify-center gap-2 shadow-md ${currentTheme.shadow} cursor-pointer active:scale-95`}
                 >
                   <Mail className="w-4 h-4" /> Message Merchant
                 </button>
@@ -724,7 +747,7 @@ export function StorefrontView({
             {/* Merchant Guarantee SLA Badges */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-6 border-t border-slate-100 dark:border-slate-800 mt-6">
               <div className="p-3 bg-slate-50/80 dark:bg-slate-800/60 rounded-2xl border border-slate-100 dark:border-slate-700/60 flex items-center gap-3">
-                <div className="w-9 h-9 rounded-xl bg-blue-100 dark:bg-blue-950 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                <div className={`w-9 h-9 rounded-xl ${currentTheme.lightBg} flex items-center justify-center shrink-0`}>
                   <Truck className="w-4 h-4" />
                 </div>
                 <div>
@@ -772,7 +795,7 @@ export function StorefrontView({
               onClick={() => setActiveTab('catalog')}
               className={`py-4 px-4 text-xs font-extrabold border-b-2 transition cursor-pointer outline-none ${
                 activeTab === 'catalog'
-                  ? 'border-blue-600 text-blue-600 dark:text-blue-400'
+                  ? `border-current ${currentTheme.text}`
                   : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'
               }`}
             >
@@ -782,7 +805,7 @@ export function StorefrontView({
               onClick={() => setActiveTab('about')}
               className={`py-4 px-4 text-xs font-extrabold border-b-2 transition cursor-pointer outline-none ${
                 activeTab === 'about'
-                  ? 'border-blue-600 text-blue-600 dark:text-blue-400'
+                  ? `border-current ${currentTheme.text}`
                   : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'
               }`}
             >
@@ -792,7 +815,7 @@ export function StorefrontView({
               onClick={() => setActiveTab('reviews')}
               className={`py-4 px-4 text-xs font-extrabold border-b-2 transition cursor-pointer outline-none ${
                 activeTab === 'reviews'
-                  ? 'border-blue-600 text-blue-600 dark:text-blue-400'
+                  ? `border-current ${currentTheme.text}`
                   : 'border-transparent text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-white'
               }`}
             >
@@ -1408,6 +1431,67 @@ export function StorefrontView({
         )}
 
       </div>
+
+      {/* Explore Other Verified Merchants Section */}
+      {allSellers && allSellers.length > 1 && (
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-12 pt-8 border-t border-slate-200 dark:border-slate-800">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+            <div>
+              <h3 className="text-lg sm:text-xl font-black text-slate-900 dark:text-white tracking-tight">
+                Explore Other Verified Merchants
+              </h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">
+                Browse official brand distributors and certified South African partners
+              </p>
+            </div>
+            <Link
+              href="/store"
+              className={`text-xs font-bold ${currentTheme.text} hover:underline flex items-center gap-1 transition`}
+            >
+              <span>View All Sellers Directory</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {allSellers
+              .filter((s) => s.id !== seller.id)
+              .slice(0, 3)
+              .map((other) => (
+                <Link
+                  key={other.id}
+                  href={`/store/${other.id}`}
+                  className="group p-4 bg-white dark:bg-slate-900 rounded-2xl border border-slate-200/80 dark:border-slate-800 hover:border-slate-400 dark:hover:border-slate-700 shadow-xs hover:shadow-md transition-all flex items-center gap-3.5"
+                >
+                  <div className="w-12 h-12 rounded-xl bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 overflow-hidden shrink-0">
+                    <SafeImage
+                      src={other.logoUrl}
+                      alt={other.storeName}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform"
+                      placeholderType="product"
+                    />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-1.5">
+                      <h4 className={`text-xs font-extrabold text-slate-900 dark:text-white truncate ${currentTheme.groupHoverText} transition-colors`}>
+                        {other.storeName}
+                      </h4>
+                      <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
+                    </div>
+                    <p className="text-[11px] text-slate-500 dark:text-slate-400 truncate mt-0.5">
+                      {other.location || 'South Africa'} • {other.dispatchSla || '1-2 Days'}
+                    </p>
+                    <div className="flex items-center gap-1 mt-1 text-[11px] text-amber-600 dark:text-amber-400 font-bold">
+                      <Star className="w-3 h-3 fill-amber-400 text-amber-500" />
+                      <span>{other.rating?.toFixed(1) || '4.9'}</span>
+                      <span className="text-slate-400 font-normal">({other.ordersCount || 30}+ orders)</span>
+                    </div>
+                  </div>
+                </Link>
+              ))}
+          </div>
+        </div>
+      )}
 
       {/* Recently Viewed Products */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-10 sm:mt-14">

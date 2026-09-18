@@ -1,18 +1,10 @@
-import type { Metadata, Viewport } from 'next';
-import Script from 'next/script';
+import type { Metadata } from 'next';
 import './globals.css';
 import { StoreProvider } from '@/context/StoreContext';
 import { AppProviders } from '@/providers/app-providers';
 import { StorefrontLayout } from '@modules/layout/templates/storefront-layout';
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000';
-
-export const viewport: Viewport = {
-  themeColor: '#1d4ed8',
-  width: 'device-width',
-  initialScale: 1,
-  maximumScale: 5,
-};
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -33,11 +25,6 @@ export const metadata: Metadata = {
   authors: [{ name: 'Mrbulk' }],
   creator: 'Mrbulk',
   publisher: 'Mr Cheap General Dealer ZA',
-  manifest: '/manifest.webmanifest',
-  icons: {
-    icon: '/favicon.svg',
-    apple: '/favicon.svg',
-  },
   openGraph: {
     type: 'website',
     locale: 'en_ZA',
@@ -130,70 +117,6 @@ export default function RootLayout({
   return (
     <html lang="en" data-scroll-behavior="smooth" suppressHydrationWarning>
       <body className="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 antialiased selection:bg-blue-500 selection:text-white font-sans" suppressHydrationWarning>
-        <script
-          id="dark-mode-init"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var saved = localStorage.getItem('mrbulk_dark_mode');
-                  if (saved === null) {
-                    saved = localStorage.getItem('luxestore_dark_mode');
-                  }
-                  var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                  var isDark = saved === 'true' || (saved === null && prefersDark);
-                  if (isDark) {
-                    document.documentElement.classList.add('dark');
-                    document.documentElement.style.colorScheme = 'dark';
-                    if (document.body) document.body.classList.add('dark');
-                  } else {
-                    document.documentElement.classList.remove('dark');
-                    document.documentElement.style.colorScheme = 'light';
-                    if (document.body) document.body.classList.remove('dark');
-                  }
-                } catch(e) {}
-              })();
-            `,
-          }}
-        />
-        <script
-          id="json-ld"
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdSchema) }}
-        />
-        {/* Google Tag Manager Initializer Script */}
-        <Script
-          id="gtm-inline-init"
-          strategy="afterInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              (function() {
-                try {
-                  var gtmId = localStorage.getItem('luxestore_gtm_id') || '${process.env.NEXT_PUBLIC_GTM_ID || ''}';
-                  if (gtmId && gtmId.startsWith('GTM-')) {
-                    window.dataLayer = window.dataLayer || [];
-                    window.dataLayer.push({'gtm.start': new Date().getTime(), event: 'gtm.js'});
-                    var f = document.getElementsByTagName('script')[0],
-                        j = document.createElement('script');
-                    j.id = 'gtm-script-tag';
-                    j.setAttribute('data-gtm-id', gtmId);
-                    j.async = true;
-                    j.src = 'https://www.googletagmanager.com/gtm.js?id=' + encodeURIComponent(gtmId);
-                    f.parentNode.insertBefore(j, f);
-                  }
-                } catch(e) {}
-              })();
-            `,
-          }}
-        />
-        <noscript id="gtm-noscript-fallback">
-          <iframe
-            src="https://www.googletagmanager.com/ns.html?id=GTM-STORE"
-            height="0"
-            width="0"
-            style={{ display: 'none', visibility: 'hidden' }}
-          />
-        </noscript>
         <AppProviders>
           <StoreProvider>
             <StorefrontLayout>{children}</StorefrontLayout>

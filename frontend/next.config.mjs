@@ -20,9 +20,6 @@ const nextConfig = {
     '@libsql/win32-x64-msvc',
     'drizzle-kit',
   ],
-  experimental: {
-    optimizePackageImports: ['lucide-react', 'motion', 'recharts'],
-  },
   images: {
     unoptimized: true,
     remotePatterns: [
