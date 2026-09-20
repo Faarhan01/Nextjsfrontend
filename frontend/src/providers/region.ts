@@ -3,19 +3,21 @@
 import { useEffect, useState, useCallback } from 'react';
 import { sdk } from '../lib/sdk';
 import { DEFAULT_REGION_ID } from '../lib/constants';
-import type { MedusaRegion } from '../types/medusa';
+import type { StoreRegion } from '../types';
 
-const REGION_STORAGE_KEY = 'medusa_selected_region';
+export type MedusaRegion = StoreRegion;
+
+const REGION_STORAGE_KEY = 'mrbulk_selected_region';
 
 export interface UseRegionReturn {
-  region: MedusaRegion | null;
+  region: StoreRegion | null;
   regionId: string;
   setRegionId: (id: string) => void;
-  regions: MedusaRegion[];
+  regions: StoreRegion[];
   refresh: () => Promise<void>;
 }
 
-const DEFAULT_REGIONS: MedusaRegion[] = [
+const DEFAULT_REGIONS: StoreRegion[] = [
   {
     id: DEFAULT_REGION_ID,
     name: 'South Africa',
@@ -31,16 +33,18 @@ const DEFAULT_REGIONS: MedusaRegion[] = [
   }
 ];
 
-let cachedRegions: MedusaRegion[] | null = null;
-let inFlightFetch: Promise<MedusaRegion[]> | null = null;
+let cachedRegions: StoreRegion[] | null = null;
+let inFlightFetch: Promise<StoreRegion[]> | null = null;
 
 export function useRegion(): UseRegionReturn {
-  const [regions, setRegions] = useState<MedusaRegion[]>(cachedRegions || DEFAULT_REGIONS);
+  const [regions, setRegions] = useState<StoreRegion[]>(cachedRegions || DEFAULT_REGIONS);
   const [regionId, setRegionIdState] = useState<string>(DEFAULT_REGION_ID);
 
   useEffect(() => {
     try {
-      const saved = typeof window !== 'undefined' ? localStorage.getItem(REGION_STORAGE_KEY) : null;
+      const saved = typeof window !== 'undefined'
+        ? (localStorage.getItem(REGION_STORAGE_KEY) || localStorage.getItem('medusa_selected_region'))
+        : null;
       if (saved) setRegionIdState(saved);
     } catch {
       // ignore
@@ -60,8 +64,7 @@ export function useRegion(): UseRegionReturn {
         const list = (res.regions && res.regions.length > 0) ? res.regions : DEFAULT_REGIONS;
         cachedRegions = list;
         return list;
-      } catch (e) {
-        console.warn('[useRegion] sdk.regions.list failed, using defaults:', e);
+      } catch {
         cachedRegions = DEFAULT_REGIONS;
         return DEFAULT_REGIONS;
       } finally {

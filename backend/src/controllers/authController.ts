@@ -10,7 +10,7 @@ export function handleRegister(req: Request, res: Response): void {
       return;
     }
     const { user, token } = registerUser(name || email.split('@')[0], email, password);
-    res.json({ customer: toMedusaCustomer(user), token });
+    res.json({ user, customer: user, token });
   } catch (error: any) {
     res.status(400).json({ message: error.message || 'Registration failed.' });
   }
@@ -24,7 +24,7 @@ export function handleLogin(req: Request, res: Response): void {
       return;
     }
     const { user, token } = loginUser(email, password || 'defaultpass');
-    res.json({ customer: toMedusaCustomer(user), token });
+    res.json({ user, customer: user, token });
   } catch (error: any) {
     res.status(400).json({ message: error.message || 'Login failed.' });
   }
@@ -40,7 +40,7 @@ export function handleGetMe(req: Request, res: Response): void {
     res.status(401).json({ message: 'Authentication required.' });
     return;
   }
-  res.json({ customer: toMedusaCustomer(user) });
+  res.json({ user, customer: user });
 }
 
 export function handleUpdateMe(req: Request, res: Response): void {
@@ -49,19 +49,18 @@ export function handleUpdateMe(req: Request, res: Response): void {
     res.status(401).json({ message: 'Authentication required.' });
     return;
   }
-  const { first_name, last_name, phone, billing_address, metadata } = req.body || {};
-  const updatedName = (first_name || last_name)
-    ? `${first_name || ''} ${last_name || ''}`.trim()
-    : undefined;
+  const { name, first_name, last_name, phone, address, billing_address, metadata, avatarUrl } = req.body || {};
+  const updatedName = name || ((first_name || last_name) ? `${first_name || ''} ${last_name || ''}`.trim() : undefined);
 
   const updated = updateUser(user.id, {
     ...(updatedName ? { name: updatedName } : {}),
     ...(phone ? { phone } : {}),
-    ...(billing_address ? { address: billing_address } : {}),
-    ...(metadata?.avatarUrl ? { avatarUrl: metadata.avatarUrl } : {})
+    ...(address || billing_address ? { address: address || billing_address } : {}),
+    ...(avatarUrl || metadata?.avatarUrl ? { avatarUrl: avatarUrl || metadata?.avatarUrl } : {})
   });
 
-  res.json({ customer: toMedusaCustomer(updated || user) });
+  const finalUser = updated || user;
+  res.json({ user: finalUser, customer: finalUser });
 }
 
 export function handleGetCustomerOrders(req: Request, res: Response): void {
@@ -72,51 +71,12 @@ export function handleGetCustomerOrders(req: Request, res: Response): void {
   }
   const orders = getOrdersByUser(user.id, user.email);
   res.json({
-    orders: orders.map(o => ({
-      id: o.id,
-      display_id: Number(o.id.replace(/\D/g, '')) || 9901,
-      status: o.status.toLowerCase(),
-      total: Math.round(o.total * 100),
-      currency_code: 'zar',
-      created_at: o.orderDate,
-      items: o.items.map(it => ({
-        id: it.id,
-        title: it.name,
-        quantity: it.quantity,
-        unit_price: Math.round(it.price * 100),
-        thumbnail: it.image
-      })),
-      shipping_address: o.shippingAddress,
-      payment_status: 'captured',
-      fulfillment_status: o.status.toLowerCase() === 'delivered' ? 'fulfilled' : 'processing'
-    })),
+    orders,
     count: orders.length
   });
 }
 
 export function handleGetAllUsers(_req: Request, res: Response): void {
-  const users = getAllUsers().map(toMedusaCustomer);
-  res.json({ customers: users, count: users.length });
-}
-
-function toMedusaCustomer(u: UserProfile) {
-  return {
-    id: `cust_${u.id.replace(/^usr-/, '')}`,
-    email: u.email,
-    first_name: u.name?.split(' ')[0] || '',
-    last_name: u.name?.split(' ').slice(1).join(' ') || '',
-    phone: u.phone,
-    has_account: true,
-    metadata: {
-      role: u.role,
-      status: u.status,
-      sellerId: u.sellerId,
-      avatarUrl: u.avatarUrl,
-      totalOrders: u.totalOrders,
-      totalSpent: u.totalSpent,
-      joinedDate: u.joinedDate,
-      lastActive: u.lastActive,
-      address: u.address
-    }
-  };
+  const users = getAllUsers();
+  res.json({ users, customers: users, count: users.length });
 }

@@ -7,7 +7,7 @@ export const getAuthHeaders = async (): Promise<
 > => {
   try {
     const cookies = await nextCookies()
-    const token = cookies.get("_medusa_jwt")?.value
+    const token = cookies.get("_mrbulk_jwt")?.value || cookies.get("_medusa_jwt")?.value
 
     if (!token) {
       return {}
@@ -22,7 +22,7 @@ export const getAuthHeaders = async (): Promise<
 export const getCacheTag = async (tag: string): Promise<string> => {
   try {
     const cookies = await nextCookies()
-    const cacheId = cookies.get("_medusa_cache_id")?.value
+    const cacheId = cookies.get("_mrbulk_cache_id")?.value || cookies.get("_medusa_cache_id")?.value
 
     if (!cacheId) {
       return ""
@@ -52,7 +52,7 @@ export const getCacheOptions = async (
 
 export const setAuthToken = async (token: string) => {
   const cookies = await nextCookies()
-  cookies.set("_medusa_jwt", token, {
+  cookies.set("_mrbulk_jwt", token, {
     maxAge: 60 * 60 * 24 * 7,
     httpOnly: true,
     sameSite: "lax",
@@ -62,9 +62,8 @@ export const setAuthToken = async (token: string) => {
 
 export const removeAuthToken = async () => {
   const cookies = await nextCookies()
-  cookies.set("_medusa_jwt", "", {
-    maxAge: -1,
-  })
+  cookies.set("_mrbulk_jwt", "", { maxAge: -1 })
+  cookies.set("_medusa_jwt", "", { maxAge: -1 })
 }
 
 export type PendingCustomer = {
@@ -76,7 +75,7 @@ export type PendingCustomer = {
 
 export const setPendingCustomer = async (customer: PendingCustomer) => {
   const cookies = await nextCookies()
-  cookies.set("_medusa_pending_customer", JSON.stringify(customer), {
+  cookies.set("_mrbulk_pending_customer", JSON.stringify(customer), {
     maxAge: 60 * 60 * 24,
     httpOnly: true,
     sameSite: "strict",
@@ -86,7 +85,7 @@ export const setPendingCustomer = async (customer: PendingCustomer) => {
 
 export const getPendingCustomer = async (): Promise<PendingCustomer | null> => {
   const cookies = await nextCookies()
-  const value = cookies.get("_medusa_pending_customer")?.value
+  const value = cookies.get("_mrbulk_pending_customer")?.value || cookies.get("_medusa_pending_customer")?.value
 
   if (!value) {
     return null
@@ -101,19 +100,18 @@ export const getPendingCustomer = async (): Promise<PendingCustomer | null> => {
 
 export const removePendingCustomer = async () => {
   const cookies = await nextCookies()
-  cookies.set("_medusa_pending_customer", "", {
-    maxAge: -1,
-  })
+  cookies.set("_mrbulk_pending_customer", "", { maxAge: -1 })
+  cookies.set("_medusa_pending_customer", "", { maxAge: -1 })
 }
 
 export const getCartId = async () => {
   const cookies = await nextCookies()
-  return cookies.get("_medusa_cart_id")?.value
+  return cookies.get("_mrbulk_cart_id")?.value || cookies.get("_medusa_cart_id")?.value
 }
 
 export const setCartId = async (cartId: string) => {
   const cookies = await nextCookies()
-  cookies.set("_medusa_cart_id", cartId, {
+  cookies.set("_mrbulk_cart_id", cartId, {
     maxAge: 60 * 60 * 24 * 7,
     httpOnly: true,
     sameSite: "lax",
@@ -123,7 +121,6 @@ export const setCartId = async (cartId: string) => {
 
 export const removeCartId = async () => {
   const cookies = await nextCookies()
-  cookies.set("_medusa_cart_id", "", {
-    maxAge: -1,
-  })
+  cookies.set("_mrbulk_cart_id", "", { maxAge: -1 })
+  cookies.set("_medusa_cart_id", "", { maxAge: -1 })
 }

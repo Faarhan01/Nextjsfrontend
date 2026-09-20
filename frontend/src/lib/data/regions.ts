@@ -1,10 +1,12 @@
 "use server"
 
 import { sdk, isBackendConfigured } from "@lib/config"
-import { MedusaRegion } from "../../types/medusa"
+import { StoreRegion } from "@/types"
 import { getCacheOptions } from "./cookies"
 
-export const DEFAULT_REGION: MedusaRegion = {
+export type MedusaRegion = StoreRegion
+
+export const DEFAULT_REGION: StoreRegion = {
   id: "reg_za",
   name: "South Africa",
   currency_code: "zar",
@@ -20,7 +22,7 @@ export const DEFAULT_REGION: MedusaRegion = {
   ],
 }
 
-export async function listRegions(): Promise<MedusaRegion[]> {
+export async function listRegions(): Promise<StoreRegion[]> {
   if (!isBackendConfigured) {
     return [DEFAULT_REGION];
   }
@@ -34,7 +36,7 @@ export async function listRegions(): Promise<MedusaRegion[]> {
   }
 
   return sdk.client
-    .fetch<{ regions: MedusaRegion[] }>(`/store/regions`, {
+    .fetch<{ regions: StoreRegion[] }>(`/store/regions`, {
       method: "GET",
       headers: headers as any,
       next: next as any,
@@ -44,7 +46,7 @@ export async function listRegions(): Promise<MedusaRegion[]> {
     .catch(() => [DEFAULT_REGION])
 }
 
-export async function getRegion(id: string): Promise<MedusaRegion | null> {
+export async function getRegion(id: string): Promise<StoreRegion | null> {
   const headers = {
     ...(await getCacheOptions("regions")),
   }
@@ -54,7 +56,7 @@ export async function getRegion(id: string): Promise<MedusaRegion | null> {
   }
 
   return sdk.client
-    .fetch<{ region: MedusaRegion }>(`/store/regions/${id}`, {
+    .fetch<{ region: StoreRegion }>(`/store/regions/${id}`, {
       method: "GET",
       headers: headers as any,
       next: next as any,

@@ -35,20 +35,19 @@ import { getSyncStatus, performSyncAction } from '../controllers/syncController.
 
 const router = Router();
 
-// Medusa Store API surface
+// Health check
 router.get('/health', handleHealth);
 
 // Products
 router.get('/products', listProducts);
 router.get('/products/:id', retrieveProduct);
 
-// Product categories
+// Categories
+router.get('/categories', listProductCategories);
 router.get('/product-categories', listProductCategories);
 
-// Collections
+// Collections & Brands
 router.get('/collections', listCollections);
-
-// Brands
 router.get('/brands', listBrands);
 
 // Sellers
@@ -62,7 +61,7 @@ router.get('/regions/:id', retrieveRegion);
 router.get('/shipping-options', listShippingOptions);
 router.get('/shipping-options/:cartId', listShippingOptions);
 
-// Carts
+// Cart
 router.post('/carts', createCart);
 router.get('/carts/:id', retrieveCart);
 router.post('/carts/:id', updateCart);
@@ -73,25 +72,32 @@ router.post('/carts/:id/shipping-methods', addShippingMethod);
 router.post('/carts/:id/payment-sessions', createPaymentSessions);
 router.post('/carts/:id/complete', completeCart);
 
-// Auth (customers)
+// Also alias /cart for simple REST
+router.get('/cart/:id', retrieveCart);
+router.post('/cart', createCart);
+router.post('/cart/:id/items', addLineItem);
+router.delete('/cart/:id/items/:lineId', deleteLineItem);
+
+// Auth
+router.post('/auth/login', handleLogin);
+router.post('/auth/register', handleRegister);
 router.post('/auth', handleLogin);
 router.get('/auth', handleGetMe);
 router.delete('/auth', handleLogout);
-router.post('/auth/register', handleRegister);
 router.get('/auth/users', handleGetAllUsers);
 
-// Customers me routes
+// Customer account routes
 router.get('/customers/me', handleGetMe);
 router.post('/customers/me', handleUpdateMe);
 router.get('/customers/me/orders', handleGetCustomerOrders);
 
-// Orders (read-only tracking)
+// Orders
 router.get('/orders/:id', lookupOrder);
 
-// AI concierge (auxiliary, kept under store namespace for Medusa-style discoverability)
+// AI Concierge
 router.post('/ai/concierge', handleConcierge);
 
-// Database Synchronization across Google AI Studio and GitHub instances
+// Database Synchronization
 router.get('/sync', getSyncStatus);
 router.post('/sync', performSyncAction);
 

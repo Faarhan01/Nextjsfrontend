@@ -59,7 +59,7 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
 
   const handleDownloadSite = () => {
     onClose();
-    showToast('Preparing standalone HTML storefront download...');
+    showToast('Generating complete multi-page HTML website package...');
     try {
       downloadHtmlTemplate({
         storeName: logoText,
@@ -68,10 +68,10 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
         categories,
         slides,
       });
-      showToast('HTML storefront downloaded successfully!');
+      showToast('Multi-page HTML website ZIP downloaded successfully!');
     } catch (e) {
       console.error(e);
-      showToast('Failed to download HTML storefront.');
+      showToast('Failed to download website package.');
     }
   };
 
@@ -411,13 +411,13 @@ export const MobileNavDrawer: React.FC<MobileNavDrawerProps> = ({
               </Link>
             )}
 
-            {/* Download Standalone HTML Site Button */}
+            {/* Download Standalone Multi-Page HTML Site Button */}
             <button
               onClick={handleDownloadSite}
               className="w-full text-left flex items-center gap-2.5 px-4 py-2.5 rounded-xl text-sm font-semibold transition text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white cursor-pointer"
             >
               <Download className="w-4 h-4 text-brand" />
-              <span>Download HTML Site</span>
+              <span>Download Multi-Page Site (ZIP)</span>
             </button>
 
             {/* Medusa Region Indicator */}

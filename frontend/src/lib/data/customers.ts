@@ -1,8 +1,7 @@
 "use server"
 
 import { sdk } from "@lib/config"
-import { HttpTypes } from "@medusajs/types"
-import { revalidateTag } from "next/cache"
+import { UserProfile } from "@/types"
 import {
   getAuthHeaders,
   getCacheOptions,
@@ -10,28 +9,28 @@ import {
   setAuthToken,
 } from "./cookies"
 
-export async function getCurrentCustomer() {
+export async function getCurrentCustomer(): Promise<UserProfile | null> {
   const headers = {
     ...(await getAuthHeaders()),
   }
 
   return sdk.client
-    .fetch<{ customer: HttpTypes.StoreCustomer }>(`/store/auth`, {
+    .fetch<{ user?: UserProfile; customer?: UserProfile }>(`/store/auth`, {
       method: "GET",
       headers: headers as any,
       cache: "no-store",
     })
-    .then(({ customer }) => customer)
+    .then((res) => res.user || res.customer || null)
     .catch(() => null)
 }
 
-export async function loginCustomer(email: string, password: string) {
+export async function loginCustomer(email: string, password: string): Promise<{ user?: UserProfile; customer?: UserProfile; token?: string }> {
   const headers = {
     ...(await getCacheOptions("auth")),
   }
 
   return sdk.client
-    .fetch<{ customer: HttpTypes.StoreCustomer; token?: string }>(
+    .fetch<{ user?: UserProfile; customer?: UserProfile; token?: string }>(
       `/store/auth`,
       {
         method: "POST",
@@ -42,26 +41,27 @@ export async function loginCustomer(email: string, password: string) {
         },
       }
     )
-    .then(async ({ customer, token }) => {
-      if (token) {
-        await setAuthToken(token)
+    .then(async (res) => {
+      if (res.token) {
+        await setAuthToken(res.token)
       }
-      return { customer, token }
+      return res
     })
 }
 
 export async function registerCustomer(data: {
   email: string
   password: string
-  first_name: string
-  last_name: string
-}) {
+  first_name?: string
+  last_name?: string
+  name?: string
+}): Promise<{ user?: UserProfile; customer?: UserProfile; token?: string }> {
   const headers = {
     ...(await getCacheOptions("auth")),
   }
 
   return sdk.client
-    .fetch<{ customer: HttpTypes.StoreCustomer; token?: string }>(
+    .fetch<{ user?: UserProfile; customer?: UserProfile; token?: string }>(
       `/store/auth/register`,
       {
         method: "POST",
@@ -69,11 +69,11 @@ export async function registerCustomer(data: {
         body: data,
       }
     )
-    .then(async ({ customer, token }) => {
-      if (token) {
-        await setAuthToken(token)
+    .then(async (res) => {
+      if (res.token) {
+        await setAuthToken(res.token)
       }
-      return { customer, token }
+      return res
     })
 }
 
@@ -81,31 +81,32 @@ export async function logoutCustomer() {
   await removeAuthToken()
 }
 
-export async function updateCustomer(data: HttpTypes.StoreUpdateCustomer) {
+export async function updateCustomer(data: Partial<UserProfile> & { first_name?: string; last_name?: string }): Promise<UserProfile | null> {
   const headers = {
     ...(await getAuthHeaders()),
   }
 
   return sdk.client
-    .fetch<{ customer: HttpTypes.StoreCustomer }>(`/store/customers/me`, {
+    .fetch<{ user?: UserProfile; customer?: UserProfile }>(`/store/customers/me`, {
       method: "POST",
       headers: headers as any,
       body: data,
     })
-    .then(({ customer }) => customer)
+    .then((res) => res.user || res.customer || null)
+    .catch(() => null)
 }
 
-export async function getCustomerOrders() {
+export async function getCustomerOrders(): Promise<any[]> {
   const headers = {
     ...(await getAuthHeaders()),
   }
 
   return sdk.client
-    .fetch<{ orders: HttpTypes.StoreOrder[] }>(`/store/customers/me/orders`, {
+    .fetch<{ orders: any[] }>(`/store/customers/me/orders`, {
       method: "GET",
       headers: headers as any,
       cache: "force-cache",
     })
-    .then(({ orders }) => orders)
+    .then(({ orders }) => orders || [])
     .catch(() => [])
 }

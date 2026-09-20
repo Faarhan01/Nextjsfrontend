@@ -45,7 +45,7 @@ export const HeaderActions: React.FC<HeaderActionsProps> = ({
   const currentTheme = getThemeClasses(themeColor);
 
   const handleDownloadSite = useCallback(() => {
-    showToast('Preparing standalone HTML storefront download...');
+    showToast('Generating complete multi-page HTML website package...');
     try {
       downloadHtmlTemplate({
         storeName: logoText,
@@ -54,10 +54,10 @@ export const HeaderActions: React.FC<HeaderActionsProps> = ({
         categories,
         slides,
       });
-      showToast('HTML storefront downloaded successfully!');
+      showToast('Multi-page HTML website ZIP downloaded successfully!');
     } catch (e) {
       console.error(e);
-      showToast('Failed to download HTML storefront.');
+      showToast('Failed to download website package.');
     }
   }, [logoText, themeColor, products, categories, slides, showToast]);
 
@@ -71,12 +71,12 @@ export const HeaderActions: React.FC<HeaderActionsProps> = ({
       {/* Dark / Light Mode Toggle Button */}
       <ThemeToggle variant="icon-button" />
 
-      {/* Standalone HTML Storefront Download Button */}
+      {/* Standalone Multi-Page HTML Storefront Download Button */}
       <button
         onClick={handleDownloadSite}
         className="hidden sm:flex w-8 h-8 sm:w-9 sm:h-9 items-center justify-center rounded-full border border-transparent text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100/80 dark:hover:bg-slate-800/80 transition-all duration-150 cursor-pointer relative hover:scale-105 active:scale-95 shrink-0"
-        title="Download Standalone HTML Site"
-        aria-label="Download Standalone HTML Site"
+        title="Download Multi-Page HTML Website (ZIP)"
+        aria-label="Download Multi-Page HTML Website"
       >
         <Download className="w-4 h-4" />
       </button>

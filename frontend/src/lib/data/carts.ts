@@ -1,7 +1,6 @@
 "use server"
 
 import { sdk } from "@lib/config"
-import { HttpTypes } from "@medusajs/types"
 import { revalidateTag } from "next/cache"
 import {
   getAuthHeaders,
@@ -12,10 +11,41 @@ import {
   setCartId,
 } from "./cookies"
 
-export async function retrieveCart(cartId?: string) {
+export interface CartItemType {
+  id: string
+  productId?: string
+  name?: string
+  title?: string
+  price?: number
+  unit_price?: number
+  quantity: number
+  imageUrl?: string
+  thumbnail?: string
+  subtotal?: number
+  total?: number
+  variant_id?: string
+  variant?: any
+}
+
+export interface CartType {
+  id: string
+  region_id?: string
+  items: CartItemType[]
+  subtotal: number
+  discount_total?: number
+  shipping_total?: number
+  tax_total?: number
+  total: number
+  email?: string
+  shipping_address?: any
+  billing_address?: any
+  shipping_methods?: any[]
+  payment_session?: any
+  payment_sessions?: any[]
+}
+
+export async function retrieveCart(cartId?: string): Promise<CartType | null> {
   const id = cartId || (await getCartId())
-  const fields =
-    "*items, *region, *items.product, *items.variant, *items.thumbnail, *items.metadata, +items.total, *promotions, +shipping_methods.name"
 
   if (!id) {
     return null
@@ -30,20 +60,17 @@ export async function retrieveCart(cartId?: string) {
   }
 
   return sdk.client
-    .fetch<HttpTypes.StoreCartResponse>(`/store/carts/${id}`, {
+    .fetch<{ cart: CartType }>(`/store/carts/${id}`, {
       method: "GET",
-      query: {
-        fields,
-      },
       headers: headers as any,
       next: next as any,
       cache: "force-cache",
     })
-    .then(({ cart }: { cart: HttpTypes.StoreCart }) => cart)
+    .then(({ cart }) => cart)
     .catch(() => null)
 }
 
-export async function getOrSetCart(countryCode: string) {
+export async function getOrSetCart(countryCode: string): Promise<CartType | null> {
   const headers = {
     ...(await getAuthHeaders()),
   }
@@ -52,7 +79,7 @@ export async function getOrSetCart(countryCode: string) {
 
   if (!cart) {
     const cartResp = await sdk.client
-      .fetch<{ cart: HttpTypes.StoreCart }>(`/store/carts`, {
+      .fetch<{ cart: CartType }>(`/store/carts`, {
         method: "POST",
         headers: headers as any,
         body: {
@@ -67,14 +94,14 @@ export async function getOrSetCart(countryCode: string) {
       await setCartId(cart.id)
 
       const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag, "max")
+      if (cartCacheTag) revalidateTag(cartCacheTag, "max")
     }
   }
 
   return cart
 }
 
-export async function updateCart(data: HttpTypes.StoreUpdateCart) {
+export async function updateCart(data: any): Promise<CartType> {
   const cartId = await getCartId()
 
   if (!cartId) {
@@ -86,33 +113,38 @@ export async function updateCart(data: HttpTypes.StoreUpdateCart) {
   }
 
   return sdk.client
-    .fetch<{ cart: HttpTypes.StoreCart }>(`/store/carts/${cartId}`, {
+    .fetch<{ cart: CartType }>(`/store/carts/${cartId}`, {
       method: "POST",
       headers: headers as any,
       body: data,
     })
     .then(async ({ cart }) => {
       const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag, "max")
-
-      const fulfillmentCacheTag = await getCacheTag("fulfillment")
-      revalidateTag(fulfillmentCacheTag, "max")
-
+      if (cartCacheTag) revalidateTag(cartCacheTag, "max")
       return cart
     })
 }
 
 export async function addToCart({
   variantId,
+  productId,
   quantity,
-  countryCode,
+  countryCode = "za",
+  price,
+  name,
+  imageUrl,
 }: {
-  variantId: string
+  variantId?: string
+  productId?: string
   quantity: number
-  countryCode: string
+  countryCode?: string
+  price?: number
+  name?: string
+  imageUrl?: string
 }) {
-  if (!variantId) {
-    throw new Error("Missing variant ID when adding to cart")
+  const targetId = variantId || productId
+  if (!targetId) {
+    throw new Error("Missing item ID when adding to cart")
   }
 
   const cart = await getOrSetCart(countryCode)
@@ -126,20 +158,21 @@ export async function addToCart({
   }
 
   await sdk.client
-    .fetch<{ cart: HttpTypes.StoreCart }>(`/store/carts/${cart.id}/line-items`, {
+    .fetch<{ cart: CartType }>(`/store/carts/${cart.id}/line-items`, {
       method: "POST",
       headers: headers as any,
       body: {
-        variant_id: variantId,
+        variant_id: targetId,
+        productId: productId || targetId,
         quantity,
+        price,
+        name,
+        imageUrl,
       },
     })
     .then(async () => {
       const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag, "max")
-
-      const fulfillmentCacheTag = await getCacheTag("fulfillment")
-      revalidateTag(fulfillmentCacheTag, "max")
+      if (cartCacheTag) revalidateTag(cartCacheTag, "max")
     })
 }
 
@@ -165,7 +198,7 @@ export async function updateLineItem({
   }
 
   await sdk.client
-    .fetch<{ cart: HttpTypes.StoreCart }>(`/store/carts/${cartId}/line-items/${lineId}`, {
+    .fetch<{ cart: CartType }>(`/store/carts/${cartId}/line-items/${lineId}`, {
       method: "POST",
       headers: headers as any,
       body: {
@@ -174,10 +207,7 @@ export async function updateLineItem({
     })
     .then(async () => {
       const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag, "max")
-
-      const fulfillmentCacheTag = await getCacheTag("fulfillment")
-      revalidateTag(fulfillmentCacheTag, "max")
+      if (cartCacheTag) revalidateTag(cartCacheTag, "max")
     })
 }
 
@@ -197,16 +227,13 @@ export async function deleteLineItem(lineId: string) {
   }
 
   await sdk.client
-    .fetch<{ cart: HttpTypes.StoreCart }>(`/store/carts/${cartId}/line-items/${lineId}`, {
+    .fetch<{ cart: CartType }>(`/store/carts/${cartId}/line-items/${lineId}`, {
       method: "DELETE",
       headers: headers as any,
     })
     .then(async () => {
       const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag, "max")
-
-      const fulfillmentCacheTag = await getCacheTag("fulfillment")
-      revalidateTag(fulfillmentCacheTag, "max")
+      if (cartCacheTag) revalidateTag(cartCacheTag, "max")
     })
 }
 
@@ -222,7 +249,7 @@ export async function setShippingMethod({
   }
 
   return sdk.client
-    .fetch<{ cart: HttpTypes.StoreCart }>(`/store/carts/${cartId}/shipping-methods`, {
+    .fetch<{ cart: CartType }>(`/store/carts/${cartId}/shipping-methods`, {
       method: "POST",
       headers: headers as any,
       body: {
@@ -231,27 +258,27 @@ export async function setShippingMethod({
     })
     .then(async () => {
       const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag, "max")
+      if (cartCacheTag) revalidateTag(cartCacheTag, "max")
     })
 }
 
 export async function initiatePaymentSession(
-  cart: HttpTypes.StoreCart,
-  data: HttpTypes.StoreInitializePaymentSession
+  cart: CartType,
+  data: any
 ) {
   const headers = {
     ...(await getAuthHeaders()),
   }
 
   return sdk.client
-    .fetch<{ cart: HttpTypes.StoreCart }>(`/store/carts/${cart.id}/payment-sessions`, {
+    .fetch<{ cart: CartType }>(`/store/carts/${cart.id}/payment-sessions`, {
       method: "POST",
       headers: headers as any,
       body: data,
     })
     .then(async (resp) => {
       const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag, "max")
+      if (cartCacheTag) revalidateTag(cartCacheTag, "max")
       return resp
     })
 }
@@ -272,20 +299,17 @@ export async function placeOrder(cartId?: string) {
       method: "POST",
       headers: headers as any,
     })
-    .then(async (cartRes) => {
+    .then(async (res) => {
       const cartCacheTag = await getCacheTag("carts")
-      revalidateTag(cartCacheTag, "max")
-      return cartRes
+      if (cartCacheTag) revalidateTag(cartCacheTag, "max")
+      return res
     })
 
-  if (cartRes?.type === "order") {
-    const countryCode =
-      cartRes.order.shipping_address?.country_code?.toLowerCase()
-
+  if (cartRes?.type === "order" || cartRes?.order) {
     const orderCacheTag = await getCacheTag("orders")
-    revalidateTag(orderCacheTag, "max")
+    if (orderCacheTag) revalidateTag(orderCacheTag, "max")
 
-    removeCartId()
+    await removeCartId()
     return cartRes
   }
 

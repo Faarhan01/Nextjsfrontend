@@ -35,7 +35,7 @@ export const StorefrontLayout: React.FC<{ children: React.ReactNode }> = ({ chil
   const currentTheme = getThemeClasses(themeColor);
 
   const handleDownloadHtml = () => {
-    showToast('Preparing standalone HTML storefront download...');
+    showToast('Generating complete multi-page HTML website package...');
     try {
       downloadHtmlTemplate({
         storeName: logoText,
@@ -44,10 +44,10 @@ export const StorefrontLayout: React.FC<{ children: React.ReactNode }> = ({ chil
         categories,
         slides,
       });
-      showToast('HTML storefront downloaded successfully!');
+      showToast('Multi-page HTML website ZIP downloaded successfully!');
     } catch (err) {
       console.error('Download error:', err);
-      showToast('Failed to download HTML storefront.');
+      showToast('Failed to download website package.');
     }
   };
 
@@ -135,10 +135,10 @@ export const StorefrontLayout: React.FC<{ children: React.ReactNode }> = ({ chil
         <button
           onClick={handleDownloadHtml}
           className={`fixed bottom-5 right-5 z-40 p-3 sm:px-4 sm:py-3 rounded-full ${currentTheme.bg} text-white shadow-xl ${currentTheme.shadow} hover:scale-105 active:scale-95 transition-all flex items-center gap-2 cursor-pointer border border-white/20 group`}
-          title="Download Standalone HTML Site"
+          title="Download Multi-Page HTML Website (ZIP)"
         >
           <Download className="w-5 h-5 group-hover:-translate-y-0.5 transition-transform" />
-          <span className="hidden sm:inline font-bold text-xs">Download HTML Site</span>
+          <span className="hidden sm:inline font-bold text-xs">Download Multi-Page Site</span>
         </button>
       )}
     </div>

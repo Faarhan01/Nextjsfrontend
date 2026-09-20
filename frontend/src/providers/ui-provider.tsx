@@ -19,6 +19,8 @@ export interface UIContextType {
   setAiConciergeOpen: (open: boolean) => void;
   nextjsModalOpen: boolean;
   setNextjsModalOpen: (open: boolean) => void;
+  htmlExportModalOpen: boolean;
+  setHtmlExportModalOpen: (open: boolean) => void;
   seoModalOpen: boolean;
   setSeoModalOpen: (open: boolean) => void;
   editorOpen: boolean;
@@ -45,6 +47,7 @@ export const UIProvider = ({ children }: { children: ReactNode }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState<boolean>(false);
   const [aiConciergeOpen, setAiConciergeOpen] = useState<boolean>(false);
   const [nextjsModalOpen, setNextjsModalOpen] = useState<boolean>(false);
+  const [htmlExportModalOpen, setHtmlExportModalOpen] = useState<boolean>(false);
   const [seoModalOpen, setSeoModalOpen] = useState<boolean>(false);
   const [editorOpen, setEditorOpen] = useState<boolean>(false);
   const [activeEditorTab, setActiveEditorTab] = useState<'settings' | 'codebase'>('settings');
@@ -75,7 +78,7 @@ export const UIProvider = ({ children }: { children: ReactNode }) => {
     <UIContext.Provider value={{
       quickViewProduct, setQuickViewProduct, quickViewOpen, setQuickViewOpen,
       cartOpen, setCartOpen, authModalOpen, setAuthModalOpen, mobileMenuOpen, setMobileMenuOpen, aiConciergeOpen,
-      setAiConciergeOpen, nextjsModalOpen, setNextjsModalOpen, seoModalOpen,
+      setAiConciergeOpen, nextjsModalOpen, setNextjsModalOpen, htmlExportModalOpen, setHtmlExportModalOpen, seoModalOpen,
       setSeoModalOpen, editorOpen, setEditorOpen, activeEditorTab, setActiveEditorTab,
       searchQuery, setSearchQuery, handlePerformSearch, navigateTo, handleOpenQuickView, openQuickView
     }}>{children}</UIContext.Provider>

@@ -16,6 +16,7 @@ app.use(express.json());
 
 app.use(optionalAuth);
 app.use('/store', storeRoutes);
+app.use('/api', storeRoutes);
 
 app.get('/health', (_req, res) => {
   res.json({ status: 'healthy', timestamp: Date.now() });

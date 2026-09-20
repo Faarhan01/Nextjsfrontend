@@ -31,14 +31,15 @@ export async function listCategories() {
   }
 
   return sdk.client
-    .fetch<{ product_categories: any[] }>(`/store/product-categories`, {
+    .fetch<{ categories?: any[]; product_categories?: any[] }>(`/store/categories`, {
       method: "GET",
       headers: headers as any,
       next: next as any,
       cache: "force-cache",
     })
-    .then(({ product_categories }) => {
-      if (!product_categories || product_categories.length === 0) {
+    .then((res) => {
+      const list = res.categories || res.product_categories;
+      if (!list || list.length === 0) {
         return MOCK_CATEGORIES.map((c) => ({
           id: c.id,
           name: c.name,
@@ -50,7 +51,7 @@ export async function listCategories() {
           subcategories: c.subcategories || [],
         }));
       }
-      return product_categories.map((c: any) => {
+      return list.map((c: any) => {
         const numericId = typeof c.id === "number"
           ? c.id
           : parseInt(String(c.id || "").replace(/\D/g, ""), 10) || 1

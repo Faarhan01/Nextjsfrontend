@@ -47,24 +47,27 @@ export const NextjsExporterModal: React.FC<NextjsExporterModalProps> = ({
 
         <div className="p-6 space-y-4 text-xs text-slate-600 leading-relaxed">
           <p>
-            Your export package includes complete Next.js 15 source code with Tailwind CSS and Lucide React icons, pre-configured for Cloud Run, Vercel, or Netlify deployment.
+            Your export package contains a complete multi-page static HTML website with exact styling, floating pill header, authentic South African footer, responsive pages, and unified shopping cart.
           </p>
 
           <div className="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-2">
             <h4 className="font-bold text-slate-900 text-xs flex items-center gap-1.5">
-              <Layers className="w-4 h-4 text-blue-600" /> Package Structure:
+              <Layers className="w-4 h-4 text-blue-600" /> Multi-Page Static Site Structure (ZIP):
             </h4>
             <ul className="space-y-1 pl-5 list-disc text-slate-600">
-              <li><code className="text-blue-600">app/page.tsx</code> - Responsive homepage with dynamic banners</li>
-              <li><code className="text-blue-600">app/layout.tsx</code> - Root layout with meta tags</li>
-              <li><code className="text-blue-600">package.json</code> - React 19 & Next.js 15 dependencies</li>
-              <li><code className="text-blue-600">index.html</code> - Standalone static storefront backup</li>
+              <li><code className="text-blue-600">index.html</code> - Homepage with banners, deals, bestsellers & testimonials</li>
+              <li><code className="text-blue-600">shop.html</code> - Full catalog with search, category filtering & sorting</li>
+              <li><code className="text-blue-600">categories.html</code> - Department directory with product counts</li>
+              <li><code className="text-blue-600">cart.html & checkout.html</code> - Dedicated cart & SA checkout flows</li>
+              <li><code className="text-blue-600">about.html & contact.html</code> - Company info, WhatsApp & direct support</li>
+              <li><code className="text-blue-600">order-tracking.html & faq.html</code> - Courier tracking & help centre</li>
+              <li><code className="text-blue-600">privacy-policy.html & terms-and-conditions.html</code> - POPIA & CPA policies</li>
             </ul>
           </div>
 
           <div className="flex items-center gap-2 text-emerald-700 bg-emerald-50 p-3 rounded-xl border border-emerald-200 font-medium">
             <CheckCircle2 className="w-4 h-4 shrink-0" />
-            <span>Ready for one-click ZIP download with all static assets.</span>
+            <span>Ready for one-click ZIP download. No build step or server required!</span>
           </div>
         </div>
 
@@ -78,12 +81,12 @@ export const NextjsExporterModal: React.FC<NextjsExporterModalProps> = ({
                 categories,
                 slides,
               });
-              showToast('HTML storefront template downloaded successfully!');
+              showToast('Multi-page HTML website downloaded successfully!');
             }}
             className="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white font-bold text-xs rounded-xl shadow transition cursor-pointer"
           >
             <Download className="w-4 h-4" />
-            <span>Download HTML Template</span>
+            <span>Download Multi-Page Website (ZIP)</span>
           </button>
           <button
             onClick={onClose}

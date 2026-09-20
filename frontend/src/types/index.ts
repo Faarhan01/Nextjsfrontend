@@ -293,3 +293,20 @@ export interface CustomWishlist {
   createdAt: string;
   isDefault?: boolean;
 }
+
+export interface RegionCountry {
+  id: string;
+  iso_2: string;
+  iso_3?: string;
+  name: string;
+  display_name?: string;
+}
+
+export interface StoreRegion {
+  id: string;
+  name: string;
+  currency_code: string;
+  tax_rate: number;
+  countries?: RegionCountry[];
+}
+
